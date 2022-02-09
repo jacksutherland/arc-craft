@@ -1,4 +1,22 @@
+# Server
+/web/.htaccess
 /.env
-/.idea
-/vendor
-.DS_Store
+
+# Node & Gulp
+/node_modules
+/node_modules/*
+
+# Craft
+/storage
+/storage/*
+/config/project
+/config/project/*
+
+# Website Resources
+/web/files
+/web/files/*
+/web/cpresources
+/web/cpresources/*
+
+# SEO
+/web/robots.txt
