@@ -3,7 +3,8 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8" />
-    <title>ARcollective</title>
+    <title>ARcollective | Coming Soon</title>
+    <link rel="shortcut icon" href="assets/favicons/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="referrer" content="origin-when-cross-origin" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +37,23 @@
         .logo {
             height: auto;
             width: 100%;
-            max-width: 350px;
+            max-width: 300px;
+        }
+        .prof-pics a {
+            border-bottom: none;
+            display: inline-block;
+            margin: 20px 10px 0 10px;
+        }
+        .prof-pics a img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: solid 2px #071225;
+            transition: .3s ease border, .3s ease transform;
+        }
+        .prof-pics a:hover img {
+            border: solid 2px #0f2750;
+            transform: scale(1.08, 1.08);
         }
         h1, h2 {
             font-family: 'PT Serif', serif;
@@ -62,8 +79,8 @@
         a, a:visited {
             color: #fff;
             text-decoration: none;
-            border-bottom: solid 1px;
-            border-bottom-color: #fff;
+            border-bottom: solid 2px;
+            border-bottom-color: #0f2750;
             padding-bottom: 5px;
             color: #fff;
             transition: .3s ease color, .3s ease border-bottom-color, .3s ease padding-bottom;
@@ -80,13 +97,21 @@
                 justify-content: center;
                 width: 80%;
             }
+            .text-content {
+                border-left: solid 2px #0f2750;
+                padding: 0 0 0 45px;
+            }
+            .prof-pics {
+                text-align: left;
+            }
             h1, h2, h5 {
                 text-align: left;
                 padding: 0;
+                margin: 0 0 020px 0; 
             }
             .logo {
-                width: 350px;
-                height: 350px;
+                width: 300px;
+                height: 300px;
             }
         }
     </style>
@@ -97,6 +122,11 @@
         <div class="text-content">
             <h2>Our website is coming soon.</h2>
             <h5>In the meantime you can <a href="https://twitter.com/ARcollective1">find us online</a>.</h5>
+            <div class="prof-pics">
+                <a title="Reda" href="https://twitter.com/CryptoReda/"><img alt="Reda" src="https://pbs.twimg.com/profile_images/1471902945700683782/ovOHxxqE_400x400.png"></a>
+                <a title="Athena" href="https://twitter.com/trading_athena/"><img alt="Athena" src="https://pbs.twimg.com/profile_images/1471919194258165767/6ES4Ldt1_400x400.jpg"></a>
+                <a title="220" href="https://twitter.com/pyeh07/"><img alt="220" src="https://pbs.twimg.com/profile_images/1446527247435792384/BdnK7gKj_400x400.jpg"></a>
+            </div>
         </div>
     </div>
 </body>
