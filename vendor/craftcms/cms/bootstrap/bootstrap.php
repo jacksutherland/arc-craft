@@ -76,8 +76,8 @@ $ensureFolderIsReadable = function($path, $writableToo = false) {
 
     if ($writableToo && !is_writable($realPath)) {
         // Set a 503 response header so things like Varnish won't cache a bad page.
-        //http_response_code(503);
-        //exit($realPath . ' isn\'t writable by PHP. Please fix that. 1 ' . PHP_EOL);
+        http_response_code(503);
+        exit($realPath . ' isn\'t writable by PHP. Please fix that. 1 ' . PHP_EOL);
     }
 };
 
