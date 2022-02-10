@@ -1,4 +1,4 @@
-dateModified: 1644372848
+dateModified: 1644536756
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -7,12 +7,13 @@ meta:
   __names__:
     0af355c3-8627-488e-a24f-ef9a3a86d4c4: ARcollective # ARcollective
     71bfb228-82c3-4116-9400-b6a0aae6c71d: Common # Common
+    a32f71af-8b81-464c-aac9-7253ef262b35: 'Public Schema' # Public Schema
     c98ac2b6-ea46-48bb-9d12-7e5979cb6df2: ARcollective # ARcollective
 system:
-  edition: solo
+  edition: pro
   live: true
   name: ARcollective
-  schemaVersion: 3.7.8
+  schemaVersion: 3.7.32
   timeZone: America/Los_Angeles
 users:
   allowPublicRegistration: false
