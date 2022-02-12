@@ -2,24 +2,25 @@
 
 html,
 body {
-	font-family: "IBM Plex Sans", sans-serif;
-	font-weight: 400; // Options: 400, 600
+	font-family: $font-family-primary;
+	font-weight: $font-weight-primary; // Options: 400, 600
 	font-size: 16px;
 	background-color: $antique;
 	margin: 0;
 	padding: 0;
+	color: $black;
 }
 
 ul, ol, li, p {
 	font-size: 1rem;
-	font-weight: 400;
+	font-weight: $font-weight-primary;
     letter-spacing: 0.04rem;
     line-height: 1.6;
 }
 
 h1, h2, h3, h5, h6 {
-	font-family: 'PT Serif', serif;
-	font-weight: 400; // Options: 400, 700
+	font-family: $font-family-secondary;
+	font-weight: $font-weight-secondary; // Options: 400, 700
 	margin: 0 0 40px 0;
 	padding: 0;
 }
@@ -38,12 +39,12 @@ h3 {
 
 h5 {
 	font-size: 1.05rem;
-	font-weight: 700;
+	font-weight: $font-bold-secondary;
 }
 
 h4, h6 {
-	font-family: "IBM Plex Sans", sans-serif;
-	font-weight: 600;
+	font-family: $font-family-primary;
+	font-weight: $font-bold-primary;
 }
 
 h4 {
@@ -53,15 +54,105 @@ h4 {
 }
 
 h6 {
-	font-size: 1rem;
-	letter-spacing: 0.05em;
+	font-size: 1.05rem;
+	letter-spacing: 0.09em;
     line-height: 1.6;
 }
 
+a {
+	color: $blue;
+	transition: .3s ease color;
+	text-decoration: none;
+	&:hover {
+		color: $light-blue;
+	}
+}
+
+.btn {
+	padding: 10px 20px;
+	background-color: $blue;
+	color: $white;
+	border-radius: 2px;
+	transition: .3s ease background-color, .3s ease color;
+	font-family: $font-family-primary;
+	font-weight: $font-bold-primary;
+	font-size: $font-smaller; 
+	&:hover {
+		background-color: $light-blue;
+		color: $dark-blue;
+	}
+}
+
 .site-container {
-	background-color: $white;
+	
 	margin: 30px 80px;
-	padding: 40px;
 	border-radius: 5px;
 
+	header {
+		background-color: $white;
+		padding: 0 40px 40px 40px;
+		position: relative;
+		&.sticky {
+			nav {
+				position: fixed;
+			}
+		}
+		.logo {
+			svg {
+				margin-top: -15px;
+				width: 300px;
+				height: 300px;
+			}
+		}
+		.header-content {
+			width: 60%;
+			h6 {
+				margin: 0 0 20px 0;
+				color: $gray;
+				text-transform: uppercase;
+			}
+			h1 {
+				margin-bottom: 0;
+			}
+		}
+		nav {
+			position: absolute;
+		    top: 60px;
+    		right: 40px;
+			ul {
+				list-style: none;
+			    margin: 0;
+			    padding: 0;
+				li {
+					display: inline;
+					a {
+						margin: 0 10px;
+						&.btn {
+							display: inline-block;
+						}
+						&:not(.btn) {
+							font-size: $font-smaller;
+							font-weight: $font-bold-primary;
+							text-decoration: none;
+							color: $dark-blue;
+							&:hover {
+								color: $blue;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	section {
+		background-color: $white;
+		padding: 40px;
+		margin: 40px 0;
+	}
 }
+
+
+
+
+

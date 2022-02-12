@@ -36,6 +36,32 @@
     
     <div class="site-container">
 
+        <header>
+            <div class="header-content">
+                <a class="logo" href="/">
+                    {% include '/_svgs/logo' %}
+                </a>
+                <h6>Ut enim ad minim veniam quis nostrud</h6>
+                <h1>Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">About Us</a>
+                    </li>
+                    <li>
+                        <a href="/">Memberhsip</a>
+                    </li>
+                    <li>
+                        <a href="/">FAQ</a>
+                    </li>
+                    <li>
+                        <a href="/" class="btn">Member Login</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
         {% block main %}
             <p>If you see me, you haven’t set your <code>{% verbatim %}{% block main %}…{% endblock %}{% endverbatim %}</code> yet.</p>
         {% endblock %}

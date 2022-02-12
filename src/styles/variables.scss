@@ -1,5 +1,22 @@
-$black: #000000;
-$white: #ffffff;
-$antique: #f1f3f4;
+$font-family-primary: "IBM Plex Sans", sans-serif;
+$font-weight-primary: 400;
+$font-bold-primary: 600;
+$font-family-secondary: "PT Serif", serif;
+$font-weight-secondary: 400;
+$font-bold-secondary: 700;
+$font-size: 1rem;
+$font-smaller: 0.95rem;
 
 $font-color: #000000;
+
+$black: #241906; //#000000;
+$white: #ffffff;
+$gray: #a7a7a7;
+$antique: #f1f3f4;
+$blue: #3c74f9;
+$dark-blue: lighten(#061124, 10%);
+
+$light-blue: #3cd3f9;
+$red: #f93c74;
+$saffron: #f9c13c;
+// $green: #74f93c;
