@@ -35,15 +35,14 @@ var DOMClass = function()
 	{
 		if(this.header != null)
 		{
-			console.log(this.header);
-			console.log(this.header.classList);
 			window.addEventListener("scroll", function()
 			{
-				if (document.body.scrollTop == 0 && document.documentElement.scrollTop == 0)
+				// console.log(document.body.scrollTop);
+				if (document.body.scrollTop < 250 && document.documentElement.scrollTop < 250)
 		    	{
 		    		this.header.classList.remove('sticky');
 		    	}
-		    	else if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50)
+		    	else if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300)
 		    	{
 		    		this.header.classList.add('sticky');
 		    	}

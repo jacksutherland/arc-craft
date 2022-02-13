@@ -21,25 +21,27 @@ ul, ol, li, p {
 h1, h2, h3, h5, h6 {
 	font-family: $font-family-secondary;
 	font-weight: $font-weight-secondary; // Options: 400, 700
-	margin: 0 0 40px 0;
+	margin: 0 0 20px 0;
 	padding: 0;
 }
 
 h1, h2 {
-	font-size: 60px;
-	letter-spacing: 0.04rem;
-	line-height: 70px;
+	font-size: 30px;
+	letter-spacing: 0.01rem;
+	line-height: 40px;
+	color: $black-pearl;
 }
 
 h3 {
-	font-size: 32px;
+	font-size: 24px;
 	letter-spacing: 0.003rem;
-	line-height: 42px;
+	line-height: 34px;
 }
 
 h5 {
 	font-size: 1.05rem;
 	font-weight: $font-bold-secondary;
+	line-height: 25px;
 }
 
 h4, h6 {
@@ -48,15 +50,15 @@ h4, h6 {
 }
 
 h4 {
-	font-size: 24px;
+	font-size: 20px;
 	letter-spacing: 0.04rem;
-	line-height: 34px;
+	line-height: 28px;
 }
 
 h6 {
 	font-size: 1.05rem;
 	letter-spacing: 0.09em;
-    line-height: 1.6;
+    line-height: 24px;
 }
 
 a {
@@ -69,90 +71,330 @@ a {
 }
 
 .btn {
+	display: inline-block;
+	cursor: pointer;
 	padding: 10px 20px;
 	background-color: $blue;
 	color: $white;
 	border-radius: 2px;
-	transition: .3s ease background-color, .3s ease color;
+	transition: .3s ease background-color;
 	font-family: $font-family-primary;
 	font-weight: $font-bold-primary;
 	font-size: $font-smaller; 
 	&:hover {
-		background-color: $light-blue;
-		color: $dark-blue;
+		background-color: $black-pearl;
+		color: $white;
 	}
 }
 
 .site-container {
-	
-	margin: 30px 80px;
+	margin: 15px 15px 0 15px;
 	border-radius: 5px;
+}
 
-	header {
-		background-color: $white;
-		padding: 0 40px 40px 40px;
-		position: relative;
-		&.sticky {
-			nav {
-				position: fixed;
-			}
-		}
-		.logo {
-			svg {
-				margin-top: -15px;
-				width: 300px;
-				height: 300px;
-			}
-		}
-		.header-content {
-			width: 60%;
-			h6 {
-				margin: 0 0 20px 0;
-				color: $gray;
-				text-transform: uppercase;
-			}
-			h1 {
-				margin-bottom: 0;
-			}
-		}
+header {
+	background-color: $white;
+	// padding: 0 40px 40px 40px;
+	padding: 0 20px 20px 20px;
+	position: relative;
+	&.sticky {
+		overflow: hidden;
 		nav {
-			position: absolute;
-		    top: 60px;
-    		right: 40px;
-			ul {
-				list-style: none;
-			    margin: 0;
-			    padding: 0;
+			background-color: $black-pearl;
+			position: fixed;
+			top: 0;
+		    left: 0; //65px;
+		    right: 0; //65px;
+		    padding: 10px 15px;
+		    height: 45px;
+		    ul {
+		    	text-align: right;
 				li {
-					display: inline;
-					a {
-						margin: 0 10px;
-						&.btn {
-							display: inline-block;
-						}
-						&:not(.btn) {
-							font-size: $font-smaller;
-							font-weight: $font-bold-primary;
-							text-decoration: none;
-							color: $dark-blue;
-							&:hover {
-								color: $blue;
+					&.mobile-logo {
+						display: inline;
+					}
+					&.mobile-trigger {
+						position: fixed;
+						top: 10px;
+						right: 10px;
+						a {
+							svg {
+								fill: $white;
 							}
+						}
+					}
+					a {
+						color: $white !important;
+					}
+				}
+			}
+		}
+	}
+	.logo {
+		//display: none;
+		display: flex;
+	    overflow: hidden;
+	    height: 135px;
+	    width: 250px;
+	    justify-content: center;
+	    align-items: center;
+		// margin: 0 0 30px -40px;
+		margin: 0 0 0 -40px;
+		transform: translate(-15px, -15px);
+		transition: .3s ease background-color;
+		background-color: darken($antique, 4%);
+		&:hover {
+			background-color: darken($antique, 8%);
+			svg {
+				&.logo-svg-dark {
+					display: inline;
+				}
+				&.logo-svg-light {
+					display: none;
+				}	
+			}
+		}
+		svg {
+			width: 135px;
+			height: 135px;
+			&.logo-svg-dark {
+				display: none;
+			}
+			&.logo-svg-light {
+				display: inline;
+			}
+		}
+	}
+	.header-content {
+		width: 100%;
+		h6 {
+			margin: 0 0 10px 0;
+			color: $gray;
+			text-transform: uppercase;
+		}
+		h1 {
+			margin-bottom: 0;
+		}
+	}
+	nav {
+		position: absolute;
+	    top: 30px;
+		right: 30px;
+		ul {
+			list-style: none;
+		    margin: 0;
+		    padding: 0;
+		    position: relative;
+			li {
+				display: none;
+				&.mobile-logo {
+					display: none;
+					position: absolute;
+					top: -120px;
+					left: -45px;
+					a {
+						svg {
+							width: 280px;
+							height: auto;
+						}
+					}
+				}
+				&.mobile-trigger {
+					display: block;
+					position: fixed;
+					top: 25px;
+					right: 25px;
+					a {
+						svg {
+							fill: $black-pearl;
+						}
+					}
+				}
+				a {
+					margin: 0 10px;
+					&.btn {
+						display: inline-block;
+					}
+					&:not(.btn) {
+						font-size: $font-smaller;
+						font-weight: $font-bold-primary;
+						text-decoration: none;
+						color: $black-pearl;
+						&:hover {
+							color: $blue;
 						}
 					}
 				}
 			}
 		}
 	}
+}
 
-	section {
-		background-color: $white;
-		padding: 40px;
-		margin: 40px 0;
+footer {
+	background-color: $black-pearl;
+	color: $white;
+	text-align: center;
+	margin: -40px 0 0 0;
+	padding: 100px 0;
+}
+
+section {
+	background-color: $white;
+	padding: 20px;
+	margin: 18px 0;
+
+	&.gray-section {
+		background-color: $antique;
+		text-align: center;
+		// h3 {
+		// 	color: $gray;
+		// }
+	}
+	
+	&.video-banner {
+		padding: 0;
+		video {
+			width: 100%;
+		}
+	}
+
+	.row {
+		display: block;
+		&+.row {
+			margin-top: 40px;
+		}
+		.column {
+			display: block;
+			margin: 0;
+			&+.column {
+				margin: 40px 0 0 0;
+			}
+			&.zpattern-image {
+				img {
+					width: 100%;
+				}
+			}
+			h3, h6 {
+				margin: 0 0 10px 0;
+			}
+			h6 {
+				color: $gray;
+			}
+		}
 	}
 }
 
+@media (min-width: 768px)
+{
+	h1, h2, h3, h5, h6 {
+		margin: 0 0 30px 0;
+	}
+	h1, h2 {
+		font-size: 40px;
+		line-height: 50px;
+	}
+	h3 {
+		font-size: 28px;	
+		line-height: 36px;
+	}
+	h4 {
+		font-size: 24px;
+		line-height: 32px;
+	}
 
+	header {
+		&.sticky {
+			nav {
+				ul {
+					li {
+						display: inline;
+					}
+				}
+			}
+		}
+		.logo {
+			height: 180px;
+	    	width: 340px;
+	    	margin: 0 0 30px -40px;
+	    	svg {
+				width: 210px;
+				height: 210px;
+			}
+		}
+		nav {
+			ul {
+				li {
+					display: inline;
+					&.mobile-trigger {
+						display: none;
+					}
+				}
+			}
+		}
+	}
 
+}
+
+@media (min-width: 992px)
+{
+	h1, h2, h3, h5, h6 {
+		margin: 0 0 40px 0;
+	}
+	h1, h2 {
+		font-size: 60px;
+		letter-spacing: 0.04rem;
+		line-height: 70px;
+	}
+	h3 {
+		font-size: 32px;
+		letter-spacing: 0.003rem;
+		line-height: 42px;
+	}
+	h4 {
+		font-size: 24px;
+		letter-spacing: 0.04rem;
+		line-height: 34px;
+	}
+
+	.site-container {
+		margin: 30px 10% 0 10%;
+	}
+
+	header {
+		padding: 0 40px 40px 40px;
+		&.sticky {
+			nav {
+			    padding: 20px 10%;
+			}
+		}
+		.header-content {
+			width: 70%;
+			max-width: 900px;
+		}
+	}
+	
+	section {
+		padding: 40px;
+		margin: 40px 0;
+
+		.row {
+			display: flex;
+			flex-direction: row;
+			&+.row {
+				margin-top: 40px;
+			}
+			.column {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: 0 40px 0 0;
+				width: 50%;
+				&+.column {
+					padding: 0 0 0 40px;
+				}
+			}
+		}
+	}
+}
 
 
