@@ -207,10 +207,10 @@ section {
       height: auto;
       background-size: cover;
       position: relative;
-      filter: grayscale(100%);
+      filter: grayscale(0%);
       transition: .3s ease filter; }
       section .callouts .cta:hover {
-        filter: grayscale(0%); }
+        filter: grayscale(100%); }
       section .callouts .cta:after {
         content: "";
         display: block;

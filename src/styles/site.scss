@@ -278,10 +278,10 @@ section {
 			height: auto;
 			background-size: cover;
 			position: relative;
-			filter: grayscale(100%);
+			filter: grayscale(0%);
 			transition: .3s ease filter;
 			&:hover {
-				filter: grayscale(0%);
+				filter: grayscale(100%);
 			}
 			
 			&:after {
