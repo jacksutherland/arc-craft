@@ -85,6 +85,7 @@ header {
     header.sticky nav {
       background-color: #061124;
       position: fixed;
+      z-index: 100;
       top: 0;
       left: 0;
       right: 0;
@@ -183,6 +184,11 @@ section {
   background-color: #ffffff;
   padding: 20px;
   margin: 18px 0; }
+  section h6 {
+    color: #a7a7a7;
+    margin: 0 0 10px 0; }
+  section h3 {
+    margin: 0 0 40px 0; }
   section.gray-section {
     background-color: #f1f3f4;
     text-align: center; }
@@ -190,6 +196,36 @@ section {
     padding: 0; }
     section.video-banner video {
       width: 100%; }
+  section .callouts {
+    text-align: center; }
+    section .callouts .cta {
+      cursor: pointer;
+      display: block;
+      float: left;
+      width: 100%;
+      margin: 0 0 20px 0;
+      height: auto;
+      background-size: cover;
+      position: relative;
+      filter: grayscale(100%);
+      transition: .3s ease filter; }
+      section .callouts .cta:hover {
+        filter: grayscale(0%); }
+      section .callouts .cta:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%; }
+      section .callouts .cta .content {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        color: #ffffff; }
+        section .callouts .cta .content h6 {
+          margin: 20px;
+          text-align: left;
+          color: #ffffff; }
   section .row {
     display: block; }
     section .row + .row {
@@ -230,7 +266,15 @@ section {
   header nav ul li {
     display: inline; }
     header nav ul li.mobile-trigger {
-      display: none; } }
+      display: none; }
+  section .callouts .cta {
+    width: 32%; }
+    section .callouts .cta:nth-child(1) {
+      margin: 0 1% 0 0; }
+    section .callouts .cta:nth-child(2) {
+      margin: 0 1%; }
+    section .callouts .cta:nth-child(3) {
+      margin: 0 0 0 1%; } }
 
 @media (min-width: 992px) {
   h1, h2, h3, h5, h6 {
