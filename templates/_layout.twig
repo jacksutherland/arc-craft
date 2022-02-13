@@ -32,7 +32,7 @@
     {% block styles %}{% endblock %}
 
 </head>
-<body>
+<body{% if entry is defined %} id="{{ entry.slug }}" class="{{ entry.section.handle }}"{% endif %}>
     
     <div class="site-container">
 
