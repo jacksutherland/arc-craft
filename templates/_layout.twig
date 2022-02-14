@@ -1,8 +1,8 @@
 {% set resourceVersion = '1.03' %}
 
-{#% if craft.app.request.segments | length == 0 %}
+{% if craft.app.request.segments | length == 0 %}
     {% redirect 'coming-soon' %}
-{% endif %#}
+{% endif %}
 
 {% set pages = craft.entries.section('pages') %}
 
