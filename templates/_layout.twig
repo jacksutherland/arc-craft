@@ -1,4 +1,4 @@
-{% set resourceVersion = '1.02' %}
+{% set resourceVersion = '1.03' %}
 
 {% if craft.app.request.segments | length == 0 %}
     {% redirect 'coming-soon' %}
@@ -94,7 +94,7 @@
                     </li>
                     {% nav page in pages %}
                         {% if page.showInMenu %}
-                            <li class="nav-menu-item">
+                            <li>
                                 <a href="{{ page.url }}">{{ page.title }}</a>
                             </li>
                         {% endif %}
@@ -125,7 +125,7 @@
                             </li>
                         {% endif %}
                     {% endnav %}
-                    <li class="member-login">
+                    <li>
                         <a href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">Member Login</a>
                     </li>
                 </ul>
@@ -137,9 +137,24 @@
         {% endblock %}
 
         <footer>
-            <h3>Footer stuff will go here</h3>
-            <h6>Et harum quidem rerum facilis</h6>
-            <h6>Facilis est et expedita distincti</h6>
+            <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
+                {% include '/_svgs/logo' with { color: "#f1f3f4" } %}
+            </a>
+            <ul>
+                {% nav page in pages %}
+                    {% if page.showInMenu %}
+                        <li>
+                            <a href="{{ page.url }}">{{ page.title }}</a>
+                        </li>
+                    {% endif %}
+                {% endnav %}
+                 <li>
+                    <a href="/">Member Login</a>
+                </li>
+            </ul>
+            <div class="copyright">
+                ©{{ now.year }} ARcollective. All Rights Reserved
+            </div>
         </footer>
 
     </div>

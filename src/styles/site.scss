@@ -274,19 +274,6 @@ header {
 		    transform: translateX(100%);
 		    transition: .3s ease transform;
 		    li {
-			    &.member-login {
-			    	a {
-			    		background-color: $blue !important;
-			    		color: $antique !important;
-			    		border-color: $blue;
-			    		border-bottom: solid 1px darken($blue, 4%);
-					    border-top: solid 1px lighten($blue, 4%);
-					    border-left: solid 1px lighten($blue, 4%);
-					     &:hover {
-					    	background-color: darken($blue, 4%) !important;
-					    }
-			    	}
-			    }
 				a {
 					display: block;
 					padding: 15px 45px 15px 25px;
@@ -313,6 +300,33 @@ footer {
 	text-align: center;
 	margin: -15px 0 0 0;
 	padding: 100px 0;
+	.logo {
+		margin-top: -20px;
+    	display: block;
+		svg {
+			width: 200px;
+			height: 200px;
+		}
+	}
+	ul {
+		list-style: none;
+		margin: -30px 0 0 0;
+		padding: 0;
+		li {
+			display: inline;
+			a {
+				display: inline-block;
+				color: $antique;
+				margin: 5px;
+				white-space: nowrap;
+			}
+		}
+	}
+	.copyright {
+	    margin: 30px 0;
+    	font-size: .9rem;
+    	color: $gray;
+	}
 }
 
 section {
