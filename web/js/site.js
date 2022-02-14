@@ -40,6 +40,7 @@ var DOMClass = function()
 	{
 		var menu = document.getElementById('mobile-menu');
 		menu.classList.remove('open');
+		document.getElementById('mobile-trigger').classList.remove('open');
 		menu.removeEventListener('click', this.mobileMenuEventListener);
 		dom.mobile.menu.isOpen = false;
 	}
@@ -67,16 +68,19 @@ var DOMClass = function()
 
 			dom.mobile.menu.isOpen = !dom.mobile.menu.isOpen;
 
-			var menu = document.getElementById('mobile-menu');
+			var menu = document.getElementById('mobile-menu')
+			var trigger = document.getElementById('mobile-trigger');
 
 			if(dom.mobile.menu.isOpen)
 			{
 				menu.classList.add('open');
+				trigger.classList.add('open');
 				menu.addEventListener('click', dom.mobileMenuEventListener);
 			}
 			else
 			{
 				menu.classList.remove('open');
+				trigger.classList.remove('open');
 				menu.removeEventListener('click', dom.mobileMenuEventListener);
 			}
 		});
