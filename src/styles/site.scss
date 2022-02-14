@@ -274,9 +274,22 @@ header {
 		    transform: translateX(100%);
 		    transition: .3s ease transform;
 		    li {
+			    &.member-login {
+			    	a {
+			    		background-color: $blue !important;
+			    		color: $antique !important;
+			    		border-color: $blue;
+			    		border-bottom: solid 1px darken($blue, 4%);
+					    border-top: solid 1px lighten($blue, 4%);
+					    border-left: solid 1px lighten($blue, 4%);
+					     &:hover {
+					    	background-color: darken($blue, 4%) !important;
+					    }
+			    	}
+			    }
 				a {
 					display: block;
-					padding: 20px 45px 20px 30px;
+					padding: 15px 45px 15px 25px;
 					font-size: 0.95rem;
 				    font-weight: 600;
 				    text-decoration: none;

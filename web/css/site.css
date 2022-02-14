@@ -206,9 +206,18 @@ header {
       border-radius: 5px;
       transform: translateX(100%);
       transition: .3s ease transform; }
+      header nav#mobile-menu ul li.member-login a {
+        background-color: #3c74f9 !important;
+        color: #f1f3f4 !important;
+        border-color: #3c74f9;
+        border-bottom: solid 1px #2866f8;
+        border-top: solid 1px #5082fa;
+        border-left: solid 1px #5082fa; }
+        header nav#mobile-menu ul li.member-login a:hover {
+          background-color: #2866f8 !important; }
       header nav#mobile-menu ul li a {
         display: block;
-        padding: 20px 45px 20px 30px;
+        padding: 15px 45px 15px 25px;
         font-size: 0.95rem;
         font-weight: 600;
         text-decoration: none;
