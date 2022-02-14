@@ -180,7 +180,6 @@ header {
             header nav#main-menu ul li a:not(.btn):hover {
               color: #3c74f9; }
   header nav#mobile-menu {
-    display: none;
     position: fixed;
     z-index: 150;
     top: 0;
@@ -188,9 +187,15 @@ header {
     left: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.5);
-    text-align: right; }
+    text-align: right;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s ease opacity; }
     header nav#mobile-menu.open {
-      display: block; }
+      visibility: visible;
+      opacity: 1; }
+      header nav#mobile-menu.open ul {
+        transform: translateX(0); }
     header nav#mobile-menu ul {
       list-style: none;
       margin: 85px 0 0 0;
@@ -198,10 +203,12 @@ header {
       width: auto;
       display: inline-block;
       text-align: left;
-      border-radius: 5px; }
+      border-radius: 5px;
+      transform: translateX(100%);
+      transition: .3s ease transform; }
       header nav#mobile-menu ul li a {
         display: block;
-        padding: 25px 50px 25px 40px;
+        padding: 20px 45px 20px 30px;
         font-size: 0.95rem;
         font-weight: 600;
         text-decoration: none;

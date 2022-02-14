@@ -243,7 +243,7 @@ header {
 		}
 	}
 	nav#mobile-menu {
-		display: none;
+		// display: none;
 		position: fixed;
 		z-index: 150;
 		top: 0;
@@ -252,8 +252,16 @@ header {
 		right: 0;
 		background: rgba(0, 0, 0, 0.5);
 		text-align: right;
+		opacity: 0;
+		visibility: hidden;
+		transition: .3s ease opacity;
 		&.open {
-			display: block;
+			// display: block;
+			visibility: visible;
+			opacity: 1;
+			ul {
+				transform: translateX(0);
+			}
 		}
 		ul {
 			list-style: none;
@@ -263,10 +271,12 @@ header {
 		    display: inline-block;
 		    text-align: left;
 		    border-radius: 5px;
+		    transform: translateX(100%);
+		    transition: .3s ease transform;
 		    li {
 				a {
 					display: block;
-					padding: 25px 50px 25px 40px;
+					padding: 20px 45px 20px 30px;
 					font-size: 0.95rem;
 				    font-weight: 600;
 				    text-decoration: none;
