@@ -11,10 +11,40 @@ var DOMClass = function()
 	// Public Variables
 
 	this.body = null;
+
 	this.header = null;
+
 	this.mobile = {
 		menu: {
-			isOpen: false
+			isOpen: false,
+			listener: function(e)
+			{
+				dom.mobile.menu.show(false);
+			},
+			show: function(doShow)
+			{
+				var menu = document.getElementById('mobile-menu')
+				var trigger = document.getElementById('mobile-trigger');
+
+				if(doShow)
+				{
+					menu.classList.add('open');
+					trigger.classList.add('open');
+					menu.addEventListener('click', dom.mobile.menu.listener);
+					document.body.style.overflow = 'hidden';
+
+					dom.mobile.menu.isOpen = true;
+				}
+				else
+				{
+					menu.classList.remove('open');
+					trigger.classList.remove('open');
+					menu.removeEventListener('click', dom.mobile.menu.listener);
+					document.body.style.overflow = 'auto';
+
+					dom.mobile.menu.isOpen = false;
+				}
+			}
 		}
 	};
 
@@ -34,15 +64,6 @@ var DOMClass = function()
 		}
 
 		this.addEvents();
-	}
-
-	this.mobileMenuEventListener = function(e)
-	{
-		var menu = document.getElementById('mobile-menu');
-		menu.classList.remove('open');
-		document.getElementById('mobile-trigger').classList.remove('open');
-		menu.removeEventListener('click', this.mobileMenuEventListener);
-		dom.mobile.menu.isOpen = false;
 	}
 
 	this.addEvents = function()
@@ -66,23 +87,7 @@ var DOMClass = function()
 		{
 			e.preventDefault();
 
-			dom.mobile.menu.isOpen = !dom.mobile.menu.isOpen;
-
-			var menu = document.getElementById('mobile-menu')
-			var trigger = document.getElementById('mobile-trigger');
-
-			if(dom.mobile.menu.isOpen)
-			{
-				menu.classList.add('open');
-				trigger.classList.add('open');
-				menu.addEventListener('click', dom.mobileMenuEventListener);
-			}
-			else
-			{
-				menu.classList.remove('open');
-				trigger.classList.remove('open');
-				menu.removeEventListener('click', dom.mobileMenuEventListener);
-			}
+			dom.mobile.menu.show(!dom.mobile.menu.isOpen);
 		});
 	}
 
