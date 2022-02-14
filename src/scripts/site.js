@@ -12,6 +12,11 @@ var DOMClass = function()
 
 	this.body = null;
 	this.header = null;
+	this.mobile = {
+		menu: {
+			isOpen: false
+		}
+	};
 
 	// Public Methods
 
@@ -31,13 +36,20 @@ var DOMClass = function()
 		this.addEvents();
 	}
 
+	this.mobileMenuEventListener = function(e)
+	{
+		var menu = document.getElementById('mobile-menu');
+		menu.classList.remove('open');
+		menu.removeEventListener('click', this.mobileMenuEventListener);
+		dom.mobile.menu.isOpen = false;
+	}
+
 	this.addEvents = function()
 	{
 		if(this.header != null)
 		{
 			window.addEventListener("scroll", function()
 			{
-				// console.log(document.body.scrollTop);
 				if (document.body.scrollTop < 250 && document.documentElement.scrollTop < 250)
 		    	{
 		    		this.header.classList.remove('sticky');
@@ -48,6 +60,26 @@ var DOMClass = function()
 		    	}
 			}.bind(this));
 		}
+
+		document.getElementById('mobile-trigger').addEventListener('click', function(e)
+		{
+			e.preventDefault();
+
+			dom.mobile.menu.isOpen = !dom.mobile.menu.isOpen;
+
+			var menu = document.getElementById('mobile-menu');
+
+			if(dom.mobile.menu.isOpen)
+			{
+				menu.classList.add('open');
+				menu.addEventListener('click', dom.mobileMenuEventListener);
+			}
+			else
+			{
+				menu.classList.remove('open');
+				menu.removeEventListener('click', dom.mobileMenuEventListener);
+			}
+		});
 	}
 
 	this.init();

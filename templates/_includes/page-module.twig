@@ -1,0 +1,96 @@
+{% macro ctaButton(btnText, btnEntry, btnUrl) %}
+	{% if btnText | length and (btnEntry.count or btnUrl | length) %}
+		<div class="cta-button">
+			{% if btnEntry.count %}
+            	<a class="btn" href="{{ btnEntry.one().url }}">{{ btnText }}</a>
+            {% elseif btnUrl | length %}
+            	<a class="btn" target="_blank" href="{{ btnUrl }}">{{ btnText }}</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro sectionHeadings(subheading, headline) %}
+	{% if subheading | length %}
+		<h6>{{ subheading }}</h6>
+	{% endif %}
+	{% if headline | length %}
+		<h3>{{ headline }}</h3>
+	{% endif %}
+{% endmacro %}
+
+{% for module in entry.pageModule.all() %}
+
+	{% switch module.type %}
+
+		{% case "richText" %}
+
+			<section class="rich-text">
+				{{ _self.sectionHeadings(module.subheading, module.headline) }}
+				{{ module.richText }}
+				{{ _self.ctaButton(module.buttonText, module.buttonLink, module.buttonUrl) }}
+			</section>
+
+		{% case "imageBlocks" %}
+
+			<section>
+				{{ _self.sectionHeadings(module.subheading, module.headline) }}
+
+				<div class="callouts">
+					{% for row in module.row %}
+						{% set rowHref = '' %}
+						{% set rowTarget = '' %}
+						{% if row.entryLink.count %}
+							{% set rowHref = 'href=' ~ row.entryLink.one().url %}
+						{% elseif row.entryUrl | length %}
+							{% set rowHref = 'href=' ~ row.entryUrl %}
+							{% set rowTarget = ' target="_blank"' %}
+						{% endif %}
+
+			            <a class="cta" style="background-image:url('{{ row.image.one().url }}')"{{ rowHref }}{{ rowTarget }}>
+			                <div class="content">
+			                    <h6>{{ row.heading }}</h6>
+			                    <div class="text-content">{{ row.text }}</div>
+			                </div>
+			            </a>
+		            {% endfor %}
+		            <br style="clear:both;">
+		        </div>
+			</section>
+
+		{% case "zPattern" %}
+
+			<section>
+				{{ _self.sectionHeadings(module.subheading, module.headline) }}
+
+				{% for row in module.row %}
+					<div class="z-pattern">
+						{% if loop.index is even %}
+							<div class="column image-column">
+				                <img src="{{ row.image.one().url }}" alt="{{ row.headline }}" title="{{ row.headline }}">
+				            </div>
+				       	{% endif %}
+
+						 <div class="column text-column">
+						 	{% if row.subheading %}
+			                	<h6>{{ row.subheading }}</h6>
+			                {% endif %}
+			                <h3>{{ row.headline }}</h3>
+			                {% if row.text %}
+			                	<p>{{ row.text }}</p>
+			                {% endif %}
+			                {{ _self.ctaButton(row.buttonText, row.buttonLink, row.buttonUrl) }}
+			            </div>
+			            
+			            {% if loop.index is odd %}
+							<div class="column image-column">
+				                <img src="/assets/images/vcchat-recording.png" alt="">
+				            </div>
+				       	{% endif %}
+					</div>
+				{% endfor %}
+			</section>
+
+	{% endswitch %}
+
+{% endfor %}
