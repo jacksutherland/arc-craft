@@ -63,6 +63,85 @@ var DOMClass = function()
 			this.header = null;
 		}
 
+		var testimonials = document.getElementsByClassName('testimonials');
+		if(testimonials.length)
+		{
+			for(i=0; i<testimonials.length; i++)
+			{
+				var bQuotes = testimonials[i].getElementsByTagName('blockquote');
+				for(ii=0; ii<bQuotes.length; ii++)
+				{
+					if(bQuotes[ii].hasAttribute('cite'))
+					{
+						bQuotes[ii].addEventListener('click', function(e)
+						{
+							e.preventDefault();
+							console.log('click blockquote ' + this.getAttribute('cite').substring(0, 4));
+							if(this.getAttribute('cite').substring(0, 4) == 'http')
+							{
+								console.log('open');
+								window.open(this.getAttribute('cite'), '_blank');
+							}
+
+						});
+					}
+				}
+
+				testimonials[i].querySelectorAll('.prev')[0].addEventListener('click', function(e)
+				{
+					e.preventDefault();
+					this.querySelector('.active').classList.add('inactivate')
+					setTimeout(function()
+					{
+						var current = this.querySelector('.active');
+						
+						setTimeout(function()
+						{
+							this.classList.remove('inactivate');
+						}.bind(current), 100);
+
+						current.classList.remove('active');
+
+						if(current.previousElementSibling == null || current.previousElementSibling.tagName.toLowerCase() != 'blockquote')
+						{
+							var quotes = this.getElementsByTagName('blockquote');
+							quotes[quotes.length - 1].classList.add('active');
+						}
+						else
+						{
+							current.previousElementSibling.classList.add('active');
+						}
+					}.bind(this), 250);
+				}.bind(testimonials[i]));
+
+				testimonials[i].querySelectorAll('.next')[0].addEventListener('click', function(e)
+				{
+					e.preventDefault();
+					this.querySelector('.active').classList.add('inactivate')
+					setTimeout(function()
+					{
+						var current = this.querySelector('.active');
+
+						setTimeout(function()
+						{
+							this.classList.remove('inactivate');
+						}.bind(current), 100);
+
+						current.classList.remove('active');
+
+						if(current.nextElementSibling == null || current.nextElementSibling.tagName.toLowerCase() != 'blockquote')
+						{
+							this.getElementsByTagName('blockquote')[0].classList.add('active');
+						}
+						else
+						{
+							current.nextElementSibling.classList.add('active');
+						}
+					}.bind(this), 250);
+				}.bind(testimonials[i]));
+			}
+		}
+
 		this.addEvents();
 	}
 

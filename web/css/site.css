@@ -64,12 +64,12 @@ a {
   background-color: #3c74f9;
   color: #ffffff;
   border-radius: 2px;
-  transition: .3s ease background-color;
+  transition: .3s ease background-color, .3s ease color;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600;
-  font-size: 0.95rem; }
+  font-size: 0.9rem; }
   .btn:hover {
-    background-color: #061124;
+    background-color: #f9c13c;
     color: #ffffff; }
 
 .site-container {
@@ -173,7 +173,7 @@ header {
           header nav#main-menu ul li a.btn {
             display: inline-block; }
           header nav#main-menu ul li a:not(.btn) {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             text-decoration: none;
             color: #061124; }
@@ -254,7 +254,8 @@ section {
   margin: 18px 0; }
   section h6 {
     color: #a7a7a7;
-    margin: 0 0 10px 0; }
+    margin: 0 0 10px 0;
+    text-transform: uppercase; }
   section h3 {
     margin: 0 0 40px 0; }
   section.gray-section {
@@ -268,9 +269,9 @@ section {
     margin-bottom: 20px; }
   section .cta-button {
     margin-top: 25px; }
-  section .callouts {
+  section .three-col {
     text-align: center; }
-    section .callouts .cta {
+    section .three-col .col {
       cursor: pointer;
       display: block;
       float: left;
@@ -280,14 +281,14 @@ section {
       max-height: 400px;
       background-size: cover;
       position: relative; }
-      section .callouts .cta:hover .content .text-content {
+      section .three-col .col:hover .content .text-content {
         opacity: 1;
         transform: translate(0, 0); }
-      section .callouts .cta:after {
+      section .three-col .col:after {
         content: "";
         display: block;
         padding-bottom: 100%; }
-      section .callouts .cta .content {
+      section .three-col .col .content {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -295,11 +296,11 @@ section {
         right: 0;
         color: #ffffff;
         overflow: hidden; }
-        section .callouts .cta .content h6 {
+        section .three-col .col .content h6 {
           margin: 20px;
           text-align: left;
           color: #ffffff; }
-        section .callouts .cta .content .text-content {
+        section .three-col .col .content .text-content {
           position: absolute;
           bottom: 0;
           padding: 20px;
@@ -310,6 +311,39 @@ section {
           opacity: 0;
           transform: translate(0, 100%);
           transition: .3s ease opacity, .3s ease transform; }
+  section .four-col {
+    text-align: center; }
+    section .four-col .col {
+      margin: 40px 4%; }
+      section .four-col .col a:hover img {
+        transform: scale(105%, 105%); }
+      section .four-col .col img {
+        width: 100%;
+        max-width: 150px;
+        height: auto;
+        border-radius: 50%;
+        transform: scale(100%, 100%);
+        transition: .3s ease transform; }
+      section .four-col .col h4 {
+        margin: 15px 0 -5px 0;
+        font-size: 1.2rem; }
+      section .four-col .col p {
+        font-size: 0.9rem;
+        color: #666666; }
+      section .four-col .col ul.links {
+        list-style: none;
+        margin: 20px 0 0 0;
+        padding: 0; }
+        section .four-col .col ul.links li {
+          display: inline;
+          margin: 0 5px; }
+          section .four-col .col ul.links li a:hover svg {
+            fill: #f9c13c; }
+          section .four-col .col ul.links li a svg {
+            width: 25px;
+            height: 25px;
+            fill: #3c74f9;
+            transition: .3s ease fill; }
   section .z-pattern {
     display: block; }
     section .z-pattern:not(:first-child):not(:last-child) {
@@ -324,6 +358,69 @@ section {
         margin: 0 0 10px 0; }
       section .z-pattern .column h6 {
         color: #a7a7a7; }
+  section .testimonials {
+    position: relative; }
+    section .testimonials .prev, section .testimonials .next {
+      position: absolute;
+      top: -15px; }
+      section .testimonials .prev.prev, section .testimonials .next.prev {
+        right: 60px; }
+        section .testimonials .prev.prev:hover svg, section .testimonials .next.prev:hover svg {
+          transform: scale(115%, 115%) rotateZ(15deg); }
+        section .testimonials .prev.prev svg, section .testimonials .next.prev svg {
+          transform: rotateZ(0deg); }
+      section .testimonials .prev.next, section .testimonials .next.next {
+        right: 15px; }
+        section .testimonials .prev.next:hover svg, section .testimonials .next.next:hover svg {
+          transform: scale(115%, 115%) rotateZ(20deg); }
+        section .testimonials .prev.next svg, section .testimonials .next.next svg {
+          transform: rotateZ(0deg); }
+      section .testimonials .prev svg, section .testimonials .next svg {
+        width: 30px;
+        height: 30px;
+        fill: #f9c13c;
+        background-color: #ffffff;
+        border-radius: 50%;
+        transition: .5s ease transform; }
+    section .testimonials blockquote {
+      margin: 0;
+      display: none; }
+      section .testimonials blockquote[cite*="http"] {
+        cursor: pointer; }
+      section .testimonials blockquote.active {
+        display: block;
+        animation-duration: 0.3s;
+        animation-name: slide-in-blockquote; }
+      section .testimonials blockquote.inactivate {
+        animation-duration: 0.3s;
+        animation-name: inactivate-blockquote;
+        animation-timing-function: ease-in; }
+      section .testimonials blockquote img {
+        max-width: 100%;
+        margin: 20px 0; }
+      section .testimonials blockquote q {
+        display: block;
+        padding: 20px; }
+      section .testimonials blockquote cite {
+        display: block;
+        padding: 0 20px 20px 20px;
+        margin-top: -10px; }
+        section .testimonials blockquote cite:before {
+          content: "- "; }
+
+@keyframes slide-in-blockquote {
+  from {
+    opacity: 0;
+    transform: translateY(100%); }
+  to {
+    opacity: 1;
+    transform: translateY(0); } }
+
+@keyframes inactivate-blockquote {
+  from {
+    transform: translateY(0); }
+  to {
+    transform: translateY(75%); } }
 
 @media (min-width: 768px) {
   h1, h2, h3, h5, h6 {
@@ -350,14 +447,17 @@ section {
     display: inline; }
     header nav#main-menu ul li#mobile-trigger {
       display: none; }
-  section .callouts .cta {
+  section .three-col .col {
     width: 32%; }
-    section .callouts .cta:nth-child(1) {
+    section .three-col .col:nth-child(1) {
       margin: 0 1% 0 0; }
-    section .callouts .cta:nth-child(2) {
+    section .three-col .col:nth-child(2) {
       margin: 0 1%; }
-    section .callouts .cta:nth-child(3) {
+    section .three-col .col:nth-child(3) {
       margin: 0 0 0 1%; }
+  section .four-col .col {
+    width: 42%;
+    float: left; }
   section .z-pattern {
     display: flex;
     flex-direction: row;
@@ -371,7 +471,16 @@ section {
         section .z-pattern .column.image-column + .text-column {
           padding: 0 0 0 25px; }
       section .z-pattern .column.text-column {
-        padding: 0 25px 0 0; } }
+        padding: 0 25px 0 0; }
+  section .testimonials .prev.prev, section .testimonials .next.prev {
+    right: 80px; }
+  section .testimonials .prev.next, section .testimonials .next.next {
+    right: 22px; }
+  section .testimonials .prev svg, section .testimonials .next svg {
+    width: 35px;
+    height: 35px; }
+  section .testimonials blockquote img {
+    margin: 20px; } }
 
 @media (min-width: 992px) {
   h1, h2, h3, h5, h6 {
@@ -407,6 +516,12 @@ section {
       padding: 0 0 0 40px; }
     section .z-pattern .column.text-column {
       padding: 0 40px 0 0; } }
+
+@media (min-width: 1200px) {
+  section .four-col .col {
+    margin: 20px 2%;
+    padding: 0 1%;
+    width: 19%; } }
 
 @media (min-width: 1400px) {
   .site-container {

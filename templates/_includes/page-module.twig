@@ -31,12 +31,56 @@
 				{{ _self.ctaButton(module.buttonText, module.buttonLink, module.buttonUrl) }}
 			</section>
 
+		{% case "teamMembers" %}
+
+			<section class="team-members">
+				{{ _self.sectionHeadings(module.subheading, module.headline) }}
+				<div class="four-col">
+					{% for member in module.users.status(null) %}
+						{% set name = member.firstName %}
+						{% if member.lastName | trim | length > 0 %}
+							{% set name = name ~ member.lastName %}
+						{% endif %}
+						{% if name | trim | length == 0 %}
+							{% set name = member.username %}
+						{% endif %}
+						<div class="col">
+							{% if member.photo | length %}
+								{% if member.links | length %}
+									<a href="{{ member.links[0].url }}" class="prof-pic" title="{{ name }}">
+										<img src="{{ member.photo.url }}" alt="{{ name }}">
+									</a>
+								{% else %}
+									<img src="{{ member.photo.url }}" alt="{{ name }}">
+								{% endif %}
+							{% endif %}
+							<h4>{{ name }}</h4>
+							{% if member.briefDescription | length %}
+								<p>{{ member.briefDescription }}</p>
+							{% endif %}
+							{% if member.links | length %}
+								<ul class="links">
+									{% for link in member.links %}
+										<li>
+											<a href="{{ link.url }}" target="_blank">
+												{% include "_svgs/icon" with { type: link.linkType } %}
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+				<br style="clear:both;">
+			</section>
+
 		{% case "imageBlocks" %}
 
 			<section>
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 
-				<div class="callouts">
+				<div class="three-col">
 					{% for row in module.row %}
 						{% set rowHref = '' %}
 						{% set rowTarget = '' %}
@@ -47,7 +91,7 @@
 							{% set rowTarget = ' target="_blank"' %}
 						{% endif %}
 
-			            <a class="cta" style="background-image:url('{{ row.image.one().url }}')"{{ rowHref }}{{ rowTarget }}>
+			            <a class="col" style="background-image:url('{{ row.image.one().url }}')"{{ rowHref }}{{ rowTarget }}>
 			                <div class="content">
 			                    <h6>{{ row.heading }}</h6>
 			                    <div class="text-content">{{ row.text }}</div>
@@ -89,6 +133,41 @@
 				       	{% endif %}
 					</div>
 				{% endfor %}
+			</section>
+
+		{% case "testimonials" %}
+
+			<section style="overflow:hidden;">
+				{{ _self.sectionHeadings(module.subheading, module.headline) }}
+
+				<div class="testimonials">
+
+					{% for test in module.testimonial %}
+
+						 <blockquote{% if loop.index == 1 %} class="active"{% endif %}{% if test.citeUrl | length %} cite="{{ test.citeUrl }}"{% endif %}{% if test.backgroundColor | length %} style="background-color:{{ test.backgroundColor }}"{% endif %}>
+						 	{% if test.screenshot.count %}
+						 		<img src="{{ test.screenshot.one().url }}" alt="{{ test.author }}">
+						 	{% elseif test.quote | length %}
+						 		<q>
+							 		{{ test.quote }}
+							 	</q>
+						 		{% if test.author | length %}
+						 			<cite>{{ test.author }}</cite>
+						 		{% endif %}
+						 	{% endif %}
+						 </blockquote>
+
+					{% endfor %}
+
+					<a href="/" class="prev">
+						{% include "_svgs/icon" with { type: "left" } %}
+					</a>
+					<a href="/" class="next">
+						{% include "_svgs/icon" with { type: "right" } %}
+					</a>
+
+				</div>
+
 			</section>
 
 	{% endswitch %}

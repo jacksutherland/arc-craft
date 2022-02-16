@@ -77,12 +77,13 @@ a {
 	background-color: $blue;
 	color: $white;
 	border-radius: 2px;
-	transition: .3s ease background-color;
+	transition: .3s ease background-color, .3s ease color;
 	font-family: $font-family-primary;
 	font-weight: $font-bold-primary;
 	font-size: $font-smaller; 
 	&:hover {
-		background-color: $black-pearl;
+		// background-color: $black-pearl;
+		background-color: $saffron;
 		color: $white;
 	}
 }
@@ -228,6 +229,10 @@ header {
 					margin: 0 10px;
 					&.btn {
 						display: inline-block;
+						&:hover {
+							// background-color: $antique;
+							// color: $blue !important;
+						}
 					}
 					&:not(.btn) {
 						font-size: $font-smaller;
@@ -337,6 +342,7 @@ section {
 	h6 {
 		color: $gray;
 		margin: 0 0 10px 0;
+		text-transform: uppercase;
 	}
 	h3 {
 		margin: 0 0 40px 0;	
@@ -364,9 +370,9 @@ section {
 		margin-top: 25px;
 	}
 
-	.callouts {
+	.three-col {
 		text-align: center;
-		.cta {
+		.col {
 			cursor: pointer;
 			display: block;
 			float: left;
@@ -376,10 +382,7 @@ section {
 			max-height: 400px;
 			background-size: cover;
 			position: relative;
-			// filter: grayscale(0%);
-			// transition: .3s ease filter;
 			&:hover {
-				// filter: grayscale(100%);
 				.content {
 					.text-content {
 						opacity: 1;
@@ -422,20 +425,63 @@ section {
 		}
 	}
 
+	.four-col {
+		text-align: center;
+		.col {
+			margin: 40px 4%;
+			a:hover {
+				img {
+					transform: scale(105%, 105%);
+				}
+			}
+			img {
+				width: 100%;
+				max-width: 150px;
+				height: auto;
+				border-radius: 50%;
+				transform: scale(100%,100%);
+				transition: .3s ease transform;
+			}
+			h4 {
+				margin: 15px 0 -5px 0;
+				font-size: $font-bigger;
+			}
+			p {
+				font-size: $font-smaller;
+				color: lighten($font-color, 40%);
+			}
+			ul.links {
+				list-style: none;
+				margin: 20px 0 0 0;
+				padding: 0;
+				li {
+					display: inline;
+					margin: 0 5px;
+					a {
+						&:hover {
+							svg {
+								fill: $saffron;
+							}
+						}
+						svg {
+							width: 25px;
+							height: 25px;
+							fill: $blue;
+							transition: .3s ease fill;
+						}
+					}
+				}
+			}
+		}
+	}
+
 	.z-pattern {
 		display: block;
-		// &+.z-pattern {
-		// 	margin-top: 40px;
-		// }
 		&:not(:first-child):not(:last-child) {
 			margin: 40px 0;
 		}
 		.column {
 			display: block;
-			// margin: 0;
-			// &+.column {
-			// 	margin: 40px 0 0 0;
-			// }
 			&.image-column {
 				display: none;
 				img {
@@ -450,6 +496,89 @@ section {
 			}
 		}
 	}
+
+	.testimonials {
+		position: relative;
+		.prev, .next {
+			position: absolute;
+			top: -15px;
+			&.prev {
+				right: 60px;
+				&:hover {
+					svg {
+						transform: scale(115%,115%) rotateZ(15deg);
+					}
+				}
+				svg {
+					transform: rotateZ(0deg);
+				}
+			}
+			&.next {
+				right: 15px;
+				&:hover {
+					svg {
+						transform: scale(115%,115%) rotateZ(20deg);
+					}
+				}
+				svg {
+					transform: rotateZ(0deg);
+				}
+			}
+			svg {
+				width: 30px;
+				height: 30px;
+				fill: $saffron;
+				background-color: $white;
+				border-radius: 50%;
+				transition: .5s ease transform;
+			}
+		}
+		blockquote {
+			margin: 0;
+			display: none;
+			&[cite*="http"] {
+				cursor: pointer;
+			}
+			&.active {
+				display: block;
+				animation-duration: 0.3s;
+  				animation-name: slide-in-blockquote;
+			}
+			&.inactivate {
+				animation-duration: 0.3s;
+  				animation-name: inactivate-blockquote;
+  				animation-timing-function: ease-in;
+			}
+			img {
+				max-width: 100%;
+				margin: 20px 0;
+			}
+			q {
+				display: block;
+				padding: 20px;
+			}
+			cite {
+				display: block;
+				padding: 0 20px 20px 20px;
+				margin-top: -10px;
+				&:before {
+					content: "- ";
+				}
+			}
+		}
+	}
+}
+
+@keyframes slide-in-blockquote
+{
+  from {opacity: 0; transform: translateY(100%);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes inactivate-blockquote
+{
+  from { transform: translateY(0); }
+  to { transform: translateY(75%); }
 }
 
 @media (min-width: 768px)
@@ -503,8 +632,8 @@ section {
 	}
 
 	section {
-		.callouts {
-			.cta {
+		.three-col {
+			.col {
 				width: 32%;
 				&:nth-child(1) {
 					margin: 0 1% 0 0;
@@ -515,6 +644,13 @@ section {
 				&:nth-child(3) {
 					margin: 0 0 0 1%;
 				}
+			}
+		}
+
+		.four-col {
+			.col {
+				width: 42%;
+				float: left;
 			}
 		}
 
@@ -534,6 +670,27 @@ section {
 				}
 				&.text-column {
 					padding: 0 25px 0 0;
+				}
+			}
+		}
+
+		.testimonials {
+			.prev, .next {
+				//top: 1px;
+				&.prev {
+					right: 80px;
+				}
+				&.next {
+					right: 22px;
+				}
+				svg {
+					width: 35px;
+					height: 35px;
+				}
+			}
+			blockquote {
+				img {
+					margin:20px;
 				}
 			}
 		}
@@ -603,6 +760,20 @@ section {
 				&.text-column {
 					padding: 0 40px 0 0;
 				}
+			}
+		}
+
+	}
+}
+
+@media (min-width: 1200px)
+{
+	section {
+		.four-col {
+			.col {
+				margin: 20px 2%;
+				padding: 0 1%;
+				width: 19%;
 			}
 		}
 	}
