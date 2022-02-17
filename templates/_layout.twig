@@ -1,4 +1,4 @@
-{% set resourceVersion = '1.05' %}
+{% set resourceVersion = '1.06' %}
 
 {% if craft.app.request.segments | length == 0 %}
     {% redirect 'coming-soon' %}
@@ -61,11 +61,12 @@
 
 </head>
 <body{% if entry is defined %} id="{{ entry.slug }}" class="{{ entry.section.handle }}"{% endif %}>
+    {% set showHero = entry.heroImage.count %}
     
     <div class="site-container">
 
         <header>
-            <div class="header-content{% if entry.showHeaderBanner %} video-header{% endif %}">
+            <div class="header-content{% if entry.showHeaderBanner %} video-header{% endif %}{% if showHero %} hero-header{% endif %}">
                 <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
                     {% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-dark" } %}
                     {% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-light" } %}
@@ -75,6 +76,20 @@
                         <video id="hero-vid" loop="" autoplay="" muted="" class="fullscreen-video desktop-header">
                             <source type="video/mp4" src="https://player.vimeo.com/external/471055045.hd.mp4?s=105c2dac19b5181a72fb0a5eca63989b5f656d8e&amp;profile_id=175">
                         </video>
+                    {% elseif showHero %}
+                        <div class="hero">
+                            <div class="header-image" style="background-image:url({{ entry.heroImage.one().url('hero') }});"></div>
+                            {% if entry.subheading | length or entry.headline | length %}
+                                <div class="header-text" style="background-color: rgba(0,0,0,{{ entry.heroOpacity }}%);">
+                                    {% if entry.subheading | length %}
+                                        <h6>{{ entry.subheading }}</h6>
+                                    {% endif %}
+                                    {% if entry.headline | length %}
+                                        <h1>{{ entry.headline }}</h1>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
                     {% elseif entry.subheading | length or entry.headline | length %}
                         <div class="header-text">
                             {% if entry.subheading | length %}

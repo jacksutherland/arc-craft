@@ -129,9 +129,42 @@ header {
         display: inline; }
   header .header-content {
     width: 100%; }
+    header .header-content .hero {
+      margin-top: 15px;
+      position: relative;
+      height: 250px; }
+      header .header-content .hero .header-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        z-index: 10; }
+      header .header-content .hero .header-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        padding: 20px;
+        margin: 0;
+        z-index: 20;
+        display: flex;
+        justify-content: end;
+        flex-direction: column; }
+        header .header-content .hero .header-text h6 {
+          margin: 0 0 10px 0;
+          color: #ffffff;
+          text-transform: uppercase; }
+        header .header-content .hero .header-text h1 {
+          margin-bottom: 0;
+          color: #ffffff; }
     header .header-content .header-text {
       margin-top: 15px; }
       header .header-content .header-text h6 {
+        display: none;
         margin: 0 0 10px 0;
         color: #a7a7a7;
         text-transform: uppercase; }
@@ -295,6 +328,7 @@ section {
         left: 0;
         right: 0;
         color: #ffffff;
+        background-color: rgba(0, 0, 0, 0.45);
         overflow: hidden; }
         section .three-col .col .content h6 {
           margin: 20px;
@@ -358,6 +392,42 @@ section {
         margin: 0 0 10px 0; }
       section .z-pattern .column h6 {
         color: #a7a7a7; }
+  section dl.faq dt {
+    border-top: solid 1px #dadada;
+    margin: 15px 0 0 0;
+    padding: 15px 30px 0 0; }
+    section dl.faq dt:hover label {
+      color: #3c74f9; }
+      section dl.faq dt:hover label svg {
+        fill: #3c74f9; }
+    section dl.faq dt label {
+      font-size: 1.2rem;
+      cursor: pointer;
+      width: 100%;
+      display: block;
+      position: relative;
+      transition: .3s ease color; }
+      section dl.faq dt label svg {
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+        position: absolute;
+        right: -25px;
+        top: 3px;
+        transition: .3s ease fill; }
+  section dl.faq input {
+    display: none;
+    height: 0; }
+    section dl.faq input:checked + dd {
+      max-height: 300px;
+      opacity: 1;
+      float: none; }
+  section dl.faq dd {
+    max-height: 0;
+    float: left;
+    opacity: 0;
+    margin: 0;
+    transition: .3s ease max-height, .3s ease opacity; }
   section .testimonials {
     position: relative; }
     section .testimonials .prev, section .testimonials .next {
@@ -447,6 +517,8 @@ section {
     display: inline; }
     header nav#main-menu ul li#mobile-trigger {
       display: none; }
+  header .header-content .hero {
+    height: 380px; }
   section .three-col .col {
     width: 32%; }
     section .three-col .col:nth-child(1) {
@@ -458,6 +530,8 @@ section {
   section .four-col .col {
     width: 42%;
     float: left; }
+  section dl.faq dd {
+    width: 75%; }
   section .z-pattern {
     display: flex;
     flex-direction: row;
@@ -505,6 +579,10 @@ section {
       padding: 20px 10%; }
     header .logo {
       margin: 0 0 30px -40px; }
+    header .header-content .hero {
+      height: 500px; }
+    header .header-content .header-text h6 {
+      display: block; }
   footer {
     margin: -40px 0 0 0; }
   section {
@@ -527,6 +605,8 @@ section {
   .site-container {
     margin: 30px auto 0 auto;
     max-width: 1320px; }
-  header .header-content:not(.video-header) {
+  header .header-content:not(.video-header):not(.hero-header) {
     width: 70%;
-    max-width: 900px; } }
+    max-width: 900px; }
+  header .header-content .hero .header-text {
+    padding: 40px 20% 40px 40px; } }
