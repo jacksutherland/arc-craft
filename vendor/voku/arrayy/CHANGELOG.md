@@ -1,5 +1,12 @@
 # Changelog
 
+### 7.9.0 (2022-02-15)
+
+- remove "gitbook" from "dev-dependencies"
+- add "containsOnly()"
+- add "getBackwardsGenerator()"
+- add "reverseKeepIndex()"
+
 ### 7.8.14 (2021-12-21)
 
 - add more support for Generics + phpstan checks

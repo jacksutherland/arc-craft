@@ -147,7 +147,6 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
             return $this->array[$key] ?? false;
         }
 
-        /** @noinspection PhpUnnecessaryLocalVariableInspection - hack for phpstan */
         /** @var array<TKey,T> $return */
         $return = $this->toArray();
 
@@ -1425,6 +1424,46 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
      * Check if an item is in the current array.
      *
      * EXAMPLE: <code>
+     * a([1, true])->containsOnly(true); // false
+     * </code>
+     *
+     * @param float|int|string $value
+     * @param bool             $recursive
+     * @param bool             $strict
+     *
+     * @return bool
+     * @psalm-mutation-free
+     */
+    public function containsOnly($value, bool $recursive = false, bool $strict = true): bool
+    {
+        if ($recursive === true) {
+            return $this->in_array_recursive($value, $this->toArray(), $strict);
+        }
+
+        /** @noinspection PhpParameterByRefIsNotUsedAsReferenceInspection */
+        $tmpCount = 0;
+        foreach ($this->getGeneratorByReference() as &$valueFromArray) {
+            $tmpCount++;
+
+            if ($strict) {
+                if ($value !== $valueFromArray) {
+                    return false;
+                }
+            } else {
+                /** @noinspection NestedPositiveIfStatementsInspection */
+                if ($value != $valueFromArray) {
+                    return false;
+                }
+            }
+        }
+
+        return $tmpCount !== 0;
+    }
+
+    /**
+     * Check if an item is in the current array.
+     *
+     * EXAMPLE: <code>
      * a([1, true])->contains(true); // true
      * </code>
      *
@@ -2009,7 +2048,6 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
     {
         $this->generatorToArray();
 
-        /* @phpstan-ignore-next-line | false-positive for "callable((int|string), (int|string)): int" vs. "callable(TKey of (int|string), TKey of (int|string)): int" */
         \uksort($this->array, $callable);
 
         return $this;
@@ -2039,7 +2077,6 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
 
         /**
          * @psalm-suppress ImpureFunctionCall - object is already cloned
-         * @phpstan-ignore-next-line | false-positive for "callable((int|string), (int|string)): int" vs. "callable(TKey of (int|string), TKey of (int|string)): int"
          */
         \uksort($that->array, $callable);
 
@@ -3101,7 +3138,6 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
      */
     public function getAll(): array
     {
-        /** @noinspection PhpUnnecessaryLocalVariableInspection - hack for phpstan */
         /** @var array<TKey,T> $return */
         $return = $this->toArray();
 
@@ -3321,6 +3357,19 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
         }
 
         yield from $this->array;
+    }
+
+    /**
+     * Get the current array from the "Arrayy"-object as generator.
+     *
+     * @return \Generator
+     *
+     * @phpstan-return \Generator<mixed,T>|\Generator<TKey,T>
+     * @psalm-mutation-free
+     */
+    public function getBackwardsGenerator(): \Generator
+    {
+        yield from $this->reverseKeepIndex();
     }
 
     /**
@@ -3951,7 +4000,7 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
      * @phpstan-return array<TKey,T>
      */
     public function jsonSerialize(): array
-    {        /** @noinspection PhpUnnecessaryLocalVariableInspection - hack for phpstan */
+    {
         /** @var array<TKey,T> $return */
         $return = $this->toArray();
 
@@ -5934,7 +5983,7 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
      * Return the array in the reverse order.
      *
      * EXAMPLE: <code>
-     * a([1, 2, 3])->reverse(); // self[3, 2, 1]
+     * a([1 => 1, 2 => 2, 3 => 3])->reverse(); // self[3, 2, 1]
      * </code>
      *
      * @return $this
@@ -5947,6 +5996,27 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
         $this->generatorToArray();
 
         $this->array = \array_reverse($this->array);
+
+        return $this;
+    }
+
+    /**
+     * Return the array with keys in the reverse order.
+     *
+     * EXAMPLE: <code>
+     * a([1 => 1, 2 => 2, 3 => 3])->reverse(); // self[3 => 3, 2 => 2, 1 => 1]
+     * </code>
+     *
+     * @return $this
+     *               <p>(Mutable) Return this Arrayy object.</p>
+     *
+     * @phpstan-return static<TKey,T>
+     */
+    public function reverseKeepIndex(): self
+    {
+        $this->generatorToArray();
+
+        $this->array = \array_reverse($this->array, true);
 
         return $this;
     }
@@ -7700,7 +7770,6 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
 
             if ($path !== false) {
                 // crawl though the keys
-                /** @noinspection SlowArrayOperationsInLoopInspection */
                 while (\count($path, \COUNT_NORMAL) > 1) {
                     $key = \array_shift($path);
 
@@ -7770,7 +7839,6 @@ class Arrayy extends \ArrayObject implements \IteratorAggregate, \ArrayAccess, \
 
             if ($path !== false) {
                 // crawl through the keys
-                /** @noinspection SlowArrayOperationsInLoopInspection */
                 while (\count($path, \COUNT_NORMAL) > 1) {
                     $key = \array_shift($path);
 

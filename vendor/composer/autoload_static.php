@@ -250,9 +250,9 @@ class ComposerStaticInitc82a56f179250493275d9d1e30881353
         ),
         'voku\\helper\\' => 
         array (
-            0 => __DIR__ . '/..' . '/voku/anti-xss/src/voku/helper',
-            1 => __DIR__ . '/..' . '/voku/email-check/src/voku/helper',
-            2 => __DIR__ . '/..' . '/voku/urlify/src/voku/helper',
+            0 => __DIR__ . '/..' . '/voku/email-check/src/voku/helper',
+            1 => __DIR__ . '/..' . '/voku/urlify/src/voku/helper',
+            2 => __DIR__ . '/..' . '/voku/anti-xss/src/voku/helper',
         ),
         'voku\\' => 
         array (

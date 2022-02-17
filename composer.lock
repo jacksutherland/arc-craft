@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17a1a93358d2bb6dc86d6837d6089748",
+    "content-hash": "f745ed19df1194c63fc190af17432894",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -392,11 +392,11 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "3.7.32",
+            "version": "3.7.33",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/78b6a0d9d5a36f9c2ea54e7a3ad620946a17ab46",
-                "reference": "78b6a0d9d5a36f9c2ea54e7a3ad620946a17ab46",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/06933a80b3b1cfd32555c4a13dd9186aaf309404",
+                "reference": "06933a80b3b1cfd32555c4a13dd9186aaf309404",
                 "shasum": ""
             },
             "require": {
@@ -406,7 +406,7 @@
                 "craftcms/server-check": "~1.2.0",
                 "creocoder/yii2-nested-sets": "~0.9.0",
                 "elvanto/litemoji": "^3.0.1",
-                "enshrined/svg-sanitize": "~0.14.0",
+                "enshrined/svg-sanitize": "~0.15.2",
                 "ext-curl": "*",
                 "ext-dom": "*",
                 "ext-json": "*",
@@ -427,8 +427,8 @@
                 "true/punycode": "^2.1.1",
                 "twig/twig": "~2.14.3",
                 "voku/stringy": "^6.4.0",
-                "webonyx/graphql-php": "~14.4.1",
-                "yiisoft/yii2": "~2.0.44.0",
+                "webonyx/graphql-php": "~14.11.5",
+                "yiisoft/yii2": "~2.0.45.0",
                 "yiisoft/yii2-debug": "^2.1.16",
                 "yiisoft/yii2-queue": "~2.3.2",
                 "yiisoft/yii2-swiftmailer": "^2.1.2"
@@ -480,15 +480,15 @@
                 "docs": "https://craftcms.com/docs/3.x/",
                 "rss": "https://github.com/craftcms/cms/releases.atom"
             },
-            "time": "2022-02-09T17:21:16+00:00"
+            "time": "2022-02-15T18:04:11+00:00"
         },
         {
             "name": "craftcms/html-field",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/html-field/zipball/8070d78ed621e7f5b5919b6d98d6cdeb91b3db15",
-                "reference": "8070d78ed621e7f5b5919b6d98d6cdeb91b3db15",
+                "url": "https://api.github.com/repos/craftcms/html-field/zipball/d8ae4e3e4862a008ce50589eb7c90caf4fc0e2a2",
+                "reference": "d8ae4e3e4862a008ce50589eb7c90caf4fc0e2a2",
                 "shasum": ""
             },
             "require": {
@@ -517,7 +517,7 @@
                 "docs": "https://github.com/craftcms/html-field/blob/main/README.md",
                 "rss": "https://github.com/craftcms/html-field/commits/main.atom"
             },
-            "time": "2022-02-11T20:44:07+00:00"
+            "time": "2022-02-16T09:33:08+00:00"
         },
         {
             "name": "craftcms/oauth2-craftid",
@@ -597,11 +597,11 @@
         },
         {
             "name": "craftcms/redactor",
-            "version": "2.10.0",
+            "version": "2.10.2",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/redactor/zipball/453849dca051258b34351ec6a46096a1c50ae610",
-                "reference": "453849dca051258b34351ec6a46096a1c50ae610",
+                "url": "https://api.github.com/repos/craftcms/redactor/zipball/2cf54b2e99dfb472789eb8ab026c01855c61bdd0",
+                "reference": "2cf54b2e99dfb472789eb8ab026c01855c61bdd0",
                 "shasum": ""
             },
             "require": {
@@ -643,7 +643,7 @@
                 "docs": "https://github.com/craftcms/redactor/blob/v2/README.md",
                 "rss": "https://github.com/craftcms/redactor/commits/v2.atom"
             },
-            "time": "2022-02-11T20:57:18+00:00"
+            "time": "2022-02-17T13:45:27+00:00"
         },
         {
             "name": "craftcms/server-check",
@@ -883,11 +883,11 @@
         },
         {
             "name": "enshrined/svg-sanitize",
-            "version": "0.14.1",
+            "version": "0.15.3",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/307b42066fb0b76b5119f5e1f0826e18fefabe95",
-                "reference": "307b42066fb0b76b5119f5e1f0826e18fefabe95",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/50c0f86ab08d8f3a986ac4f57874492a22171708",
+                "reference": "50c0f86ab08d8f3a986ac4f57874492a22171708",
                 "shasum": ""
             },
             "require": {
@@ -911,7 +911,7 @@
                 }
             ],
             "description": "An SVG sanitizer for PHP",
-            "time": "2021-08-09T23:46:54+00:00"
+            "time": "2022-02-16T19:59:46+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -3645,11 +3645,11 @@
         },
         {
             "name": "voku/anti-xss",
-            "version": "4.1.36",
+            "version": "4.1.37",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/anti-xss/zipball/0d8f17f7298a6ffa7bc30b01e44f10e8a7460322",
-                "reference": "0d8f17f7298a6ffa7bc30b01e44f10e8a7460322",
+                "url": "https://api.github.com/repos/voku/anti-xss/zipball/728e158427a263917f33b0a29eb75d866bd18d17",
+                "reference": "728e158427a263917f33b0a29eb75d866bd18d17",
                 "shasum": ""
             },
             "require": {
@@ -3689,15 +3689,15 @@
                 "security",
                 "xss"
             ],
-            "time": "2022-01-27T07:19:19+00:00"
+            "time": "2022-02-15T01:57:51+00:00"
         },
         {
             "name": "voku/arrayy",
-            "version": "7.8.14",
+            "version": "7.9.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/Arrayy/zipball/c0e81f658abde496422441f7659c13055e8e021a",
-                "reference": "c0e81f658abde496422441f7659c13055e8e021a",
+                "url": "https://api.github.com/repos/voku/Arrayy/zipball/8c56970123b8c6d62d3583f0ba1eb6846b62d913",
+                "reference": "8c56970123b8c6d62d3583f0ba1eb6846b62d913",
                 "shasum": ""
             },
             "require": {
@@ -3708,12 +3708,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Arrayy\\": "src/"
-                },
                 "files": [
                     "src/Create.php"
-                ]
+                ],
+                "psr-4": {
+                    "Arrayy\\": "src/"
+                }
             },
             "license": [
                 "MIT"
@@ -3736,7 +3736,7 @@
                 "utility",
                 "utils"
             ],
-            "time": "2021-12-21T19:47:30+00:00"
+            "time": "2022-02-15T10:43:00+00:00"
         },
         {
             "name": "voku/email-check",
@@ -4081,17 +4081,17 @@
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v14.4.1",
+            "version": "v14.11.5",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/769a47401f8cbc5f357ea4d05e0191e35a011b0f",
-                "reference": "769a47401f8cbc5f357ea4d05e0191e35a011b0f",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/ffa431c0821821839370a68dab3c2597c06bf7f0",
+                "reference": "ffa431c0821821839370a68dab3c2597c06bf7f0",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": "^7.1||^8.0"
+                "php": "^7.1 || ^8"
             },
             "suggest": {
                 "psr/http-message": "To use standard GraphQL server",
@@ -4112,15 +4112,15 @@
                 "api",
                 "graphql"
             ],
-            "time": "2021-01-23T09:55:10+00:00"
+            "time": "2022-01-24T11:13:31+00:00"
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.44",
+            "version": "2.0.45",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/fa89647a2d2c5de1c12c65eb94084404f52a6059",
-                "reference": "fa89647a2d2c5de1c12c65eb94084404f52a6059",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e2223d4085e5612aa616635f8fcaf478607f62e8",
+                "reference": "e2223d4085e5612aa616635f8fcaf478607f62e8",
                 "shasum": ""
             },
             "require": {
@@ -4175,7 +4175,7 @@
                 {
                     "name": "Carsten Brandt",
                     "email": "mail@cebe.cc",
-                    "homepage": "https://cebe.cc/",
+                    "homepage": "https://www.cebe.cc/",
                     "role": "Core framework development"
                 },
                 {
@@ -4207,7 +4207,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2021-12-30T07:50:56+00:00"
+            "time": "2022-02-11T13:12:40+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
