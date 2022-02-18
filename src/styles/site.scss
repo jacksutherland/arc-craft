@@ -143,9 +143,9 @@ header {
 		margin: 0 0 0 -40px;
 		transform: translate(-15px, -15px);
 		transition: .3s ease background-color;
-		background-color: darken($antique, 4%);
+		background-color: $section-gray;
 		&:hover {
-			background-color: darken($antique, 8%);
+			background-color: darken($section-gray, 4%);
 			svg {
 				&.logo-svg-dark {
 					display: inline;
@@ -376,6 +376,13 @@ section {
 	background-color: $white;
 	padding: 20px;
 	margin: 18px 0;
+
+	&.gray {
+		background-color: $section-gray;
+		h6 {
+			color: darken($gray, 4%);
+		}
+	}
 
 	h6 {
 		color: $gray;
