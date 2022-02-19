@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1645205660
+dateModified: 1645243263
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -41,6 +41,7 @@ meta:
     47c70a85-ee2b-4cda-9f22-61d169683eef: Question # Question
     48bb2c0c-0428-4c66-976e-5479e326797f: 'Full Name' # Full Name
     62cd86b1-432f-48c9-adff-80dc0c3b7618: Text # Text
+    63aefb15-5541-4d42-9b2d-a7a699d21038: 'Show Hero TA Efx' # Show Hero TA Efx
     66d2f355-e393-4104-a86e-4486654c012c: Testimonials # Testimonials
     71bfb228-82c3-4116-9400-b6a0aae6c71d: Common # Common
     072b25f6-120f-442c-8d51-abc9c4fa310b: Subheading # Subheading
