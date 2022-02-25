@@ -67,7 +67,8 @@ a {
   transition: .3s ease background-color, .3s ease color;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600;
-  font-size: 0.9rem; }
+  font-size: 0.9rem;
+  border: none; }
   .btn:hover {
     background-color: #f9c13c;
     color: #ffffff; }
@@ -482,6 +483,21 @@ section {
         margin-top: -10px; }
         section .testimonials blockquote cite:before {
           content: "- "; }
+  section.gray form .input input[type="text"], section.gray form .input input[type="email"], section.gray form .input textarea {
+    background-color: #ffffff; }
+  section .centered-column {
+    width: 100%;
+    margin: 0 auto; }
+  section form .input input[type="text"], section form .input input[type="email"], section form .input input[type="password"], section form .input textarea {
+    border: none;
+    background-color: #f1f3f4;
+    border: none;
+    background-color: #f1f3f4;
+    padding: 10px 15px;
+    margin: 10px 0;
+    width: calc(100% - 30px);
+    font-family: "IBM Plex Sans", sans-serif;
+    font-size: 1rem; }
 
 @keyframes slide-in-blockquote {
   from {
@@ -497,6 +513,14 @@ section {
   to {
     transform: translateY(75%); } }
 
+@keyframes chart-anim {
+  from {
+    opacity: 1; }
+  25% {
+    opacity: 1; }
+  to {
+    opacity: 0.35; } }
+
 .candlestick-chart {
   height: 250px;
   position: absolute;
@@ -504,7 +528,9 @@ section {
   top: 104px;
   left: 0;
   right: 0;
-  display: none; }
+  display: none;
+  animation: chart-anim 10s ease-in-out  0.3s;
+  animation-fill-mode: forwards; }
 
 .bar-graph {
   height: 78%;
@@ -870,6 +896,29 @@ section {
     height: 35px; }
   section .testimonials blockquote img {
     margin: 20px; }
+  section .centered-column {
+    width: 600px;
+    margin: 0 auto; }
+  section form .inputs {
+    display: flex; }
+    section form .inputs .input {
+      width: 50%; }
+      section form .inputs .input:first-child {
+        padding-right: 10px; }
+      section form .inputs .input:last-child {
+        padding-left: 10px; }
+  section form.arc-form .submit {
+    margin-top: 15px; }
+  section form.arc-form input {
+    border: solid 2px transparent !important; }
+    section form.arc-form input.error {
+      border: solid 2px #f93c74 !important; }
+    section form.arc-form input + .error {
+      display: block;
+      font-size: 0.9rem;
+      color: #f93c74;
+      margin: -5px 0 5px 0;
+      font-weight: 600; }
   .candlestick-chart {
     top: 89px;
     display: block; } }

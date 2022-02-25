@@ -142,6 +142,12 @@ var DOMClass = function()
 			}
 		}
 
+		var forms = document.getElementsByClassName('arc-form');
+		if(forms.length)
+		{
+			this.initForms(forms);
+		}
+
 		this.addEvents();
 	}
 
@@ -168,6 +174,93 @@ var DOMClass = function()
 
 			dom.mobile.menu.show(!dom.mobile.menu.isOpen);
 		});
+	}
+
+	this.validateField = function(field)
+	{
+		var isValid = true;
+
+		console.log('validating ' + field.id + ' ' + field.classList.contains('error'));
+
+		if(field.classList.contains('error'))
+		{
+			field.classList.remove('error');
+			console.log((field.nextSibling != null) + ' ~ ' +  (typeof(field.nextSibling.classList) != 'undefined') + ' ~ ' +  field.nextSibling.classList.contains('error'));
+			if(field.nextSibling != null && typeof(field.nextSibling.classList) != 'undefined' && field.nextSibling.classList.contains('error'))
+			{
+				field.nextSibling.remove();
+			}
+		}
+
+		switch(field.dataset.validation)
+		{
+			case 'required':
+				if(field.value.trim().length == 0)
+				{
+					isValid = false;
+
+					if(!field.classList.contains('error'))
+					{
+						field.classList.add('error');
+						field.insertAdjacentHTML('afterend', '<span class="error">This field is required</span>');
+					}
+				}
+				break;
+			case 'email':
+				if(field.value.trim().length == 0 || field.value.indexOf('@') < 0)
+				{
+					isValid = false;
+
+					if(!field.classList.contains('error'))
+					{
+						field.classList.add('error');
+						field.insertAdjacentHTML('afterend', '<span class="error">This field is required</span>');
+					}
+				}
+				break;
+		}
+
+		return isValid;
+	}
+
+	this.initForms = function(forms)
+	{
+		for(i=0; i<forms.length; i++)
+		{
+			var formValidationFields = forms[i].querySelectorAll('[data-validation]');
+
+			for(ii=0; ii<formValidationFields.length; ii++)
+			{
+				formValidationFields[ii].addEventListener('keyup', function()
+				{
+					this.class.validateField(this.field);
+				}.bind({class:this,field:formValidationFields[ii]}));
+			}
+
+			forms[i].addEventListener('submit', function(e)
+			{
+				var isValid = true;
+
+				var validationFields = this.form.querySelectorAll('[data-validation]');
+
+				for(ii=0; ii<validationFields.length; ii++)
+				{
+					if(!this.class.validateField(validationFields[ii]))
+					{
+						isValid = false;
+					}
+				}
+
+				if(!isValid)
+				{
+					e.preventDefault();
+					return false;
+				}
+
+				
+			}.bind({class:this,form:forms[i]}));
+
+		}
 	}
 
 	this.init();

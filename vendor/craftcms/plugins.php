@@ -39,4 +39,25 @@ return array (
     'developerEmail' => 'support@craftcms.com',
     'documentationUrl' => 'https://github.com/craftcms/redactor/blob/v2/README.md',
   ),
+  'realitygems/arc' => 
+  array (
+    'class' => 'realitygems\\arc\\ARC',
+    'basePath' => $vendorDir . '/realitygems/arc/src',
+    'handle' => 'arc',
+    'aliases' => 
+    array (
+      '@realitygems/arc' => $vendorDir . '/realitygems/arc/src',
+    ),
+    'name' => 'ARC',
+    'version' => '1.0.0',
+    'description' => 'Custom Plugin for ARCollective Website',
+    'developer' => 'RealityGems',
+    'developerUrl' => 'https://realitygems.com',
+    'documentationUrl' => '???',
+    'changelogUrl' => '???',
+    'components' => 
+    array (
+      'member' => 'realitygems\\arc\\services\\Member',
+    ),
+  ),
 );

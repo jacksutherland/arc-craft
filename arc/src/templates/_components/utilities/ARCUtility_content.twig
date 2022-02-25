@@ -1,0 +1,24 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * ARC plugin for Craft CMS
+ *
+ * ARCUtility Utility Content
+ *
+ * @author    RealityGems
+ * @copyright Copyright (c) 2022 RealityGems
+ * @link      https://realitygems.com
+ * @package   ARC
+ * @since     1.0.0
+ */
+#}
+
+<h1>ARCUtility</h1>
+
+{% set iconUrl = view.getAssetManager().getPublishedUrl('@realitygems/arc/assetbundles/arcutilityutility/dist', true) ~ '/img/ARCUtility-icon.svg' %}
+
+<img src="{{ iconUrl }}" height="64" width="64" />
+
+<p>Your Utility content goes here</p>
+
+<p>{{ someVar }}</p>

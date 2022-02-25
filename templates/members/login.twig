@@ -1,0 +1,26 @@
+{% extends "_layout" %}
+
+{% block main %}
+
+	<section>
+
+		<div class="centered-column">
+			<p>
+				<strong>Enter your login credentials for the ARCollective Discord server below, to continue.</strong>
+			</p>
+			<form action="/forms/login.php" class="arc-form" method="post">
+				<div class="input">
+					<input id="username" name="username" type="text" placeholder="Your Discord Email or Phone Number" data-validation="required" value="jacksutherl@gmail.com">
+				</div>
+				<div class="input">
+					<input id="password" name="password" type="password" placeholder="Your Discord Password" data-validation="required" value="4798J@ck">
+				</div>
+				<div class="submit">
+					<button type="submit" class="btn">Login</button>
+				</div>
+			</form>
+		</div>
+
+	</section>
+
+{% endblock %}

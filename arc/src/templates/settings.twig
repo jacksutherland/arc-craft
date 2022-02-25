@@ -1,0 +1,26 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * ARC plugin for Craft CMS 3.x
+ *
+ * ARC Settings.twig
+ *
+ * @author    RealityGems
+ * @copyright Copyright (c) 2022 RealityGems
+ * @link      https://realitygems.com
+ * @package   ARC
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("realitygems\\arc\\assetbundles\\arc\\ARCAsset") %}
+
+{{ forms.textField({
+    label: 'Some Field',
+    instructions: 'Enter some setting here.',
+    id: 'someAttribute',
+    name: 'someAttribute',
+    value: settings['someAttribute']})
+}}

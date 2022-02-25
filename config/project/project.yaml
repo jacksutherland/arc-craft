@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1645243263
+dateModified: 1645761792
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -19,6 +19,8 @@ meta:
     2ea78735-a845-4b11-a906-a325a7a37107: 'Button Url' # Button Url
     2ef2b164-1222-4176-bd87-1a2a3d0d6ecd: Headline # Headline
     3a91bd2f-d148-42b5-b205-010411a1c630: Row # Row
+    3c74e095-d227-4704-9708-ae67e684af65: 'Discord Disclaimer Logged In' # Discord Disclaimer Logged In
+    4c348247-0ecb-4389-b9f1-e856fd18b890: 'Member Login' # Member Login
     4d8853c5-383a-4dd4-ac4f-4959c53c72cf: 'Team Member' # Team Member
     5a1b4f2d-e905-4f7a-bcbe-a8f5790de0f3: Heading # Heading
     5f87ce64-d18f-42b6-b23c-e46b4ea5f328: SEO # SEO
@@ -57,20 +59,31 @@ meta:
     99819b32-8085-40c1-b6ed-41917f1ffd45: Row # Row
     612018d3-1c01-4974-905d-6cc906a1411c: 'Background Color' # Background Color
     838189f7-84ba-4c29-a711-afa3985275ee: 'Team Members' # Team Members
+    1012925f-d152-4521-a359-63243c0463e7: 'Discord Disclaimer Logged Out' # Discord Disclaimer Logged Out
     5085023c-f7b7-44bc-bbf2-1b805fe4caa1: Text # Text
     44543445-5982-4b96-8559-7f7ab12c3bc5: Testimonials # Testimonials
     a0c315ee-2500-4055-a5ca-508ffeffc2f9: 'Hero Opacity' # Hero Opacity
     a32f71af-8b81-464c-aac9-7253ef262b35: 'Public Schema' # Public Schema
     a912d90c-fa3b-477d-b3d8-8d065bc91c70: 'Entry Url' # Entry Url
+    a935f869-833b-47b2-a85e-3034d9e152c5: 'Access Token' # Access Token
+    a220866b-41a8-4b1b-a39e-0f341ebbcb3e: 'Contact Form' # Contact Form
     ad785fa1-7b15-4051-b68d-32aa5adea227: Background # Background
     b087c804-ae38-4ea4-937f-c388c8defded: Hero # Hero
     b4d53e80-cbf1-46d9-bd49-c169d5fda614: 'Cite Url' # Cite Url
+    b8c5f4d4-1096-47a1-9bfe-89b428bf162b: Members # Members
+    b27dcca1-2272-4586-9e90-dc8edeb9dd12: 'Discord Redirect URL' # Discord Redirect URL
+    b902e77f-560a-4dc4-877f-5640197083da: Headline # Headline
+    b940508b-d12e-4beb-bd6c-772483de0b95: 'Member Login' # Member Login
+    b1627120-ecf2-4554-81bc-2612bec99e08: 'ARC Discord Server' # ARC Discord Server
     ba022a52-1157-476e-aa4c-fa5041af13e6: Pages # Pages
     bcfe901d-3453-43d5-8d3d-6892a479306a: Links # Links
+    bd003adf-f476-4f00-87ad-7b28d60bfa32: Members # Members
+    bf5376f9-47f0-4505-9f00-c7ec628fc26f: Discord # Discord
     c8ef7f6d-2a3e-490c-b241-44a86c4e9c1e: 'Button Text' # Button Text
     c9dd477c-7e6c-4b69-a23f-656ae4e7b561: Default # Default
     c98ac2b6-ea46-48bb-9d12-7e5979cb6df2: ARcollective # ARcollective
     c23775ba-fbcc-4465-bdbc-e4fec559bc09: Background # Background
+    ce3c525c-db81-42f6-baee-3cd44f31f2f6: 'Email Address' # Email Address
     d08a3668-eed0-4abc-bab4-725e93395c6a: 'SEO Image' # SEO Image
     db1ce1f6-00be-45f7-bcec-058dca7e5581: FAQ # FAQ
     db235c98-4588-4165-b4c9-c48e236a4054: Subheading # Subheading
@@ -78,19 +91,28 @@ meta:
     df1a5ffc-503e-4263-8ab7-1b77c4a2b781: 'SEO Title' # SEO Title
     e8bcb83f-93b1-4320-94bb-7691bfcd86cf: Subheading # Subheading
     e8cb4421-b984-4a73-8eed-c59d30a6fdf2: Headline # Headline
+    e9b1a920-836b-4e93-a379-5a9f92a3b891: 'Thank You Message' # Thank You Message
+    e583f2cb-5ad8-42d1-8fcc-b601384e0de9: Subheading # Subheading
+    e9198bbe-13e3-4703-88ac-c75e9d7ddd1c: 'Discord Users' # Discord Users
     e34616c9-44d4-407e-8d19-8db2693209ae: Brand # Brand
     ebd19ed3-4420-4f35-8597-38bcc010f64a: General # General
     eed349b7-b7d1-4481-b2aa-50450d4593bf: 'Brief Description' # Brief Description
-    f0210545-5a71-467e-a472-5d593677f9cd: Pages # Pages
+    ef7d8fb8-5782-4ff6-8cfe-4fd9c4701cb9: Integrations # Integrations
+    f0210545-5a71-467e-a472-5d593677f9cd: 'Public Pages' # Public Pages
     f8b6de26-7f33-486d-8c86-3f839b36e0cb: 'Show Header Graphic' # Show Header Graphic
     f40c6233-7dae-4ede-966f-6419bd8224ae: 'Image Blocks' # Image Blocks
     f797d81b-4502-40ab-a18b-42feae45e91b: Users # Users
+    fa338c2e-321c-429b-a262-85b596035c4e: Background # Background
     fc5c74b3-ce9f-4162-9f35-6cff3393fe28: Image # Image
     fc68ae56-c012-4234-a592-3916605f8ff9: Subheading # Subheading
     fcb2dad6-2b5e-47e4-a20e-81bd7add7975: Image # Image
     fdf1bdbd-f81c-4bce-b9ee-33f52271d38f: 'Entry Link' # Entry Link
     fec65a6a-d86b-4a95-b4a0-207732eef57b: 'Z Pattern' # Z Pattern
 plugins:
+  arc:
+    edition: standard
+    enabled: true
+    schemaVersion: 1.0.0
   redactor:
     edition: standard
     enabled: true

@@ -190,6 +190,33 @@
 
 			</section>
 
+		{% case "contactForm" %}
+			<section{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
+				{{ _self.sectionHeadings(module.subheading, module.headline) }}
+				<div class="centered-column">
+					<form action="">
+						<div class="inputs">
+							<div class="input">
+								<input id="firstname" name="firstname" type="text" placeholder="First Name">
+							</div>
+							<div class="input">
+								<input id="lastname" name="lastname" type="text" placeholder="Last Name">
+							</div>
+						</div>
+						<div class="input">
+							<input id="email" name="email" type="email" placeholder="Email">
+						</div>
+						<div class="input">
+							<textarea name="message" id="message" placeholder="Your Message"></textarea>
+						</div>
+						<div class="submit">
+							<button type="submit" class="btn">Send</button>
+						</div>
+					</form>
+				</div>
+			</section>
+
+
 	{% endswitch %}
 
 {% endfor %}

@@ -81,8 +81,8 @@ a {
 	font-family: $font-family-primary;
 	font-weight: $font-bold-primary;
 	font-size: $font-smaller; 
+	border: none;
 	&:hover {
-		// background-color: $black-pearl;
 		background-color: $saffron;
 		color: $white;
 	}
@@ -665,6 +665,37 @@ section {
 			}
 		}
 	}
+
+	&.gray {
+		form {
+			.input {
+				input[type="text"], input[type="email"], textarea {
+					background-color: $white;
+				}
+			}
+		}
+	}
+
+	.centered-column {
+		width: 100%;
+		margin: 0 auto;
+	}
+
+	form {
+		.input {
+			input[type="text"], input[type="email"], input[type="password"], textarea {
+				border: none;
+				background-color: $antique;
+				border: none;
+		    background-color: #f1f3f4;
+		    padding: 10px 15px;
+		    margin: 10px 0;
+		    width: calc(100% - 30px);
+		    font-family: $font-family-primary;
+		    font-size: 1rem;
+			}
+		}
+	}
 }
 
 @keyframes slide-in-blockquote
@@ -692,17 +723,17 @@ section {
 
 
 
-
-
-// .candlestick-chart {
-// 	height: 250px;
-//     position: absolute;
-//     z-index: 100;
-//     top: 104px;
-//     left: 0;
-//     right: 0;
-// }
-
+@keyframes chart-anim {
+  from {
+    opacity: 1;
+  }
+  25% {
+  	opacity: 1;
+  }
+  to {
+    opacity: 0.35;
+  }
+}
 
 
 .candlestick-chart {
@@ -713,6 +744,8 @@ section {
 	left: 0;
 	right: 0;
 	display: none;
+	animation: chart-anim 10s ease-in-out  0.3s;
+  animation-fill-mode: forwards;
 }
 
 .bar-graph {
@@ -1091,7 +1124,7 @@ section {
 
 
 
-
+// MEDIA QUERIES
 
 
 
@@ -1219,6 +1252,46 @@ section {
 				}
 			}
 		}
+
+		.centered-column {
+			width: 600px;
+			margin: 0 auto;
+		}
+
+		form {
+			.inputs {
+				display: flex;
+				.input {
+					width: 50%;
+					&:first-child {
+						padding-right: 10px;
+					}
+					&:last-child {
+						padding-left: 10px;
+					}
+				}
+			}
+
+			&.arc-form {
+				.submit {
+					margin-top: 15px;
+				}
+				input {
+					border: solid 2px transparent !important;
+					&.error {
+						border: solid 2px $red !important;
+					}
+					&+.error {
+						display: block;
+						font-size: $font-smaller;
+						color: $red;
+						margin: -5px 0 5px 0;
+						font-weight: $font-bold-primary;
+					}
+				}
+			}
+		}
+
 	}
 
 

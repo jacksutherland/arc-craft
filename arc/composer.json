@@ -1,0 +1,44 @@
+{
+    "name": "realitygems/arc",
+    "description": "Custom Plugin for ARCollective Website",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "arc"
+    ],
+    "support": {
+        "docs": "???",
+        "issues": "???"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "RealityGems",
+            "homepage": "https://realitygems.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "realitygems\\arc\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "ARC",
+        "handle": "arc",
+        "developer": "RealityGems",
+        "developerUrl": "https://realitygems.com",
+        "documentationUrl": "???",
+        "changelogUrl": "???",
+        "components": {
+            "member": "realitygems\\arc\\services\\Member"
+        },
+        "class": "realitygems\\arc\\ARC"
+    }
+}
