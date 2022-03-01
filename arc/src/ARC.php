@@ -112,7 +112,7 @@ class ARC extends Plugin
         Event::on(CraftVariable::class,CraftVariable::EVENT_INIT,function(Event $e)
         {
             $variable = $e->sender;
-            $variable -> set('arc', ArcVariable::class);
+            $variable -> set('arc', ARCVariable::class);
         });
 
         // Register our site routes
@@ -151,7 +151,7 @@ class ARC extends Plugin
             function (Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
-                $variable->set('aRC', ArcVariable::class);
+                $variable->set('aRC', ARCVariable::class);
             }
         );
 
