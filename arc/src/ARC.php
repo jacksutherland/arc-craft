@@ -11,7 +11,7 @@
 namespace realitygems\arc;
 
 use realitygems\arc\services\ArcService as ArcService;
-use realitygems\arc\variables\ArcVariable as ARCVariable;
+use realitygems\arc\variables\ArcVariable;
 use realitygems\arc\twigextensions\ARCTwigExtension;
 use realitygems\arc\models\Settings;
 use realitygems\arc\utilities\ARCUtility as ARCUtilityUtility;
@@ -112,7 +112,7 @@ class ARC extends Plugin
         Event::on(CraftVariable::class,CraftVariable::EVENT_INIT,function(Event $e)
         {
             $variable = $e->sender;
-            $variable -> set('arc', ARCVariable::class);
+            $variable -> set('arc', ArcVariable::class);
         });
 
         // Register our site routes
