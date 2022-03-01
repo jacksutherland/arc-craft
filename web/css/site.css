@@ -519,7 +519,7 @@ section {
   25% {
     opacity: 1; }
   to {
-    opacity: 0.35; } }
+    opacity: 0.5; } }
 
 .candlestick-chart {
   height: 250px;
