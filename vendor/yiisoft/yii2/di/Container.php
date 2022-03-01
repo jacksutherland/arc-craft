@@ -498,10 +498,6 @@ class Container extends Component
      */
     protected function getDependencies($class)
     {
-        echo 'getDependencies<br>';
-        echo $class;
-        die();
-
         if (isset($this->_reflections[$class])) {
             return [$this->_reflections[$class], $this->_dependencies[$class]];
         }
@@ -510,6 +506,9 @@ class Container extends Component
         try {
             $reflection = new ReflectionClass($class);
         } catch (\ReflectionException $e) {
+            echo 'getDependencies<br>';
+            echo $class;
+            die();
             throw new NotInstantiableException(
                 $class,
                 'Failed to instantiate component or class "' . $class . '".',
