@@ -503,6 +503,8 @@ class Container extends Component
         }
 
         $dependencies = [];
+        echo 'getDependencies<br>';
+            echo $class;
         try {
             $reflection = new ReflectionClass($class);
         } catch (\ReflectionException $e) {
