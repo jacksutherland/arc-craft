@@ -10,8 +10,8 @@
 
 namespace realitygems\arc\variables;
 
-use realitygems\arc\ARC;
 use Craft;
+use realitygems\arc\ARC;
 
 class ArcVariable
 {

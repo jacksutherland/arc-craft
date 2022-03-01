@@ -498,6 +498,10 @@ class Container extends Component
      */
     protected function getDependencies($class)
     {
+        echo 'getDependencies<br>';
+        echo $class;
+        die();
+
         if (isset($this->_reflections[$class])) {
             return [$this->_reflections[$class], $this->_dependencies[$class]];
         }
