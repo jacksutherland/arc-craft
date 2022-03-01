@@ -1,4 +1,7 @@
 <?php
+
+composer dumpautoload;
+
 /**
  * ARC plugin for Craft CMS 3.x
  *
