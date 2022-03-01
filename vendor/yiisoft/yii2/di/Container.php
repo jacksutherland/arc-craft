@@ -503,14 +503,14 @@ class Container extends Component
         }
 
         $dependencies = [];
-        echo 'getDependencies<br>';
-            echo $class;
+        // echo 'getDependencies<br>';
+        //     echo $class;
         try {
             $reflection = new ReflectionClass($class);
         } catch (\ReflectionException $e) {
-            echo 'getDependencies<br>';
-            echo $class;
-            die();
+            // echo 'getDependencies<br>';
+            // echo $class;
+            // die();
             throw new NotInstantiableException(
                 $class,
                 'Failed to instantiate component or class "' . $class . '".',

@@ -151,7 +151,7 @@ class ARC extends Plugin
             function (Event $event) {
                 /** @var CraftVariable $variable */
                 $variable = $event->sender;
-                $variable->set('aRC', ARCVariable::class);
+                $variable->set('aRC', ArcVariable::class);
             }
         );
 
