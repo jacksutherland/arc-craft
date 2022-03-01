@@ -47,7 +47,7 @@
 						<div class="col">
 							{% if member.photo | length %}
 								{% if member.links | length %}
-									<a href="{{ member.links[0].url }}" class="prof-pic" title="{{ name }}">
+									<a href="{{ member.links[0].url }}" class="prof-pic" title="{{ name }}" target="_blank">
 										<img src="{{ member.photo.url }}" alt="{{ name }}">
 									</a>
 								{% else %}
