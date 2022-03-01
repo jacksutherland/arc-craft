@@ -11,7 +11,7 @@
 namespace realitygems\arc;
 
 use realitygems\arc\services\ArcService as ArcService;
-use realitygems\arc\variables\ArcVariable;
+use realitygems\arc\variables\ArcVariable as ARCVariable;
 use realitygems\arc\twigextensions\ARCTwigExtension;
 use realitygems\arc\models\Settings;
 use realitygems\arc\utilities\ARCUtility as ARCUtilityUtility;
