@@ -26,7 +26,7 @@ class MembersController extends Controller
         $service = ARC::$plugin->arcService;
 
         $result = 'Not Logged In';
-        $duser = null;
+        $arcMember = null;
 
         Craft::$app->getSession()->set('isLoggedIn', false);
 
@@ -48,8 +48,9 @@ class MembersController extends Controller
             {
                 Craft::$app->getSession()->set('isLoggedIn', true);
 
-                $result = 'Logged In!<br><br>Got access token: ' . $this->session('access_token');
-                $duser = $service->getDiscordUser();
+                $arcMember = $service->getArcMemberFromApi();
+
+                $result = $this->session('access_token');
             }
             else
             {
@@ -75,7 +76,7 @@ class MembersController extends Controller
             [
                'entry' => $entry,
                'result' => $result,
-               'duser' => $duser
+               'arcMember' => $arcMember
             ]
         );
     }

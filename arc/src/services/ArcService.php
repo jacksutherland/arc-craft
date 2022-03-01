@@ -10,9 +10,16 @@
 
 namespace realitygems\arc\services;
 
-use realitygems\arc\ARC;
 use Craft;
+
 use craft\base\Component;
+use craft\helpers\DateTimeHelper;
+use craft\helpers\StringHelper;
+use craft\helpers\Db;
+
+use realitygems\arc\ARC;
+use realitygems\arc\models\ArcMember;
+use realitygems\arc\records\ArcMemberRecord;
 
 define('ARC_GUILD_ID', '926998325213925427');
 
@@ -101,9 +108,36 @@ class ArcService extends Component
         return $discordGlobalGroup->discordRedirectUrl;
     }
 
-    public function getDiscordUser()
+    public function getArcMemberFromApi()
     {
-        return $this->apiRequest(API_USER_URL);
+        $apiUser = $this->apiRequest(API_USER_URL);
+
+        if(isset($apiUser) && property_exists($apiUser, 'id'))
+        {
+            // echo 'in if <br>';
+            // print_r($apiUser);
+            // die();
+
+            $record = ArcMemberRecord::findOne(['discordId' => $apiUser->id]);
+
+            // Add member record to DB if not exists
+
+            if($record == null)
+            {
+                $record = new ArcMemberRecord();
+                $record->uid = StringHelper::UUID();
+                $record->siteId = Craft::$app->getSites()->getCurrentSite()->id;
+                $record->dateUpdated = Db::prepareValueForDb(new \DateTime());
+                $record->discordId = $apiUser->id;
+                $record->discordUsername = $apiUser->username;
+                $record->discordEmail = $apiUser->email;
+                $record->save(false);
+            }
+
+            return new ArcMember($record);
+        }
+        
+        return null;
     }
 
     public function getDiscordUserGuilds()

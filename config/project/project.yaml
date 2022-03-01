@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1645761792
+dateModified: 1645823207
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -10,6 +10,7 @@ meta:
     0af355c3-8627-488e-a24f-ef9a3a86d4c4: ARcollective # ARcollective
     0c92ded2-8134-4b05-9d7e-7a79a7966718: Author # Author
     0f2da3f3-bd8c-43ad-b288-b2951e47b25b: Subheading # Subheading
+    1aae4875-1edf-4d80-bd58-40068bbc1a62: Courses # Courses
     1b8c2218-3ecf-46a1-8daf-1e0dbf702fe1: 'Show In Menu' # Show In Menu
     01ce7b54-e762-432f-886c-7799f199c071: Subheading # Subheading
     1eeed1a4-2094-4263-bee2-cf5a36e6dff1: 'Button Link' # Button Link
@@ -20,7 +21,6 @@ meta:
     2ef2b164-1222-4176-bd87-1a2a3d0d6ecd: Headline # Headline
     3a91bd2f-d148-42b5-b205-010411a1c630: Row # Row
     3c74e095-d227-4704-9708-ae67e684af65: 'Discord Disclaimer Logged In' # Discord Disclaimer Logged In
-    4c348247-0ecb-4389-b9f1-e856fd18b890: 'Member Login' # Member Login
     4d8853c5-383a-4dd4-ac4f-4959c53c72cf: 'Team Member' # Team Member
     5a1b4f2d-e905-4f7a-bcbe-a8f5790de0f3: Heading # Heading
     5f87ce64-d18f-42b6-b23c-e46b4ea5f328: SEO # SEO
@@ -33,6 +33,7 @@ meta:
     7ce01c57-54ab-4c5b-9144-32aa9a366388: 'Page Module' # Page Module
     7fe618d0-2ed1-473c-accb-5e033d31375b: Background # Background
     8cc02aed-a60e-473c-940f-b0003e752168: Users # Users
+    09e5065c-8f6f-4214-8d35-10584efc0113: Question # Question
     13aab69a-664e-4ddd-b553-1d1aefbcf928: Testimonial # Testimonial
     13c62774-97b7-4ffd-8584-b54ffe0d7e22: 'Button Text' # Button Text
     15e47647-90bf-460e-9e3c-ff09de4a920a: 'Button Link' # Button Link
@@ -44,19 +45,24 @@ meta:
     48bb2c0c-0428-4c66-976e-5479e326797f: 'Full Name' # Full Name
     62cd86b1-432f-48c9-adff-80dc0c3b7618: Text # Text
     63aefb15-5541-4d42-9b2d-a7a699d21038: 'Show Hero TA Efx' # Show Hero TA Efx
+    065e7c8a-b841-45c3-977c-65c4f934ee09: Answers # Answers
     66d2f355-e393-4104-a86e-4486654c012c: Testimonials # Testimonials
     71bfb228-82c3-4116-9400-b6a0aae6c71d: Common # Common
     072b25f6-120f-442c-8d51-abc9c4fa310b: Subheading # Subheading
     77f330f8-fce3-4e35-b976-154654f3b9c5: Screenshot # Screenshot
+    83f0ebf3-c871-48ea-bbb8-93184bb94818: 'Quiz Module' # Quiz Module
     271f4e08-2a6c-4cff-811d-3e18f71d1fb4: Background # Background
     275c57e1-8ffe-42e7-8da0-6955b10815b4: Headline # Headline
     286db281-2cd4-4677-a437-18010012892e: Subheading # Subheading
+    381ab349-80d7-4368-a55c-cf8abf6a0834: Courses # Courses
     683ddb4e-7ae5-4908-85c9-a397f8a15a98: Headline # Headline
     780b1119-287d-423f-a386-c8aea1460d68: Headline # Headline
+    849c5c01-5c8d-43ad-a0a3-d81ae86663f7: 'YouTube Video ID' # YouTube Video ID
     874cfa68-1413-4781-964c-6d712db0dcd1: Headline # Headline
     4412b729-dc77-4a1f-9afd-6ce2e18d866e: 'Rich Text' # Rich Text
     93938fc4-00e1-4b6b-8bc8-3fd89a6e4b27: 'Z Pattern' # Z Pattern
     99819b32-8085-40c1-b6ed-41917f1ffd45: Row # Row
+    431440c4-ce35-4094-9b40-f91bbdd8f7df: 'Multiple Choice' # Multiple Choice
     612018d3-1c01-4974-905d-6cc906a1411c: 'Background Color' # Background Color
     838189f7-84ba-4c29-a711-afa3985275ee: 'Team Members' # Team Members
     1012925f-d152-4521-a359-63243c0463e7: 'Discord Disclaimer Logged Out' # Discord Disclaimer Logged Out
@@ -64,6 +70,7 @@ meta:
     44543445-5982-4b96-8559-7f7ab12c3bc5: Testimonials # Testimonials
     a0c315ee-2500-4055-a5ca-508ffeffc2f9: 'Hero Opacity' # Hero Opacity
     a32f71af-8b81-464c-aac9-7253ef262b35: 'Public Schema' # Public Schema
+    a70fe35c-1ccf-4f01-8882-92a3e80ebf42: Default # Default
     a912d90c-fa3b-477d-b3d8-8d065bc91c70: 'Entry Url' # Entry Url
     a935f869-833b-47b2-a85e-3034d9e152c5: 'Access Token' # Access Token
     a220866b-41a8-4b1b-a39e-0f341ebbcb3e: 'Contact Form' # Contact Form
@@ -73,7 +80,6 @@ meta:
     b8c5f4d4-1096-47a1-9bfe-89b428bf162b: Members # Members
     b27dcca1-2272-4586-9e90-dc8edeb9dd12: 'Discord Redirect URL' # Discord Redirect URL
     b902e77f-560a-4dc4-877f-5640197083da: Headline # Headline
-    b940508b-d12e-4beb-bd6c-772483de0b95: 'Member Login' # Member Login
     b1627120-ecf2-4554-81bc-2612bec99e08: 'ARC Discord Server' # ARC Discord Server
     ba022a52-1157-476e-aa4c-fa5041af13e6: Pages # Pages
     bcfe901d-3453-43d5-8d3d-6892a479306a: Links # Links
@@ -113,6 +119,10 @@ plugins:
     edition: standard
     enabled: true
     schemaVersion: 1.0.0
+  reasons:
+    edition: standard
+    enabled: true
+    schemaVersion: 2.1.1
   redactor:
     edition: standard
     enabled: true

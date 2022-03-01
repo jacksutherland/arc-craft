@@ -25,7 +25,7 @@
 
 		{% case "richText" %}
 
-			<section class="rich-text{% if module.background is defined %} {{ module.background }}{% endif %}">
+			<section id="section-{{ loop.index }}" class="rich-text{% if module.background is defined %} {{ module.background }}{% endif %}">
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 				{{ module.richText }}
 				{{ _self.ctaButton(module.buttonText, module.buttonLink, module.buttonUrl) }}
@@ -33,7 +33,7 @@
 
 		{% case "teamMembers" %}
 
-			<section class="team-members{% if module.background is defined %} {{ module.background }}{% endif %}">
+			<section id="section-{{ loop.index }}" class="team-members{% if module.background is defined %} {{ module.background }}{% endif %}">
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 				<div class="four-col">
 					{% for member in module.users.status(null) %}
@@ -77,7 +77,7 @@
 
 		{% case "imageBlocks" %}
 
-			<section{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
+			<section id="section-{{ loop.index }}"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 
 				<div class="three-col">
@@ -104,7 +104,7 @@
 
 		{% case "zPattern" %}
 
-			<section{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
+			<section id="section-{{ loop.index }}"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 
 				{% for row in module.row %}
@@ -137,7 +137,7 @@
 
 		{% case "testimonials" %}
 
-			<section style="overflow:hidden;"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
+			<section id="section-{{ loop.index }}" style="overflow:hidden;"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 
 				<div class="testimonials">
@@ -172,7 +172,7 @@
 
 		{% case "faq" %}
 
-			<section{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
+			<section id="section-{{ loop.index }}"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 
 				<dl class="faq">
@@ -191,7 +191,7 @@
 			</section>
 
 		{% case "contactForm" %}
-			<section{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
+			<section id="section-{{ loop.index }}"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 				<div class="centered-column">
 					<form action="">

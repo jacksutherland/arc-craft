@@ -1,0 +1,19 @@
+{% set courses = craft.entries.section('courses') %}
+
+<h6>Discord Server Integration</h6>
+<h3>Welcome {{ arcMember.discordUsername }}!</h3>
+
+<dl>
+	{% for course in courses.all() %}
+		<dt>
+			<a href="{{ course.url }}">{{ course.title }}</a>
+		</dt>
+	{% endfor %}
+</dl>
+
+<ul>
+	<li><strong>Discord User ID:</strong> {{ arcMember.discordId }}</li>
+	<li><strong>Discord Username:</strong> {{ arcMember.discordUsername }}</li>
+	<li><strong>Discord User Email:</strong> {{ arcMember.discordEmail }}</li>
+	<li><strong>Discord Access Token:</strong> {{ result }}</li>
+</ul>

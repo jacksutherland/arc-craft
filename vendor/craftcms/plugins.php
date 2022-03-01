@@ -60,4 +60,21 @@ return array (
       'member' => 'realitygems\\arc\\services\\Member',
     ),
   ),
+  'mmikkel/reasons' => 
+  array (
+    'class' => 'mmikkel\\reasons\\Reasons',
+    'basePath' => $vendorDir . '/mmikkel/reasons/src',
+    'handle' => 'reasons',
+    'aliases' => 
+    array (
+      '@mmikkel/reasons' => $vendorDir . '/mmikkel/reasons/src',
+    ),
+    'name' => 'Reasons',
+    'version' => '2.2.6',
+    'description' => 'Adds conditionals to field layouts.',
+    'developer' => 'Mats Mikkel Rummelhoff',
+    'developerUrl' => 'https://vaersaagod.no',
+    'documentationUrl' => 'https://github.com/mmikkel/Reasons-Craft3/blob/master/README.md',
+    'changelogUrl' => 'https://github.com/mmikkel/Reasons-Craft3/blob/master/CHANGELOG.md',
+  ),
 );

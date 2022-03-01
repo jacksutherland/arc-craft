@@ -1,0 +1,576 @@
+<?php
+/**
+ * Reasons plugin for Craft CMS 3.x
+ *
+ * Adds conditionals to field layouts.
+ *
+ * @link      https://vaersaagod.no
+ * @copyright Copyright (c) 2020 Mats Mikkel Rummelhoff
+ */
+
+namespace mmikkel\reasons\services;
+
+use Craft;
+use craft\base\Field;
+use craft\db\Query;
+use craft\base\Component;
+use craft\base\FieldInterface;
+use craft\db\Table;
+use craft\elements\User;
+use craft\events\ConfigEvent;
+use craft\events\RebuildConfigEvent;
+use craft\fields\Assets;
+use craft\fields\Categories;
+use craft\fields\Checkboxes;
+use craft\fields\Dropdown;
+use craft\fields\Entries;
+use craft\fields\Number;
+use craft\fields\Lightswitch;
+use craft\fields\MultiSelect;
+use craft\fields\PlainText;
+use craft\fields\RadioButtons;
+use craft\fields\Tags;
+use craft\fields\Users;
+use craft\helpers\Db;
+use craft\helpers\Json;
+use craft\helpers\StringHelper;
+use craft\models\FieldLayout;
+use craft\records\EntryType;
+
+use mmikkel\reasons\Reasons;
+
+/**
+ * @author    Mats Mikkel Rummelhoff
+ * @package   Reasons
+ * @since     2.0.0
+ */
+class ReasonsService extends Component
+{
+
+    /** @var int */
+    const CACHE_TTL = 1800;
+
+    /** @var Field[] */
+    protected $allFields;
+
+    /** @var Field[] */
+    protected $toggleFields;
+
+    /** @var array */
+    protected $sources;
+
+    /** @var int[] */
+    protected $fieldIdsByUid;
+
+    /** @var string[] */
+    protected $fieldUidsById;
+
+    // Public Methods
+    // =========================================================================
+
+    /**
+     * Saves a field layout's conditionals, via the Project Config
+     *
+     * @param FieldLayout $layout
+     * @param string|array $conditionals
+     * @return bool
+     * @throws \yii\base\ErrorException
+     * @throws \yii\base\Exception
+     * @throws \yii\base\NotSupportedException
+     * @throws \yii\web\ServerErrorHttpException
+     */
+    public function saveFieldLayoutConditionals(FieldLayout $layout, $conditionals): bool
+    {
+
+        $uid = (new Query())
+            ->select(['uid'])
+            ->from('{{%reasons}}')
+            ->where(['fieldLayoutId' => $layout->id])
+            ->scalar();
+
+        $isNew = !$uid;
+        if ($isNew) {
+            $uid = StringHelper::UUID();
+        }
+
+        $conditionals = $this->prepConditionalsForProjectConfig($conditionals);
+
+        // Save it to the project config
+        $path = "reasons_conditionals.{$uid}";
+        Craft::$app->getProjectConfig()->set($path, [
+            'fieldLayoutUid' => $layout->uid,
+            'conditionals' => $conditionals,
+        ]);
+
+        return true;
+    }
+
+    /**
+     * Deletes a field layout's conditionals, via the Project Config
+     *
+     * @param FieldLayout $layout
+     * @return bool
+     */
+    public function deleteFieldLayoutConditionals(FieldLayout $layout): bool
+    {
+
+        $uid = (new Query())
+            ->select(['uid'])
+            ->from('{{%reasons}}')
+            ->where(['fieldLayoutId' => $layout->id])
+            ->scalar();
+
+        if (!$uid) {
+            return false;
+        }
+
+        // Remove it from the project config
+        $path = "reasons_conditionals.{$uid}";
+        Craft::$app->getProjectConfig()->remove($path);
+
+        return true;
+    }
+
+    /**
+     * @param ConfigEvent $event
+     * @return void
+     * @throws \Throwable
+     * @throws \yii\db\Exception
+     */
+    public function onProjectConfigChange(ConfigEvent $event)
+    {
+
+        $this->clearCache();
+
+        $uid = $event->tokenMatches[0];
+        $data = $event->newValue;
+
+        $id = (new Query())
+            ->select(['id'])
+            ->from('{{%reasons}}')
+            ->where(['uid' => $uid])
+            ->scalar();
+
+        $isNew = empty($id);
+
+        if ($isNew) {
+
+            // Save new conditionals
+            $fieldLayoutId = Db::idByUid(Table::FIELDLAYOUTS, $data['fieldLayoutUid']);
+
+            if ($fieldLayoutId === null) {
+                // The field layout might not've synced yet. Defer to Project Config
+                Craft::$app->getProjectConfig()->defer($event, [$this, __FUNCTION__]);
+                return;
+            }
+
+            $transaction = Craft::$app->getDb()->beginTransaction();
+
+            try {
+                Craft::$app->db->createCommand()
+                    ->insert('{{%reasons}}', [
+                        'fieldLayoutId' => $fieldLayoutId,
+                        'conditionals' => $data['conditionals'],
+                        'uid' => $uid,
+                    ])
+                    ->execute();
+                $transaction->commit();
+            } catch (\Throwable $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+
+        } else {
+
+            // Update existing conditionals
+            $transaction = Craft::$app->getDb()->beginTransaction();
+
+            try {
+                Craft::$app->db->createCommand()
+                    ->update('{{%reasons}}', [
+                        'conditionals' => $data['conditionals'],
+                    ], ['id' => $id])
+                    ->execute();
+                $transaction->commit();
+            } catch (\Throwable $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+        }
+
+    }
+
+    /**
+     * @param ConfigEvent $event
+     * @return void
+     * @throws \Throwable
+     * @throws \yii\db\Exception
+     */
+    public function onProjectConfigDelete(ConfigEvent $event)
+    {
+
+        $this->clearCache();
+
+        $uid = $event->tokenMatches[0];
+
+        $id = (new Query())
+            ->select(['id'])
+            ->from('{{%reasons}}')
+            ->where(['uid' => $uid])
+            ->scalar();
+
+        if ($id) {
+
+            $transaction = Craft::$app->getDb()->beginTransaction();
+
+            try {
+                Craft::$app->db->createCommand()
+                    ->delete('{{%reasons}}', ['id' => $id])
+                    ->execute();
+                $transaction->commit();
+            } catch (\Throwable $e) {
+                $transaction->rollBack();
+                throw $e;
+            }
+        }
+
+    }
+
+    /**
+     * @param RebuildConfigEvent $event
+     * @return void
+     */
+    public function onProjectConfigRebuild(RebuildConfigEvent $event)
+    {
+
+        Craft::$app->getProjectConfig()->remove('reasons_conditionals');
+
+        $event->config['reasons_conditionals'] = [];
+
+        $rows = (new Query())
+            ->select(['reasons.uid', 'reasons.conditionals', 'fieldlayouts.uid AS fieldLayoutUid'])
+            ->from('{{%reasons}} AS reasons')
+            ->innerJoin(['fieldlayouts' => Table::FIELDLAYOUTS], '[[fieldlayouts.id]] = [[reasons.fieldLayoutId]]')
+            ->all();
+
+        foreach ($rows as $row) {
+            $uid = $row['uid'] ?? null;
+            $conditionals = $row['conditionals'] ?? null;
+            $fieldLayoutUid = $row['fieldLayoutUid'] ?? null;
+            if (!$uid || !$conditionals || !$fieldLayoutUid) {
+                continue;
+            }
+            $event->config['reasons_conditionals'][$uid] = [
+                'conditionals' => $conditionals,
+                'fieldLayoutUid' => $fieldLayoutUid,
+            ];
+        }
+
+        $this->clearCache();
+    }
+
+    /**
+     * Clears Reasons' data caches
+     *
+     * @return void
+     */
+    public function clearCache()
+    {
+        Craft::$app->getCache()->delete($this->getCacheKey());
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getData()
+    {
+        $doCacheData = !Craft::$app->getConfig()->getGeneral()->devMode;
+        $cacheKey = $this->getCacheKey();
+
+        if ($doCacheData && $data = Craft::$app->getCache()->get($cacheKey)) {
+            return $data;
+        }
+
+        $data = [
+            'conditionals' => $this->getConditionals(),
+            'toggleFieldTypes' => $this->getToggleFieldTypes(),
+            'toggleFields' => $this->getToggleFields(),
+            'fieldIds' => $this->getFieldIdsByHandle(),
+        ];
+
+        if ($doCacheData) {
+            Craft::$app->getCache()->set($cacheKey, $data, self::CACHE_TTL);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param string|array $conditionals
+     * @return string|null
+     */
+    protected function prepConditionalsForProjectConfig($conditionals): ?string
+    {
+        if (!$conditionals) {
+            return null;
+        }
+        $return = [];
+        $conditionals = Json::decodeIfJson($conditionals);
+        foreach ($conditionals as $targetFieldId => $statements) {
+            $targetFieldId = (int)$targetFieldId;
+            $targetFieldUid = $this->getFieldUidById($targetFieldId);
+            $return[$targetFieldUid] = \array_map(function (array $rules) {
+                return \array_map(function (array $rule) {
+                    $fieldId = (int)$rule['fieldId'];
+                    return [
+                        'field' => $this->getFieldUidById($fieldId),
+                        'compare' => $rule['compare'],
+                        'value' => $rule['value'],
+                    ];
+                }, $rules);
+            }, $statements);
+        }
+        return Json::encode($return);
+    }
+
+    /**
+     * @param string|array $conditionals
+     * @return array|null
+     */
+    protected function normalizeConditionalsFromProjectConfig($conditionals): ?array
+    {
+        if (!$conditionals) {
+            return null;
+        }
+        $return = [];
+        try {
+            $conditionals = Json::decodeIfJson($conditionals);
+            foreach ($conditionals as $targetFieldUid => $statements) {
+                $targetFieldId = $this->getFieldIdByUid($targetFieldUid);
+                $return["$targetFieldId"] = \array_map(function (array $rules) {
+                    return \array_map(function (array $rule) {
+                        $fieldUid = $rule['field'];
+                        return [
+                            'fieldId' => $this->getFieldIdByUid($fieldUid),
+                            'compare' => $rule['compare'],
+                            'value' => $rule['value'],
+                        ];
+                    }, $rules);
+                }, $statements);
+            }
+        } catch (\Throwable $e) {
+            Craft::error($e->getMessage(), __METHOD__);
+        }
+        return $return;
+    }
+
+    /**
+     * Returns all conditionals, mapped by source key
+     *
+     * @return array
+     */
+    protected function getConditionals(): array
+    {
+
+        // Get all conditionals from database
+        $rows = (new Query())
+            ->select(['reasons.id', 'reasons.fieldLayoutId', 'reasons.conditionals'])
+            ->from('{{%reasons}} AS reasons')
+            ->innerJoin(['fieldlayouts' => Table::FIELDLAYOUTS], '[[fieldlayouts.id]] = [[reasons.fieldLayoutId]]')
+            ->all();
+
+        // Map conditionals to field layouts, and convert field uids to ids
+        $conditionals = [];
+        foreach ($rows as $row) {
+            $conditionals["fieldLayout:{$row['fieldLayoutId']}"] = $this->normalizeConditionalsFromProjectConfig($row['conditionals']);
+        }
+
+        // Map conditionals to sources
+        $conditionalsBySources = [];
+        $sources = $this->getSources();
+        foreach ($sources as $sourceId => $fieldLayoutId) {
+            if (!isset($conditionals["fieldLayout:{$fieldLayoutId}"])) {
+                continue;
+            }
+            $conditionalsBySources[$sourceId] = $conditionals["fieldLayout:{$fieldLayoutId}"];
+        }
+
+        return $conditionalsBySources;
+    }
+
+    /**
+     * @return array
+     */
+    protected function getSources(): array
+    {
+
+        if (!isset($this->sources)) {
+
+            $sources = [];
+
+            $entryTypeRecords = EntryType::find()->all();
+            /** @var EntryType $entryTypeRecord */
+            foreach ($entryTypeRecords as $entryTypeRecord) {
+                $sources["entryType:{$entryTypeRecord->id}"] = (int)$entryTypeRecord->fieldLayoutId;
+                $sources["section:{$entryTypeRecord->sectionId}"] = (int)$entryTypeRecord->fieldLayoutId;
+            }
+
+            $categoryGroups = Craft::$app->getCategories()->getAllGroups();
+            foreach ($categoryGroups as $categoryGroup) {
+                $sources["categoryGroup:{$categoryGroup->id}"] = (int)$categoryGroup->fieldLayoutId;
+            }
+
+            $tagGroups = Craft::$app->getTags()->getAllTagGroups();
+            foreach ($tagGroups as $tagGroup) {
+                $sources["tagGroup:{$tagGroup->id}"] = (int)$tagGroup->fieldLayoutId;
+            }
+
+            $volumes = Craft::$app->getVolumes()->getAllVolumes();
+            foreach ($volumes as $volume) {
+                $sources["assetSource:{$volume->id}"] = (int)$volume->fieldLayoutId;
+            }
+
+            $globalSets = Craft::$app->getGlobals()->getAllSets();
+            foreach ($globalSets as $globalSet) {
+                $sources["globalSet:{$globalSet->id}"] = (int)$globalSet->fieldLayoutId;
+            }
+
+            $usersFieldLayout = Craft::$app->getFields()->getLayoutByType(User::class);
+            $sources['users'] = $usersFieldLayout->id;
+
+            $this->sources = $sources;
+
+        }
+
+        return $this->sources;
+    }
+
+    /**
+     * Returns all toggleable fields
+     *
+     * @return array
+     */
+    protected function getToggleFields(): array
+    {
+        if (!isset($this->toggleFields)) {
+            $this->toggleFields = [];
+            $fields = $this->getAllFields();
+            $toggleFieldTypes = $this->getToggleFieldTypes();
+            foreach ($fields as $field) {
+                $fieldType = \get_class($field);
+                if (!\in_array($fieldType, $toggleFieldTypes)) {
+                    continue;
+                }
+                $this->toggleFields[] = [
+                    'id' => (int)$field->id,
+                    'handle' => $field->handle,
+                    'name' => $field->name,
+                    'type' => $fieldType,
+                    'settings' => $field->getSettings(),
+                ];
+            }
+        }
+        return $this->toggleFields;
+    }
+
+    /**
+     * Returns all toggleable fieldtype classnames
+     *
+     * @return string[]
+     */
+    protected function getToggleFieldTypes(): array
+    {
+        return [
+            Lightswitch::class,
+            Dropdown::class,
+            Checkboxes::class,
+            MultiSelect::class,
+            RadioButtons::class,
+            Number::class,
+            PlainText::class,
+            Entries::class,
+            Categories::class,
+            Tags::class,
+            Assets::class,
+            Users::class,
+        ];
+    }
+
+    /**
+     * Returns all global field IDs, indexed by handle
+     *
+     * @return array
+     */
+    protected function getFieldIdsByHandle(): array
+    {
+        $handles = [];
+        $fields = $this->getAllFields();
+        foreach ($fields as $field) {
+            $handles[$field->handle] = (int)$field->id;
+        }
+        return $handles;
+    }
+
+    /**
+     * @return Field[]
+     */
+    protected function getAllFields(): array
+    {
+        if (!isset($this->allFields)) {
+            $globalFields = Craft::$app->getFields()->getAllFields('global');
+            $this->allFields = \array_filter($globalFields, function (FieldInterface $field) {
+                return $field instanceof Field;
+            });
+        }
+        return $this->allFields;
+    }
+
+    /**
+     * Return the UID for a field, based on its database ID
+     *
+     * @param int $fieldId
+     * @return string
+     */
+    protected function getFieldUidById(int $fieldId): string
+    {
+        if (!isset($this->fieldUidsById)) {
+            $allFields = $this->getAllFields();
+            $this->fieldUidsById = \array_reduce($allFields, function (array $carry, Field $field) {
+                $carry["{$field->id}"] = $field->uid;
+                return $carry;
+            }, []);
+        }
+        return $this->fieldUidsById["$fieldId"];
+    }
+
+    /**
+     * Return the database ID for a field, based on its UID
+     *
+     * @param string $fieldUid
+     * @return int
+     */
+    protected function getFieldIdByUid(string $fieldUid): int
+    {
+        if (!isset($this->fieldIdsByUid)) {
+            $allFields = $this->getAllFields();
+            $this->fieldIdsByUid = \array_reduce($allFields, function (array $carry, Field $field) {
+                $carry[$field->uid] = (int)$field->id;
+                return $carry;
+            }, []);
+        }
+        return $this->fieldIdsByUid[$fieldUid];
+    }
+
+    /**
+     * @return string
+     */
+    protected function getCacheKey(): string
+    {
+        $reasons = Reasons::getInstance();
+        return \implode('-', [
+            $reasons->getHandle(),
+            $reasons->getVersion(),
+            $reasons->schemaVersion
+        ]);
+    }
+}
