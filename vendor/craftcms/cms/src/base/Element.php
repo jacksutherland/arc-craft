@@ -1071,9 +1071,8 @@ abstract class Element extends Component implements ElementInterface
 
         // Build the descendant condition & params
         $condition = ['or'];
-        $params = [];
 
-        foreach ($elementStructureData as $i => $elementStructureDatum) {
+        foreach ($elementStructureData as $elementStructureDatum) {
             $thisElementCondition = [
                 'and',
                 ['structureId' => $elementStructureDatum['structureId']],
@@ -1086,7 +1085,6 @@ abstract class Element extends Component implements ElementInterface
             }
 
             $condition[] = $thisElementCondition;
-            $params[":sourceId$i"] = $elementStructureDatum['elementId'];
         }
 
         // Fetch the descendant data
@@ -1159,9 +1157,8 @@ abstract class Element extends Component implements ElementInterface
 
         // Build the ancestor condition & params
         $condition = ['or'];
-        $params = [];
 
-        foreach ($elementStructureData as $i => $elementStructureDatum) {
+        foreach ($elementStructureData as $elementStructureDatum) {
             $thisElementCondition = [
                 'and',
                 ['structureId' => $elementStructureDatum['structureId']],
@@ -1174,7 +1171,6 @@ abstract class Element extends Component implements ElementInterface
             }
 
             $condition[] = $thisElementCondition;
-            $params[":sourceId$i"] = $elementStructureDatum['elementId'];
         }
 
         // Fetch the ancestor data
@@ -1809,7 +1805,6 @@ abstract class Element extends Component implements ElementInterface
         $behaviors = parent::behaviors();
         $behaviors['customFields'] = [
             'class' => CustomFieldBehavior::class,
-            'canSetProperties' => false,
         ];
         return $behaviors;
     }
@@ -1848,6 +1843,11 @@ abstract class Element extends Component implements ElementInterface
         }
 
         $this->_initialized = true;
+
+        // Stop allowing setting custom field values directly on the behavior
+        /** @var CustomFieldBehavior $behavior */
+        $behavior = $this->getBehavior('customFields');
+        $behavior->canSetProperties = false;
     }
 
     /**

@@ -1,7 +1,7 @@
 {
   "require": {
-    "craftcms/cms": "3.7.33",
-    "craftcms/redactor": "2.10.2",
+    "craftcms/cms": "3.7.35",
+    "craftcms/redactor": "2.10.5",
     "mmikkel/reasons": "2.2.6",
     "realitygems/arc": "^1.0",
     "verbb/super-table": "2.7.1",

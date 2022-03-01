@@ -410,12 +410,12 @@
         },
         {
             "name": "craftcms/cms",
-            "version": "3.7.33",
-            "version_normalized": "3.7.33.0",
+            "version": "3.7.35",
+            "version_normalized": "3.7.35.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/cms/zipball/06933a80b3b1cfd32555c4a13dd9186aaf309404",
-                "reference": "06933a80b3b1cfd32555c4a13dd9186aaf309404",
+                "url": "https://api.github.com/repos/craftcms/cms/zipball/72f6e6e1a81b82608f48378bc15780f558388ef0",
+                "reference": "72f6e6e1a81b82608f48378bc15780f558388ef0",
                 "shasum": ""
             },
             "require": {
@@ -467,7 +467,7 @@
                 "ext-imagick": "Adds support for more image processing formats and options.",
                 "ext-intl": "Adds rich internationalization support."
             },
-            "time": "2022-02-15T18:04:11+00:00",
+            "time": "2022-03-01T20:05:01+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -627,19 +627,19 @@
         },
         {
             "name": "craftcms/redactor",
-            "version": "2.10.2",
-            "version_normalized": "2.10.2.0",
+            "version": "2.10.5",
+            "version_normalized": "2.10.5.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/redactor/zipball/2cf54b2e99dfb472789eb8ab026c01855c61bdd0",
-                "reference": "2cf54b2e99dfb472789eb8ab026c01855c61bdd0",
+                "url": "https://api.github.com/repos/craftcms/redactor/zipball/b4d5d8e9b034e8f0018c560505022d0b8f5750ce",
+                "reference": "b4d5d8e9b034e8f0018c560505022d0b8f5750ce",
                 "shasum": ""
             },
             "require": {
                 "craftcms/cms": "^3.6.0",
                 "craftcms/html-field": "^1.0.4"
             },
-            "time": "2022-02-17T13:45:27+00:00",
+            "time": "2022-02-25T08:14:08+00:00",
             "type": "craft-plugin",
             "extra": {
                 "name": "Redactor",
@@ -804,18 +804,18 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "1.2.2",
-            "version_normalized": "1.2.2.0",
+            "version": "1.2.3",
+            "version_normalized": "1.2.3.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/9c50f840f257bbb941e6f4a0e94ccf5db5c3f76c",
-                "reference": "9c50f840f257bbb941e6f4a0e94ccf5db5c3f76c",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/c268e882d4dbdd85e36e4ad69e02dc284f89d229",
+                "reference": "c268e882d4dbdd85e36e4ad69e02dc284f89d229",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0"
             },
-            "time": "2022-01-12T08:27:12+00:00",
+            "time": "2022-02-28T11:07:21+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2721,12 +2721,12 @@
         },
         {
             "name": "symfony/console",
-            "version": "v5.4.3",
-            "version_normalized": "5.4.3.0",
+            "version": "v5.4.5",
+            "version_normalized": "5.4.5.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/a2a86ec353d825c75856c6fd14fac416a7bdb6b8",
-                "reference": "a2a86ec353d825c75856c6fd14fac416a7bdb6b8",
+                "url": "https://api.github.com/repos/symfony/console/zipball/d8111acc99876953f52fe16d4c50eb60940d49ad",
+                "reference": "d8111acc99876953f52fe16d4c50eb60940d49ad",
                 "shasum": ""
             },
             "require": {
@@ -2755,7 +2755,7 @@
                 "symfony/lock": "",
                 "symfony/process": ""
             },
-            "time": "2022-01-26T16:28:35+00:00",
+            "time": "2022-02-24T12:45:35+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2838,12 +2838,12 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v5.4.3",
-            "version_normalized": "5.4.3.0",
+            "version": "v5.4.5",
+            "version_normalized": "5.4.5.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/0f0c4bf1840420f4aef3f32044a9dbb24682731b",
-                "reference": "0f0c4bf1840420f4aef3f32044a9dbb24682731b",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/797680071ea8f71b94eb958680c50d0e002638f5",
+                "reference": "797680071ea8f71b94eb958680c50d0e002638f5",
                 "shasum": ""
             },
             "require": {
@@ -2852,7 +2852,7 @@
                 "symfony/polyfill-mbstring": "~1.8",
                 "symfony/polyfill-php80": "^1.16"
             },
-            "time": "2022-01-02T09:53:40+00:00",
+            "time": "2022-02-27T10:31:47+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3483,19 +3483,19 @@
         },
         {
             "name": "symfony/process",
-            "version": "v5.4.3",
-            "version_normalized": "5.4.3.0",
+            "version": "v5.4.5",
+            "version_normalized": "5.4.5.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/553f50487389a977eb31cf6b37faae56da00f753",
-                "reference": "553f50487389a977eb31cf6b37faae56da00f753",
+                "url": "https://api.github.com/repos/symfony/process/zipball/95440409896f90a5f85db07a32b517ecec17fa4c",
+                "reference": "95440409896f90a5f85db07a32b517ecec17fa4c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.2.5",
                 "symfony/polyfill-php80": "^1.16"
             },
-            "time": "2022-01-26T16:28:35+00:00",
+            "time": "2022-01-30T18:16:22+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
