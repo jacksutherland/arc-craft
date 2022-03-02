@@ -1258,6 +1258,13 @@ section {
 			margin: 0 auto;
 		}
 
+		.form-response {
+				display: none;
+				&.show {
+					display: block;
+				}
+			}
+
 		form {
 			.inputs {
 				display: flex;
@@ -1273,10 +1280,13 @@ section {
 			}
 
 			&.arc-form {
+				&.hide {
+					display: none;
+				}
 				.submit {
 					margin-top: 15px;
 				}
-				input {
+				input, textarea {
 					border: solid 2px transparent !important;
 					&.error {
 						border: solid 2px $red !important;

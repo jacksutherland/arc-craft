@@ -76,10 +76,8 @@ var DOMClass = function()
 						bQuotes[ii].addEventListener('click', function(e)
 						{
 							e.preventDefault();
-							console.log('click blockquote ' + this.getAttribute('cite').substring(0, 4));
 							if(this.getAttribute('cite').substring(0, 4) == 'http')
 							{
-								console.log('open');
 								window.open(this.getAttribute('cite'), '_blank');
 							}
 
@@ -180,12 +178,9 @@ var DOMClass = function()
 	{
 		var isValid = true;
 
-		console.log('validating ' + field.id + ' ' + field.classList.contains('error'));
-
 		if(field.classList.contains('error'))
 		{
 			field.classList.remove('error');
-			console.log((field.nextSibling != null) + ' ~ ' +  (typeof(field.nextSibling.classList) != 'undefined') + ' ~ ' +  field.nextSibling.classList.contains('error'));
 			if(field.nextSibling != null && typeof(field.nextSibling.classList) != 'undefined' && field.nextSibling.classList.contains('error'))
 			{
 				field.nextSibling.remove();
@@ -243,6 +238,8 @@ var DOMClass = function()
 
 				var validationFields = this.form.querySelectorAll('[data-validation]');
 
+				var frm = this.form;
+
 				for(ii=0; ii<validationFields.length; ii++)
 				{
 					if(!this.class.validateField(validationFields[ii]))
@@ -257,6 +254,43 @@ var DOMClass = function()
 					return false;
 				}
 
+				if(this.form.dataset.submit == 'ajax')
+				{
+					e.preventDefault();
+
+					var formData = new FormData(this.form);
+					var formSerialized = '';
+
+					for (var pair of formData.entries())
+					{
+						if(formSerialized != '')
+						{
+							formSerialized += '&';
+						}
+						formSerialized += (pair[0] + '=' + pair[1]);
+					}
+
+					var xhr = new XMLHttpRequest();
+					xhr.open("POST", this.form.action, true);
+					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					xhr.onreadystatechange = function()
+					{
+					    if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
+					    {
+					        console.log('done');
+					        console.log(xhr.responseText);
+					        frm.classList.add('hide');
+					        if(frm.previousElementSibling.classList.contains('form-response'))
+					        {
+					        	frm.previousElementSibling.classList.add('show')	
+					        }
+
+					    }
+					}
+					xhr.send(formSerialized);
+
+					return false;
+				}
 				
 			}.bind({class:this,form:forms[i]}));
 

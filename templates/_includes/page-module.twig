@@ -191,10 +191,15 @@
 			</section>
 
 		{% case "contactForm" %}
-			<section id="section-{{ loop.index }}"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
+			<section id="contact-us"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 				<div class="centered-column">
-					<form action="">
+					<div class="form-response">
+						{{ module.thankYouMessage }}
+					</div>
+					<form action="/forms/mailer.php" class="arc-form" data-submit="ajax">
+						<input id="sendto" name="sendto" type="hidden" value="{{ module.emailAddress }}">
+						<input id="pooh-bear" name="pooh-loves-honey" type="hidden" value="">
 						<div class="inputs">
 							<div class="input">
 								<input id="firstname" name="firstname" type="text" placeholder="First Name">
@@ -204,10 +209,10 @@
 							</div>
 						</div>
 						<div class="input">
-							<input id="email" name="email" type="email" placeholder="Email">
+							<input id="email" name="email" type="email" placeholder="Email" data-validation="required">
 						</div>
 						<div class="input">
-							<textarea name="message" id="message" placeholder="Your Message"></textarea>
+							<textarea name="message" id="message" placeholder="Your Message" data-validation="required"></textarea>
 						</div>
 						<div class="submit">
 							<button type="submit" class="btn">Send</button>

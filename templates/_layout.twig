@@ -1,7 +1,11 @@
 {% set resourceVersion = '1.09' %}
 
+{% set isDev = false %}
+
 {% if entry is not defined %}
     {% redirect 404 %}
+{% elseif entry.slug == 'dev' %}
+    {% set isDev = true %}
 {% endif %}
 
 {% if craft.app.request.segments | length == 0 %}
@@ -9,7 +13,8 @@
 {% endif %}
 
 {% set pages = craft.entries.section('pages') %}
-{#% set loginPage = craft.entries.section('memberlogin').one() %#}
+{% set about = craft.entries.section('pages').slug('about') %}
+{% set contactUrl = about.count ? about.one().url ~ '#contact-us' : '' %}
 {% set loginUrl = '/members' %} {# discord.discordRedirectUrl %#}
 
 {% set homepage = craft.entries.section('pages').slug('homepage') %}
@@ -143,18 +148,20 @@
                     {% nav page in pages %}
                         {% if page.showInMenu %}
                             <li>
-                                <a href="{{ page.url }}">{{ page.title }}</a>
+                                <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
                             </li>
                         {% endif %}
                     {% endnav %}
-                    <li>
-                        {#% if craft.arc.isUserLoggedIn %#}
-                        {% if false %}
-                            <a href="/members/logout" class="btn">Logout</a>
-                        {% else %}
-                            <a href="{{ loginUrl }}" class="btn">Member Login</a>
-                        {% endif %}
-                    </li>
+                    {% if isDev %}
+                        <li>
+                            {#% if craft.arc.isUserLoggedIn %#}
+                            {% if false %}
+                                <a href="/members/logout" class="btn">Logout</a>
+                            {% else %}
+                                <a href="{{ loginUrl }}" class="btn">Member Login</a>
+                            {% endif %}
+                        </li>
+                    {% endif %}
                     <li id="mobile-trigger">
                         <a href="">
                             <svg viewBox="0 0 100 80" width="40" height="50">
@@ -168,24 +175,33 @@
             </nav>
             <nav id="mobile-menu">
                 <ul>
+                    {#
                     <li>
                         <a href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">Home</a>
                     </li>
+                    #}
                     {% nav page in pages %}
                         {% if page.showInMenu %}
                             <li>
-                                <a href="{{ page.url }}">{{ page.title }}</a>
+                                <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
                             </li>
                         {% endif %}
                     {% endnav %}
-                    <li>
-                        {#% if craft.arc.isUserLoggedIn %#}
-                        {% if false %}
-                            <a href="/members/logout">Logout</a>
-                        {% else %}
-                            <a href="{{ loginUrl }}">Member Login</a>
-                        {% endif %}
-                    </li>
+                    {% if contactUrl | length > 0 %}
+                        <li>
+                            <a href="{{ contactUrl }}">Contact Us</a>
+                        </li>
+                    {% endif %}
+                    {% if isDev %}
+                        <li>
+                            {#% if craft.arc.isUserLoggedIn %#}
+                            {% if false %}
+                                <a href="/members/logout">Logout</a>
+                            {% else %}
+                                <a href="{{ loginUrl }}">Member Login</a>
+                            {% endif %}
+                        </li>
+                    {% endif %}
                 </ul>
             </nav>
         </header>
@@ -202,18 +218,25 @@
                 {% nav page in pages %}
                     {% if page.showInMenu %}
                         <li>
-                            <a href="{{ page.url }}">{{ page.title }}</a>
+                            <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
                         </li>
                     {% endif %}
                 {% endnav %}
-                 <li>
-                    {#% if craft.arc.isUserLoggedIn %#}
-                    {% if false %}
-                        <a href="/members/logout">Logout</a>
-                    {% else %}
-                        <a href="{{ loginUrl }}">Member Login</a>
-                    {% endif %}
-                </li>
+                {% if contactUrl | length > 0 %}
+                    <li>
+                        <a href="{{ contactUrl }}">Contact Us</a>
+                    </li>
+                {% endif %}
+                {% if isDev %}
+                     <li>
+                        {#% if craft.arc.isUserLoggedIn %#}
+                        {% if false %}
+                            <a href="/members/logout">Logout</a>
+                        {% else %}
+                            <a href="{{ loginUrl }}">Member Login</a>
+                        {% endif %}
+                    </li>
+                {% endif %}
             </ul>
             <div class="copyright">
                 ©{{ now.year }} ARcollective. All Rights Reserved

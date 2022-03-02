@@ -899,6 +899,10 @@ section {
   section .centered-column {
     width: 600px;
     margin: 0 auto; }
+  section .form-response {
+    display: none; }
+    section .form-response.show {
+      display: block; }
   section form .inputs {
     display: flex; }
     section form .inputs .input {
@@ -907,13 +911,15 @@ section {
         padding-right: 10px; }
       section form .inputs .input:last-child {
         padding-left: 10px; }
+  section form.arc-form.hide {
+    display: none; }
   section form.arc-form .submit {
     margin-top: 15px; }
-  section form.arc-form input {
+  section form.arc-form input, section form.arc-form textarea {
     border: solid 2px transparent !important; }
-    section form.arc-form input.error {
+    section form.arc-form input.error, section form.arc-form textarea.error {
       border: solid 2px #f93c74 !important; }
-    section form.arc-form input + .error {
+    section form.arc-form input + .error, section form.arc-form textarea + .error {
       display: block;
       font-size: 0.9rem;
       color: #f93c74;
