@@ -16,6 +16,7 @@
 {% set about = craft.entries.section('pages').slug('about') %}
 {% set contactUrl = about.count ? about.one().url ~ '#contact-us' : '' %}
 {% set loginUrl = '/members' %} {# discord.discordRedirectUrl %#}
+{% set signupUrl = 'https://upgrade.chat/926998325213925427' %}
 
 {% set homepage = craft.entries.section('pages').slug('homepage') %}
 {% if homepage.count == 0 %}
@@ -160,6 +161,10 @@
                             {% else %}
                                 <a href="{{ loginUrl }}" class="btn">Member Login</a>
                             {% endif %}
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ signupUrl }}" class="btn">Sign Up Today</a>
                         </li>
                     {% endif %}
                     <li id="mobile-trigger">
