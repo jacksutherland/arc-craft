@@ -4,24 +4,6 @@ $vendorDir = dirname(__DIR__);
 $rootDir = dirname(dirname(__DIR__));
 
 return array (
-  'verbb/super-table' => 
-  array (
-    'class' => 'verbb\\supertable\\SuperTable',
-    'basePath' => $vendorDir . '/verbb/super-table/src',
-    'handle' => 'super-table',
-    'aliases' => 
-    array (
-      '@verbb/supertable' => $vendorDir . '/verbb/super-table/src',
-    ),
-    'name' => 'Super Table',
-    'version' => '2.7.1',
-    'description' => 'Super-charge your Craft workflow with Super Table. Use it to group fields together or build complex Matrix-in-Matrix solutions.',
-    'developer' => 'Verbb',
-    'developerUrl' => 'https://verbb.io',
-    'developerEmail' => 'support@verbb.io',
-    'documentationUrl' => 'https://github.com/verbb/super-table',
-    'changelogUrl' => 'https://raw.githubusercontent.com/verbb/super-table/craft-3/CHANGELOG.md',
-  ),
   'realitygems/arc' => 
   array (
     'class' => 'realitygems\\arc\\ARC',
@@ -59,6 +41,24 @@ return array (
     'developerUrl' => 'https://vaersaagod.no',
     'documentationUrl' => 'https://github.com/mmikkel/Reasons-Craft3/blob/master/README.md',
     'changelogUrl' => 'https://github.com/mmikkel/Reasons-Craft3/blob/master/CHANGELOG.md',
+  ),
+  'verbb/super-table' => 
+  array (
+    'class' => 'verbb\\supertable\\SuperTable',
+    'basePath' => $vendorDir . '/verbb/super-table/src',
+    'handle' => 'super-table',
+    'aliases' => 
+    array (
+      '@verbb/supertable' => $vendorDir . '/verbb/super-table/src',
+    ),
+    'name' => 'Super Table',
+    'version' => '2.7.1',
+    'description' => 'Super-charge your Craft workflow with Super Table. Use it to group fields together or build complex Matrix-in-Matrix solutions.',
+    'developer' => 'Verbb',
+    'developerUrl' => 'https://verbb.io',
+    'developerEmail' => 'support@verbb.io',
+    'documentationUrl' => 'https://github.com/verbb/super-table',
+    'changelogUrl' => 'https://raw.githubusercontent.com/verbb/super-table/craft-3/CHANGELOG.md',
   ),
   'craftcms/redactor' => 
   array (
