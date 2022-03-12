@@ -1257,7 +1257,7 @@ return [
     'Similar questions on Stack Exchange' => 'Similar questions on Stack Exchange',
     'Single' => 'Single',
     'Single-line text' => 'Single-line text',
-    'Singles' => 'Portal Pages',
+    'Singles' => 'Singles',
     'Site Icon' => 'Site Icon',
     'Site Settings' => 'Site Settings',
     'Site saved.' => 'Site saved.',
