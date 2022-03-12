@@ -121,8 +121,9 @@ class ARC extends Plugin
             UrlManager::EVENT_REGISTER_SITE_URL_RULES,
             function (RegisterUrlRulesEvent $event)
             {
-                $event->rules['members/logout'] = 'arc/members/logout';
                 $event->rules['members'] = 'arc/members/index';
+                $event->rules['members/logout'] = 'arc/members/logout';
+                $event->rules['members/save-grade'] = 'arc/members/save-grade';
             }
         );
 

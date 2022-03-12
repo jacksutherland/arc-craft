@@ -6,6 +6,7 @@ $font-weight-secondary: 400;
 $font-bold-secondary: 700;
 $font-size: 1rem;
 $font-smaller: 0.9rem;
+$font-small: 0.8rem;
 $font-bigger: 1.2rem;
 
 $font-color: #000000;
@@ -16,11 +17,14 @@ $gray: #a7a7a7;
 $antique: #f1f3f4; //#e7eaed; //#f1f3f4;
 $blue: #3c74f9;
 $black-pearl: #061124; //lighten(#061124, 10%);
+$black-pearl-hover: lighten($black-pearl, 10%);
 
 $light-blue: #3cd3f9;
 $red: #f93c74;
 $saffron: #f9c13c;
 
 $section-gray: darken($antique, 4%);
+$dark-gray: darken($gray, 20%);
+$light-gray: lighten($gray, 20%);
 
-$light-border-color: lighten($gray, 20%);
+$border-radius: 6px;

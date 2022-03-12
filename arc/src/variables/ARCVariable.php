@@ -19,4 +19,11 @@ class ArcVariable
     {
         return Craft::$app->getSession()->get('isLoggedIn');
     }
+
+    public function getArcMember()
+    {
+        $service = ARC::$plugin->arcService;
+        
+        return $service->getArcMemberFromApi();
+    }
 }

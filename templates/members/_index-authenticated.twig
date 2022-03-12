@@ -1,12 +1,19 @@
 {% set courses = craft.entries.section('courses') %}
 
-<h6>Discord Server Integration</h6>
-<h3>Welcome {{ arcMember.discordUsername }}!</h3>
+<h6>Discord Server Connected - Welcome {{ arcMember.discordUsername }}!</h6>
+<h3>Video Courses</h3>
 
-<dl>
+<dl class="course-list">
 	{% for course in courses.all() %}
 		<dt>
-			<a href="{{ course.url }}">{{ course.title }}</a>
+			<a href="{{ course.url }}">
+				<img src="https://img.youtube.com/vi/{{ course.youtubeVideoId }}/mqdefault.jpg" alt="{{ course.title }}">
+				<div>
+					<span class="course-title">{{ course.title }}</span>
+					<br>
+					<span class="course-date">{{ course.postDate | datetime('short') }}</span>
+				</div>
+			</a>
 		</dt>
 	{% endfor %}
 </dl>

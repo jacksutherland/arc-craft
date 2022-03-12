@@ -11,6 +11,10 @@ body {
 	color: $black;
 }
 
+
+/***** GENERIC ELEMENTS *****/
+
+
 ul, ol, li, p {
 	font-size: 1rem;
 	font-weight: $font-weight-primary;
@@ -92,6 +96,10 @@ a {
 	margin: 15px 15px 0 15px;
 	border-radius: 5px;
 }
+
+
+/***** HEADER & FOOTER *****/
+
 
 header {
 	background-color: $white;
@@ -546,7 +554,7 @@ section {
 
 	dl.faq {
 		dt {
-			border-top: solid 1px $light-border-color;
+			border-top: solid 1px $light-gray;
 			margin: 15px 0 0 0;
 			padding: 15px 30px 0 0;
 			&:hover {
@@ -698,6 +706,132 @@ section {
 	}
 }
 
+
+/***** MEMBER PORTAL *****/
+
+
+dl.course-list {
+	dt {
+		margin: 0;
+		padding: 0;
+		a {
+			display: flex;
+			align-items: center;
+			background-color: $black-pearl;
+			color: $white;
+			border-bottom: solid 2px $white;
+			padding: 20px 30px;
+			transition: .3s ease background-color;
+			&:hover {
+				background-color: $black-pearl-hover;
+			}
+			img {
+				display: none;
+				height: 80px;
+				margin: 0 20px 0 0;
+				border: solid 1px $dark-gray;
+			}
+			div {
+				.course-title {
+					font-weight: $font-bold-primary;
+					line-height: 28px;
+				}
+				.course-date {
+					font-size: $font-small;
+				}
+			}
+		}
+		&:first-child {
+			a {
+				border-radius: $border-radius $border-radius 0 0;
+			}
+		}
+		&:last-child {
+			a {
+				border-radius: 0 0 $border-radius $border-radius;
+				border-bottom: none;
+			}
+		}
+	}
+}
+
+.courses {
+	h3 {
+		margin: 0 0 15px 0;
+	}
+	.instructions {
+		margin: 0 0 25px 0;
+	}
+	.video-container {
+	  overflow: hidden;
+	  position: relative;
+	  width:100%;
+	}
+	.video-container::after {
+	  padding-top: 56.25%;
+	  display: block;
+	  content: '';
+	}
+	.video-container iframe {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	}
+	.quiz {
+		display: block;
+		background-color: $section-gray;
+		padding: 40px;
+		margin-top: 40px;
+		h4 {
+			margin-top: 0;
+		}
+		.error {
+			opacity: 0;
+			display: none;
+			transition: .3s ease opacity;
+			color: $red;
+			font-weight: $font-bold-secondary;
+			font-size: $font-smaller;
+			margin-left: 10px;
+			&.show {
+				opacity: 1;
+				display: inline;
+			}
+		}
+		ul {
+			list-style: none;
+			margin: 0 0 25px 0;
+			padding: 0;
+			li {
+				border-top: solid 1px darken($section-gray, 12%);
+				padding-top:15px;
+				&:last-child {
+					border-bottom: solid 1px darken($section-gray, 12%);
+				}
+				h5 {
+					margin: 10px 0;
+				}
+				ul {
+					li {
+						margin: 5px 0;
+						border-top: none;
+						padding-top: 0;
+						&:last-child {
+							border-bottom: none;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/***** ANIMATIONS *****/
+
+
 @keyframes slide-in-blockquote
 {
   from {opacity: 0; transform: translateY(100%);}
@@ -711,18 +845,6 @@ section {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 @keyframes chart-anim {
   from {
     opacity: 1;
@@ -734,7 +856,6 @@ section {
     opacity: 0.5;
   }
 }
-
 
 .candlestick-chart {
 	height: 250px;
@@ -1112,20 +1233,7 @@ section {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// MEDIA QUERIES
-
+/***** MEDIA QUERIES *****/
 
 
 @media (min-width: 768px)
@@ -1303,11 +1411,19 @@ section {
 		}
 
 	}
-
-
 	.candlestick-chart {
 		top: 89px;
 		display: block;
+	}
+
+	dl.course-list {
+		dt {
+			a {
+				img {
+					display: inline;
+				}
+			}
+		}
 	}
 
 }

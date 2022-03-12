@@ -1,6 +1,6 @@
 {% set resourceVersion = '1.09' %}
 
-{% set isDev = false %}
+{% set isDev = true %}
 
 {% if entry is not defined %}
     {% redirect 404 %}
@@ -138,6 +138,10 @@
                                 <h1>{{ entry.headline }}</h1>
                             {% endif %}
                         </div>
+                    {% elseif headline is defined %}
+                        <div class="header-text">
+                            <h1>{{ headline }}</h1>
+                        </div>
                     {% endif %}
                 {% endif %}
             </div>
@@ -146,7 +150,7 @@
                     <li class="mobile-logo">
                         <a href="">{% include '/_svgs/logo' with { layout: "wide", color: "#ffffff"} %}</a>
                     </li>
-                    {% nav page in pages %}
+                    {% nav page in pages.all() %}
                         {% if page.showInMenu %}
                             <li>
                                 <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
@@ -155,8 +159,8 @@
                     {% endnav %}
                     {% if isDev %}
                         <li>
-                            {#% if craft.arc.isUserLoggedIn %#}
-                            {% if false %}
+                            {% if craft.arc.isUserLoggedIn %}
+                            {#% if false %#}
                                 <a href="/members/logout" class="btn">Logout</a>
                             {% else %}
                                 <a href="{{ loginUrl }}" class="btn">Member Login</a>
@@ -185,7 +189,7 @@
                         <a href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">Home</a>
                     </li>
                     #}
-                    {% nav page in pages %}
+                    {% nav page in pages.all() %}
                         {% if page.showInMenu %}
                             <li>
                                 <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
@@ -220,7 +224,7 @@
                 {% include '/_svgs/logo' with { color: "#f1f3f4" } %}
             </a>
             <ul>
-                {% nav page in pages %}
+                {% nav page in pages.all() %}
                     {% if page.showInMenu %}
                         <li>
                             <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
@@ -244,7 +248,7 @@
                 {% endif %}
             </ul>
             <div class="copyright">
-                ©{{ now.year }} ARcollective. All Rights Reserved
+                ©{{ now | date("Y") }} ARCollective. All Rights Reserved
             </div>
         </footer>
 

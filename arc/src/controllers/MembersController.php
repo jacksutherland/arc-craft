@@ -16,9 +16,21 @@ use Craft;
 use craft\web\Controller;
 use craft\elements\Entry;
 
+use realitygems\arc\models\ArcMemberGrade;
+
 class MembersController extends Controller
 {
-    protected $allowAnonymous = ['index', 'logout', 'do-something'];
+    protected $allowAnonymous = ['index', 'logout', 'save-grade'];
+
+    private function get($key, $default=NULL)
+    {
+      return array_key_exists($key, $_GET) ? $_GET[$key] : $default;
+    }
+
+    private function session($key, $default=NULL)
+    {
+      return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : $default;
+    }
 
     public function actionIndex()
     {
@@ -95,13 +107,27 @@ class MembersController extends Controller
         // return false;
     }
 
-    private function get($key, $default=NULL)
+    public function actionSaveGrade()
     {
-      return array_key_exists($key, $_GET) ? $_GET[$key] : $default;
-    }
+        $this->requirePostRequest();
 
-    private function session($key, $default=NULL)
-    {
-      return array_key_exists($key, $_SESSION) ? $_SESSION[$key] : $default;
+        if(!Craft::$app->getSession()->get('isLoggedIn'))
+        {
+            return $this->redirect('members');
+        }
+
+        $service = ARC::$plugin->arcService;
+        $request = Craft::$app->getRequest();
+        $memberGrade = new ArcMemberGrade($request);
+        $memberGrade->questions = $request->getBodyParam('questions');
+
+        if($service->saveMemberGrade($memberGrade))
+        {
+            return 'success';
+        }
+        else
+        {
+            return 'error';
+        }
     }
 }

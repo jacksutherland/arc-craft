@@ -36,7 +36,7 @@
 			<section id="section-{{ loop.index }}" class="team-members{% if module.background is defined %} {{ module.background }}{% endif %}">
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 				<div class="four-col">
-					{% for member in module.users.status(null) %}
+					{% for member in module.users.status(null).all() %}
 						{% set name = member.firstName %}
 						{% if member.lastName | trim | length > 0 %}
 							{% set name = name ~ member.lastName %}
@@ -81,7 +81,7 @@
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 
 				<div class="three-col">
-					{% for row in module.row %}
+					{% for row in module.row.all() %}
 						{% set rowHref = '' %}
 						{% set rowTarget = '' %}
 						{% if row.entryLink.count %}
@@ -107,7 +107,7 @@
 			<section id="section-{{ loop.index }}"{% if module.background is defined %} class="{{ module.background }}"{% endif %}>
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 
-				{% for row in module.row %}
+				{% for row in module.row.all() %}
 					<div class="z-pattern">
 						{% if loop.index is even %}
 							<div class="column image-column">
@@ -142,7 +142,7 @@
 
 				<div class="testimonials">
 
-					{% for test in module.testimonial %}
+					{% for test in module.testimonial.all() %}
 
 						 <blockquote{% if loop.index == 1 %} class="active"{% endif %}{% if test.citeUrl | length %} cite="{{ test.citeUrl }}"{% endif %}{% if test.backgroundColor | length %} style="background-color:{{ test.backgroundColor }}"{% endif %}>
 						 	{% if test.screenshot.count %}

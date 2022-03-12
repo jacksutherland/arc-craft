@@ -64,6 +64,21 @@ class Install extends Migration
                     'discordEmail' => $this->string(255)->notNull()->defaultValue(''),
                 ]
             );
+            $this->createTable(
+                '{{%arc_member_grade}}',
+                [
+                    'id' => $this->primaryKey(),
+                    'dateCreated' => $this->dateTime()->notNull(),
+                    'dateUpdated' => $this->dateTime()->notNull(),
+                    'uid' => $this->uid(),
+                    'siteId' => $this->integer()->notNull(),
+                    'quizEntryId' => $this->integer(),
+                    'discordUsername' => $this->string(255)->notNull()->defaultValue(''),
+                    'discordEmail' => $this->string(255)->notNull()->defaultValue(''),
+                    'quizScore' => $this->integer(),
+                    'quizAnswers' => $this->string(255)->notNull()->defaultValue(''),
+                ]
+            );
         }
 
         return $tablesCreated;

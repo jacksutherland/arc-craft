@@ -16,10 +16,13 @@ use craft\base\Component;
 use craft\helpers\DateTimeHelper;
 use craft\helpers\StringHelper;
 use craft\helpers\Db;
+use craft\elements\Entry;
 
 use realitygems\arc\ARC;
 use realitygems\arc\models\ArcMember;
+use realitygems\arc\models\ArcMemberGrade;
 use realitygems\arc\records\ArcMemberRecord;
+use realitygems\arc\records\ArcMemberGradeRecord;
 
 define('ARC_GUILD_ID', '926998325213925427');
 
@@ -171,6 +174,82 @@ class ArcService extends Component
         }
 
         return $isMember;
+    }
+
+    public function saveMemberGrade($memberGrade)
+    {
+        try
+        {
+            $record = ArcMemberGradeRecord::find()->where(['quizEntryId' => $memberGrade->quizEntryId, 'discordEmail' => $memberGrade->discordEmail])->orderBy(['quizScore' => SORT_DESC])->one();
+            $isNew = ($record == null);
+            $highestScore = 0;
+
+            // Update record values
+
+            if ($isNew)
+            {
+                $record = new ArcMemberGradeRecord();
+                $record->uid = StringHelper::UUID();
+                $record->siteId = Craft::$app->getSites()->getCurrentSite()->id;
+            }
+            else
+            {
+                $highestScore = $record->quizScore;
+            }
+
+            $record->quizEntryId = $memberGrade->quizEntryId;
+            $record->discordEmail = $memberGrade->discordEmail;
+            $record->discordUsername = $memberGrade->discordUsername;
+            
+            // Score the quiz answers
+
+            $quizEntry = Entry::findOne($memberGrade->quizEntryId);
+            $total = 0;
+            $score = 0;
+
+            foreach ($quizEntry->quizModule as $quizQuestion)
+            {
+                foreach ($memberGrade->questions as $questionId => $answerIdx)
+                {
+                    if($quizQuestion->id == $questionId)
+                    {
+                        foreach ($quizQuestion->answers as $quizAnswerIdx => $answer)
+                        {
+                            $quizAnswerIdx++;
+                            if($quizAnswerIdx == $answerIdx)
+                            {
+                                $total += intval($answer['score']);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+
+            $score = ceil($total / count($quizEntry->quizModule));
+
+            // ONLY UPDATE if score is higher than previous highest score
+
+            if($score >= $highestScore)
+            {
+                $record->quizScore = $score;
+                $record->quizAnswers = json_encode($memberGrade->questions);
+                $record->dateUpdated = Db::prepareValueForDb(new \DateTime());
+            }
+            elseif($isNew)
+            {
+                $record->quizAnswers = json_encode($memberGrade->questions);
+                $record->dateUpdated = Db::prepareValueForDb(new \DateTime());
+            }
+
+            $record->save(false);
+        }
+        catch (Exception $e)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private function apiRequest($url, $post=FALSE, $headers=array())

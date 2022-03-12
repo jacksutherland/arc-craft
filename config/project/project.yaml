@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1645823207
+dateModified: 1647016375
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -51,6 +51,7 @@ meta:
     072b25f6-120f-442c-8d51-abc9c4fa310b: Subheading # Subheading
     77f330f8-fce3-4e35-b976-154654f3b9c5: Screenshot # Screenshot
     83f0ebf3-c871-48ea-bbb8-93184bb94818: 'Quiz Module' # Quiz Module
+    126a86d9-a8c4-4026-94d3-fe86a55528bd: Instructions # Instructions
     271f4e08-2a6c-4cff-811d-3e18f71d1fb4: Background # Background
     275c57e1-8ffe-42e7-8da0-6955b10815b4: Headline # Headline
     286db281-2cd4-4677-a437-18010012892e: Subheading # Subheading

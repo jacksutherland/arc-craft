@@ -8,6 +8,7 @@ body {
   padding: 0;
   color: #241906; }
 
+/***** GENERIC ELEMENTS *****/
 ul, ol, li, p {
   font-size: 1rem;
   font-weight: 400;
@@ -77,6 +78,7 @@ a {
   margin: 15px 15px 0 15px;
   border-radius: 5px; }
 
+/***** HEADER & FOOTER *****/
 header {
   background-color: #ffffff;
   padding: 0 20px 20px 20px;
@@ -499,6 +501,96 @@ section {
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 1rem; }
 
+/***** MEMBER PORTAL *****/
+dl.course-list dt {
+  margin: 0;
+  padding: 0; }
+  dl.course-list dt a {
+    display: flex;
+    align-items: center;
+    background-color: #061124;
+    color: #ffffff;
+    border-bottom: solid 2px #ffffff;
+    padding: 20px 30px;
+    transition: .3s ease background-color; }
+    dl.course-list dt a:hover {
+      background-color: #0d2650; }
+    dl.course-list dt a img {
+      display: none;
+      height: 80px;
+      margin: 0 20px 0 0;
+      border: solid 1px #747474; }
+    dl.course-list dt a div .course-title {
+      font-weight: 600;
+      line-height: 28px; }
+    dl.course-list dt a div .course-date {
+      font-size: 0.8rem; }
+  dl.course-list dt:first-child a {
+    border-radius: 6px 6px 0 0; }
+  dl.course-list dt:last-child a {
+    border-radius: 0 0 6px 6px;
+    border-bottom: none; }
+
+.courses h3 {
+  margin: 0 0 15px 0; }
+
+.courses .instructions {
+  margin: 0 0 25px 0; }
+
+.courses .video-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%; }
+
+.courses .video-container::after {
+  padding-top: 56.25%;
+  display: block;
+  content: ''; }
+
+.courses .video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
+.courses .quiz {
+  display: block;
+  background-color: #e6e9eb;
+  padding: 40px;
+  margin-top: 40px; }
+  .courses .quiz h4 {
+    margin-top: 0; }
+  .courses .quiz .error {
+    opacity: 0;
+    display: none;
+    transition: .3s ease opacity;
+    color: #f93c74;
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-left: 10px; }
+    .courses .quiz .error.show {
+      opacity: 1;
+      display: inline; }
+  .courses .quiz ul {
+    list-style: none;
+    margin: 0 0 25px 0;
+    padding: 0; }
+    .courses .quiz ul li {
+      border-top: solid 1px #c3ccd0;
+      padding-top: 15px; }
+      .courses .quiz ul li:last-child {
+        border-bottom: solid 1px #c3ccd0; }
+      .courses .quiz ul li h5 {
+        margin: 10px 0; }
+      .courses .quiz ul li ul li {
+        margin: 5px 0;
+        border-top: none;
+        padding-top: 0; }
+        .courses .quiz ul li ul li:last-child {
+          border-bottom: none; }
+
+/***** ANIMATIONS *****/
 @keyframes slide-in-blockquote {
   from {
     opacity: 0;
@@ -833,6 +925,7 @@ section {
     filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
     opacity: 1; } }
 
+/***** MEDIA QUERIES *****/
 @media (min-width: 768px) {
   h1, h2, h3, h5, h6 {
     margin: 0 0 30px 0; }
@@ -927,7 +1020,9 @@ section {
       font-weight: 600; }
   .candlestick-chart {
     top: 89px;
-    display: block; } }
+    display: block; }
+  dl.course-list dt a img {
+    display: inline; } }
 
 @media (min-width: 992px) {
   h1, h2, h3, h5, h6 {

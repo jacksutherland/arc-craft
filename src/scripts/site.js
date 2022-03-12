@@ -178,7 +178,7 @@ var DOMClass = function()
 	{
 		var isValid = true;
 
-		if(field.classList.contains('error'))
+		if(field.type != 'radio' && field.classList.contains('error'))
 		{
 			field.classList.remove('error');
 			if(field.nextSibling != null && typeof(field.nextSibling.classList) != 'undefined' && field.nextSibling.classList.contains('error'))
@@ -190,7 +190,14 @@ var DOMClass = function()
 		switch(field.dataset.validation)
 		{
 			case 'required':
-				if(field.value.trim().length == 0)
+				if(field.type == 'radio')
+				{
+					if(document.querySelectorAll('[name="' + field.name + '"]:checked').length == 0)
+					{
+						isValid = false;
+					}
+				}
+				else if(field.value.trim().length == 0)
 				{
 					isValid = false;
 
@@ -245,6 +252,15 @@ var DOMClass = function()
 					if(!this.class.validateField(validationFields[ii]))
 					{
 						isValid = false;
+
+						if(this.form.classList.contains('quiz'))
+						{
+							this.form.querySelector('.error').classList.remove('show');
+							setTimeout(function()
+							{
+								this.form.querySelector('.error.validation').classList.add('show');
+							}.bind(this), 350);
+						}
 					}
 				}
 
@@ -277,16 +293,32 @@ var DOMClass = function()
 					{
 					    if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
 					    {
-					        console.log('done');
-					        console.log(xhr.responseText);
-					        frm.classList.add('hide');
-					        if(frm.previousElementSibling.classList.contains('form-response'))
-					        {
-					        	frm.previousElementSibling.classList.add('show')	
-					        }
+					        // console.log('done');
+					        // console.log(xhr.responseText);
+					        if(frm.classList.contains('quiz'))
+							{
+								if(xhr.responseText == 'error')
+								{
+									frm.querySelector('.error').classList.remove('show');
+									frm.querySelector('.error.saving').classList.add('show');
+								}
+								else
+								{
+									window.location.href = '/members';
+								}
+							}
+							else
+							{
+						        frm.classList.add('hide');
+						        if(frm.previousElementSibling.classList.contains('form-response'))
+						        {
+						        	frm.previousElementSibling.classList.add('show')	
+						        }
+						    }
 
 					    }
 					}
+					// console.log(formSerialized);
 					xhr.send(formSerialized);
 
 					return false;
