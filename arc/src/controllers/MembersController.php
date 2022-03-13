@@ -36,11 +36,13 @@ class MembersController extends Controller
     {
         $entry = Entry::find()->section('members')->slug('members')->one();
         $service = ARC::$plugin->arcService;
-
         $result = 'Not Logged In';
         $arcMember = null;
+        $session = Craft::$app->getSession();
 
-        Craft::$app->getSession()->set('isLoggedIn', false);
+        $session->set('isLoggedIn', false);
+        $session->set('discordUsername', '');
+        $session->set('discordEmail', '');
 
         if(!isset($_SESSION)) 
         { 
@@ -58,9 +60,11 @@ class MembersController extends Controller
 
             if($isGuildMember)
             {
-                Craft::$app->getSession()->set('isLoggedIn', true);
-
                 $arcMember = $service->getArcMemberFromApi();
+
+                $session->set('isLoggedIn', true);
+                $session->set('discordUsername', $arcMember->discordUsername);
+                $session->set('discordEmail', $arcMember->discordEmail);
 
                 $result = $this->session('access_token');
             }

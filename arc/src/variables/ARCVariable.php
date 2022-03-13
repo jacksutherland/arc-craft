@@ -22,8 +22,11 @@ class ArcVariable
 
     public function getArcMember()
     {
-        $service = ARC::$plugin->arcService;
-        
-        return $service->getArcMemberFromApi();
+        return ARC::$plugin->arcService->getArcMemberFromApi();
+    }
+
+    public function getMemberQuizScore($quizEntryId)
+    {
+        return ARC::$plugin->arcService->getMemberQuizScore($quizEntryId);
     }
 }

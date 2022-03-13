@@ -158,7 +158,7 @@ header {
         justify-content: end;
         flex-direction: column; }
         header .header-content .hero .header-text h6 {
-          margin: 0 0 10px 0;
+          margin: 0 0 0 0;
           color: #ffffff;
           text-transform: uppercase; }
         header .header-content .hero .header-text h1 {
@@ -168,7 +168,7 @@ header {
       margin-top: 15px; }
       header .header-content .header-text h6 {
         display: none;
-        margin: 0 0 10px 0;
+        margin: 0 0 0 0;
         color: #a7a7a7;
         text-transform: uppercase; }
       header .header-content .header-text h1 {
@@ -298,7 +298,7 @@ section {
     margin: 0 0 10px 0;
     text-transform: uppercase; }
   section h3 {
-    margin: 0 0 40px 0; }
+    margin: 0 0 30px 0; }
   section.gray-section {
     background-color: #f1f3f4;
     text-align: center; }
@@ -507,28 +507,49 @@ dl.course-list dt {
   padding: 0; }
   dl.course-list dt a {
     display: flex;
+    position: relative;
     align-items: center;
-    background-color: #061124;
+    background-color: #112039;
     color: #ffffff;
-    border-bottom: solid 2px #ffffff;
+    margin-bottom: 10px;
     padding: 20px 30px;
-    transition: .3s ease background-color; }
+    transition: .3s ease background-color;
+    border-radius: 5px 5px 5px 5px; }
     dl.course-list dt a:hover {
-      background-color: #0d2650; }
+      background-color: #213351; }
     dl.course-list dt a img {
       display: none;
       height: 80px;
       margin: 0 20px 0 0;
-      border: solid 1px #747474; }
-    dl.course-list dt a div .course-title {
+      border: solid 1px #747474;
+      filter: brightness(160%); }
+    dl.course-list dt a .grade {
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: #061124;
+      border-radius: 50%;
+      position: absolute;
+      right: 8px;
+      top: -6px;
+      color: #f9c13c;
+      font-size: 2rem;
+      line-height: 2.35rem;
       font-weight: 600;
-      line-height: 28px; }
+      text-align: center;
+      font-family: "PT Serif", serif;
+      transform: rotate(5deg);
+      border: solid 3px #f9c13c; }
+    dl.course-list dt a div .course-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.5rem; }
     dl.course-list dt a div .course-date {
       font-size: 0.8rem; }
-  dl.course-list dt:first-child a {
-    border-radius: 6px 6px 0 0; }
+    dl.course-list dt a div .score {
+      color: #f9c13c;
+      font-size: 0.8rem; }
   dl.course-list dt:last-child a {
-    border-radius: 0 0 6px 6px;
     border-bottom: none; }
 
 .courses h3 {
@@ -941,9 +962,9 @@ dl.course-list dt {
   header.sticky nav#main-menu ul li {
     display: inline; }
   header .logo {
-    height: 180px;
+    height: 170px;
     width: 340px;
-    margin: 0 0 5px -40px; }
+    margin: 0 0 0 -40px; }
     header .logo svg {
       width: 210px;
       height: 210px; }
@@ -1028,9 +1049,11 @@ dl.course-list dt {
   h1, h2, h3, h5, h6 {
     margin: 0 0 40px 0; }
   h1, h2 {
-    font-size: 60px;
+    font-size: 48px;
     letter-spacing: 0.04rem;
-    line-height: 70px; }
+    line-height: 70px;
+    white-space: nowrap;
+    overflow: hidden; }
   h3 {
     font-size: 32px;
     letter-spacing: 0.003rem;
@@ -1042,11 +1065,11 @@ dl.course-list dt {
   .site-container {
     margin: 30px 40px 0 40px; }
   header {
-    padding: 0 40px 40px 40px; }
+    padding: 0 40px 25px 40px; }
     header.sticky nav#main-menu {
       padding: 20px 10%; }
     header .logo {
-      margin: 0 0 30px -40px; }
+      margin: 0 0 0 -40px; }
     header .header-content .hero {
       height: 500px; }
     header .header-content .header-text h6 {

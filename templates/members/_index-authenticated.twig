@@ -5,6 +5,7 @@
 
 <dl class="course-list">
 	{% for course in courses.all() %}
+		{% set score = craft.arc.getMemberQuizScore(course.id) %}
 		<dt>
 			<a href="{{ course.url }}">
 				<img src="https://img.youtube.com/vi/{{ course.youtubeVideoId }}/mqdefault.jpg" alt="{{ course.title }}">
@@ -12,15 +13,38 @@
 					<span class="course-title">{{ course.title }}</span>
 					<br>
 					<span class="course-date">{{ course.postDate | datetime('short') }}</span>
+					{% if score >= 0 %}
+						<br>
+						<span class="score">Your Score: {{ score }}</span>
+					{% endif %}
 				</div>
+				{% if score >= 0 %}
+					{#<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
+						<path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+					</svg>#}
+					<span class="grade">
+						{% if score > 89 %}
+							{{ 'A' }}
+						{% elseif score > 79 %}
+							{{ 'B' }}
+						{% elseif score > 69 %}
+							{{ 'C' }}
+						{% elseif score > 59 %}
+							{{ 'B' }}
+						{% else %}
+							{{ 'F' }}
+						{% endif %}
+					</span>
+				{% endif %}
 			</a>
 		</dt>
 	{% endfor %}
 </dl>
-
+{#
 <ul>
 	<li><strong>Discord User ID:</strong> {{ arcMember.discordId }}</li>
 	<li><strong>Discord Username:</strong> {{ arcMember.discordUsername }}</li>
 	<li><strong>Discord User Email:</strong> {{ arcMember.discordEmail }}</li>
 	<li><strong>Discord Access Token:</strong> {{ result }}</li>
 </ul>
+#}

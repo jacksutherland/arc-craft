@@ -100,6 +100,8 @@ class ArcService extends Component
             curl_close($curl);
 
             Craft::$app->getSession()->set('isLoggedIn', false);
+            Craft::$app->getSession()->set('discordUsername', '');
+            Craft::$app->getSession()->set('discordEmail', '');
 
             unset($_SESSION['access_token']); 
         }
@@ -174,6 +176,24 @@ class ArcService extends Component
         }
 
         return $isMember;
+    }
+
+    public function getMemberQuizScore($quizEntryId)
+    {
+        $session = Craft::$app->getSession();
+        $score = -1;
+
+        if($session->get('isLoggedIn'))
+        {
+            $record = ArcMemberGradeRecord::find()->where(['quizEntryId' => $quizEntryId, 'discordEmail' => $session->get('discordEmail')])->orderBy(['quizScore' => SORT_DESC])->one();
+
+            if($record != null)
+            {
+                $score = $record->quizScore;
+            }
+        }
+
+        return $score;
     }
 
     public function saveMemberGrade($memberGrade)

@@ -157,10 +157,14 @@
                             </li>
                         {% endif %}
                     {% endnav %}
+                    {% if craft.arc.isUserLoggedIn %}
+                        <li>
+                            <a href="/members">Members</a>
+                        </li>
+                    {% endif %}
                     {% if isDev %}
                         <li>
                             {% if craft.arc.isUserLoggedIn %}
-                            {#% if false %#}
                                 <a href="/members/logout" class="btn">Logout</a>
                             {% else %}
                                 <a href="{{ loginUrl }}" class="btn">Member Login</a>
@@ -203,8 +207,7 @@
                     {% endif %}
                     {% if isDev %}
                         <li>
-                            {#% if craft.arc.isUserLoggedIn %#}
-                            {% if false %}
+                            {% if craft.arc.isUserLoggedIn %}
                                 <a href="/members/logout">Logout</a>
                             {% else %}
                                 <a href="{{ loginUrl }}">Member Login</a>
@@ -238,8 +241,7 @@
                 {% endif %}
                 {% if isDev %}
                      <li>
-                        {#% if craft.arc.isUserLoggedIn %#}
-                        {% if false %}
+                        {% if craft.arc.isUserLoggedIn %}
                             <a href="/members/logout">Logout</a>
                         {% else %}
                             <a href="{{ loginUrl }}">Member Login</a>

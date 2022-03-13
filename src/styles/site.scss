@@ -33,7 +33,7 @@ h1, h2 {
 	font-size: 30px;
 	letter-spacing: 0.01rem;
 	line-height: 40px;
-	color: $black-pearl;
+	color: $dark-primary;
 }
 
 h3 {
@@ -109,7 +109,7 @@ header {
 	&.sticky {
 		overflow: hidden;
 		nav#main-menu {
-			background-color: $black-pearl;
+			background-color: $dark-primary;
 			position: fixed;
 			z-index: 110;
 			top: 0;
@@ -203,7 +203,7 @@ header {
 			    justify-content: end;
 			    flex-direction: column;
 				h6 {
-					margin: 0 0 10px 0;
+					margin: 0 0 0 0;
 					color: $white;
 					text-transform: uppercase;
 				}
@@ -217,7 +217,7 @@ header {
 			margin-top: 15px;
 			h6 {
 				display: none;
-				margin: 0 0 10px 0;
+				margin: 0 0 0 0;
 				color: $gray;
 				text-transform: uppercase;
 			}
@@ -268,7 +268,7 @@ header {
 					}
 					a {
 						svg {
-							fill: $black-pearl;
+							fill: $dark-primary;
 						}
 					}
 				}
@@ -285,7 +285,7 @@ header {
 						font-size: $font-smaller;
 						font-weight: $font-bold-primary;
 						text-decoration: none;
-						color: $black-pearl;
+						color: $dark-primary;
 						&:hover {
 							color: $blue;
 						}
@@ -332,7 +332,7 @@ header {
 					font-size: 0.95rem;
 				    font-weight: 600;
 				    text-decoration: none;
-				    color: $black-pearl;
+				    color: $dark-primary;
 				    background-color: $antique;
 				    border-bottom: solid 1px darken($antique, 10%);
 				    border-top: solid 1px lighten($antique, 5%);
@@ -347,7 +347,7 @@ header {
 }
 
 footer {
-	background-color: $black-pearl;
+	background-color: $dark-primary;
 	color: $white;
 	text-align: center;
 	margin: -15px 0 0 0;
@@ -399,7 +399,8 @@ section {
 		text-transform: uppercase;
 	}
 	h3 {
-		margin: 0 0 40px 0;	
+		// margin: 0 0 40px 0;
+		margin: 0 0 30px 0;	
 	}
 
 	&.gray-section {
@@ -716,39 +717,70 @@ dl.course-list {
 		padding: 0;
 		a {
 			display: flex;
+			position: relative;
 			align-items: center;
-			background-color: $black-pearl;
+			background-color: $dark-secondary;
 			color: $white;
-			border-bottom: solid 2px $white;
+			//border-bottom: solid 8px $white;
+			margin-bottom: 10px;
 			padding: 20px 30px;
 			transition: .3s ease background-color;
+			border-radius: $border-radius $border-radius $border-radius $border-radius;
 			&:hover {
-				background-color: $black-pearl-hover;
+				background-color: $dark-primary-hover;
 			}
 			img {
 				display: none;
 				height: 80px;
 				margin: 0 20px 0 0;
 				border: solid 1px $dark-gray;
+				filter: brightness(160%);
+			}
+			// svg {
+			// 	width: 45px;
+		 //    height: 45px;
+		 //    background: $saffron;
+		 //    border-radius: 50%;
+		 //    position: absolute;
+		 //    right: 8px;
+		 //    top: -5px;
+		 //    fill: $dark-secondary;
+			// }
+			.grade {
+				display: block;
+				width: 40px;
+		    height: 40px;
+		    background: $dark-primary;
+		    border-radius: 50%;
+		    position: absolute;
+		    right: 8px;
+		    top: -6px;
+		    color: $saffron;
+		    font-size: 2rem;
+		    line-height: 2.35rem;
+		    font-weight: 600;
+		    text-align: center;
+		    font-family: "PT Serif", serif;
+		    transform: rotate(5deg);
+		    border: solid 3px $saffron;
 			}
 			div {
 				.course-title {
+					font-size: 1.1rem;
 					font-weight: $font-bold-primary;
-					line-height: 28px;
+					line-height: 1.5rem;
 				}
 				.course-date {
 					font-size: $font-small;
 				}
-			}
-		}
-		&:first-child {
-			a {
-				border-radius: $border-radius $border-radius 0 0;
+				.score {
+					color: $saffron;
+					font-size: $font-small;
+				}
 			}
 		}
 		&:last-child {
 			a {
-				border-radius: 0 0 $border-radius $border-radius;
 				border-bottom: none;
 			}
 		}
@@ -1265,10 +1297,10 @@ dl.course-list {
 			}
 		}
 		.logo {
-			height: 180px;
+			height: 170px;
 	    	width: 340px;
 	    	//margin: 0 0 30px -40px;
-	    	margin: 0 0 5px -40px;
+	    	margin: 0 0 0 -40px;
 	    	svg {
 				width: 210px;
 				height: 210px;
@@ -1434,9 +1466,11 @@ dl.course-list {
 		margin: 0 0 40px 0;
 	}
 	h1, h2 {
-		font-size: 60px;
+		font-size: 48px;
 		letter-spacing: 0.04rem;
 		line-height: 70px;
+		white-space: nowrap;
+		overflow: hidden;
 	}
 	h3 {
 		font-size: 32px;
@@ -1454,14 +1488,14 @@ dl.course-list {
 	}
 
 	header {
-		padding: 0 40px 40px 40px;
+		padding: 0 40px 25px 40px;
 		&.sticky {
 			nav#main-menu {
 			    padding: 20px 10%;
 			}
 		}
 		.logo {
-			margin: 0 0 30px -40px;
+			margin: 0 0 0 -40px;
 		}
 		.header-content {
 			.hero {
