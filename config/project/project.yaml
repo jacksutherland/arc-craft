@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1647016375
+dateModified: 1647231953
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -67,6 +67,7 @@ meta:
     612018d3-1c01-4974-905d-6cc906a1411c: 'Background Color' # Background Color
     838189f7-84ba-4c29-a711-afa3985275ee: 'Team Members' # Team Members
     1012925f-d152-4521-a359-63243c0463e7: 'Discord Disclaimer Logged Out' # Discord Disclaimer Logged Out
+    3584858e-b93a-44c5-bf74-270892c4043b: 'Video Embed Code' # Video Embed Code
     5085023c-f7b7-44bc-bbf2-1b805fe4caa1: Text # Text
     44543445-5982-4b96-8559-7f7ab12c3bc5: Testimonials # Testimonials
     a0c315ee-2500-4055-a5ca-508ffeffc2f9: 'Hero Opacity' # Hero Opacity
@@ -88,6 +89,7 @@ meta:
     bf5376f9-47f0-4505-9f00-c7ec628fc26f: Discord # Discord
     c8ef7f6d-2a3e-490c-b241-44a86c4e9c1e: 'Button Text' # Button Text
     c9dd477c-7e6c-4b69-a23f-656ae4e7b561: Default # Default
+    c73af2ed-324c-4d07-b6a4-a02d9bbf62b7: 'Course Categories' # Course Categories
     c98ac2b6-ea46-48bb-9d12-7e5979cb6df2: ARcollective # ARcollective
     c23775ba-fbcc-4465-bdbc-e4fec559bc09: Background # Background
     ce3c525c-db81-42f6-baee-3cd44f31f2f6: 'Email Address' # Email Address
@@ -100,7 +102,6 @@ meta:
     e8cb4421-b984-4a73-8eed-c59d30a6fdf2: Headline # Headline
     e9b1a920-836b-4e93-a379-5a9f92a3b891: 'Thank You Message' # Thank You Message
     e583f2cb-5ad8-42d1-8fcc-b601384e0de9: Subheading # Subheading
-    e9198bbe-13e3-4703-88ac-c75e9d7ddd1c: 'Discord Users' # Discord Users
     e34616c9-44d4-407e-8d19-8db2693209ae: Brand # Brand
     ebd19ed3-4420-4f35-8597-38bcc010f64a: General # General
     eed349b7-b7d1-4481-b2aa-50450d4593bf: 'Brief Description' # Brief Description

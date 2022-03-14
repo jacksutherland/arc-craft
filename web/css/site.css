@@ -509,37 +509,40 @@ dl.course-list dt {
     display: flex;
     position: relative;
     align-items: center;
-    background-color: #112039;
+    background-color: #177c9a;
     color: #ffffff;
     margin-bottom: 10px;
     padding: 20px 30px;
     transition: .3s ease background-color;
-    border-radius: 5px 5px 5px 5px; }
+    border-radius: 6px 6px 6px 6px; }
     dl.course-list dt a:hover {
-      background-color: #213351; }
+      background-color: #13677f; }
+      dl.course-list dt a:hover .grade {
+        background-color: #13677f; }
     dl.course-list dt a img {
       display: none;
       height: 80px;
       margin: 0 20px 0 0;
-      border: solid 1px #747474;
-      filter: brightness(160%); }
+      border: solid 2px #ffffff;
+      border-radius: 3px; }
     dl.course-list dt a .grade {
       display: block;
       width: 40px;
       height: 40px;
-      background: #061124;
+      background: #177c9a;
       border-radius: 50%;
       position: absolute;
       right: 8px;
-      top: -6px;
-      color: #f9c13c;
+      top: 4px;
+      color: #ffffff;
       font-size: 2rem;
       line-height: 2.35rem;
       font-weight: 600;
       text-align: center;
       font-family: "PT Serif", serif;
       transform: rotate(5deg);
-      border: solid 3px #f9c13c; }
+      transition: .3s ease background-color;
+      border: solid 3px #ffffff; }
     dl.course-list dt a div .course-title {
       font-size: 1.1rem;
       font-weight: 600;
@@ -557,23 +560,6 @@ dl.course-list dt {
 
 .courses .instructions {
   margin: 0 0 25px 0; }
-
-.courses .video-container {
-  overflow: hidden;
-  position: relative;
-  width: 100%; }
-
-.courses .video-container::after {
-  padding-top: 56.25%;
-  display: block;
-  content: ''; }
-
-.courses .video-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%; }
 
 .courses .quiz {
   display: block;
@@ -632,13 +618,13 @@ dl.course-list dt {
   25% {
     opacity: 1; }
   to {
-    opacity: 0.5; } }
+    opacity: 1; } }
 
 .candlestick-chart {
   height: 250px;
   position: absolute;
   z-index: 100;
-  top: 104px;
+  top: 80px;
   left: 0;
   right: 0;
   display: none;
@@ -1040,7 +1026,7 @@ dl.course-list dt {
       margin: -5px 0 5px 0;
       font-weight: 600; }
   .candlestick-chart {
-    top: 89px;
+    top: 80px;
     display: block; }
   dl.course-list dt a img {
     display: inline; } }
@@ -1086,7 +1072,7 @@ dl.course-list dt {
     section .z-pattern .column.text-column {
       padding: 0 40px 0 0; }
   .candlestick-chart {
-    top: 104px; } }
+    top: 80px; } }
 
 @media (min-width: 1200px) {
   section .four-col .col {

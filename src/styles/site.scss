@@ -87,7 +87,7 @@ a {
 	font-size: $font-smaller; 
 	border: none;
 	&:hover {
-		background-color: $saffron;
+		background-color: $bright-color;
 		color: $white;
 	}
 }
@@ -516,7 +516,7 @@ section {
 					a {
 						&:hover {
 							svg {
-								fill: $saffron;
+								fill: $bright-color;
 							}
 						}
 						svg {
@@ -634,7 +634,7 @@ section {
 			svg {
 				width: 30px;
 				height: 30px;
-				fill: $saffron;
+				fill: $bright-color;
 				background-color: $white;
 				border-radius: 50%;
 				transition: .5s ease transform;
@@ -719,7 +719,7 @@ dl.course-list {
 			display: flex;
 			position: relative;
 			align-items: center;
-			background-color: $dark-secondary;
+			background-color: $medium-primary; // $dark-secondary
 			color: $white;
 			//border-bottom: solid 8px $white;
 			margin-bottom: 10px;
@@ -727,42 +727,37 @@ dl.course-list {
 			transition: .3s ease background-color;
 			border-radius: $border-radius $border-radius $border-radius $border-radius;
 			&:hover {
-				background-color: $dark-primary-hover;
+				background-color: darken($medium-primary, 6%); //$dark-primary-hover;
+				.grade {
+					background-color: darken($medium-primary, 6%);
+				}
 			}
 			img {
 				display: none;
 				height: 80px;
 				margin: 0 20px 0 0;
-				border: solid 1px $dark-gray;
-				filter: brightness(160%);
+				border: solid 2px $white;
+				//filter: brightness(160%);
+				border-radius: 3px;
 			}
-			// svg {
-			// 	width: 45px;
-		 //    height: 45px;
-		 //    background: $saffron;
-		 //    border-radius: 50%;
-		 //    position: absolute;
-		 //    right: 8px;
-		 //    top: -5px;
-		 //    fill: $dark-secondary;
-			// }
 			.grade {
 				display: block;
 				width: 40px;
 		    height: 40px;
-		    background: $dark-primary;
+		    background: $medium-primary; //$dark-primary;
 		    border-radius: 50%;
 		    position: absolute;
 		    right: 8px;
-		    top: -6px;
-		    color: $saffron;
+		    top: 4px;
+		    color: $white; //$bright-color;
 		    font-size: 2rem;
 		    line-height: 2.35rem;
 		    font-weight: 600;
 		    text-align: center;
 		    font-family: "PT Serif", serif;
 		    transform: rotate(5deg);
-		    border: solid 3px $saffron;
+		    transition: .3s ease background-color;
+		    border: solid 3px $white; //$dark-primary-hover;
 			}
 			div {
 				.course-title {
@@ -774,7 +769,7 @@ dl.course-list {
 					font-size: $font-small;
 				}
 				.score {
-					color: $saffron;
+					color: $bright-color;
 					font-size: $font-small;
 				}
 			}
@@ -794,23 +789,23 @@ dl.course-list {
 	.instructions {
 		margin: 0 0 25px 0;
 	}
-	.video-container {
-	  overflow: hidden;
-	  position: relative;
-	  width:100%;
-	}
-	.video-container::after {
-	  padding-top: 56.25%;
-	  display: block;
-	  content: '';
-	}
-	.video-container iframe {
-	  position: absolute;
-	  top: 0;
-	  left: 0;
-	  width: 100%;
-	  height: 100%;
-	}
+	// .video-container {
+	//   overflow: hidden;
+	//   position: relative;
+	//   width:100%;
+	// }
+	// .video-container::after {
+	//   padding-top: 56.25%;
+	//   display: block;
+	//   content: '';
+	// }
+	// .video-container iframe {
+	//   position: absolute;
+	//   top: 0;
+	//   left: 0;
+	//   width: 100%;
+	//   height: 100%;
+	// }
 	.quiz {
 		display: block;
 		background-color: $section-gray;
@@ -885,7 +880,7 @@ dl.course-list {
   	opacity: 1;
   }
   to {
-    opacity: 0.5;
+    opacity: 1;
   }
 }
 
@@ -893,7 +888,7 @@ dl.course-list {
 	height: 250px;
 	position: absolute;
 	z-index: 100;
-	top: 104px;
+	top: 80px;
 	left: 0;
 	right: 0;
 	display: none;
@@ -1444,7 +1439,7 @@ dl.course-list {
 
 	}
 	.candlestick-chart {
-		top: 89px;
+		top: 80px;
 		display: block;
 	}
 
@@ -1536,7 +1531,7 @@ dl.course-list {
 
 
 	.candlestick-chart {
-		top: 104px;
+		top: 80px;
 	}
 
 

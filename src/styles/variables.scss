@@ -1,3 +1,5 @@
+// Font Styles
+
 $font-family-primary: "IBM Plex Sans", sans-serif;
 $font-weight-primary: 400;
 $font-bold-primary: 600;
@@ -8,25 +10,35 @@ $font-size: 1rem;
 $font-smaller: 0.9rem;
 $font-small: 0.8rem;
 $font-bigger: 1.2rem;
-
 $font-color: #000000;
+
+// Neutral Colors
 
 $black: #241906; //#000000;
 $white: #ffffff;
 $gray: #a7a7a7;
 $antique: #f1f3f4; //#e7eaed; //#f1f3f4;
-$blue: #3c74f9;
-$dark-primary: #061124; //lighten(#061124, 10%);
-// Black Pearl Compliments: #112039 #213351
-$dark-secondary: #112039;
-$dark-primary-hover: #213351; //lighten($dark-primary, 8%);
-
-$light-blue: #3cd3f9;
-$red: #f93c74;
-$saffron: #f9c13c;
-
 $section-gray: darken($antique, 4%);
 $dark-gray: darken($gray, 20%);
 $light-gray: lighten($gray, 20%);
 
-$border-radius: 5px;
+// Colors From Logo
+
+$blue: #3c74f9; // Medium bright blue
+$dark-primary: #061124; // Dark (almost black) blue. Compliments: #112039 #213351
+$dark-secondary: #112039; // Dark blue
+$dark-primary-hover: #213351; // Estate Blue
+
+// New Logo Colors
+
+$medium-primary: darken(#1987a7, 3%); // teal
+
+// Complimentary Colors
+
+$light-blue: #3cd3f9;
+$red: #f93c74;
+$bright-color: #f9c13c; // Bright yellowish green
+
+// Border Styles
+
+$border-radius: 6px;

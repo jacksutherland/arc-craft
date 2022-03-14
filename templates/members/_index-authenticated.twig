@@ -8,7 +8,17 @@
 		{% set score = craft.arc.getMemberQuizScore(course.id) %}
 		<dt>
 			<a href="{{ course.url }}">
-				<img src="https://img.youtube.com/vi/{{ course.youtubeVideoId }}/mqdefault.jpg" alt="{{ course.title }}">
+				{#<img src="https://img.youtube.com/vi/{{ course.youtubeVideoId }}/mqdefault.jpg" alt="{{ course.title }}">#}
+				{% if course.videoEmbedCode | trim | length %}
+					{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
+					{% if videoId | length >  1 %}
+						{% set videoId = videoId[1] | split('/video/splash.jpg') %}
+						{% if videoId | length >  1 %}
+							{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
+						{% endif %}
+					{% endif %}
+					<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
+				{% endif %}
 				<div>
 					<span class="course-title">{{ course.title }}</span>
 					<br>

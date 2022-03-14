@@ -176,7 +176,7 @@
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 
 				<dl class="faq">
-					{% for faq in module.questions %}
+					{% for faq in module.questions.all() %}
 						<dt>
 							<label for="faq-{{ loop.index }}">
 								<span>{{ faq.question }}</span>
