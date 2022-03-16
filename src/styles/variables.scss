@@ -16,7 +16,7 @@ $font-color: #000000;
 
 $black: #241906; //#000000;
 $white: #ffffff;
-$gray: #a7a7a7;
+$gray: #a0a0a0; //#a7a7a7;
 $antique: #f1f3f4; //#e7eaed; //#f1f3f4;
 $section-gray: darken($antique, 4%);
 $dark-gray: darken($gray, 20%);
@@ -31,7 +31,8 @@ $dark-primary-hover: #213351; // Estate Blue
 
 // New Logo Colors
 
-$medium-primary: darken(#1987a7, 3%); // teal
+$medium-primary: #2091b1;  //darken(#1987a7, 3%); // teal
+$medium-primary-hover: darken($medium-primary, 5%);
 
 // Complimentary Colors
 
@@ -41,4 +42,4 @@ $bright-color: #f9c13c; // Bright yellowish green
 
 // Border Styles
 
-$border-radius: 6px;
+$border-radius: 10px;

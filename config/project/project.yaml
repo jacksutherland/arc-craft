@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1647231953
+dateModified: 1647393071
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -55,6 +55,7 @@ meta:
     271f4e08-2a6c-4cff-811d-3e18f71d1fb4: Background # Background
     275c57e1-8ffe-42e7-8da0-6955b10815b4: Headline # Headline
     286db281-2cd4-4677-a437-18010012892e: Subheading # Subheading
+    289bc566-f5d9-421b-a00c-a23047155453: 'Course Category' # Course Category
     381ab349-80d7-4368-a55c-cf8abf6a0834: Courses # Courses
     683ddb4e-7ae5-4908-85c9-a397f8a15a98: Headline # Headline
     780b1119-287d-423f-a386-c8aea1460d68: Headline # Headline

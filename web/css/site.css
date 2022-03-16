@@ -106,6 +106,26 @@ header {
             fill: #ffffff; }
         header.sticky nav#main-menu ul li a {
           color: #ffffff !important; }
+  header .breadcrumb {
+    margin-top: 10px;
+    color: #a0a0a0;
+    font-size: 0.9rem; }
+    header .breadcrumb span {
+      font-weight: 600;
+      margin: 0 4px; }
+    header .breadcrumb a {
+      color: #a0a0a0;
+      text-decoration: none; }
+      header .breadcrumb a:hover {
+        color: #3c74f9; }
+      header .breadcrumb a.active {
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 300px;
+        display: inline-block;
+        vertical-align: bottom; }
   header .logo {
     display: flex;
     overflow: hidden;
@@ -169,7 +189,7 @@ header {
       header .header-content .header-text h6 {
         display: none;
         margin: 0 0 0 0;
-        color: #a7a7a7;
+        color: #a0a0a0;
         text-transform: uppercase; }
       header .header-content .header-text h1 {
         margin-bottom: 0; }
@@ -283,7 +303,7 @@ footer {
   footer .copyright {
     margin: 30px 0;
     font-size: .9rem;
-    color: #a7a7a7; }
+    color: #a0a0a0; }
 
 section {
   background-color: #ffffff;
@@ -292,9 +312,9 @@ section {
   section.gray {
     background-color: #e6e9eb; }
     section.gray h6 {
-      color: #9d9d9d; }
+      color: #969696; }
   section h6 {
-    color: #a7a7a7;
+    color: #a0a0a0;
     margin: 0 0 10px 0;
     text-transform: uppercase; }
   section h3 {
@@ -308,10 +328,15 @@ section {
       width: 100%; }
   section.rich-text h3 {
     margin-bottom: 20px; }
+  section .video-container {
+    background-color: #e6e9eb;
+    padding: 8px 8px 5px 8px; }
   section .cta-button {
     margin-top: 25px; }
+  section .two-col,
   section .three-col {
     text-align: center; }
+    section .two-col .col,
     section .three-col .col {
       cursor: pointer;
       display: block;
@@ -322,13 +347,16 @@ section {
       max-height: 400px;
       background-size: cover;
       position: relative; }
+      section .two-col .col:hover .content .text-content,
       section .three-col .col:hover .content .text-content {
         opacity: 1;
         transform: translate(0, 0); }
+      section .two-col .col:after,
       section .three-col .col:after {
         content: "";
         display: block;
         padding-bottom: 100%; }
+      section .two-col .col .content,
       section .three-col .col .content {
         position: absolute;
         top: 0;
@@ -338,10 +366,12 @@ section {
         color: #ffffff;
         background-color: rgba(0, 0, 0, 0.45);
         overflow: hidden; }
+        section .two-col .col .content h6,
         section .three-col .col .content h6 {
           margin: 20px;
           text-align: left;
           color: #ffffff; }
+        section .two-col .col .content .text-content,
         section .three-col .col .content .text-content {
           position: absolute;
           bottom: 0;
@@ -399,9 +429,9 @@ section {
       section .z-pattern .column h3, section .z-pattern .column h6 {
         margin: 0 0 10px 0; }
       section .z-pattern .column h6 {
-        color: #a7a7a7; }
+        color: #a0a0a0; }
   section dl.faq dt {
-    border-top: solid 1px #dadada;
+    border-top: solid 1px lightgray;
     margin: 15px 0 0 0;
     padding: 15px 30px 0 0; }
     section dl.faq dt:hover label {
@@ -501,6 +531,29 @@ section {
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 1rem; }
 
+.sidebar-layout {
+  display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 20px 0;
+  background-color: #ffffff; }
+  .sidebar-layout section, .sidebar-layout aside {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%; }
+  .sidebar-layout section {
+    flex: 45%;
+    background-color: #ffffff;
+    margin: 0; }
+  .sidebar-layout aside {
+    flex: 1;
+    margin: 20px; }
+    .sidebar-layout aside h4 {
+      margin: 0; }
+    .sidebar-layout aside p {
+      font-size: 0.9rem; }
+
 /***** MEMBER PORTAL *****/
 dl.course-list dt {
   margin: 0;
@@ -509,40 +562,63 @@ dl.course-list dt {
     display: flex;
     position: relative;
     align-items: center;
-    background-color: #177c9a;
+    background-color: #2091b1;
     color: #ffffff;
     margin-bottom: 10px;
-    padding: 20px 30px;
-    transition: .3s ease background-color;
-    border-radius: 6px 6px 6px 6px; }
+    padding: 20px 20px;
+    transition: .3s ease background-color,.3s ease color, .3s ease border-color, .3s ease box-shadow;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: #a0a0a0 0px 2px 7px 0px; }
     dl.course-list dt a:hover {
-      background-color: #13677f; }
+      background-color: #229cbe;
+      box-shadow: #a0a0a0 0px 5px 7px 0px; }
+      dl.course-list dt a:hover .progress {
+        color: #ffffff;
+        transform: rotate(10deg) scale(1.15);
+        opacity: 0.4; }
       dl.course-list dt a:hover .grade {
-        background-color: #13677f; }
+        background-color: #1c7f9b;
+        border-color: #ffffff;
+        color: #ffffff;
+        transform: rotate(20deg) scale(1.15);
+        opacity: 0.3; }
     dl.course-list dt a img {
       display: none;
       height: 80px;
       margin: 0 20px 0 0;
       border: solid 2px #ffffff;
       border-radius: 3px; }
-    dl.course-list dt a .grade {
-      display: block;
-      width: 40px;
-      height: 40px;
-      background: #177c9a;
-      border-radius: 50%;
+    dl.course-list dt a .progress {
+      display: none;
       position: absolute;
-      right: 8px;
-      top: 4px;
-      color: #ffffff;
+      right: 12px;
+      top: 10px;
+      color: #1a758e;
       font-size: 2rem;
       line-height: 2.35rem;
       font-weight: 600;
       text-align: center;
       font-family: "PT Serif", serif;
-      transform: rotate(5deg);
-      transition: .3s ease background-color;
-      border: solid 3px #ffffff; }
+      transform: rotate(0deg) scale(1);
+      transition: .3s ease background-color, .3s ease color, .3s ease opacity, .5s ease transform; }
+    dl.course-list dt a .grade {
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: #2091b1;
+      border-radius: 50%;
+      position: absolute;
+      right: 8px;
+      top: 5px;
+      color: #1a758e;
+      font-size: 2rem;
+      line-height: 2.35rem;
+      font-weight: 600;
+      text-align: center;
+      font-family: "PT Serif", serif;
+      transform: rotate(1deg) scale(1);
+      transition: .3s ease background-color, .3s ease color, .3s ease border-color, .3s ease opacity, .5s ease transform;
+      border: solid 3px #1a758e; }
     dl.course-list dt a div .course-title {
       font-size: 1.1rem;
       font-weight: 600;
@@ -947,6 +1023,8 @@ dl.course-list dt {
     line-height: 32px; }
   header.sticky nav#main-menu ul li {
     display: inline; }
+  header .breadcrumb a.active {
+    max-width: 500px; }
   header .logo {
     height: 170px;
     width: 340px;
@@ -960,6 +1038,12 @@ dl.course-list dt {
       display: none; }
   header .header-content .hero {
     height: 380px; }
+  section .two-col .col {
+    width: 48%; }
+    section .two-col .col:nth-child(1) {
+      margin: 0 1% 0 0; }
+    section .two-col .col:nth-child(2) {
+      margin: 0 0 0 1%; }
   section .three-col .col {
     width: 32%; }
     section .three-col .col:nth-child(1) {
@@ -1029,7 +1113,9 @@ dl.course-list dt {
     top: 80px;
     display: block; }
   dl.course-list dt a img {
-    display: inline; } }
+    display: inline; }
+  dl.course-list dt a .progress {
+    display: block; } }
 
 @media (min-width: 992px) {
   h1, h2, h3, h5, h6 {
@@ -1054,6 +1140,12 @@ dl.course-list dt {
     padding: 0 40px 25px 40px; }
     header.sticky nav#main-menu {
       padding: 20px 10%; }
+    header .breadcrumb {
+      text-align: right;
+      margin-top: -30px;
+      padding-bottom: 10px; }
+      header .breadcrumb a.active {
+        max-width: 350px; }
     header .logo {
       margin: 0 0 0 -40px; }
     header .header-content .hero {
@@ -1062,6 +1154,13 @@ dl.course-list dt {
       display: block; }
   footer {
     margin: -40px 0 0 0; }
+  .sidebar-layout {
+    flex-direction: row;
+    margin: 40px 0; }
+    .sidebar-layout aside {
+      margin: 40px 0;
+      padding: 0 40px;
+      border-left: solid 3px #e6e9eb; }
   section {
     padding: 40px;
     margin: 40px 0; }
@@ -1078,7 +1177,9 @@ dl.course-list dt {
   section .four-col .col {
     margin: 20px 2%;
     padding: 0 1%;
-    width: 19%; } }
+    width: 19%; }
+  header .breadcrumb a.active {
+    max-width: 500px; } }
 
 @media (min-width: 1400px) {
   .site-container {

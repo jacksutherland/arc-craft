@@ -1,0 +1,118 @@
+{% extends "_layout" %}
+
+{% set headline = 'Academy' %}
+{% set arcMember = craft.arc.getArcMember %}
+{% set categories = craft.categories.group('courseCategories').level(1) %}
+
+{% block main %}
+	<div class="sidebar-layout">
+
+		<section>
+
+			<h3>{{ entry.title }}</h3>
+
+			{% if entry.instructions | trim | length %}
+				<div class="instructions">
+					{{ entry.instructions }}
+				</div>
+			{% endif %}	
+
+			{% if entry.videoEmbedCode | trim | length %}
+				{% set videoId = entry.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
+				{% if videoId | length >  1 %}
+					{% set videoId = videoId[1] | split('/video/splash.jpg') %}
+					{% if videoId | length >  1 %}
+						{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
+					{% endif %}
+				{% endif %}
+				{% set embedCode = '<div id="llo_MYARCVIDEOID" style="position:relative;padding-bottom:3px;"><iframe id="llo_MYARCVIDEOID" src="//embed.vidello.com/5347/MYARCVIDEOID/player.html" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe><div style="padding-top:56.25%;"></div></div><script type="application/ld+json">{"@context": "http://schema.org","@type": "VideoObject","name": "herovideo","description": "This video contains herovideo","thumbnailUrl": "https://embed.vidello.com/5347/MYARCVIDEOID/video/splash.jpg","uploadDate": "2022-03-14T03:12:47.000Z","duration": "PT1M16S"}</script>' | replace('MYARCVIDEOID', videoId) %}
+				<div class="video-container">
+					{{ embedCode | raw }}
+				</div>
+			{% endif %}
+
+			{% if entry.quizModule.count %}
+				<form class="quiz arc-form" method="post" action="/members/save-grade" data-submit="ajax">
+					<input name="CRAFT_CSRF_TOKEN" type="hidden" value="{{ craft.app.request.csrfToken }}">
+					<input id="quizEntryId" name="quizEntryId" type="hidden" value="{{ entry.id }}">
+					<input id="quizAnswers" name="quizAnswers" type="hidden" value="">
+					<input id="discordUsername" name="discordUsername" type="hidden" value="{{ arcMember.discordUsername }}">
+					<input id="discordEmail" name="discordEmail" type="hidden" value="{{ arcMember.discordEmail }}">
+					<h4>Quiz</h4>
+					<ul>
+						{% for question in entry.quizModule.all() %}
+							{% set questionId = question.id %}
+							<li>
+								<h5>{{ loop.index }}. {{ question.question }}</h5>
+								<ul>
+									{% for answer in question.answers %}
+										<li>
+											<input id="question-{{ questionId }}-answer-{{ loop.index }}" type="radio" name="questions[{{ questionId }}]" data-validation="required" value="{{ loop.index }}">
+											<label for="question-{{ questionId }}-answer-{{ loop.index }}">{{ answer.answer }}</label>
+										</li>
+									{% endfor %}
+								</ul>
+							</li>
+						{% endfor %}
+					</ul>
+					<div>
+						<button class="btn" type="submit">Submit</button>
+						<label class="error validation">Answer all questions to continue</label>
+						<label class="error saving">Unable to submit at this time, please try again later.</label>
+					</div>
+				</form>
+			{% endif %}
+
+		</section>
+
+		<aside>
+			
+			<h4>Syllabus</h4>
+
+			<dl>
+				{% for cat in categories.all() %}
+					<dt>
+						<a href="/">{{ cat.title }}</a>
+						<p>{{ cat.briefDescription }}</p>
+					</dt>
+				{% endfor %}
+			</dl>
+
+		</aside>
+
+	</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

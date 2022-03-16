@@ -159,7 +159,7 @@
                     {% endnav %}
                     {% if craft.arc.isUserLoggedIn %}
                         <li>
-                            <a href="/members">Members</a>
+                            <a href="/members">Academy</a>
                         </li>
                     {% endif %}
                     {% if isDev %}
@@ -216,6 +216,15 @@
                     {% endif %}
                 </ul>
             </nav>
+            {% if entry.section.handle == "courses" %}
+                <div class="breadcrumb">
+                    <a href="/members">Academy</a>
+                    <span>></span>
+                    <a href="/members">Courses</a>
+                    <span>></span>
+                    <a class="active" href="{{ entry.slug }}">{{ entry.title }}</a>
+                </div>
+            {% endif %}
         </header>
 
         {% block main %}

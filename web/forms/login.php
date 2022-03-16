@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 define('OAUTH2_CLIENT_ID', '945882189638283284'); // Your client Id
 define('OAUTH2_CLIENT_SECRET', 'NPuUvXeh3QpzBCwoqqe_QSIVHr-h9iTe'); // Your secret client code
 define('MEMBERS_URL', 'http://localhost/forms/login.php'); // URL to Members Portal
+//define('MEMBERS_URL', 'https://arcollective.info/forms/login.php'); // URL to Members Portal
 
 // https://discord.com/api/oauth2/authorize?client_id=945882189638283284&redirect_uri=http%3A%2F%2Flocalhost%2Fmembers&response_type=code&scope=identify%20guilds
 

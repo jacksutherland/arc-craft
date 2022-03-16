@@ -140,6 +140,31 @@ header {
 			}
 		}
 	}
+	.breadcrumb {
+    margin-top: 10px;
+    color: $gray;
+    font-size: $font-smaller;
+    span {
+	    font-weight: $font-bold-primary;
+	    margin: 0 4px;
+	  }
+    a {
+    	color: $gray;
+    	text-decoration: none;
+    	&:hover {
+    		color: $blue;
+    	}
+    	&.active {
+    		font-weight: $font-bold-primary;
+    		white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    max-width: 300px;
+		    display: inline-block;
+		    vertical-align: bottom;
+    	}
+    }
+	}
 	.logo {
 		//display: none;
 		display: flex;
@@ -421,10 +446,20 @@ section {
 		}
 	}
 
+	.video-container {
+		background-color: $section-gray;
+		padding: 8px 8px 5px 8px;
+	}
+
 	.cta-button {
 		margin-top: 25px;
 	}
 
+	.two-col {
+
+	}
+
+	.two-col,
 	.three-col {
 		text-align: center;
 		.col {
@@ -705,11 +740,45 @@ section {
 			}
 		}
 	}
+} // End Section Class
+
+
+.sidebar-layout {
+	display: flex;
+  flex-direction: column-reverse;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 20px 0;
+  background-color: $white;
+  section, aside {
+  	display: flex;
+	  flex-direction: column;
+	  flex-basis: 100%;
+  }
+	section {
+		//flex: 2;
+		flex: 45%;
+		background-color: $white;
+		margin: 0;
+	}
+	aside {
+		flex: 1;
+		margin: 20px;
+		// padding: 20px;
+		//background-color: $section-gray;
+		h4 {
+			margin: 0;
+		}
+		p {
+			font-size: $font-smaller;
+		}
+	}
 }
 
 
 /***** MEMBER PORTAL *****/
 
+$grade-color: darken($medium-primary, 8%);
 
 dl.course-list {
 	dt {
@@ -721,15 +790,25 @@ dl.course-list {
 			align-items: center;
 			background-color: $medium-primary; // $dark-secondary
 			color: $white;
-			//border-bottom: solid 8px $white;
 			margin-bottom: 10px;
-			padding: 20px 30px;
-			transition: .3s ease background-color;
+			padding: 20px 20px;
+			transition: .3s ease background-color,.3s ease color, .3s ease border-color, .3s ease box-shadow;
 			border-radius: $border-radius $border-radius $border-radius $border-radius;
+			box-shadow: $gray 0px 2px 7px 0px;
 			&:hover {
-				background-color: darken($medium-primary, 6%); //$dark-primary-hover;
+				background-color: lighten($medium-primary, 3%); //$dark-primary-hover;
+				box-shadow: $gray 0px 5px 7px 0px;
+				.progress {
+					color: $white;
+					transform: rotate(10deg) scale(1.15);
+					opacity: 0.4;
+				}
 				.grade {
-					background-color: darken($medium-primary, 6%);
+					background-color: $medium-primary-hover;
+					border-color: $white;
+					color: $white;
+					transform: rotate(20deg) scale(1.15);
+					opacity: 0.3;
 				}
 			}
 			img {
@@ -737,8 +816,21 @@ dl.course-list {
 				height: 80px;
 				margin: 0 20px 0 0;
 				border: solid 2px $white;
-				//filter: brightness(160%);
 				border-radius: 3px;
+			}
+			.progress {
+				display: none;
+		    position: absolute;
+		    right: 12px;
+		    top: 10px;
+		    color: $grade-color;
+		    font-size: 2rem;
+		    line-height: 2.35rem;
+		    font-weight: 600;
+		    text-align: center;
+		    font-family: "PT Serif", serif;
+		    transform: rotate(0deg) scale(1);
+		    transition: .3s ease background-color, .3s ease color, .3s ease opacity, .5s ease transform;
 			}
 			.grade {
 				display: block;
@@ -748,16 +840,16 @@ dl.course-list {
 		    border-radius: 50%;
 		    position: absolute;
 		    right: 8px;
-		    top: 4px;
-		    color: $white; //$bright-color;
+		    top: 5px;
+		    color: $grade-color;
 		    font-size: 2rem;
 		    line-height: 2.35rem;
 		    font-weight: 600;
 		    text-align: center;
 		    font-family: "PT Serif", serif;
-		    transform: rotate(5deg);
-		    transition: .3s ease background-color;
-		    border: solid 3px $white; //$dark-primary-hover;
+		    transform: rotate(1deg) scale(1);
+		    transition: .3s ease background-color, .3s ease color, .3s ease border-color, .3s ease opacity, .5s ease transform;
+		    border: solid 3px $grade-color;
 			}
 			div {
 				.course-title {
@@ -789,23 +881,6 @@ dl.course-list {
 	.instructions {
 		margin: 0 0 25px 0;
 	}
-	// .video-container {
-	//   overflow: hidden;
-	//   position: relative;
-	//   width:100%;
-	// }
-	// .video-container::after {
-	//   padding-top: 56.25%;
-	//   display: block;
-	//   content: '';
-	// }
-	// .video-container iframe {
-	//   position: absolute;
-	//   top: 0;
-	//   left: 0;
-	//   width: 100%;
-	//   height: 100%;
-	// }
 	.quiz {
 		display: block;
 		background-color: $section-gray;
@@ -1291,6 +1366,11 @@ dl.course-list {
 				}
 			}
 		}
+		.breadcrumb {
+			a.active {
+				max-width: 500px;
+			}
+		}
 		.logo {
 			height: 170px;
 	    	width: 340px;
@@ -1319,6 +1399,18 @@ dl.course-list {
 	}
 
 	section {
+		.two-col {
+			.col {
+				width: 48%;
+				&:nth-child(1) {
+					margin: 0 1% 0 0;
+				}
+				&:nth-child(2) {
+					margin: 0 0 0 1%;
+				}
+			}
+		}
+
 		.three-col {
 			.col {
 				width: 32%;
@@ -1443,11 +1535,15 @@ dl.course-list {
 		display: block;
 	}
 
+
 	dl.course-list {
 		dt {
 			a {
 				img {
 					display: inline;
+				}
+				.progress {
+					display: block;
 				}
 			}
 		}
@@ -1489,6 +1585,14 @@ dl.course-list {
 			    padding: 20px 10%;
 			}
 		}
+		.breadcrumb {
+			text-align: right;
+		  margin-top: -30px;
+		  padding-bottom: 10px;
+		  a.active {
+				max-width: 350px;
+			}
+		}
 		.logo {
 			margin: 0 0 0 -40px;
 		}
@@ -1506,6 +1610,16 @@ dl.course-list {
 
 	footer {
 		margin: -40px 0 0 0;
+	}
+
+	.sidebar-layout {
+		flex-direction: row;
+	  margin: 40px 0;
+	  aside {
+	  	margin: 40px 0;
+	  	padding: 0 40px;
+	  	border-left: solid 3px $section-gray;
+	  }
 	}
 	
 	section {
@@ -1545,6 +1659,13 @@ dl.course-list {
 				margin: 20px 2%;
 				padding: 0 1%;
 				width: 19%;
+			}
+		}
+	}
+	header {
+		.breadcrumb {
+		  a.active {
+				max-width: 500px;
 			}
 		}
 	}
