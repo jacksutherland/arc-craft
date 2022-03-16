@@ -90,6 +90,9 @@ a {
 		background-color: $bright-color;
 		color: $white;
 	}
+	&.small {
+		padding: 7px 15px;
+	}
 }
 
 .site-container {
@@ -784,11 +787,11 @@ dl.course-list {
 	dt {
 		margin: 0;
 		padding: 0;
-		a {
+		a.course-category {
 			display: flex;
 			position: relative;
 			align-items: center;
-			background-color: $medium-primary; // $dark-secondary
+			background-color: $dark-primary; //$medium-primary; // $dark-secondary
 			color: $white;
 			margin-bottom: 10px;
 			padding: 20px 20px;
@@ -796,25 +799,29 @@ dl.course-list {
 			border-radius: $border-radius $border-radius $border-radius $border-radius;
 			box-shadow: $gray 0px 2px 7px 0px;
 			&:hover {
-				background-color: lighten($medium-primary, 3%); //$dark-primary-hover;
+				background-color: $dark-primary-hover; //lighten($medium-primary, 3%); //$dark-primary-hover;
 				box-shadow: $gray 0px 5px 7px 0px;
 				.progress {
-					color: $white;
-					transform: rotate(10deg) scale(1.15);
-					opacity: 0.4;
+					color: $dark-primary;
+					//transform: rotate(5deg) scale(1.2);
 				}
 				.grade {
 					background-color: $medium-primary-hover;
 					border-color: $white;
 					color: $white;
-					transform: rotate(20deg) scale(1.15);
+					transform: rotate(25deg) scale(1.15);
 					opacity: 0.3;
+				}
+				div {
+					.btn {
+						background-color: $dark-primary;
+					}
 				}
 			}
 			img {
 				display: none;
-				height: 80px;
-				margin: 0 20px 0 0;
+				height: 120px;
+				margin: 0 25px 0 0;
 				border: solid 2px $white;
 				border-radius: 3px;
 			}
@@ -823,14 +830,14 @@ dl.course-list {
 		    position: absolute;
 		    right: 12px;
 		    top: 10px;
-		    color: $grade-color;
+		    color: $dark-primary-hover;
 		    font-size: 2rem;
 		    line-height: 2.35rem;
 		    font-weight: 600;
 		    text-align: center;
 		    font-family: "PT Serif", serif;
-		    transform: rotate(0deg) scale(1);
-		    transition: .3s ease background-color, .3s ease color, .3s ease opacity, .5s ease transform;
+		    //transform: rotate(0deg) scale(1);
+		    transition: .3s ease color; //, .5s ease transform;
 			}
 			.grade {
 				display: block;
@@ -863,6 +870,10 @@ dl.course-list {
 				.score {
 					color: $bright-color;
 					font-size: $font-small;
+				}
+				.btn {
+					margin-top: 11px;
+					background-color: $dark-primary-hover;
 				}
 			}
 		}
@@ -1538,7 +1549,7 @@ dl.course-list {
 
 	dl.course-list {
 		dt {
-			a {
+			a.course-category {
 				img {
 					display: inline;
 				}

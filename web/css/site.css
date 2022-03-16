@@ -73,6 +73,8 @@ a {
   .btn:hover {
     background-color: #f9c13c;
     color: #ffffff; }
+  .btn.small {
+    padding: 7px 15px; }
 
 .site-container {
   margin: 15px 15px 0 15px;
@@ -558,50 +560,49 @@ section {
 dl.course-list dt {
   margin: 0;
   padding: 0; }
-  dl.course-list dt a {
+  dl.course-list dt a.course-category {
     display: flex;
     position: relative;
     align-items: center;
-    background-color: #2091b1;
+    background-color: #061124;
     color: #ffffff;
     margin-bottom: 10px;
     padding: 20px 20px;
     transition: .3s ease background-color,.3s ease color, .3s ease border-color, .3s ease box-shadow;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 4px 4px 4px 4px;
     box-shadow: #a0a0a0 0px 2px 7px 0px; }
-    dl.course-list dt a:hover {
-      background-color: #229cbe;
+    dl.course-list dt a.course-category:hover {
+      background-color: #213351;
       box-shadow: #a0a0a0 0px 5px 7px 0px; }
-      dl.course-list dt a:hover .progress {
-        color: #ffffff;
-        transform: rotate(10deg) scale(1.15);
-        opacity: 0.4; }
-      dl.course-list dt a:hover .grade {
+      dl.course-list dt a.course-category:hover .progress {
+        color: #061124; }
+      dl.course-list dt a.course-category:hover .grade {
         background-color: #1c7f9b;
         border-color: #ffffff;
         color: #ffffff;
-        transform: rotate(20deg) scale(1.15);
+        transform: rotate(25deg) scale(1.15);
         opacity: 0.3; }
-    dl.course-list dt a img {
+      dl.course-list dt a.course-category:hover div .btn {
+        background-color: #061124; }
+    dl.course-list dt a.course-category img {
       display: none;
-      height: 80px;
-      margin: 0 20px 0 0;
+      height: 120px;
+      margin: 0 25px 0 0;
       border: solid 2px #ffffff;
       border-radius: 3px; }
-    dl.course-list dt a .progress {
+    dl.course-list dt a.course-category .progress {
       display: none;
       position: absolute;
       right: 12px;
       top: 10px;
-      color: #1a758e;
+      color: #213351;
       font-size: 2rem;
       line-height: 2.35rem;
       font-weight: 600;
       text-align: center;
       font-family: "PT Serif", serif;
-      transform: rotate(0deg) scale(1);
-      transition: .3s ease background-color, .3s ease color, .3s ease opacity, .5s ease transform; }
-    dl.course-list dt a .grade {
+      transition: .3s ease color; }
+    dl.course-list dt a.course-category .grade {
       display: block;
       width: 40px;
       height: 40px;
@@ -619,15 +620,18 @@ dl.course-list dt {
       transform: rotate(1deg) scale(1);
       transition: .3s ease background-color, .3s ease color, .3s ease border-color, .3s ease opacity, .5s ease transform;
       border: solid 3px #1a758e; }
-    dl.course-list dt a div .course-title {
+    dl.course-list dt a.course-category div .course-title {
       font-size: 1.1rem;
       font-weight: 600;
       line-height: 1.5rem; }
-    dl.course-list dt a div .course-date {
+    dl.course-list dt a.course-category div .course-date {
       font-size: 0.8rem; }
-    dl.course-list dt a div .score {
+    dl.course-list dt a.course-category div .score {
       color: #f9c13c;
       font-size: 0.8rem; }
+    dl.course-list dt a.course-category div .btn {
+      margin-top: 11px;
+      background-color: #213351; }
   dl.course-list dt:last-child a {
     border-bottom: none; }
 
@@ -1112,9 +1116,9 @@ dl.course-list dt {
   .candlestick-chart {
     top: 80px;
     display: block; }
-  dl.course-list dt a img {
+  dl.course-list dt a.course-category img {
     display: inline; }
-  dl.course-list dt a .progress {
+  dl.course-list dt a.course-category .progress {
     display: block; } }
 
 @media (min-width: 992px) {

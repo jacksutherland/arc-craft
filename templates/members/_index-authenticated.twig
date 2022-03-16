@@ -2,13 +2,13 @@
 {% set categories = craft.categories.group('courseCategories').level(1) %}
 
 <h6>Discord Server Connected - Welcome {{ arcMember.discordUsername }}!</h6>
-<h3>Video Courses</h3>
+<h3>Video Course Categories:</h3>
 
 <dl class="course-list">
 	{% for cat in categories.all() %}
 		{% set course = craft.entries.section('courses').one() %}
 		<dt>
-			<a href="{{ course.url }}">
+			<a class="course-category" href="{{ course.url }}">
 				{% if course.videoEmbedCode | trim | length %}
 					{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
 					{% if videoId | length >  1 %}
@@ -25,6 +25,8 @@
 					<span class="course-date">{{ cat.briefDescription }}</span>
 					<br>
 					<span class="score">Your Progress: 80%</span>
+					<br>
+					<span class="btn small">Continue Course</span>
 				</div>
 				<span class="progress">
 					80%
