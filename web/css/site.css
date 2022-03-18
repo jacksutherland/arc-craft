@@ -412,6 +412,9 @@ section {
     section .info-cards .two-col .col .content:hover,
     section .info-cards .three-col .col .content:hover {
       border-color: #a0a0a0; }
+      section .info-cards .two-col .col .content:hover .icon.courses-icon svg,
+      section .info-cards .three-col .col .content:hover .icon.courses-icon svg {
+        fill: #f93c74; }
       section .info-cards .two-col .col .content:hover .icon svg,
       section .info-cards .three-col .col .content:hover .icon svg {
         transform: scale(1.1); }

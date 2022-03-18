@@ -550,6 +550,11 @@ section {
 					&:hover {
 						border-color: $gray;
 						.icon {
+							&.courses-icon {
+								svg {
+									fill: $red;
+								}
+							}
 							svg {
 								transform: scale(1.1);
 							}
