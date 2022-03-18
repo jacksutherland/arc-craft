@@ -49,6 +49,7 @@
 {% endif %}
 {% if '//' in resourceUrl %}
 	{% set resourceUrl = resourceUrl | replace('//', '/') %}
+	{% set resourceUrl = resourceUrl | replace('https:/docs.google.com', 'https://docs.google.com') %}
 {% endif %}
 
 {% block main %}
