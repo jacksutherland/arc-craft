@@ -552,7 +552,7 @@ section {
 						.icon {
 							&.courses-icon {
 								svg {
-									fill: $red;
+									fill: $red !important;
 								}
 							}
 							svg {
