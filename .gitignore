@@ -11,6 +11,7 @@
 /storage/*
 /config/project
 /config/project/*
+/config/project/project.yaml
 
 # Website Resources
 /web/files
