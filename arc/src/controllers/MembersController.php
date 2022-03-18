@@ -88,7 +88,7 @@ class MembersController extends Controller
         // }
 
         return Craft::$app->view->renderTemplate(
-            'members/index',
+            'members/_index',
             [
                'entry' => $entry,
                'result' => $result,

@@ -1,92 +1,30 @@
-{#% set courses = craft.entries.section('courses') %#}
-{% set categories = craft.categories.group('courseCategories').level(1) %}
-
-<h6>Discord Server Connected - Welcome {{ arcMember.discordUsername }}!</h6>
-<h3>Video Course Categories:</h3>
-
-<dl class="course-list">
-	{% for cat in categories.all() %}
-		{% set course = craft.entries.section('courses').one() %}
-		<dt>
-			<a class="course-category" href="{{ course.url }}">
-				{% if course.videoEmbedCode | trim | length %}
-					{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
-					{% if videoId | length >  1 %}
-						{% set videoId = videoId[1] | split('/video/splash.jpg') %}
-						{% if videoId | length >  1 %}
-							{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
-						{% endif %}
-					{% endif %}
-					<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
-				{% endif %}
-				<div>
-					<span class="course-title">{{ cat.title }}</span>
-					<br>
-					<span class="course-date">{{ cat.briefDescription }}</span>
-					<br>
-					<span class="score">Your Progress: 80%</span>
-					<br>
-					<span class="btn small">Continue Course</span>
-				</div>
-				<span class="progress">
-					80%
-				</span>
+<div class="centered-column">
+	<h6>Discord Server <span class="dark-gray-text">Connected</span></h6>
+	<h3 style="margin-bottom: 0">{{ entry.discordHeadlineLoggedIn | replace('{{USERNAME}}', arcMember.discordUsername) }}</h3>
+	<p>
+		{{ entry.discordDisclaimerLoggedIn }}
+	</p>
+	<div class="info-cards">
+		<div class="two-col">
+			<a class="col" href="/members/resources">
+					<div class="content">
+						<h6>Resources</h6>
+						<div class="resources-icon icon">
+							{% include "_svgs/icon" with { type: "resource" } %}
+						</div>
+						<div class="text-content">{{ entry.description1 }}</div>
+					</div>
 			</a>
-		</dt>
-	{% endfor %}
-</dl>
-
-{#
-<dl class="course-list">
-	{% for course in courses.all() %}
-		{% set score = craft.arc.getMemberQuizScore(course.id) %}
-		<dt>
-			<a href="{{ course.url }}">
-				{% if course.videoEmbedCode | trim | length %}
-					{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
-					{% if videoId | length >  1 %}
-						{% set videoId = videoId[1] | split('/video/splash.jpg') %}
-						{% if videoId | length >  1 %}
-							{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
-						{% endif %}
-					{% endif %}
-					<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
-				{% endif %}
-				<div>
-					<span class="course-title">{{ course.title }}</span>
-					<br>
-					<span class="course-date">{{ course.postDate | datetime('short') }}</span>
-					{% if score >= 0 %}
-						<br>
-						<span class="score">Your Score: {{ score }}</span>
-					{% endif %}
+			<a class="col" href="/members/academy">
+				<div class="content">
+					<h6>Academy</h6>
+					<div class="courses-icon icon">
+						{% include "_svgs/icon" with { type: "academy" } %}
+					</div>
+					<div class="text-content">{{ entry.description2 }}</div>
 				</div>
-				{% if score >= 0 %}
-					<span class="grade">
-						{% if score > 89 %}
-							{{ 'A' }}
-						{% elseif score > 79 %}
-							{{ 'B' }}
-						{% elseif score > 69 %}
-							{{ 'C' }}
-						{% elseif score > 59 %}
-							{{ 'B' }}
-						{% else %}
-							{{ 'F' }}
-						{% endif %}
-					</span>
-				{% endif %}
 			</a>
-		</dt>
-	{% endfor %}
-</dl>
-#}
-
-{#
-<ul>
-	<li><strong>Discord User ID:</strong> {{ arcMember.discordId }}</li>
-	<li><strong>Discord Username:</strong> {{ arcMember.discordUsername }}</li>
-	<li><strong>Discord User Email:</strong> {{ arcMember.discordEmail }}</li>
-	<li><strong>Discord Access Token:</strong> {{ result }}</li>
-</ul>
-#}
+			<br style="clear:both;">
+		</div>
+	</div>
+</div>

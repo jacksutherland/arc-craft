@@ -1,0 +1,41 @@
+{% extends "_layout-members" %}
+
+{% set breadcrumb = [
+	{ label: 'Members', url: '/members' },
+	{ label: 'Resources', url: '/members/resources' }
+] %}
+
+{% block main %}
+
+	<section class="gray">
+		<div class="centered-column">
+			<h4 style="margin-top:0">Resource List</h4>
+			<div class="data-table">
+				<table>
+					<tbody>
+						{% for resource in entry.resourceList %}
+							{% set url = '/members/resources/' ~ (resource.name | kebab) %}
+							<tr>
+								<td class="icon">
+									<a href="{{ url }}">
+										{% include "_svgs/icon" with { type: "resource" } %}
+									</a>
+								</td>
+								<td class="text">
+									<a href="{{ url }}">
+										<strong>{{ resource.name }}</strong>
+										<p>{{ resource.description }}</p>
+									</a>
+								</td>
+								<td class="cta">
+									<a class="btn" href="{{ url }}">View</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

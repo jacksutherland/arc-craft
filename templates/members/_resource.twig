@@ -1,0 +1,61 @@
+{% extends "_layout-members" %}
+
+{% set entry = craft.entries.section('resources').one() %}
+
+{% set slug = craft.app.request.segments | last %}
+
+{% set title = '' %}
+
+{% set resource = null %}
+
+{% for res in entry.resourceList %}
+	{% set resourceKebab = res.name | kebab %}
+	{% if resourceKebab == slug %}
+		{% set resource = res %}
+		{% set title = res.name %}
+	{% endif %}
+{% endfor %}
+
+{# If no resource found then lets bounce! #}
+
+{% if resource == null %}
+    {% exit 404 %}
+{% endif %}
+
+{% set breadcrumb = [
+	{ label: 'Members', url: '/members' },
+	{ label: 'Resources', url: '/members/resources' },
+	{ label: resource.name, url: craft.app.request.absoluteUrl }
+] %}
+
+{# Cleanup resource url for embedding #}
+
+{% set resourceUrl = resource.url %}
+{% if '?' not in resourceUrl %}
+	{% if '/pubhtml' not in resourceUrl and '/edit' not in resourceUrl %}
+		{% set resourceUrl = resourceUrl ~ '/pubhtml?widget=true' %}
+	{% else %}
+		{% set resourceUrl = resourceUrl ~ '?widget=true' %}
+	{% endif %}
+{% endif %}
+{% if 'widget=true' not in resourceUrl %}
+	{% set resourceUrl = resourceUrl ~ '&widget=true' %}
+{% endif %}
+{% if 'headers=false' not in resourceUrl %}
+	{% set resourceUrl = resourceUrl ~ '&headers=false' %}
+{% endif %}
+{% if '/edit' in resourceUrl %}
+	{% set resourceUrl = resourceUrl | replace('/edit', '/pubhtml') %}
+{% endif %}
+{% if '//' in resourceUrl %}
+	{% set resourceUrl = resourceUrl | replace('//', '/') %}
+{% endif %}
+
+{% block main %}
+	<section class="iframe">
+		{#{ resource.embedCode | raw }#}
+		{#<iframe src="https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQOfUP56NAD1gj0MhHW4HiWCgK9_8oKRn8A8NahSsr49sxE_45kmzlL8vPv3kel5D34PRNcakZI29IX/pubhtml?widget=true&amp;headers=false" frameborder="0"></iframe>#}
+		{#<iframe src="https://docs.google.com/spreadsheets/d/1dnZ8N888o4TZUou9doq5N8O_I6OZOgzdcS3FBNpCqdQ/edit#gid=0?widget=true&amp;headers=false" frameborder="0"></iframe>#}
+		<iframe src="{{ resourceUrl }}"{% if resource.height | length %} style="height:{{ resource.height }}px;"{% endif %} frameborder="0"></iframe>
+	</section>
+{% endblock %}

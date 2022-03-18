@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1647393071
+dateModified: 1647563204
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -13,6 +13,7 @@ meta:
     1aae4875-1edf-4d80-bd58-40068bbc1a62: Courses # Courses
     1b8c2218-3ecf-46a1-8daf-1e0dbf702fe1: 'Show In Menu' # Show In Menu
     01ce7b54-e762-432f-886c-7799f199c071: Subheading # Subheading
+    1d26b39b-7647-4b8d-b04f-a263f8e21df6: 'Discord Headline Logged In' # Discord Headline Logged In
     1eeed1a4-2094-4263-bee2-cf5a36e6dff1: 'Button Link' # Button Link
     2a10ef26-192e-441b-9093-2c2b7f894e6e: 'Button Url' # Button Url
     2ced687d-7414-4287-b282-6418900fe4b6: Headline # Headline
@@ -29,10 +30,12 @@ meta:
     6c7d0837-027a-4571-9dda-a16ff1762602: Headline # Headline
     6d79ba58-7129-4fbf-b0ae-82a4898db50d: Subheading # Subheading
     6d6688d7-234b-4d64-b47f-769bc8bc6894: 'Rich Text' # Rich Text
+    6e8c41c1-ec95-48a4-a376-a5bc32ccca96: 'Discord Headline Logged Out' # Discord Headline Logged Out
     07b56235-0c37-4634-91d6-0cd16ebbcfc5: 'Hero Image' # Hero Image
     7ce01c57-54ab-4c5b-9144-32aa9a366388: 'Page Module' # Page Module
     7fe618d0-2ed1-473c-accb-5e033d31375b: Background # Background
     8cc02aed-a60e-473c-940f-b0003e752168: Users # Users
+    8f94064a-511a-4dc0-966f-d5f896e0d53f: Academy # Academy
     09e5065c-8f6f-4214-8d35-10584efc0113: Question # Question
     13aab69a-664e-4ddd-b553-1d1aefbcf928: Testimonial # Testimonial
     13c62774-97b7-4ffd-8584-b54ffe0d7e22: 'Button Text' # Button Text
@@ -40,6 +43,7 @@ meta:
     28ced111-963e-40c9-82aa-3896a11097ce: Editor # Editor
     32c79209-15ab-4c61-a8f2-b6ea7a563658: Background # Background
     33a6d591-ce8c-4609-b28b-4c9170d8d5ab: Answer # Answer
+    35ab9eb0-645a-4ca1-8da1-5521e41b8231: 'Description 1' # Description 1
     43ead14d-1dc9-4634-824f-e3820d1686e5: Background # Background
     47c70a85-ee2b-4cda-9f22-61d169683eef: Question # Question
     48bb2c0c-0428-4c66-976e-5479e326797f: 'Full Name' # Full Name
@@ -52,21 +56,25 @@ meta:
     77f330f8-fce3-4e35-b976-154654f3b9c5: Screenshot # Screenshot
     83f0ebf3-c871-48ea-bbb8-93184bb94818: 'Quiz Module' # Quiz Module
     126a86d9-a8c4-4026-94d3-fe86a55528bd: Instructions # Instructions
+    197a01ed-dd60-48c8-b56a-458b68ef5825: Resources # Resources
     271f4e08-2a6c-4cff-811d-3e18f71d1fb4: Background # Background
     275c57e1-8ffe-42e7-8da0-6955b10815b4: Headline # Headline
     286db281-2cd4-4677-a437-18010012892e: Subheading # Subheading
     289bc566-f5d9-421b-a00c-a23047155453: 'Course Category' # Course Category
+    355d94e8-d87d-4d15-bd43-6d65eb81001a: Resources # Resources
     381ab349-80d7-4368-a55c-cf8abf6a0834: Courses # Courses
     683ddb4e-7ae5-4908-85c9-a397f8a15a98: Headline # Headline
     780b1119-287d-423f-a386-c8aea1460d68: Headline # Headline
     849c5c01-5c8d-43ad-a0a3-d81ae86663f7: 'YouTube Video ID' # YouTube Video ID
     874cfa68-1413-4781-964c-6d712db0dcd1: Headline # Headline
     4412b729-dc77-4a1f-9afd-6ce2e18d866e: 'Rich Text' # Rich Text
+    77683c4a-25fd-4b9c-b801-ccb478f4599a: 'Resource List' # Resource List
     93938fc4-00e1-4b6b-8bc8-3fd89a6e4b27: 'Z Pattern' # Z Pattern
     99819b32-8085-40c1-b6ed-41917f1ffd45: Row # Row
     431440c4-ce35-4094-9b40-f91bbdd8f7df: 'Multiple Choice' # Multiple Choice
     612018d3-1c01-4974-905d-6cc906a1411c: 'Background Color' # Background Color
     838189f7-84ba-4c29-a711-afa3985275ee: 'Team Members' # Team Members
+    949946f0-fc1f-4677-926d-99a62968c4dc: Academy # Academy
     1012925f-d152-4521-a359-63243c0463e7: 'Discord Disclaimer Logged Out' # Discord Disclaimer Logged Out
     3584858e-b93a-44c5-bf74-270892c4043b: 'Video Embed Code' # Video Embed Code
     5085023c-f7b7-44bc-bbf2-1b805fe4caa1: Text # Text
@@ -104,6 +112,7 @@ meta:
     e9b1a920-836b-4e93-a379-5a9f92a3b891: 'Thank You Message' # Thank You Message
     e583f2cb-5ad8-42d1-8fcc-b601384e0de9: Subheading # Subheading
     e34616c9-44d4-407e-8d19-8db2693209ae: Brand # Brand
+    e8888878-cc86-48f7-bd7c-6e0977e651b1: 'Description 2' # Description 2
     ebd19ed3-4420-4f35-8597-38bcc010f64a: General # General
     eed349b7-b7d1-4481-b2aa-50450d4593bf: 'Brief Description' # Brief Description
     ef7d8fb8-5782-4ff6-8cfe-4fd9c4701cb9: Integrations # Integrations

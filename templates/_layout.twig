@@ -1,9 +1,10 @@
-{% set resourceVersion = '1.12' %}
+{% set resourceVersion = '1.13' %}
 
 {% set isDev = true %}
 
 {% if entry is not defined %}
-    {% redirect 404 %}
+    {% exit 404 %}
+    {#% redirect 404 %#}
 {% elseif entry.slug == 'dev' %}
     {% set isDev = true %}
 {% endif %}
@@ -11,6 +12,8 @@
 {% if craft.app.request.segments | length == 0 %}
     {% redirect 'coming-soon' %}
 {% endif %}
+
+{% set entryTitle = title is defined and title | length > 0 ? title : '' %}
 
 {% set pages = craft.entries.section('pages') %}
 {% set about = craft.entries.section('pages').slug('about') %}
@@ -40,12 +43,14 @@
     {% if entry is defined %}
 
         {% if entry.slug == '__home__' or entry.slug == 'homepage' %}
-            <title>ARcollective</title>
+            <title>ARCollective</title>
+        {% elseif titleTag is defined %}
+            <title>{{ titleTag }} | ARCollective</title>
         {% else %}
-            <title>{{ entry.title }} | ARcollective</title>
+            <title>{{ entryTitle }} | ARCollective</title>
         {% endif %}
 
-        {% set seoTitle = entry.seoTitle | length ? entry.seoTitle : entry.title %}
+        {% set seoTitle = entry.seoTitle | length ? entry.seoTitle : entryTitle %}
         <meta property="og:title" content="{{ seoTitle }}">
         <meta property="twitter:title" content="{{ seoTitle }}">
 
@@ -66,7 +71,7 @@
         {% endif %}
 
     {% else %}
-        <title>ARcollective</title>
+        <title>ARCollective</title>
     {% endif %}
 
     {% block styles %}{% endblock %}
@@ -74,7 +79,7 @@
 </head>
 <body{% if entry is defined %} id="{{ entry.slug }}" class="{{ entry.section.handle }}"{% endif %}>
     {% set showHero = (entry.heroImage is not null) and entry.heroImage.count %}
-    
+
     <div class="site-container">
 
         <header>
@@ -111,6 +116,7 @@
                 {% endif %}
 
                 {% if entry is defined %}
+                    {#% set entryTitle = title is defined and title | length > 0 ? title : '' %#}
                     {% if entry.showHeaderBanner %}
                         <video id="hero-vid" loop="" autoplay="" muted="" class="fullscreen-video desktop-header">
                             <source type="video/mp4" src="https://player.vimeo.com/external/471055045.hd.mp4?s=105c2dac19b5181a72fb0a5eca63989b5f656d8e&amp;profile_id=175">
@@ -134,9 +140,15 @@
                             {% if entry.subheading | length %}
                                 <h6>{{ entry.subheading }}</h6>
                             {% endif %}
-                            {% if entry.headline | length %}
+                            {% if entryTitle is defined and entryTitle | length %}
+                                <h1>{{ entryTitle }}</h1>
+                            {% elseif entry.headline | length %}
                                 <h1>{{ entry.headline }}</h1>
                             {% endif %}
+                        </div>
+                    {% elseif entryTitle is defined and entryTitle | length %}
+                        <div class="header-text">
+                            <h1>{{ entryTitle }}</h1>
                         </div>
                     {% elseif headline is defined %}
                         <div class="header-text">
@@ -159,7 +171,7 @@
                     {% endnav %}
                     {% if craft.arc.isUserLoggedIn %}
                         <li>
-                            <a href="/members">Academy</a>
+                            <a href="/members">Members</a>
                         </li>
                     {% endif %}
                     {% if isDev %}
@@ -216,13 +228,25 @@
                     {% endif %}
                 </ul>
             </nav>
-            {% if entry.section.handle == "courses" %}
+            {#% if entry.section.handle == "courses" %}
                 <div class="breadcrumb">
                     <a href="/members">Academy</a>
                     <span>></span>
                     <a href="/members">Courses</a>
                     <span>></span>
                     <a class="active" href="{{ entry.slug }}">{{ entry.title }}</a>
+                </div>
+            {% endif %#}
+            {% if breadcrumb is defined %}
+                <div class="breadcrumb">
+                    {% for crumb in breadcrumb %}
+                        {% if loop.index < breadcrumb | length %}
+                            <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+                            <span>></span>
+                        {% else %}
+                            <a class="active" href="{{ crumb.url }}">{{ crumb.label }}</a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             {% endif %}
         </header>

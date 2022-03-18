@@ -1,8 +1,10 @@
 {% extends "_layout" %}
 
+{% set titleTag = "Members Portal" %}
+
 {% block main %}
 
-	<section>
+	<section class="gray">
 		{% if craft.arc.isUserLoggedIn %}
 		{#% if false %#}
 			{# USER IS AUTHENTICATED #}
