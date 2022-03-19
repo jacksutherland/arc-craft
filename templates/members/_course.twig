@@ -2,7 +2,14 @@
 
 {% set headline = 'Academy' %}
 {% set arcMember = craft.arc.getArcMember %}
-{% set categories = craft.categories.group('courseCategories').level(1) %}
+{% set parentCategory = entry.courseCategory.orderBy('level ASC').one() %}
+{% set childCategory = entry.courseCategory.orderBy('level DESC').one() %}
+
+{% set breadcrumb = [
+	{ slug: 'members' },
+	{ slug: 'academy' },
+	{ label: entry.title, url: craft.app.request.absoluteUrl }
+] %}
 
 {% block main %}
 	<div class="sidebar-layout">
@@ -67,16 +74,31 @@
 
 		<aside>
 			
-			<h4>Syllabus</h4>
+			{% if parentCategory != null %}
 
-			<dl>
-				{% for cat in categories.all() %}
-					<dt>
-						<a href="/">{{ cat.title }}</a>
-						<p>{{ cat.briefDescription }}</p>
-					</dt>
-				{% endfor %}
-			</dl>
+				<h4>{{ parentCategory.title }}</h4>
+
+				<ol>
+					{% for cat in parentCategory.children.all() %}
+						<li{% if cat.slug == childCategory.slug %} class="active"{% endif %}>
+							{% set courses = craft.entries.section('courses').relatedTo(cat) %}
+							<span>{{ cat.title }}</span>
+							{% if courses.count() %}
+								<ul>
+									{% for course in courses.all() %}
+										<li{% if course.id == entry.id %} class="active"{% endif %}>
+											<a href="{{ course.url }}">
+												{% include '_svgs/icon' with { type: 'play' } %}
+												<span>{{ course.title }}</span>
+											</a>
+										</li>
+									{% endfor %}
+								</ul>
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ol>
+			{% endif %}
 
 		</aside>
 

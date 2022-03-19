@@ -66,16 +66,17 @@ h6 {
 }
 
 a {
-	color: $blue;
+	color: $link-color;
 	transition: .3s ease color;
 	text-decoration: none;
 	&:hover {
-		color: $light-blue;
+		color: $link-hover-color;
 		svg {
-			fill: $blue !important;
+			fill: $link-hover-color !important;
 		}
 	}
 	svg {
+		fill: $link-color;
 		transition: .3s ease fill;
 	}
 }
@@ -831,7 +832,6 @@ section {
 	  flex-basis: 100%;
   }
 	section {
-		//flex: 2;
 		flex: 45%;
 		background-color: $white;
 		margin: 0;
@@ -839,13 +839,46 @@ section {
 	aside {
 		flex: 1;
 		margin: 20px;
-		// padding: 20px;
-		//background-color: $section-gray;
 		h4 {
-			margin: 0;
+			margin: 0 0 10px 0;
 		}
 		p {
 			font-size: $font-smaller;
+		}
+		ul, ol {
+			list-style-type: auto;
+			list-style-position: inside;
+			padding: 0;
+			margin: 0;
+			li {
+				margin: 8px 0;
+				padding: 8px 0 13px 0;
+				border-bottom: solid 1px $light-gray;
+				position: relative;
+				&.active {
+					font-weight: $font-bold-primary;
+					>span, >a>span {
+						font-size: $font-size;
+					}
+				}
+				ul {
+					list-style-type: none;
+					li {
+						border-bottom: none;
+						padding: 5px 0 0 20px;
+					}
+				}
+				svg {
+					height: 15px;
+					position: absolute;
+			    left: 0;
+			    top: 11px;
+				}
+				span {
+					vertical-align: middle;
+					font-size: $font-smaller;
+				}
+			}
 		}
 	}
 }
@@ -853,7 +886,38 @@ section {
 
 /***** MEMBER PORTAL *****/
 
-
+.progress {
+	width: 100%;
+	margin: 8px 0 0 0;
+	.labels {
+		label {
+			height: 20px;
+			font-size: $font-small;
+			font-weight: $font-bold-primary;
+			float: right;
+			color: lighten($dark-primary-hover, 5%);
+			&:first-child {
+				float: left;
+			}
+		}
+	}
+	.pill {
+		width: 100%;
+		height: 6px;
+		position: relative;
+		border: solid 2px lighten($dark-primary-hover, 10%);
+		border-radius: 6px;
+		overflow: hidden;
+		.fill {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 50%;
+			background-image: linear-gradient($section-gray, darken($light-gray, 15%));
+		}
+	}
+}
 
 .data-table {
 	background-color: $white;
@@ -866,21 +930,31 @@ section {
 			tr {
 				&:last-child {
 					td {
-						border-bottom: solid 1px $light-gray;
+						border-bottom: solid 2px $section-gray;
 					}
 				}
 				td {
 					margin: 0;
 					padding: 20px 15px;
-					border-top: solid 1px $light-gray;
+					border-top: solid 2px $section-gray;
 					min-height: 40px;
+					// &:first-child {
+					// 	border-left: solid 2px $section-gray;
+					// }
+					// &:last-child {
+					// 	border-right: solid 2px $section-gray;
+					// }
 					&.icon {
 						display: none; // responsive, not needed on mobile
 						width: 1%;
     				white-space: nowrap;
+    				padding: 20px 10px 17px 20px;
 						svg {
 							height: 45px;
 							fill: $light-gray;
+						}
+						img {
+							height: 100px;
 						}
 					}
 					&.text {
@@ -893,7 +967,7 @@ section {
 							p {
 								font-size: $font-small;
 								margin: 5px 0 0 0;
-								color: $gray;
+								color: $dark-gray;
 							}
 						}
 					}

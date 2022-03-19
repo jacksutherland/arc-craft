@@ -23,8 +23,8 @@
 {% endif %}
 
 {% set breadcrumb = [
-	{ label: 'Member Portal', url: '/members' },
-	{ label: 'Resources', url: '/members/resources' },
+	{ slug: 'members' },
+	{ slug: 'resources' },
 	{ label: resource.name, url: craft.app.request.absoluteUrl }
 ] %}
 

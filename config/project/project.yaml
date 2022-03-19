@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1647563204
+dateModified: 1647642296
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -96,6 +96,7 @@ meta:
     bcfe901d-3453-43d5-8d3d-6892a479306a: Links # Links
     bd003adf-f476-4f00-87ad-7b28d60bfa32: Members # Members
     bf5376f9-47f0-4505-9f00-c7ec628fc26f: Discord # Discord
+    c1ab3694-ce92-4687-be38-0dc333015a7c: 'Skill Level' # Skill Level
     c8ef7f6d-2a3e-490c-b241-44a86c4e9c1e: 'Button Text' # Button Text
     c9dd477c-7e6c-4b69-a23f-656ae4e7b561: Default # Default
     c73af2ed-324c-4d07-b6a4-a02d9bbf62b7: 'Course Categories' # Course Categories

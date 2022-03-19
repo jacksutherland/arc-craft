@@ -228,23 +228,30 @@
                     {% endif %}
                 </ul>
             </nav>
-            {#% if entry.section.handle == "courses" %}
-                <div class="breadcrumb">
-                    <a href="/members">Academy</a>
-                    <span>></span>
-                    <a href="/members">Courses</a>
-                    <span>></span>
-                    <a class="active" href="{{ entry.slug }}">{{ entry.title }}</a>
-                </div>
-            {% endif %#}
             {% if breadcrumb is defined %}
                 <div class="breadcrumb">
                     {% for crumb in breadcrumb %}
+                        {% if crumb.slug is defined%}
+                            {% switch crumb.slug %}
+                                {% case 'members' %}
+                                    {% set crumbUrl = '/members' %}
+                                    {% set crumbLabel = 'Member Portal' %}
+                                {% case 'resources' %}
+                                    {% set crumbUrl = '/members/resources' %}
+                                    {% set crumbLabel = 'Resources' %}
+                                {% case 'academy' %}
+                                    {% set crumbUrl = '/members/academy' %}
+                                    {% set crumbLabel = 'Academy' %}
+                            {% endswitch %}
+                        {% else %}
+                            {% set crumbUrl = crumb.url %}
+                            {% set crumbLabel = crumb.label %}
+                        {% endif %}
                         {% if loop.index < breadcrumb | length %}
-                            <a href="{{ crumb.url }}">{{ crumb.label }}</a>
+                            <a href="{{ crumbUrl }}">{{ crumbLabel }}</a>
                             <span>></span>
                         {% else %}
-                            <a class="active" href="{{ crumb.url }}">{{ crumb.label }}</a>
+                            <a class="active" href="{{ crumbUrl }}">{{ crumbLabel }}</a>
                         {% endif %}
                     {% endfor %}
                 </div>

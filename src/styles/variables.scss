@@ -19,7 +19,7 @@ $white: #ffffff;
 $gray: #a0a0a0; //#a7a7a7;
 $antique: #f1f3f4; //#e7eaed; //#f1f3f4;
 $section-gray: darken($antique, 4%);
-$dark-gray: darken($gray, 20%);
+$dark-gray: darken($gray, 15%);
 $light-gray: lighten($gray, 20%);
 
 // Colors From Logo
@@ -28,6 +28,9 @@ $blue: #3c74f9; // Medium bright blue
 $dark-primary: #061124; // Dark (almost black) blue. Compliments: #112039 #213351
 $dark-secondary: #112039; // Dark blue
 $dark-primary-hover: #213351; // Estate Blue
+
+$link-color: lighten($dark-primary-hover, 16%);
+$link-hover-color: $dark-primary-hover;
 
 // New Logo Colors
 

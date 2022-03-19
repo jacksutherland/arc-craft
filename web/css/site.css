@@ -52,14 +52,15 @@ h6 {
   line-height: 24px; }
 
 a {
-  color: #3c74f9;
+  color: #39588b;
   transition: .3s ease color;
   text-decoration: none; }
   a:hover {
-    color: #3cd3f9; }
+    color: #213351; }
     a:hover svg {
-      fill: #3c74f9 !important; }
+      fill: #213351 !important; }
   a svg {
+    fill: #39588b;
     transition: .3s ease fill; }
 
 .btn {
@@ -84,7 +85,7 @@ a {
   color: #f93c74; }
 
 .dark-gray-text {
-  color: #6d6d6d; }
+  color: #7a7a7a; }
 
 .site-container {
   margin: 15px 15px 0 15px;
@@ -605,11 +606,64 @@ section {
     flex: 1;
     margin: 20px; }
     .sidebar-layout aside h4 {
-      margin: 0; }
+      margin: 0 0 10px 0; }
     .sidebar-layout aside p {
       font-size: 0.92rem; }
+    .sidebar-layout aside ul, .sidebar-layout aside ol {
+      list-style-type: auto;
+      list-style-position: inside;
+      padding: 0;
+      margin: 0; }
+      .sidebar-layout aside ul li, .sidebar-layout aside ol li {
+        margin: 8px 0;
+        padding: 8px 0 13px 0;
+        border-bottom: solid 1px lightgray;
+        position: relative; }
+        .sidebar-layout aside ul li.active, .sidebar-layout aside ol li.active {
+          font-weight: 600; }
+          .sidebar-layout aside ul li.active > span, .sidebar-layout aside ul li.active > a > span, .sidebar-layout aside ol li.active > span, .sidebar-layout aside ol li.active > a > span {
+            font-size: 1rem; }
+        .sidebar-layout aside ul li ul, .sidebar-layout aside ol li ul {
+          list-style-type: none; }
+          .sidebar-layout aside ul li ul li, .sidebar-layout aside ol li ul li {
+            border-bottom: none;
+            padding: 5px 0 0 20px; }
+        .sidebar-layout aside ul li svg, .sidebar-layout aside ol li svg {
+          height: 15px;
+          position: absolute;
+          left: 0;
+          top: 11px; }
+        .sidebar-layout aside ul li span, .sidebar-layout aside ol li span {
+          vertical-align: middle;
+          font-size: 0.92rem; }
 
 /***** MEMBER PORTAL *****/
+.progress {
+  width: 100%;
+  margin: 8px 0 0 0; }
+  .progress .labels label {
+    height: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    float: right;
+    color: #283e63; }
+    .progress .labels label:first-child {
+      float: left; }
+  .progress .pill {
+    width: 100%;
+    height: 6px;
+    position: relative;
+    border: solid 2px #304a75;
+    border-radius: 6px;
+    overflow: hidden; }
+    .progress .pill .fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 50%;
+      background-image: linear-gradient(#e6e9eb, #adadad); }
+
 .data-table {
   background-color: #ffffff;
   border-radius: 3.5px; }
@@ -618,19 +672,22 @@ section {
     border-collapse: collapse;
     width: 100%; }
     .data-table table tbody tr:last-child td {
-      border-bottom: solid 1px lightgray; }
+      border-bottom: solid 2px #e6e9eb; }
     .data-table table tbody tr td {
       margin: 0;
       padding: 20px 15px;
-      border-top: solid 1px lightgray;
+      border-top: solid 2px #e6e9eb;
       min-height: 40px; }
       .data-table table tbody tr td.icon {
         display: none;
         width: 1%;
-        white-space: nowrap; }
+        white-space: nowrap;
+        padding: 20px 10px 17px 20px; }
         .data-table table tbody tr td.icon svg {
           height: 45px;
           fill: lightgray; }
+        .data-table table tbody tr td.icon img {
+          height: 100px; }
       .data-table table tbody tr td.text a {
         font-weight: 700;
         color: #000000; }
@@ -639,7 +696,7 @@ section {
         .data-table table tbody tr td.text a p {
           font-size: 0.8rem;
           margin: 5px 0 0 0;
-          color: #a0a0a0; }
+          color: #7a7a7a; }
       .data-table table tbody tr td.cta {
         display: none;
         width: 80px; }
