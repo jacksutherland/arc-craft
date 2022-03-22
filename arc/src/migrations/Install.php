@@ -73,6 +73,7 @@ class Install extends Migration
                     'uid' => $this->uid(),
                     'siteId' => $this->integer()->notNull(),
                     'quizEntryId' => $this->integer(),
+                    'rootCategoryId' => $this->integer(),
                     'discordUsername' => $this->string(255)->notNull()->defaultValue(''),
                     'discordEmail' => $this->string(255)->notNull()->defaultValue(''),
                     'quizScore' => $this->integer(),
@@ -129,6 +130,7 @@ class Install extends Migration
     protected function removeTables()
     {
         // arc_member table
+        $this->dropTableIfExists('{{%arc_member_grade}}');
         $this->dropTableIfExists('{{%arc_member}}');
     }
 }

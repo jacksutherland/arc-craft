@@ -125,13 +125,15 @@ class MembersController extends Controller
         $memberGrade = new ArcMemberGrade($request);
         $memberGrade->questions = $request->getBodyParam('questions');
 
-        if($service->saveMemberGrade($memberGrade))
+        $quizScore = $service->saveMemberGrade($memberGrade);
+
+        if($quizScore < 0)
         {
-            return 'success';
+            return 'error';
         }
         else
         {
-            return 'error';
+            return $quizScore;
         }
     }
 }

@@ -17,6 +17,7 @@
 						<tbody>
 							{% for cat in categories.all() %}
 								{% if craft.entries.section('courses').relatedTo(cat).count %}
+									{% set progress = craft.arc.getMemberCategoryProgress(cat) %}
 									{% set course = craft.entries.section('courses').relatedTo(cat).one() %}
 									<tr>
 										{% if course.videoEmbedCode | trim | length %}
@@ -38,18 +39,18 @@
 												<strong>{{ cat.title }}</strong>
 												<p>{{ cat.briefDescription }}</p>
 											</a>
-											<div class="progress" data-progress="80">
+											<div class="progress" data-progress="{{ progress }}">
 												<div class="labels">
 													<label>Progress</label>
-													<label>80%</label>
+													<label>{{ progress }}%</label>
 												</div>
 												<div class="pill">
-													<div class="fill"></div>
+													<div class="fill" style="right:{{ (100 - progress) }}%;"></div>
 												</div>
 											</div>
 										</td>
 										<td class="cta">
-											<a class="btn" href="{{ course.url }}">Continue</a>
+											<a class="btn" href="{{ course.url }}">{{ progress == 0 ? 'Start' : 'Continue' }}</a>
 										</td>
 									</tr>
 								{% endif %}

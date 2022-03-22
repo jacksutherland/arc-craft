@@ -239,6 +239,17 @@ var DOMClass = function()
 				}.bind({class:this,field:formValidationFields[ii]}));
 			}
 
+			if(forms[i].classList.contains('quiz'))
+			{
+				document.querySelector('.quiz-complete .repeat-course').addEventListener('click', function(e)
+				{
+					e.preventDefault();
+					document.querySelector('.quiz-complete').classList.remove('show');
+					this.form.reset();
+					this.form.classList.add('show');
+				}.bind({form:forms[i]}));
+			}
+
 			forms[i].addEventListener('submit', function(e)
 			{
 				var isValid = true;
@@ -293,19 +304,38 @@ var DOMClass = function()
 					{
 					    if (this.readyState === XMLHttpRequest.DONE && this.status === 200)
 					    {
-					        // console.log('done');
-					        // console.log(xhr.responseText);
 					        if(frm.classList.contains('quiz'))
 							{
+								console.log('done');
+					        	console.log('score = ' + xhr.responseText);
 								if(xhr.responseText == 'error')
 								{
+									console.log('Quiz Error');
 									frm.querySelector('.error').classList.remove('show');
 									frm.querySelector('.error.saving').classList.add('show');
 								}
 								else
 								{
-									window.location.href = '/members';
-								}
+									if(xhr.responseText.length < 4)
+									{
+										let parseScore = parseInt(xhr.responseText);
+										if(parseScore < 70)
+										{
+											document.getElementById('quiz-results').innerHTML = `You have completed this course with a score of <strong>${xhr.responseText}</strong>. You must score 70 or higher for it to be added to your progress.`;
+										}
+										else
+										{
+											document.getElementById('quiz-results').innerHTML = `Congratulations! You have passed this course with a score of <strong>${xhr.responseText}</strong>. What would you like to do next?`;
+										}
+									}
+									else
+									{
+										document.getElementById('quiz-results').innerText = 'We were unable to calculate your score at this time.';
+									}
+
+									document.querySelector('.quiz').classList.remove('show');
+									document.querySelector('.quiz-complete').classList.add('show');
+								} 
 							}
 							else
 							{

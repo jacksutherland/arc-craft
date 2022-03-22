@@ -2,8 +2,12 @@
 
 {% set headline = 'Academy' %}
 {% set arcMember = craft.arc.getArcMember %}
+{% set courseScore = craft.arc.getMemberQuizScore(entry.id) %}
 {% set parentCategory = entry.courseCategory.orderBy('level ASC').one() %}
 {% set childCategory = entry.courseCategory.orderBy('level DESC').one() %}
+{% set nextCourse = null %}
+
+{# Set Breadcrumb #}
 
 {% set breadcrumb = [
 	{ slug: 'members' },
@@ -11,7 +15,39 @@
 	{ label: entry.title, url: craft.app.request.absoluteUrl }
 ] %}
 
+{# Find next course in category order #}
+
+{% set foundThisCourse = false %}
+{% for cat in parentCategory.children.all() %}
+	{% if nextCourse == null %}
+		{% set courses = craft.entries.section('courses').relatedTo(cat) %}
+		{% for course in courses.all() %}
+			{% if nextCourse == null %}
+				{% if foundThisCourse %}
+					{% set nextCourse = course %}
+				{% elseif course.id == entry.id %}
+					{% set foundThisCourse = true %}
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endfor %}
+
+{% if nextCourse == null %}
+	{% if parentCategory.getNextSibling() != null %}
+		{% for cat in parentCategory.getNextSibling().children.all() %}
+			{% if nextCourse == null %}
+				{% set courses = craft.entries.section('courses').relatedTo(cat) %}
+				{% for course in courses.all() %}
+					{% set nextCourse = course %}
+				{% endfor %}
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+{% endif %}
+
 {% block main %}
+	{#<h1>{{ nextCourse == null ? 'null nextCourse' : nextCourse.slug }} {{ parentCategory .getNextSibling() == null }}</h1>#}
 	<div class="sidebar-layout">
 
 		<section>
@@ -39,13 +75,17 @@
 			{% endif %}
 
 			{% if entry.quizModule.count %}
-				<form class="quiz arc-form" method="post" action="/members/save-grade" data-submit="ajax">
+				<form class="quiz show arc-form" method="post" action="/members/save-grade" data-submit="ajax">
 					<input name="CRAFT_CSRF_TOKEN" type="hidden" value="{{ craft.app.request.csrfToken }}">
 					<input id="quizEntryId" name="quizEntryId" type="hidden" value="{{ entry.id }}">
 					<input id="quizAnswers" name="quizAnswers" type="hidden" value="">
 					<input id="discordUsername" name="discordUsername" type="hidden" value="{{ arcMember.discordUsername }}">
 					<input id="discordEmail" name="discordEmail" type="hidden" value="{{ arcMember.discordEmail }}">
+					<input id="rootCategoryId" name="rootCategoryId" type="hidden" value="{{ parentCategory != null ? parentCategory.id : '0' }}">
 					<h4>Quiz</h4>
+					{% if courseScore > 0 %}
+						
+					{% endif %}
 					<ul>
 						{% for question in entry.quizModule.all() %}
 							{% set questionId = question.id %}
@@ -68,6 +108,19 @@
 						<label class="error saving">Unable to submit at this time, please try again later.</label>
 					</div>
 				</form>
+
+				<div class="quiz-complete">
+					<h4>Course Complete!</h4>
+					<p id="quiz-results"></p>
+					<div>
+						<a class="btn repeat-course" href="/">Take this course again</a>
+						{% if nextCourse == null %}
+							<a class="btn next-course" href="/members/academy">Return to Academy</a>
+						{% else %}
+							<a class="btn next-course" href="{{ nextCourse.url() }}">Continue to the next course</a>
+						{% endif %}
+					</div>
+				</div>
 			{% endif %}
 
 		</section>
@@ -86,9 +139,10 @@
 							{% if courses.count() %}
 								<ul>
 									{% for course in courses.all() %}
+										{% set score = craft.arc.getMemberQuizScore(course.id) %}
 										<li{% if course.id == entry.id %} class="active"{% endif %}>
 											<a href="{{ course.url }}">
-												{% include '_svgs/icon' with { type: 'play' } %}
+												{% include '_svgs/icon' with { type: (score > 69 ? 'check' : 'play' ) } %}
 												<span>{{ course.title }}</span>
 											</a>
 										</li>

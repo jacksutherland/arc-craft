@@ -18,6 +18,8 @@ class ArcMemberGrade extends Model
 {
     public $quizEntryId;
 
+    public $rootCategoryId;
+
     public $discordUsername;
 
     public $discordEmail;
@@ -35,6 +37,7 @@ class ArcMemberGrade extends Model
             if(method_exists($obj, 'getBodyParam'))
             {
                 $this->quizEntryId = $obj->getBodyParam('quizEntryId');
+                $this->rootCategoryId = $obj->getBodyParam('rootCategoryId');
                 $this->discordEmail = $obj->getBodyParam('discordEmail');
                 $this->discordUsername = $obj->getBodyParam('discordUsername');
                 $this->questions = $obj->getBodyParam('questions');
@@ -42,6 +45,7 @@ class ArcMemberGrade extends Model
             else
             {
                 $this->quizEntryId = $obj->quizEntryId;
+                $this->rootCategoryId = $obj->rootCategoryId;
                 $this->discordEmail = $obj->discordEmail;
                 $this->discordUsername = $obj->discordUsername;
                 $this->questions = $obj->questions;

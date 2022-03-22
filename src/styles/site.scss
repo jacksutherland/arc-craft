@@ -852,7 +852,7 @@ section {
 			margin: 0;
 			li {
 				margin: 8px 0;
-				padding: 8px 0 13px 0;
+				padding: 8px 0 15px 0;
 				border-bottom: solid 1px $light-gray;
 				position: relative;
 				&.active {
@@ -873,6 +873,11 @@ section {
 					position: absolute;
 			    left: 0;
 			    top: 11px;
+			    &.check { 
+			    	height: 25px;
+			    	left: -3px;
+			    	top: 5px;
+			    }
 				}
 				span {
 					vertical-align: middle;
@@ -888,14 +893,13 @@ section {
 
 .progress {
 	width: 100%;
-	margin: 8px 0 0 0;
+	margin: 10px 0 0 0;
 	.labels {
 		label {
 			height: 20px;
 			font-size: $font-small;
-			font-weight: $font-bold-primary;
 			float: right;
-			color: lighten($dark-primary-hover, 5%);
+			//color: $dark-primary-hover;
 			&:first-child {
 				float: left;
 			}
@@ -905,7 +909,7 @@ section {
 		width: 100%;
 		height: 6px;
 		position: relative;
-		border: solid 2px lighten($dark-primary-hover, 10%);
+		border: solid 1px $dark-primary-hover;
 		border-radius: 6px;
 		overflow: hidden;
 		.fill {
@@ -914,7 +918,8 @@ section {
 			left: 0;
 			bottom: 0;
 			right: 50%;
-			background-image: linear-gradient($section-gray, darken($light-gray, 15%));
+			//background-image: linear-gradient($section-gray, darken($light-gray, 15%));
+			background-color: $light-blue; //gray;
 		}
 	}
 }
@@ -1103,10 +1108,13 @@ section {
 		margin: 0 0 25px 0;
 	}
 	.quiz {
-		display: block;
+		display: none;
 		background-color: $section-gray;
 		padding: 40px;
 		margin-top: 40px;
+		&.show {
+			display: block;
+		}
 		h4 {
 			margin-top: 0;
 		}
@@ -1147,6 +1155,24 @@ section {
 					}
 				}
 			}
+		}
+	}
+	.quiz-complete {
+		display: none;
+		background-color: $section-gray;
+		padding: 40px;
+		margin-top: 40px;
+		&.show {
+			display: block;
+		}
+		h4 {
+			margin: 0 0 20px 0;
+		}
+		p {
+			margin: 20px 0 30px 0;
+		}
+		.btn:first-child {
+			margin-right: 20px;
 		}
 	}
 }

@@ -29,4 +29,9 @@ class ArcVariable
     {
         return ARC::$plugin->arcService->getMemberQuizScore($quizEntryId);
     }
+
+    public function getMemberCategoryProgress($category)
+    {
+        return ARC::$plugin->arcService->getRootCategoryProgress($category);
+    }
 }

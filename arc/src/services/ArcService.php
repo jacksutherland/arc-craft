@@ -196,8 +196,38 @@ class ArcService extends Component
         return $score;
     }
 
+    public function getRootCategoryProgress($category)
+    {
+        // $category = Category::find()->slug($categorySlug)->one();
+
+        $session = Craft::$app->getSession();
+
+        $memberGrades = ArcMemberGradeRecord::find()->where(['rootCategoryId' => $category->id, 'discordEmail' => $session->get('discordEmail')])->all();
+
+        $coursesComplete = 0;
+        $courses = Entry::find()->section('courses')->relatedTo($category);
+        $courseCount = $courses->count();
+        
+        foreach ($courses as $course)
+        {
+            foreach ($memberGrades as $memberGrade)
+            {
+                if($memberGrade->quizEntryId == $course->id && $memberGrade->quizScore >= 70)
+                {
+                    $coursesComplete++;
+                }
+            }
+        }
+
+        $progress = $courseCount == 0 ? 0 : ceil(($coursesComplete / $courseCount) * 100);
+
+        return $progress > 100 ? 100 : $progress;
+    }
+
     public function saveMemberGrade($memberGrade)
     {
+        $returnScore = 0;
+
         try
         {
             $record = ArcMemberGradeRecord::find()->where(['quizEntryId' => $memberGrade->quizEntryId, 'discordEmail' => $memberGrade->discordEmail])->orderBy(['quizScore' => SORT_DESC])->one();
@@ -218,6 +248,7 @@ class ArcService extends Component
             }
 
             $record->quizEntryId = $memberGrade->quizEntryId;
+            $record->rootCategoryId = $memberGrade->rootCategoryId;
             $record->discordEmail = $memberGrade->discordEmail;
             $record->discordUsername = $memberGrade->discordUsername;
             
@@ -248,6 +279,8 @@ class ArcService extends Component
 
             $score = ceil($total / count($quizEntry->quizModule));
 
+            $returnScore = $score;
+
             // ONLY UPDATE if score is higher than previous highest score
 
             if($score >= $highestScore)
@@ -266,10 +299,10 @@ class ArcService extends Component
         }
         catch (Exception $e)
         {
-            return false;
+            return -1;
         }
 
-        return true;
+        return $returnScore;
     }
 
     private function apiRequest($url, $post=FALSE, $headers=array())
