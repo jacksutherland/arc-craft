@@ -22,16 +22,23 @@
 									<tr>
 										{% if course.videoEmbedCode | trim | length %}
 											<td class="icon">
-												<a href="{{ course.url }}">
-													{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
-													{% if videoId | length >  1 %}
-														{% set videoId = videoId[1] | split('/video/splash.jpg') %}
+												{% set projectId = course.videoEmbedCode | split('https://embed.vidello.com/') %}
+												{% if projectId | length > 1 %}
+													{% set projectId = projectId[1] | split('/') %}
+													{% if projectId | length > 1 %}
+														{% set projectId = projectId[0] %}
+														{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/' ~ projectId ~ '/') %}
 														{% if videoId | length >  1 %}
-															{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
+															{% set videoId = videoId[1] | split('/video/splash.jpg') %}
+															{% if videoId | length >  1 %}
+																{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
+																<a href="{{ course.url }}">
+																	<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
+																</a>
+															{% endif %}
 														{% endif %}
-														<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
 													{% endif %}
-												</a>
+												{% endif %}
 											</td>
 										{% endif %}
 										<td class="text">
