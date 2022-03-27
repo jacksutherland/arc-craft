@@ -22,15 +22,15 @@
 									<tr>
 										{% if course.videoEmbedCode | trim | length %}
 											<td class="icon">
-												{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
-												{% if videoId | length >  1 %}
-													{% set videoId = videoId[1] | split('/video/splash.jpg') %}
-													{% if videoId | length >  1 %}
-														{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
-													{% endif %}
-												{% endif %}
 												<a href="{{ course.url }}">
-													<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
+													{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
+													{% if videoId | length >  1 %}
+														{% set videoId = videoId[1] | split('/video/splash.jpg') %}
+														{% if videoId | length >  1 %}
+															{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
+														{% endif %}
+														<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
+													{% endif %}
 												</a>
 											</td>
 										{% endif %}

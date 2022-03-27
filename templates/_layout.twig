@@ -89,7 +89,7 @@
                     {% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-light" } %}
                 </a>
                 
-                {% if entry.showHeroTAEfx %}
+                {#% if entry.showHeroTAEfx %}
                     <div class="candlestick-chart">
                       <div class="bar-graph">
                         <div class="bar"></div>
@@ -113,7 +113,7 @@
                         <div class="bar"></div>
                       </div>
                     </div>
-                {% endif %}
+                {% endif %#}
 
                 {% if entry is defined %}
                     {#% set entryTitle = title is defined and title | length > 0 ? title : '' %#}
