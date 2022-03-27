@@ -18,20 +18,22 @@
 {# Find next course in category order #}
 
 {% set foundThisCourse = false %}
-{% for cat in parentCategory.children.all() %}
-	{% if nextCourse == null %}
-		{% set courses = craft.entries.section('courses').relatedTo(cat) %}
-		{% for course in courses.all() %}
-			{% if nextCourse == null %}
-				{% if foundThisCourse %}
-					{% set nextCourse = course %}
-				{% elseif course.id == entry.id %}
-					{% set foundThisCourse = true %}
+{% if parentCategory != null %}
+	{% for cat in parentCategory.children.all() %}
+		{% if nextCourse == null %}
+			{% set courses = craft.entries.section('courses').relatedTo(cat) %}
+			{% for course in courses.all() %}
+				{% if nextCourse == null %}
+					{% if foundThisCourse %}
+						{% set nextCourse = course %}
+					{% elseif course.id == entry.id %}
+						{% set foundThisCourse = true %}
+					{% endif %}
 				{% endif %}
-			{% endif %}
-		{% endfor %}
-	{% endif %}
-{% endfor %}
+			{% endfor %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
 
 {% if nextCourse == null %}
 	{% if parentCategory.getNextSibling() != null %}
