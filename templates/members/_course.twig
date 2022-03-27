@@ -36,7 +36,7 @@
 {% endif %}
 
 {% if nextCourse == null %}
-	{% if parentCategory.getNextSibling() != null %}
+	{% if parentCategory != null and parentCategory.getNextSibling() != null %}
 		{% for cat in parentCategory.getNextSibling().children.all() %}
 			{% if nextCourse == null %}
 				{% set courses = craft.entries.section('courses').relatedTo(cat) %}
