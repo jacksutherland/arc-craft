@@ -33,7 +33,7 @@
 															{% if videoId | length >  1 %}
 																{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
 																<a href="{{ course.url }}">
-																	<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
+																	<img src="https://embed.vidello.com/{{ projectId }}/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
 																</a>
 															{% endif %}
 														{% endif %}
@@ -70,91 +70,3 @@
 
 
 {% endblock %}
-
-
-{#
-<div class="sidebar-layout">
-		<section class="gray">
-			<div class="data-table">
-				<table>
-					<tbody>
-						{% for cat in categories.all() %}
-							{% set course = craft.entries.section('courses').one() %}
-							<tr>
-								{% if course.videoEmbedCode | trim | length %}
-									<td class="icon">
-										{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
-										{% if videoId | length >  1 %}
-											{% set videoId = videoId[1] | split('/video/splash.jpg') %}
-											{% if videoId | length >  1 %}
-												{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
-											{% endif %}
-										{% endif %}
-										<a href="{{ course.url }}">
-											<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
-										</a>
-									</td>
-								{% endif %}
-								<td class="text">
-									<a href="{{ course.url }}">
-										<strong>{{ cat.title }}</strong>
-										<p>{{ cat.briefDescription }}</p>
-									</a>
-								</td>
-							</tr>
-						{% endfor %}
-					</tbody>
-				</table>
-			</div>
-		</section>
-
-		<aside>
-			<h4>{{ categories.one().title }}</h4>
-			<ul>
-				{% for child in categories.last().children %}
-					<li>
-						<a href="{{ child.url }}">{{ child.title }}</a>
-					</li>
-				{% endfor %}
-			</ul>
-		</aside>
-
-	</div>
-#}
-
-
-
-			{#
-			<h3>Video Course Categories:</h3>
-			<dl class="course-list">
-				{% for cat in categories.all() %}
-					{% set course = craft.entries.section('courses').one() %}
-					<dt>
-						<a class="course-category" href="{{ course.url }}">
-							{% if course.videoEmbedCode | trim | length %}
-								{% set videoId = course.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
-								{% if videoId | length >  1 %}
-									{% set videoId = videoId[1] | split('/video/splash.jpg') %}
-									{% if videoId | length >  1 %}
-										{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
-									{% endif %}
-								{% endif %}
-								<img src="https://embed.vidello.com/5347/{{ videoId }}/video/splash.jpg" alt="{{ course.title }}">
-							{% endif %}
-							<div>
-								<span class="course-title">{{ cat.title }}</span>
-								<br>
-								<span class="course-date">{{ cat.briefDescription }}</span>
-								<br>
-								<span class="score">Your Progress: 80%</span>
-								<br>
-								<span class="btn small">Continue Course</span>
-							</div>
-							<span class="progress">
-								80%
-							</span>
-						</a>
-					</dt>
-				{% endfor %}
-			</dl>
-			#}
