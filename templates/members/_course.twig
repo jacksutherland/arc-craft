@@ -61,16 +61,19 @@
 			{% endif %}	
 
 			{% if entry.videoEmbedCode | trim | length %}
-				{% set videoId = entry.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
+				{#% set videoId = entry.videoEmbedCode | split('https://embed.vidello.com/5347/') %}
 				{% if videoId | length >  1 %}
 					{% set videoId = videoId[1] | split('/video/splash.jpg') %}
 					{% if videoId | length >  1 %}
 						{% set videoId = (videoId[0] | split('/video/splash.jpg'))[0] %}
 					{% endif %}
-				{% endif %}
-				{% set embedCode = '<div id="llo_MYARCVIDEOID" style="position:relative;padding-bottom:3px;"><iframe id="llo_MYARCVIDEOID" src="//embed.vidello.com/5347/MYARCVIDEOID/player.html" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe><div style="padding-top:56.25%;"></div></div><script type="application/ld+json">{"@context": "http://schema.org","@type": "VideoObject","name": "herovideo","description": "This video contains herovideo","thumbnailUrl": "https://embed.vidello.com/5347/MYARCVIDEOID/video/splash.jpg","uploadDate": "2022-03-14T03:12:47.000Z","duration": "PT1M16S"}</script>' | replace('MYARCVIDEOID', videoId) %}
+				{% endif %#}
+				{#% set embedCode = '<div id="llo_MYARCVIDEOID" style="position:relative;padding-bottom:3px;"><iframe id="llo_MYARCVIDEOID" src="//embed.vidello.com/5347/MYARCVIDEOID/player.html" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe><div style="padding-top:56.25%;"></div></div><script type="application/ld+json">{"@context": "http://schema.org","@type": "VideoObject","name": "herovideo","description": "This video contains herovideo","thumbnailUrl": "https://embed.vidello.com/5347/MYARCVIDEOID/video/splash.jpg","uploadDate": "2022-03-14T03:12:47.000Z","duration": "PT1M16S"}</script>' | replace('MYARCVIDEOID', videoId) %}
 				<div class="video-container">
 					{{ embedCode | raw }}
+				</div>#}
+				<div class="video-container">
+					{{ entry.videoEmbedCode | raw }}
 				</div>
 			{% endif %}
 
