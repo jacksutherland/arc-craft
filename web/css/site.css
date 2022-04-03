@@ -841,6 +841,7 @@ section {
   header.video-header video {
     margin-left: 50%;
     min-height: 100vh;
+    max-height: 100vh;
     transform: translateX(-50%);
     width: 100%;
     object-fit: cover; }
