@@ -1,0 +1,71 @@
+<nav id="main-menu">
+    <ul>
+        <li class="mobile-logo">
+            <a href="">{% include '/_svgs/logo' with { layout: "wide", color: "#ffffff"} %}</a>
+        </li>
+        {% nav page in pages.all() %}
+            {% if page.showInMenu %}
+                <li>
+                    <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
+                </li>
+            {% endif %}
+        {% endnav %}
+        {% if craft.arc.isUserLoggedIn %}
+            <li>
+                <a href="/members">Members</a>
+            </li>
+        {% endif %}
+        {% if isDev %}
+            <li>
+                {% if craft.arc.isUserLoggedIn %}
+                    <a href="/members/logout" class="btn">Logout</a>
+                {% else %}
+                    <a href="{{ loginUrl }}" class="btn">Member Login</a>
+                {% endif %}
+            </li>
+        {% else %}
+            <li>
+                <a href="{{ signupUrl }}" class="btn" target="_blank">Sign Up Today</a>
+            </li>
+        {% endif %}
+        <li id="mobile-trigger">
+            <a href="">
+                <svg viewBox="0 0 100 80" width="40" height="50">
+                  <rect width="100" height="6"></rect>
+                  <rect y="30" width="100" height="6"></rect>
+                  <rect y="60" width="100" height="6"></rect>
+                </svg>
+            </a>
+        </li>
+    </ul>
+</nav>
+<nav id="mobile-menu">
+    <ul>
+        {#
+        <li>
+            <a href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">Home</a>
+        </li>
+        #}
+        {% nav page in pages.all() %}
+            {% if page.showInMenu %}
+                <li>
+                    <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
+                </li>
+            {% endif %}
+        {% endnav %}
+        {% if contactUrl | length > 0 %}
+            <li>
+                <a href="{{ contactUrl }}">Contact Us</a>
+            </li>
+        {% endif %}
+        {% if isDev %}
+            <li>
+                {% if craft.arc.isUserLoggedIn %}
+                    <a href="/members/logout">Logout</a>
+                {% else %}
+                    <a href="{{ loginUrl }}">Member Login</a>
+                {% endif %}
+            </li>
+        {% endif %}
+    </ul>
+</nav>

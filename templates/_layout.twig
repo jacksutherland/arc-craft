@@ -1,4 +1,4 @@
-{% set resourceVersion = '1.15' %}
+{% set resourceVersion = '1.16' %}
 
 {% set isDev = true %}
 
@@ -80,183 +80,109 @@
 <body{% if entry is defined %} id="{{ entry.slug }}" class="{{ entry.section.handle }}"{% endif %}>
     {% set showHero = (entry.heroImage is not null) and entry.heroImage.count %}
 
-    <div class="site-container">
+    {% if entry.showHeaderBanner %}
 
-        <header>
-            <div class="header-content{% if entry.showHeaderBanner %} video-header{% endif %}{% if showHero %} hero-header{% endif %}">
-                <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
-                    {% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-dark" } %}
-                    {% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-light" } %}
-                </a>
-                
-                {#% if entry.showHeroTAEfx %}
-                    <div class="candlestick-chart">
-                      <div class="bar-graph">
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar dark"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar dark"></div>
-                        <div class="bar"></div>
-                        <div class="bar dark"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar dark"></div>
-                        <div class="bar"></div>
-                        <div class="bar dark"></div>
-                        <div class="bar dark"></div>
-                        <div class="bar"></div>
-                        <div class="bar dark"></div>
-                        <div class="bar"></div>
-                      </div>
-                    </div>
-                {% endif %#}
-
-                {% if entry is defined %}
-                    {#% set entryTitle = title is defined and title | length > 0 ? title : '' %#}
-                    {% if entry.showHeaderBanner %}
-                        <video id="hero-vid" loop="" autoplay="" muted="" class="fullscreen-video desktop-header">
-                            <source type="video/mp4" src="https://player.vimeo.com/external/471055045.hd.mp4?s=105c2dac19b5181a72fb0a5eca63989b5f656d8e&amp;profile_id=175">
-                        </video>
-                    {% elseif showHero %}
-                        <div class="hero">
-                            <div class="header-image" style="background-image:url({{ entry.heroImage.one().url('hero') }});"></div>
-                            {% if entry.subheading | length or entry.headline | length %}
-                                <div class="header-text" style="background-color: rgba(0,0,0,{{ entry.heroOpacity }}%);">
-                                    {% if entry.subheading | length %}
-                                        <h6>{{ entry.subheading }}</h6>
-                                    {% endif %}
-                                    {% if entry.headline | length %}
-                                        <h1>{{ entry.headline }}</h1>
-                                    {% endif %}
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% elseif entry.subheading | length or entry.headline | length %}
-                        <div class="header-text">
-                            {% if entry.subheading | length %}
-                                <h6>{{ entry.subheading }}</h6>
-                            {% endif %}
-                            {% if entryTitle is defined and entryTitle | length %}
-                                <h1>{{ entryTitle }}</h1>
-                            {% elseif entry.headline | length %}
-                                <h1>{{ entry.headline }}</h1>
-                            {% endif %}
-                        </div>
-                    {% elseif entryTitle is defined and entryTitle | length %}
-                        <div class="header-text">
-                            <h1>{{ entryTitle }}</h1>
-                        </div>
-                    {% elseif headline is defined %}
-                        <div class="header-text">
-                            <h1>{{ headline }}</h1>
-                        </div>
-                    {% endif %}
-                {% endif %}
-            </div>
-            <nav id="main-menu">
-                <ul>
-                    <li class="mobile-logo">
-                        <a href="">{% include '/_svgs/logo' with { layout: "wide", color: "#ffffff"} %}</a>
-                    </li>
-                    {% nav page in pages.all() %}
-                        {% if page.showInMenu %}
-                            <li>
-                                <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
-                            </li>
-                        {% endif %}
-                    {% endnav %}
-                    {% if craft.arc.isUserLoggedIn %}
-                        <li>
-                            <a href="/members">Members</a>
-                        </li>
-                    {% endif %}
-                    {% if isDev %}
-                        <li>
-                            {% if craft.arc.isUserLoggedIn %}
-                                <a href="/members/logout" class="btn">Logout</a>
-                            {% else %}
-                                <a href="{{ loginUrl }}" class="btn">Member Login</a>
-                            {% endif %}
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ signupUrl }}" class="btn" target="_blank">Sign Up Today</a>
-                        </li>
-                    {% endif %}
-                    <li id="mobile-trigger">
-                        <a href="">
-                            <svg viewBox="0 0 100 80" width="40" height="50">
-                              <rect width="100" height="6"></rect>
-                              <rect y="30" width="100" height="6"></rect>
-                              <rect y="60" width="100" height="6"></rect>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <nav id="mobile-menu">
-                <ul>
-                    {#
-                    <li>
-                        <a href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">Home</a>
-                    </li>
-                    #}
-                    {% nav page in pages.all() %}
-                        {% if page.showInMenu %}
-                            <li>
-                                <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
-                            </li>
-                        {% endif %}
-                    {% endnav %}
-                    {% if contactUrl | length > 0 %}
-                        <li>
-                            <a href="{{ contactUrl }}">Contact Us</a>
-                        </li>
-                    {% endif %}
-                    {% if isDev %}
-                        <li>
-                            {% if craft.arc.isUserLoggedIn %}
-                                <a href="/members/logout">Logout</a>
-                            {% else %}
-                                <a href="{{ loginUrl }}">Member Login</a>
-                            {% endif %}
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% if breadcrumb is defined %}
-                <div class="breadcrumb">
-                    {% for crumb in breadcrumb %}
-                        {% if crumb.slug is defined%}
-                            {% switch crumb.slug %}
-                                {% case 'members' %}
-                                    {% set crumbUrl = '/members' %}
-                                    {% set crumbLabel = 'Member Portal' %}
-                                {% case 'resources' %}
-                                    {% set crumbUrl = '/members/resources' %}
-                                    {% set crumbLabel = 'Resources' %}
-                                {% case 'academy' %}
-                                    {% set crumbUrl = '/members/academy' %}
-                                    {% set crumbLabel = 'Academy' %}
-                            {% endswitch %}
-                        {% else %}
-                            {% set crumbUrl = crumb.url %}
-                            {% set crumbLabel = crumb.label %}
-                        {% endif %}
-                        {% if loop.index < breadcrumb | length %}
-                            <a href="{{ crumbUrl }}">{{ crumbLabel }}</a>
-                            <span>></span>
-                        {% else %}
-                            <a class="active" href="{{ crumbUrl }}">{{ crumbLabel }}</a>
-                        {% endif %}
-                    {% endfor %}
-                </div>
-            {% endif %}
+        <header class="video-header">
+            <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
+                {% include '/_svgs/logo' with { layout: "wide", color: "#f1f3f4" } %}
+            </a>
+            {% include '/_includes/menus' %}
+            <a href="/" class="scroll-down" onclick="document.getElementById('site-content-container').scrollIntoView(); return false;">
+                <span>Scroll Down</span>
+                {% include "_svgs/icon" with { type: "down" } %}
+            </a>
+            <video id="hero-vid" loop="" autoplay="" muted="" class="fullscreen-video desktop-header">
+                <source type="video/mp4" src="/assets/videos/AR1_Final_Comp.mp4">
+                {#<source type="video/mp4" src="https://player.vimeo.com/external/471055045.hd.mp4?s=105c2dac19b5181a72fb0a5eca63989b5f656d8e&amp;profile_id=175">#}
+            </video>
         </header>
+
+    {% else %}
+
+        <div class="site-container">
+
+            <header class="{% if entry.showHeaderBanner %} video-header{% endif %}{% if showHero %} hero-header{% endif %}">
+                <div class="header-content">
+                    <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
+                        {#% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-dark" } %}
+                        {% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-light" } %#}
+                        {% include '/_svgs/logo' with { layout: "wide"} %}
+                    </a>
+
+                    {% if entry is defined %}
+                        {% if showHero %}
+                            <div class="hero">
+                                <div class="header-image" style="background-image:url({{ entry.heroImage.one().url('hero') }});"></div>
+                                {% if entry.subheading | length or entry.headline | length %}
+                                    <div class="header-text" style="background-color: rgba(0,0,0,{{ entry.heroOpacity }}%);">
+                                        {% if entry.subheading | length %}
+                                            <h6>{{ entry.subheading }}</h6>
+                                        {% endif %}
+                                        {% if entry.headline | length %}
+                                            <h1>{{ entry.headline }}</h1>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% elseif entry.subheading | length or entry.headline | length %}
+                            <div class="header-text">
+                                {% if entry.subheading | length %}
+                                    <h6>{{ entry.subheading }}</h6>
+                                {% endif %}
+                                {% if entryTitle is defined and entryTitle | length %}
+                                    <h1>{{ entryTitle }}</h1>
+                                {% elseif entry.headline | length %}
+                                    <h1>{{ entry.headline }}</h1>
+                                {% endif %}
+                            </div>
+                        {% elseif entryTitle is defined and entryTitle | length %}
+                            <div class="header-text">
+                                <h1>{{ entryTitle }}</h1>
+                            </div>
+                        {% elseif headline is defined %}
+                            <div class="header-text">
+                                <h1>{{ headline }}</h1>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                
+                {% include '/_includes/menus' %}
+
+                {% if breadcrumb is defined %}
+                    <div class="breadcrumb">
+                        {% for crumb in breadcrumb %}
+                            {% if crumb.slug is defined%}
+                                {% switch crumb.slug %}
+                                    {% case 'members' %}
+                                        {% set crumbUrl = '/members' %}
+                                        {% set crumbLabel = 'Member Portal' %}
+                                    {% case 'resources' %}
+                                        {% set crumbUrl = '/members/resources' %}
+                                        {% set crumbLabel = 'Resources' %}
+                                    {% case 'academy' %}
+                                        {% set crumbUrl = '/members/academy' %}
+                                        {% set crumbLabel = 'Academy' %}
+                                {% endswitch %}
+                            {% else %}
+                                {% set crumbUrl = crumb.url %}
+                                {% set crumbLabel = crumb.label %}
+                            {% endif %}
+                            {% if loop.index < breadcrumb | length %}
+                                <a href="{{ crumbUrl }}">{{ crumbLabel }}</a>
+                                <span>></span>
+                            {% else %}
+                                <a class="active" href="{{ crumbUrl }}">{{ crumbLabel }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </header>
+        </div>
+
+    {% endif %}
+
+    <div id="site-content-container" class="site-container">
 
         {% block main %}
             <p>If you see me, you haven’t set your <code>{% verbatim %}{% block main %}…{% endblock %}{% endverbatim %}</code> yet.</p>
