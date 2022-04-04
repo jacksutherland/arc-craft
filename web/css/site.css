@@ -103,7 +103,8 @@ header {
   position: relative; }
   header.video-header {
     padding: 0;
-    overflow: hidden; }
+    overflow: hidden;
+    background-color: #061124; }
     header.video-header.sticky .logo {
       display: none; }
     header.video-header .cover {
@@ -379,7 +380,8 @@ section {
     margin: 0 0 10px 0;
     text-transform: uppercase; }
   section h3 {
-    margin: 0 0 30px 0; }
+    margin: 0 0 30px 0;
+    color: #061124; }
   section.gray {
     background-color: #e6e9eb; }
     section.gray h6 {

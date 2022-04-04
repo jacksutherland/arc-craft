@@ -1,4 +1,4 @@
-{% set resourceVersion = '1.18' %}
+{% set resourceVersion = '1.20' %}
 
 {% set isDev = true %}
 
@@ -95,7 +95,7 @@
                 {% include '/_svgs/logo' with { layout: "wide", color: "#f1f3f4" } %}
             </a>
             {% include '/_includes/menus' %}
-            <a id="scroll-down" href="/" class="scroll-down" onclick="document.getElementById('site-content-container').scrollIntoView(); this.remove(); return false;">
+            <a id="scroll-down" href="/" class="scroll-down" onclick="this.scrollIntoView(); this.remove(); return false;">
                 <span>Scroll Down</span>
                 {% include "_svgs/icon" with { type: "down" } %}
             </a>
@@ -190,7 +190,7 @@
 
     {% endif %}
 
-    <div id="site-content-container" class="site-container">
+    <div class="site-container">
 
         {% block main %}
             <p>If you see me, you haven’t set your <code>{% verbatim %}{% block main %}…{% endblock %}{% endverbatim %}</code> yet.</p>
