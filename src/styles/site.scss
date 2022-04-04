@@ -11,9 +11,9 @@ body {
 	color: $black;
 	// scroll-snap-type: x mandatory;
 	scroll-behavior: smooth;
-	// .site-container {
-	// 	scroll-snap-align: start;
-	// }
+	.scroll-down {
+		scroll-snap-align: start;
+	}
 }
 
 
