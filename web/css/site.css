@@ -6,12 +6,7 @@ body {
   background-color: #f1f3f4;
   margin: 0;
   padding: 0;
-  color: #241906;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth; }
-  html .site-container,
-  body .site-container {
-    scroll-snap-align: start; }
+  color: #241906; }
 
 /***** GENERIC ELEMENTS *****/
 ul, ol, li, p {
