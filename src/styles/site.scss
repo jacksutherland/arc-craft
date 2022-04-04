@@ -157,7 +157,7 @@ header {
 		}
 		.scroll-down {
 			position: absolute;
-		    z-index: 175;
+		    z-index: 105;
 		    bottom: 15px;
 		    left: 50%;
 		    width: 100px;
@@ -166,6 +166,14 @@ header {
 		    color: $white;
 		    text-transform: uppercase;
 		    font-size: $font-small;
+		    opacity: 0;
+		    transition-delay: 6s;
+		    transition-property: opacity;
+			transition-timing-function: ease-in-out;
+			transition-duration: 3s;
+		    &.show {
+		    	opacity: 1;
+		    }
 		    &:hover {
 		    	color: $blue;
 		    	svg {
@@ -177,6 +185,7 @@ header {
 				fill: $white;
 				margin-top: 5px;
 			}
+
 		}
 		video {
 			width: 180%;
@@ -1708,7 +1717,21 @@ section {
 				svg {
 					width: 20px;
 					margin-top: 10px;
+					transform: translateY(0);
+					animation: scrollDownAnim 1s ease-in-out infinite;
+					@keyframes scrollDownAnim {
+						0% {
+							transform: translateY(0);
+						}
+						40% {
+							transform: translateY(5px);
+						}
+						100% {
+							transform: translateY(0);
+						}
+					}
 				}
+
 			}
 		}
 		.breadcrumb {

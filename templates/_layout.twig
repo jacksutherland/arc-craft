@@ -21,6 +21,15 @@
 {% set loginUrl = '/members' %} {# discord.discordRedirectUrl %#}
 {% set signupUrl = 'https://upgrade.chat/926998325213925427' %}
 
+
+{% if entry is defined %}
+    {% set showHeaderVideo = entry.showHeaderBanner and not craft.app.request.isMobileBrowser %}
+    {% set headerVideoPoster = '/assets/images/arc-video-poster.png' %}
+{% else %}
+    {% set showHeaderVideo = false %}
+    {% set headerVideoPoster = null %}
+{% endif %}
+
 {% set homepage = craft.entries.section('pages').slug('homepage') %}
 {% if homepage.count == 0 %}
     {% set homepage = craft.entries.section('pages').slug('__home__') %}
@@ -32,7 +41,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="assets/favicons/favicon.ico" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="referrer" content="origin-when-cross-origin" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,20 +88,19 @@
 <body{% if entry is defined %} id="{{ entry.slug }}" class="{{ entry.section.handle }}"{% endif %}>
     {% set showHero = (entry.heroImage is not null) and entry.heroImage.count %}
 
-    {% if entry.showHeaderBanner %}
+    {% if showHeaderVideo %}
 
         <header class="video-header">
             <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
                 {% include '/_svgs/logo' with { layout: "wide", color: "#f1f3f4" } %}
             </a>
             {% include '/_includes/menus' %}
-            <a href="/" class="scroll-down" onclick="document.getElementById('site-content-container').scrollIntoView(); return false;">
+            <a id="scroll-down" href="/" class="scroll-down" onclick="document.getElementById('site-content-container').scrollIntoView(); this.remove(); return false;">
                 <span>Scroll Down</span>
                 {% include "_svgs/icon" with { type: "down" } %}
             </a>
-            <video id="hero-vid" loop="" autoplay="" muted="" class="fullscreen-video desktop-header">
+            <video id="hero-vid" loop="1" autoplay="1" muted="1" class="fullscreen-video desktop-header" poster="{{ headerVideoPoster }}">
                 <source type="video/mp4" src="/assets/videos/AR1_Final_Comp.mp4">
-                {#<source type="video/mp4" src="https://player.vimeo.com/external/471055045.hd.mp4?s=105c2dac19b5181a72fb0a5eca63989b5f656d8e&amp;profile_id=175">#}
             </video>
         </header>
 
@@ -101,7 +108,7 @@
 
         <div class="site-container">
 
-            <header class="{% if entry.showHeaderBanner %} video-header{% endif %}{% if showHero %} hero-header{% endif %}">
+            <header{% if showHero %} class="hero-header"{% endif %}>
                 <div class="header-content">
                     <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
                         {#% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-dark" } %}

@@ -57,6 +57,11 @@ var DOMClass = function()
 		if(document.getElementsByTagName('header').length > 0)
 		{
 			this.header = document.getElementsByTagName('header')[0];
+
+			if(this.header.classList.contains('video-header'))
+			{
+				document.getElementById('scroll-down').classList.add('show');
+			}
 		}
 		else
 		{
@@ -306,8 +311,8 @@ var DOMClass = function()
 					    {
 					        if(frm.classList.contains('quiz'))
 							{
-								console.log('done');
-					        	console.log('score = ' + xhr.responseText);
+								// console.log('done');
+					   //      	console.log('score = ' + xhr.responseText);
 								if(xhr.responseText == 'error')
 								{
 									console.log('Quiz Error');
