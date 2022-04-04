@@ -12,7 +12,7 @@ body {
 	scroll-snap-type: x mandatory;
 	scroll-behavior: smooth;
 	.site-container {
-		scroll-snap-align: center;
+		scroll-snap-align: start;
 	}
 }
 
@@ -190,6 +190,9 @@ header {
 		    	svg {
 		    		fill: $blue !important;
 		    	}
+		    }
+		    span {
+		    	white-space: nowrap;
 		    }
 			svg {
 				width: 15px;

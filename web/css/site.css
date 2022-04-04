@@ -11,7 +11,7 @@ body {
   scroll-behavior: smooth; }
   html .site-container,
   body .site-container {
-    scroll-snap-align: center; }
+    scroll-snap-align: start; }
 
 /***** GENERIC ELEMENTS *****/
 ul, ol, li, p {
@@ -146,6 +146,8 @@ header {
         color: #3c74f9; }
         header.video-header .scroll-down:hover svg {
           fill: #3c74f9 !important; }
+      header.video-header .scroll-down span {
+        white-space: nowrap; }
       header.video-header .scroll-down svg {
         width: 15px;
         fill: #ffffff;
