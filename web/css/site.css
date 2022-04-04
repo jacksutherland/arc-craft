@@ -6,7 +6,8 @@ body {
   background-color: #f1f3f4;
   margin: 0;
   padding: 0;
-  color: #241906; }
+  color: #241906;
+  scroll-behavior: smooth; }
 
 /***** GENERIC ELEMENTS *****/
 ul, ol, li, p {
