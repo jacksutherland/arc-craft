@@ -3,11 +3,57 @@ body {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 400;
   font-size: 16px;
-  background-color: #f1f3f4;
   margin: 0;
   padding: 0;
-  color: #241906;
+  color: #212529;
   scroll-behavior: smooth; }
+
+/***** NIGHT THEME (Day is the default) *****/
+html,
+html.theme-day {
+  background-color: #f1f3f4; }
+
+html.theme-night {
+  background-color: #061124;
+  color: #ffffff; }
+  html.theme-night a:not(.btn):hover {
+    color: #f9c13c; }
+  html.theme-night h1, html.theme-night h3 {
+    color: #ffffff; }
+  html.theme-night p {
+    color: #c6c6c6; }
+  html.theme-night header {
+    background-color: #061124;
+    padding: 0; }
+    html.theme-night header .logo.night {
+      display: flex; }
+    html.theme-night header .logo.day {
+      display: none; }
+    html.theme-night header nav#main-menu ul li a:not(.btn) {
+      color: #ffffff; }
+      html.theme-night header nav#main-menu ul li a:not(.btn):hover {
+        color: #3c74f9; }
+  html.theme-night section {
+    background-color: #000000;
+    border-radius: 10px; }
+    html.theme-night section.gray-section {
+      background-color: #000000; }
+    html.theme-night section h6 {
+      color: #c6c6c6; }
+    html.theme-night section .four-col .col h4 {
+      color: #ffffff; }
+    html.theme-night section .testimonials .prev svg, html.theme-night section .testimonials .next svg {
+      fill: #ffffff; }
+    html.theme-night section dl.faq dt:hover label {
+      color: #3c74f9; }
+      html.theme-night section dl.faq dt:hover label svg {
+        fill: #3c74f9; }
+    html.theme-night section dl.faq dt label {
+      color: #ffffff; }
+      html.theme-night section dl.faq dt label svg {
+        fill: #ffffff; }
+    html.theme-night section dl.faq dd {
+      color: #c6c6c6; }
 
 /***** GENERIC ELEMENTS *****/
 ul, ol, li, p {
@@ -82,6 +128,56 @@ a {
   .btn.small {
     padding: 7px 15px; }
 
+label.lightswitch {
+  background-color: #ffffff;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border-radius: 11px;
+  border: solid 1px #a0a0a0;
+  height: 22px;
+  width: 66px;
+  display: inline-block;
+  cursor: pointer;
+  overflow: hidden;
+  vertical-align: middle; }
+  label.lightswitch input {
+    display: none; }
+  label.lightswitch input:checked ~ [data-swtich="on"] {
+    display: block; }
+  label.lightswitch input:not(:checked) ~ [data-swtich="off"] {
+    display: block;
+    background-color: lightgray; }
+  label.lightswitch [data-swtich] {
+    display: none;
+    width: 100%;
+    text-align: center;
+    line-height: 1px; }
+    label.lightswitch [data-swtich] span {
+      vertical-align: middle; }
+  label.lightswitch [data-swtich="on"] {
+    text-align: right; }
+    label.lightswitch [data-swtich="on"]:after {
+      content: " ";
+      display: inline-block;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background-color: #3c74f9;
+      vertical-align: middle;
+      margin-left: 6px; }
+  label.lightswitch [data-swtich="off"] {
+    text-align: left; }
+    label.lightswitch [data-swtich="off"]:before {
+      content: " ";
+      display: inline-block;
+      height: 22px;
+      width: 22px;
+      border-radius: 50%;
+      background-color: #3c74f9;
+      vertical-align: middle;
+      margin-right: 2px; }
+
 .red-text {
   color: #f93c74; }
 
@@ -147,10 +243,12 @@ header {
       header.video-header .scroll-down svg {
         width: 15px;
         fill: #ffffff;
-        margin-top: 5px; }
+        margin-top: 5px;
+        transition: none; }
     header.video-header video {
       width: 180%;
-      margin-left: -40%; }
+      margin-left: -40%;
+      border-bottom: solid 5px #000000; }
   header.sticky {
     overflow: hidden; }
     header.sticky nav#main-menu {
@@ -207,6 +305,8 @@ header {
     header .logo:hover svg.logo-svg-dark {
       display: inline; }
     header .logo:hover svg.logo-svg-light {
+      display: none; }
+    header .logo.night {
       display: none; }
     header .logo svg {
       margin: 10px 0 0 -20px; }
@@ -451,7 +551,7 @@ section {
           margin: 0 20px 20px 20px;
           text-align: left;
           background: rgba(255, 255, 255, 0.9);
-          color: #000000;
+          color: #212529;
           opacity: 0;
           transform: translate(0, 100%);
           transition: .3s ease opacity, .3s ease transform; }
@@ -479,7 +579,7 @@ section {
     section .info-cards .three-col .col .content h6 {
       margin: 20px;
       text-align: left;
-      color: #000000; }
+      color: #212529; }
     section .info-cards .two-col .col .content .icon.resources-icon svg,
     section .info-cards .three-col .col .content .icon.resources-icon svg {
       fill: #3c74f9; }
@@ -509,7 +609,7 @@ section {
         font-size: 1.2rem; }
       section .four-col .col p {
         font-size: 0.92rem;
-        color: #666666; }
+        color: #7e8b98; }
       section .four-col .col ul.links {
         list-style: none;
         margin: 20px 0 0 0;
@@ -578,24 +678,18 @@ section {
     position: relative; }
     section .testimonials .prev, section .testimonials .next {
       position: absolute;
-      top: -15px; }
+      top: -35px; }
       section .testimonials .prev.prev, section .testimonials .next.prev {
-        right: 60px; }
-        section .testimonials .prev.prev:hover svg, section .testimonials .next.prev:hover svg {
-          transform: scale(115%, 115%) rotateZ(15deg); }
-        section .testimonials .prev.prev svg, section .testimonials .next.prev svg {
-          transform: rotateZ(0deg); }
+        right: 45px; }
       section .testimonials .prev.next, section .testimonials .next.next {
-        right: 15px; }
-        section .testimonials .prev.next:hover svg, section .testimonials .next.next:hover svg {
-          transform: scale(115%, 115%) rotateZ(20deg); }
-        section .testimonials .prev.next svg, section .testimonials .next.next svg {
-          transform: rotateZ(0deg); }
+        right: 0; }
+      section .testimonials .prev:hover svg, section .testimonials .next:hover svg {
+        fill: #3c74f9 !important; }
       section .testimonials .prev svg, section .testimonials .next svg {
         width: 30px;
         height: 30px;
-        fill: #f9c13c;
-        background-color: #ffffff;
+        fill: #a0a0a0;
+        transition: .3s ease fill;
         border-radius: 50%;
         transition: .5s ease transform; }
     section .testimonials blockquote {
@@ -638,6 +732,8 @@ section {
     width: calc(100% - 30px);
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 1rem; }
+  section.team-members p {
+    display: none; }
 
 .sidebar-layout {
   display: flex;
@@ -744,7 +840,7 @@ section {
           height: 100px; }
       .data-table table tbody tr td.text a {
         font-weight: 700;
-        color: #000000; }
+        color: #212529; }
         .data-table table tbody tr td.text a:hover {
           color: #3c74f9; }
         .data-table table tbody tr td.text a p {
@@ -919,13 +1015,10 @@ section {
           padding: 0 0 0 25px; }
       section .z-pattern .column.text-column {
         padding: 0 25px 0 0; }
-  section .testimonials .prev.prev, section .testimonials .next.prev {
-    right: 80px; }
-  section .testimonials .prev.next, section .testimonials .next.next {
-    right: 22px; }
-  section .testimonials .prev svg, section .testimonials .next svg {
-    width: 35px;
-    height: 35px; }
+  section .testimonials .prev, section .testimonials .next {
+    top: -40px; }
+    section .testimonials .prev.prev, section .testimonials .next.prev {
+      right: 50px; }
   section .testimonials blockquote img {
     margin: 20px; }
   section .centered-column {

@@ -1,6 +1,6 @@
-{% set resourceVersion = '1.20' %}
+{% set resourceVersion = '1.21' %}
 
-{% set isDev = true %}
+{% set isDev = true %} {# What exactly is this for again??? #}
 
 {% if entry is not defined %}
     {% exit 404 %}
@@ -36,7 +36,7 @@
 {% endif %}
 
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" class="theme-night">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta charset="utf-8" />
@@ -111,10 +111,11 @@
 
             <header{% if showHero %} class="hero-header"{% endif %}>
                 <div class="header-content">
-                    <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
-                        {#% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-dark" } %}
-                        {% include '/_svgs/logo' with { color: "#061124", class: "logo-svg-light" } %#}
+                    <a class="logo day" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
                         {% include '/_svgs/logo' with { layout: "wide"} %}
+                    </a>
+                    <a class="logo night" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
+                        {% include '/_svgs/logo' with { layout: "wide", color: "#f1f3f4" } %}
                     </a>
 
                     {% if entry is defined %}

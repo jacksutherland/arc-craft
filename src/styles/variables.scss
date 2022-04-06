@@ -10,17 +10,18 @@ $font-size: 1rem;
 $font-smaller: 0.92rem;
 $font-small: 0.8rem;
 $font-bigger: 1.2rem;
-$font-color: #000000;
+$font-color: #212529;
 
 // Neutral Colors
 
-$black: #241906; //#000000;
+$black: #000000; //#241906; //#000000;
 $white: #ffffff;
 $gray: #a0a0a0; //#a7a7a7;
 $antique: #f1f3f4; //#e7eaed; //#f1f3f4;
 $section-gray: darken($antique, 4%);
 $dark-gray: darken($gray, 15%);
 $light-gray: lighten($gray, 20%);
+$dark-theme-font-color: lighten($gray, 15%);
 
 // Colors From Logo
 

@@ -58,6 +58,14 @@ var DOMClass = function()
 		{
 			this.header = document.getElementsByTagName('header')[0];
 
+			var theme = this.cookies.get('arctheme');
+			if(theme != "" && this.header.classList.contains(theme) == false)
+			{
+				this.header.classList.remove('theme-night');
+				this.header.classList.remove('theme-day');
+				this.header.classList.add(theme);
+			}
+
 			if(this.header.classList.contains('video-header'))
 			{
 				document.getElementById('scroll-down').classList.add('show');
@@ -66,6 +74,11 @@ var DOMClass = function()
 		else
 		{
 			this.header = null;
+		}
+
+		var team = document.getElementsByClassName('team-members');
+		if(team.length)
+		{
 		}
 
 		var testimonials = document.getElementsByClassName('testimonials');
@@ -156,6 +169,23 @@ var DOMClass = function()
 
 	this.addEvents = function()
 	{
+		let themeSwitch = document.getElementById('theme-switch');
+		themeSwitch.addEventListener('click', function(e)
+		{
+			if(this.switch.checked)
+			{
+				document.documentElement.classList.remove('theme-night');
+				document.documentElement.classList.add('theme-day');
+				this.obj.cookies.set('arctheme', 'theme-day');
+			}
+			else
+			{
+				document.documentElement.classList.remove('theme-day');
+				document.documentElement.classList.add('theme-night');
+				this.obj.cookies.set('arctheme', 'theme-night');
+			}
+		}.bind({switch:themeSwitch, obj:this}));
+
 		if(this.header != null)
 		{
 			window.addEventListener("scroll", function()
@@ -177,6 +207,36 @@ var DOMClass = function()
 
 			dom.mobile.menu.show(!dom.mobile.menu.isOpen);
 		});
+	}
+
+	this.cookies = {
+		get: function(cname)
+		{
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++)
+			{
+				var c = ca[i];
+				while (c.charAt(0) == ' ')
+				{
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0)
+				{
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
+		},
+		set: function(cname, cvalue)
+		{
+			var exdays = 365;
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			let expires = "expires="+d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		}
 	}
 
 	this.validateField = function(field)

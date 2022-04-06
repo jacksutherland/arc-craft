@@ -5,15 +5,107 @@ body {
 	font-family: $font-family-primary;
 	font-weight: $font-weight-primary; // Options: 400, 600
 	font-size: 16px;
-	background-color: $antique;
+	
 	margin: 0;
 	padding: 0;
-	color: $black;
+	color: $font-color;
 	// scroll-snap-type: x mandatory;
 	scroll-behavior: smooth;
 	// .site-container {
 	// 	scroll-snap-align: start;
 	// }
+}
+
+/***** NIGHT THEME (Day is the default) *****/
+
+html,
+html.theme-day {
+	background-color: $antique;
+}
+
+html.theme-night {
+	background-color: $dark-primary;
+	color: $white;
+	a:not(.btn) {
+		&:hover {
+			color: $bright-color;
+		}
+	}
+	h1, h3 {
+		color: $white;
+	}
+	p {
+		color: $dark-theme-font-color;
+	}
+	header {
+		background-color: $dark-primary;
+		padding: 0;
+		.logo {
+			&.night {
+				display: flex;
+			}
+			&.day {
+				display: none;
+			}
+		}
+		nav#main-menu {
+			ul {
+				li {
+					a:not(.btn) {
+						color: $white;
+						&:hover {
+							color: $blue;
+						}
+					}
+				}
+			}
+		}
+	}
+	section {
+		background-color: $black;
+		border-radius: 10px;
+		&.gray-section {
+			background-color: $black;
+		}
+		h6 {
+			color: $dark-theme-font-color;
+		}
+		.four-col {
+			.col {
+				h4 {
+					color: $white;
+				}
+			}
+		}
+		.testimonials {
+			.prev, .next {
+				svg {
+					fill: $white;
+				}
+			}
+		}
+		dl.faq {
+			dt { 
+				&:hover {
+					label {
+						color: $blue;
+						svg {
+							fill: $blue;
+						}
+					}
+				}
+				label {
+					color: $white;
+					svg {
+						fill: $white;
+					}
+				}
+			}
+			dd {
+				color: $dark-theme-font-color;
+			}
+		}
+	}
 }
 
 
@@ -104,6 +196,66 @@ a {
 	}
 	&.small {
 		padding: 7px 15px;
+	}
+}
+
+label.lightswitch {
+	background-color: $white;
+	font-family: $font-family-primary;
+	font-weight: $font-bold-primary;
+	font-size: $font-small;
+	border-radius: 11px;
+	border: solid 1px $gray;
+	height: 22px;
+	width: 66px;
+	display: inline-block;
+	cursor: pointer;
+	overflow: hidden;
+	vertical-align: middle;
+	input {
+		display: none;
+	}
+	input:checked ~ [data-swtich="on"] {
+		display: block;
+	}
+	input:not(:checked) ~ [data-swtich="off"] {
+		display: block;
+		background-color: $light-gray;
+	}
+	[data-swtich] {
+		display: none;
+		width: 100%;
+		text-align: center;
+		line-height: 1px;
+		span {
+			vertical-align: middle;
+		}
+	}
+	[data-swtich="on"] {
+		text-align: right;
+		&:after {
+			content: " ";
+			display: inline-block;
+			height: 22px;
+			width: 22px;
+			border-radius: 50%;
+			background-color: $blue;
+			vertical-align: middle;
+			margin-left: 6px;
+		}
+	}
+	[data-swtich="off"] {
+		text-align: left;
+		&:before {
+			content: " ";
+			display: inline-block;
+			height: 22px;
+			width: 22px;
+			border-radius: 50%;
+			background-color: $blue;
+			vertical-align: middle;
+			margin-right: 2px;
+		}
 	}
 }
 
@@ -198,12 +350,14 @@ header {
 				width: 15px;
 				fill: $white;
 				margin-top: 5px;
+				transition: none;
 			}
 
 		}
 		video {
 			width: 180%;
     		margin-left: -40%;
+    		border-bottom: solid 5px $black;
 		}
 	}
 	&.sticky {
@@ -290,6 +444,9 @@ header {
 					display: none;
 				}	
 			}
+		}
+		&.night {
+			display: none;
 		}
 		svg {
 			// width: 135px;
@@ -811,34 +968,23 @@ section {
 		position: relative;
 		.prev, .next {
 			position: absolute;
-			top: -15px;
+			top: -35px;
 			&.prev {
-				right: 60px;
-				&:hover {
-					svg {
-						transform: scale(115%,115%) rotateZ(15deg);
-					}
-				}
-				svg {
-					transform: rotateZ(0deg);
-				}
+				right: 45px;
 			}
 			&.next {
-				right: 15px;
-				&:hover {
-					svg {
-						transform: scale(115%,115%) rotateZ(20deg);
-					}
-				}
+				right: 0;
+			}
+			&:hover {
 				svg {
-					transform: rotateZ(0deg);
+					fill: $blue !important;
 				}
 			}
 			svg {
 				width: 30px;
 				height: 30px;
-				fill: $bright-color;
-				background-color: $white;
+				fill: $gray;
+				transition: .3s ease fill;
 				border-radius: 50%;
 				transition: .5s ease transform;
 			}
@@ -908,6 +1054,14 @@ section {
 			}
 		}
 	}
+
+	&.team-members {
+		p {
+			display: none;
+		}
+	}
+
+
 } // End Section Class
 
 
@@ -1844,17 +1998,17 @@ section {
 
 		.testimonials {
 			.prev, .next {
-				//top: 1px;
+				top: -40px;
 				&.prev {
-					right: 80px;
+					right: 50px;
 				}
-				&.next {
-					right: 22px;
-				}
-				svg {
-					width: 35px;
-					height: 35px;
-				}
+				// &.next {
+				// 	right: 22px;
+				// }
+				// svg {
+				// 	width: 35px;
+				// 	height: 35px;
+				// }
 			}
 			blockquote {
 				img {
