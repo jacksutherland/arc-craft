@@ -47,7 +47,7 @@
 						<div class="col">
 							{% if member.photo | length %}
 								{% if member.links | length %}
-									<a href="{{ member.links[0].url }}" class="prof-pic" title="{{ name }}" target="_blank">
+									<a href="{{ member.links[0].url }}" class="prof-pic" title="{{ name }}" target="_blank" data-bio="prof-bio-{{ loop.index }}">
 										<img src="{{ member.photo.url }}" alt="{{ name }}">
 									</a>
 								{% else %}
@@ -56,7 +56,7 @@
 							{% endif %}
 							<h4>{{ name }}</h4>
 							{% if member.briefDescription | length %}
-								<p>{{ member.briefDescription }}</p>
+								<p id="prof-bio-{{ loop.index }}" class="prof-bio">{{ member.briefDescription }}</p>
 							{% endif %}
 							{% if member.links | length %}
 								<ul class="links">

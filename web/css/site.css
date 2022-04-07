@@ -12,27 +12,41 @@ body {
 html,
 html.theme-day {
   background-color: #f1f3f4; }
+  html header,
+  html.theme-day header {
+    border-radius: 5px; }
 
 html.theme-night {
-  background-color: #061124;
+  background-color: #092730;
   color: #ffffff; }
-  html.theme-night a:not(.btn):hover {
+  html.theme-night a:not(.btn):not(.scroll-down):hover {
     color: #f9c13c; }
-  html.theme-night h1, html.theme-night h3 {
+    html.theme-night a:not(.btn):not(.scroll-down):hover svg {
+      fill: #f9c13c !important; }
+  html.theme-night h1, html.theme-night h3, html.theme-night h4 {
     color: #ffffff; }
   html.theme-night p {
     color: #c6c6c6; }
   html.theme-night header {
-    background-color: #061124;
+    background-color: #092730;
     padding: 0; }
     html.theme-night header .logo.night {
       display: flex; }
     html.theme-night header .logo.day {
       display: none; }
-    html.theme-night header nav#main-menu ul li a:not(.btn) {
-      color: #ffffff; }
-      html.theme-night header nav#main-menu ul li a:not(.btn):hover {
-        color: #3c74f9; }
+    html.theme-night header nav#main-menu {
+      right: 0; }
+      html.theme-night header nav#main-menu ul li#mobile-trigger a:hover svg {
+        fill: #3c74f9 !important; }
+      html.theme-night header nav#main-menu ul li#mobile-trigger a svg {
+        fill: #ffffff; }
+      html.theme-night header nav#main-menu ul li a:not(.btn) {
+        color: #ffffff; }
+        html.theme-night header nav#main-menu ul li a:not(.btn):hover {
+          color: #3c74f9; }
+  html.theme-night footer {
+    margin: 15px 0 0 0;
+    border-radius: 10px 10px 0 0; }
   html.theme-night section {
     background-color: #000000;
     border-radius: 10px; }
@@ -152,7 +166,8 @@ label.lightswitch {
     display: none;
     width: 100%;
     text-align: center;
-    line-height: 1px; }
+    line-height: 1px;
+    color: #212529; }
     label.lightswitch [data-swtich] span {
       vertical-align: middle; }
   label.lightswitch [data-swtich="on"] {
@@ -247,8 +262,7 @@ header {
         transition: none; }
     header.video-header video {
       width: 180%;
-      margin-left: -40%;
-      border-bottom: solid 5px #000000; }
+      margin-left: -40%; }
   header.sticky {
     overflow: hidden; }
     header.sticky nav#main-menu {
@@ -284,7 +298,7 @@ header {
       color: #a0a0a0;
       text-decoration: none; }
       header .breadcrumb a:hover {
-        color: #3c74f9; }
+        color: #3c74f9 !important; }
       header .breadcrumb a.active {
         font-weight: 600;
         white-space: nowrap;
@@ -371,6 +385,8 @@ header {
       position: relative; }
       header nav#main-menu ul li {
         display: none; }
+        header nav#main-menu ul li.theme-switch-menu-item {
+          display: none !important; }
         header nav#main-menu ul li.mobile-logo {
           display: none;
           position: absolute;
@@ -427,7 +443,7 @@ header {
       border-radius: 5px;
       transform: translateX(100%);
       transition: .3s ease transform; }
-      header nav#mobile-menu ul li a {
+      header nav#mobile-menu ul li a, header nav#mobile-menu ul li .mobile-menu-placeholder {
         display: block;
         padding: 15px 45px 15px 25px;
         font-size: 0.95rem;
@@ -438,7 +454,7 @@ header {
         border-bottom: solid 1px #d4dbde;
         border-top: solid 1px white;
         border-left: solid 1px white; }
-        header nav#mobile-menu ul li a:hover {
+        header nav#mobile-menu ul li a:hover, header nav#mobile-menu ul li .mobile-menu-placeholder:hover {
           background-color: #e3e7e9; }
 
 footer {
@@ -472,7 +488,8 @@ footer {
 section {
   background-color: #ffffff;
   padding: 20px;
-  margin: 18px 0; }
+  margin: 18px 0;
+  border-radius: 5px 5px 0 0; }
   section h6 {
     color: #a0a0a0;
     margin: 0 0 10px 0;
@@ -733,7 +750,14 @@ section {
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 1rem; }
   section.team-members p {
-    display: none; }
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: .3s ease-in-out max-height, .6s ease-in-out opacity; }
+    section.team-members p.show {
+      max-height: 300px;
+      opacity: 1; }
 
 .sidebar-layout {
   display: flex;
@@ -946,6 +970,8 @@ section {
     line-height: 32px; }
   header.sticky nav#main-menu ul li {
     display: inline; }
+  header.video-header:not(.sticky) nav#main-menu ul li.theme-switch-menu-item {
+    display: inline !important; }
   header.video-header .logo {
     margin: 0; }
   header.video-header nav#main-menu ul li a:not(.btn):not(:hover) {
@@ -1077,6 +1103,8 @@ section {
     font-size: 24px;
     letter-spacing: 0.04rem;
     line-height: 34px; }
+  html.theme-night footer {
+    margin: 40px 0 0 0; }
   .site-container {
     margin: 30px 40px 0 40px; }
   header {

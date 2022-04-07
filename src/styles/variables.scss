@@ -21,7 +21,6 @@ $antique: #f1f3f4; //#e7eaed; //#f1f3f4;
 $section-gray: darken($antique, 4%);
 $dark-gray: darken($gray, 15%);
 $light-gray: lighten($gray, 20%);
-$dark-theme-font-color: lighten($gray, 15%);
 
 // Colors From Logo
 
@@ -32,6 +31,11 @@ $dark-primary-hover: #213351; // Estate Blue
 
 $link-color: lighten($dark-primary-hover, 16%);
 $link-hover-color: $dark-primary-hover;
+
+// Theme Colors
+
+$dark-theme-font-color: lighten($gray, 15%);
+$dark-theme-bkg-color: #092730; //$dark-primary
 
 // New Logo Colors
 

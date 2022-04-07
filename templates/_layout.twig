@@ -1,4 +1,4 @@
-{% set resourceVersion = '1.21' %}
+{% set resourceVersion = '1.22' %}
 
 {% set isDev = true %} {# What exactly is this for again??? #}
 
@@ -226,6 +226,9 @@
             </ul>
             <div class="copyright">
                 ©{{ now | date("Y") }} ARCollective. All Rights Reserved
+            </div>
+            <div style="margin: 40px 0 0 0;">
+                {% include '_includes/theme-switch' %}
             </div>
         </footer>
 

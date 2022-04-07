@@ -76,9 +76,44 @@ var DOMClass = function()
 			this.header = null;
 		}
 
-		var team = document.getElementsByClassName('team-members');
-		if(team.length)
+		var teamsTimeout = 0;
+		var teams = document.getElementsByClassName('team-members');
+		if(teams.length)
 		{
+			for(i=0; i<teams.length; i++)
+			{
+				var pics = teams[i].querySelectorAll('.prof-pic');
+				for(ii=0; ii<pics.length; ii++)
+				{
+					pics[ii].addEventListener('click', function(e)
+					{
+						e.preventDefault();
+
+						var bios = document.getElementsByClassName('prof-bio');
+
+						for(iii=0; iii<bios.length; iii++)
+						{
+							if(bios[iii].id != this.dataset.bio)
+							{
+								bios[iii].classList.remove('show');
+							}
+						}
+
+						document.getElementById(this.dataset.bio).classList.toggle('show');
+
+						clearTimeout(teamsTimeout);
+
+						teamsTimeout = setTimeout(function()
+						{
+							var bios = document.getElementsByClassName('prof-bio');
+							for(i=0; i<bios.length; i++)
+							{
+								bios[i].classList.remove('show');
+							}
+						}, 15000);
+					});
+				}
+			}
 		}
 
 		var testimonials = document.getElementsByClassName('testimonials');
@@ -169,22 +204,52 @@ var DOMClass = function()
 
 	this.addEvents = function()
 	{
-		let themeSwitch = document.getElementById('theme-switch');
-		themeSwitch.addEventListener('click', function(e)
+		var themeSwitches = document.getElementsByClassName('theme-switch');
+		var isDayTheme = document.documentElement.classList.contains('theme-day');
+		var cookieTheme = this.cookies.get('arctheme');
+
+		if(cookieTheme != '')
 		{
-			if(this.switch.checked)
+			document.documentElement.classList.remove('theme-day');
+			document.documentElement.classList.remove('theme-night');
+			document.documentElement.classList.add(cookieTheme);
+		}
+
+		for(i=0; i<themeSwitches.length; i++)
+		{
+			if(cookieTheme != '')
 			{
-				document.documentElement.classList.remove('theme-night');
-				document.documentElement.classList.add('theme-day');
-				this.obj.cookies.set('arctheme', 'theme-day');
+				themeSwitches[i].checked = (cookieTheme == 'theme-day');
 			}
 			else
 			{
-				document.documentElement.classList.remove('theme-day');
-				document.documentElement.classList.add('theme-night');
-				this.obj.cookies.set('arctheme', 'theme-night');
+				themeSwitches[i].checked = isDayTheme;
 			}
-		}.bind({switch:themeSwitch, obj:this}));
+
+			themeSwitches[i].addEventListener('change', function(e)
+			{
+				if(this.switch.checked)
+				{
+					document.documentElement.classList.remove('theme-night');
+					document.documentElement.classList.add('theme-day');
+					this.obj.cookies.set('arctheme', 'theme-day');
+				}
+				else
+				{
+					document.documentElement.classList.remove('theme-day');
+					document.documentElement.classList.add('theme-night');
+					this.obj.cookies.set('arctheme', 'theme-night');
+				}
+				for(ii=0; ii<this.switches.length; ii++)
+				{
+					if(this.switch.id != this.switches[ii].id)
+					{
+						this.switches[ii].checked = this.switch.checked;
+					}
+				}
+			}.bind({switch:themeSwitches[i], switches: themeSwitches, obj:this}));
+		}
+		
 
 		if(this.header != null)
 		{

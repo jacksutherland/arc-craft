@@ -1,0 +1,6 @@
+{% set switchId = 'switch-' ~ random() %}
+<label for="{{ switchId }}" class="lightswitch theme-lightswitch">
+  <input type="checkbox" role="lightswitch" id="{{ switchId }}" class="theme-switch">
+  <span data-swtich="on"><span>Day</span></span>
+  <span data-swtich="off"><span>Night</span></span>
+</label>

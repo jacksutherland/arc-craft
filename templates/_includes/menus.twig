@@ -28,12 +28,8 @@
                 <a href="{{ signupUrl }}" class="btn" target="_blank">Sign Up Today</a>
             </li>
         {% endif %}
-        <li>
-            <label for="theme-switch" class="lightswitch">
-              <input type="checkbox" role="lightswitch" id="theme-switch">
-              <span data-swtich="on"><span>Day</span></span>
-              <span data-swtich="off"><span>Night</span></span>
-            </label>
+        <li class="theme-switch-menu-item" style="margin:0 18px 0 8px;">
+            {% include '_includes/theme-switch' %}
         </li>
         <li id="mobile-trigger">
             <a href="">
@@ -65,6 +61,11 @@
                 <a href="{{ contactUrl }}">Contact Us</a>
             </li>
         {% endif %}
+        <li>
+            <span class="mobile-menu-placeholder">
+                {% include '_includes/theme-switch' %}
+            </span>
+        </li>
         {% if isDev %}
             <li>
                 {% if craft.arc.isUserLoggedIn %}
