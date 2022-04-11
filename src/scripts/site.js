@@ -255,11 +255,11 @@ var DOMClass = function()
 		{
 			window.addEventListener("scroll", function()
 			{
-				if (document.body.scrollTop < 250 && document.documentElement.scrollTop < 250)
+				if (document.body.scrollTop <= 100 && document.documentElement.scrollTop <= 100)
 		    	{
 		    		this.header.classList.remove('sticky');
 		    	}
-		    	else if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300)
+		    	else if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100)
 		    	{
 		    		this.header.classList.add('sticky');
 		    	}
@@ -463,8 +463,14 @@ var DOMClass = function()
 										document.getElementById('quiz-results').innerText = 'We were unable to calculate your score at this time.';
 									}
 
-									document.querySelector('.quiz').classList.remove('show');
-									document.querySelector('.quiz-complete').classList.add('show');
+									let quiz = document.querySelector('.quiz');
+									let quizComplete = document.querySelector('.quiz-complete');
+
+									quiz.classList.remove('show');
+									quizComplete.classList.add('show');
+									//quizComplete.scrollIntoView();
+									let quizCompletePosition = quizComplete.getBoundingClientRect();
+									window.scrollTo(quizCompletePosition.left, quizCompletePosition.top + window.scrollY - 100);
 								} 
 							}
 							else

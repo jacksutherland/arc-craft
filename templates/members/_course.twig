@@ -120,9 +120,12 @@
 					<div>
 						<a class="btn repeat-course" href="/">Take this course again</a>
 						{% if nextCourse == null %}
-							<a class="btn next-course" href="/members/academy">Return to Academy</a>
+							<a class="btn next-course" href="/members/academy">Return to the Academy</a>
 						{% else %}
 							<a class="btn next-course" href="{{ nextCourse.url() }}">Continue to the next course</a>
+							<div style="margin-top: 30px;">
+								<a href="/members/academy">Return to the Academy >></a>
+							</div>
 						{% endif %}
 					</div>
 				</div>

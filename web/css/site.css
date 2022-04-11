@@ -19,10 +19,12 @@ html.theme-day {
 html.theme-night {
   background-color: #092730;
   color: #ffffff; }
-  html.theme-night a:not(.btn):not(.scroll-down):hover {
-    color: #f9c13c; }
-    html.theme-night a:not(.btn):not(.scroll-down):hover svg {
-      fill: #f9c13c !important; }
+  html.theme-night a:not(.btn):not(.scroll-down) {
+    color: #3c74f9; }
+    html.theme-night a:not(.btn):not(.scroll-down):hover {
+      text-decoration: underline; }
+      html.theme-night a:not(.btn):not(.scroll-down):hover svg {
+        fill: #3c74f9 !important; }
   html.theme-night h1, html.theme-night h3, html.theme-night h4 {
     color: #ffffff; }
   html.theme-night p {
@@ -30,6 +32,14 @@ html.theme-night {
   html.theme-night header {
     background-color: #092730;
     padding: 0; }
+    html.theme-night header .breadcrumb a {
+      color: #a0a0a0 !important; }
+      html.theme-night header .breadcrumb a:hover {
+        text-decoration: none !important;
+        color: #3c74f9 !important; }
+    html.theme-night header .header-content .hero .header-image {
+      border-radius: 10px;
+      box-shadow: 2px 2px 12px #121212; }
     html.theme-night header .logo.night {
       display: flex; }
     html.theme-night header .logo.day {
@@ -47,6 +57,11 @@ html.theme-night {
   html.theme-night footer {
     margin: 15px 0 0 0;
     border-radius: 10px 10px 0 0; }
+    html.theme-night footer a {
+      color: #ffffff !important; }
+      html.theme-night footer a:hover {
+        color: #3c74f9 !important;
+        text-decoration: none !important; }
   html.theme-night section {
     background-color: #000000;
     border-radius: 10px; }
@@ -56,6 +71,13 @@ html.theme-night {
       color: #c6c6c6; }
     html.theme-night section .four-col .col h4 {
       color: #ffffff; }
+    html.theme-night section .two-col .col .content,
+    html.theme-night section .three-col .col .content {
+      background-color: #000000;
+      border-color: #a0a0a0; }
+      html.theme-night section .two-col .col .content h6,
+      html.theme-night section .three-col .col .content h6 {
+        color: #ffffff; }
     html.theme-night section .testimonials .prev svg, html.theme-night section .testimonials .next svg {
       fill: #ffffff; }
     html.theme-night section dl.faq dt:hover label {
@@ -68,6 +90,43 @@ html.theme-night {
         fill: #ffffff; }
     html.theme-night section dl.faq dd {
       color: #c6c6c6; }
+    html.theme-night section .video-container {
+      background-color: #e6e9eb; }
+  html.theme-night .sidebar-layout {
+    background-color: #000000; }
+    html.theme-night .sidebar-layout aside {
+      border-color: #e6e9eb; }
+      html.theme-night .sidebar-layout aside ol li {
+        border-color: #7a7a7a;
+        color: #a0a0a0; }
+        html.theme-night .sidebar-layout aside ol li a {
+          color: #ffffff !important; }
+          html.theme-night .sidebar-layout aside ol li a:hover {
+            color: #3c74f9 !important;
+            text-decoration: none !important; }
+          html.theme-night .sidebar-layout aside ol li a svg {
+            fill: #ffffff !important; }
+  html.theme-night .courses .instructions {
+    color: #e6e9eb; }
+  html.theme-night .courses .quiz {
+    background-color: #e6e9eb; }
+  html.theme-night .courses .quiz-complete p {
+    color: #000000; }
+  html.theme-night .courses h4 {
+    color: #000000; }
+  html.theme-night .data-table {
+    background-color: #000000; }
+    html.theme-night .data-table table tbody tr td {
+      color: #ffffff; }
+      html.theme-night .data-table table tbody tr td.text p {
+        color: #a0a0a0; }
+      html.theme-night .data-table table tbody tr td a {
+        color: #ffffff !important; }
+        html.theme-night .data-table table tbody tr td a:hover {
+          color: #3c74f9 !important;
+          text-decoration: none !important; }
+          html.theme-night .data-table table tbody tr td a:hover.btn {
+            color: #ffffff !important; }
 
 /***** GENERIC ELEMENTS *****/
 ul, ol, li, p {
@@ -811,7 +870,9 @@ section {
             top: 5px; }
         .sidebar-layout aside ul li span, .sidebar-layout aside ol li span {
           vertical-align: middle;
-          font-size: 0.92rem; }
+          font-size: 0.92rem;
+          margin-left: 5px;
+          display: inline-block; }
 
 /***** MEMBER PORTAL *****/
 .progress {

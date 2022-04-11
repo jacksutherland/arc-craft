@@ -30,10 +30,12 @@ html.theme-night {
 	background-color: $dark-theme-bkg-color;
 	color: $white;
 	a:not(.btn):not(.scroll-down) {
+		color: $blue;
 		&:hover {
-			color: $bright-color;
+			//color: $bright-color;
+			text-decoration: underline;
 			svg {
-				fill: $bright-color !important;
+				fill: $blue !important; //bright-color !important;
 			}
 		}
 	}
@@ -46,6 +48,23 @@ html.theme-night {
 	header {
 		background-color: $dark-theme-bkg-color;
 		padding: 0;
+		.breadcrumb {
+			a {
+				color: $gray !important;
+				&:hover {
+					text-decoration: none !important;
+					color: $blue !important;
+				}
+			}
+		}
+		.header-content {
+			.hero {
+				.header-image {
+					border-radius: 10px;
+					box-shadow: 2px 2px 12px lighten($black, 7%);
+				}
+			}
+		}
 		.logo {
 			&.night {
 				display: flex;
@@ -83,6 +102,13 @@ html.theme-night {
 	footer {
 		margin: 15px 0 0 0;
 		border-radius: 10px 10px 0 0;
+		a {
+			color: $white !important;
+			&:hover {
+				color: $blue !important;
+				text-decoration: none !important;
+			}
+		}
 	}
 	section {
 		background-color: $black;
@@ -97,6 +123,18 @@ html.theme-night {
 			.col {
 				h4 {
 					color: $white;
+				}
+			}
+		}
+		.two-col,
+		.three-col {
+			.col {
+				.content {
+					background-color: $black;
+					border-color: $gray;
+					h6 {
+						color: $white;
+					}
 				}
 			}
 		}
@@ -128,6 +166,75 @@ html.theme-night {
 				color: $dark-theme-font-color;
 			}
 		}
+		.video-container {
+			background-color: $section-gray;
+		}
+	}
+	.sidebar-layout {
+		background-color: $black;
+		aside {
+			border-color: $section-gray;
+			ol {
+				li {
+					border-color: $dark-gray;
+					color: $gray;
+					a {
+						color: $white !important;
+						&:hover {
+							color: $blue !important;
+							text-decoration: none !important;
+						}
+						svg {
+							fill: $white !important;
+						}
+					}
+				}
+			}
+		}
+	}
+	.courses {
+		.instructions {
+			color: $section-gray;
+		}
+		.quiz {
+			background-color: $section-gray;
+		}
+		.quiz-complete {
+			p {
+				color: $black;
+			}
+		}
+		h4 {
+			color: $black;
+		}
+	}
+	.data-table {
+		background-color: $black;
+		table {
+			tbody {
+				tr {
+					td {
+						color: $white;
+						&.text {
+							p {
+								color: $gray;
+							}
+						}
+						a {
+							color: $white !important;
+							&:hover {
+								color: $blue !important;
+								text-decoration: none !important;
+								&.btn {
+									color: $white !important;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
 	}
 }
 
@@ -1156,17 +1263,19 @@ section {
 				svg {
 					height: 15px;
 					position: absolute;
-			    left: 0;
-			    top: 11px;
-			    &.check { 
-			    	height: 25px;
-			    	left: -3px;
-			    	top: 5px;
-			    }
+				    left: 0;
+				    top: 11px;
+				    &.check { 
+				    	height: 25px;
+				    	left: -3px;
+				    	top: 5px;
+				    }
 				}
 				span {
 					vertical-align: middle;
 					font-size: $font-smaller;
+					margin-left: 5px;
+					display: inline-block;
 				}
 			}
 		}
