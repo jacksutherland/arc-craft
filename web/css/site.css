@@ -110,9 +110,9 @@ html.theme-night {
     color: #e6e9eb; }
   html.theme-night .courses .quiz {
     background-color: #e6e9eb; }
+    html.theme-night .courses .quiz h4 {
+      color: #000000; }
   html.theme-night .courses .quiz-complete p {
-    color: #000000; }
-  html.theme-night .courses h4 {
     color: #000000; }
   html.theme-night .data-table {
     background-color: #000000; }
@@ -826,16 +826,19 @@ section {
   margin: 20px 0;
   background-color: #ffffff; }
   .sidebar-layout section, .sidebar-layout aside {
-    display: flex;
     flex-direction: column;
     flex-basis: 100%; }
   .sidebar-layout section {
+    display: flex;
     flex: 45%;
     background-color: #ffffff;
     margin: 0; }
   .sidebar-layout aside {
+    display: none;
     flex: 1;
     margin: 20px; }
+    .sidebar-layout aside.show {
+      display: flex; }
     .sidebar-layout aside h4 {
       margin: 0 0 10px 0; }
     .sidebar-layout aside p {
@@ -1190,10 +1193,13 @@ section {
       display: block; }
   footer {
     margin: -40px 0 0 0; }
+  #mobile-course-menu-trigger {
+    display: none; }
   .sidebar-layout {
     flex-direction: row;
     margin: 40px 0; }
     .sidebar-layout aside {
+      display: flex;
       margin: 40px 0;
       padding: 0 40px;
       border-left: solid 3px #e6e9eb; }

@@ -198,14 +198,14 @@ html.theme-night {
 		}
 		.quiz {
 			background-color: $section-gray;
+			h4 {
+				color: $black;
+			}
 		}
 		.quiz-complete {
 			p {
 				color: $black;
 			}
-		}
-		h4 {
-			color: $black;
 		}
 	}
 	.data-table {
@@ -1210,27 +1210,30 @@ section {
 
 } // End Section Class
 
-
 .sidebar-layout {
 	display: flex;
-  flex-direction: column-reverse;
-  flex-wrap: wrap;
-  width: 100%;
-  margin: 20px 0;
-  background-color: $white;
-  section, aside {
-  	display: flex;
-	  flex-direction: column;
-	  flex-basis: 100%;
-  }
+	flex-direction: column-reverse;
+	flex-wrap: wrap;
+	width: 100%;
+	margin: 20px 0;
+	background-color: $white;
+	section, aside {
+		flex-direction: column;
+		flex-basis: 100%;
+	}
 	section {
+		display: flex;
 		flex: 45%;
 		background-color: $white;
 		margin: 0;
 	}
 	aside {
+		display: none;
 		flex: 1;
 		margin: 20px;
+		&.show {
+			display: flex;
+		}
 		h4 {
 			margin: 0 0 10px 0;
 		}
@@ -2342,14 +2345,19 @@ section {
 		margin: -40px 0 0 0;
 	}
 
+	#mobile-course-menu-trigger {
+		display: none;
+	}
+
 	.sidebar-layout {
 		flex-direction: row;
-	  margin: 40px 0;
-	  aside {
 	  	margin: 40px 0;
-	  	padding: 0 40px;
-	  	border-left: solid 3px $section-gray;
-	  }
+	  	aside {
+	  		display: flex;
+	  		margin: 40px 0;
+	  		padding: 0 40px;
+	  		border-left: solid 3px $section-gray;
+	  	}
 	}
 	
 	section {

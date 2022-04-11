@@ -50,6 +50,11 @@
 
 {% block main %}
 	{#<h1>{{ nextCourse == null ? 'null nextCourse' : nextCourse.slug }} {{ parentCategory .getNextSibling() == null }}</h1>#}
+	
+	<div id="mobile-course-menu-trigger">
+		<a href="/" onclick="document.getElementById('course-categories').classList.toggle('show'); return false;">View all courses in this category</a>
+	</div>
+
 	<div class="sidebar-layout">
 
 		<section>
@@ -133,7 +138,7 @@
 
 		</section>
 
-		<aside>
+		<aside id="course-categories">
 			
 			{% if parentCategory != null %}
 
