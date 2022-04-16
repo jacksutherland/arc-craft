@@ -824,15 +824,18 @@ section {
     width: calc(100% - 30px);
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 1rem; }
-  section.team-members p {
-    display: block;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: .3s ease-in-out max-height, .6s ease-in-out opacity; }
-    section.team-members p.show {
-      max-height: 300px;
-      opacity: 1; }
+  section.team-members {
+    background-color: transparent !important; }
+
+.flex-table {
+  display: flex;
+  flex-direction: column; }
+  .flex-table .flex-row {
+    display: flex;
+    min-height: 50px; }
+    .flex-table .flex-row .flex-cell {
+      flex: 1;
+      border: 1px solid white; }
 
 .sidebar-layout {
   display: flex;

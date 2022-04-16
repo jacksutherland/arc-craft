@@ -35,6 +35,24 @@
 
 			<section id="section-{{ loop.index }}" class="team-members{% if module.background is defined %} {{ module.background }}{% endif %}">
 				{{ _self.sectionHeadings(module.subheading, module.headline) }}
+				<div class="flex-table">
+					<div class="flex-row">
+						{% for member in module.users.status(null).all() %}
+							<div class="flex-cell">
+								{{ member.firstName }}
+							</div>
+							{% if loop.index is divisible by(3) %}
+								</div>
+								<div class="flex-row">
+							{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+			</section>
+
+			{#
+			<section id="section-{{ loop.index }}" class="team-members{% if module.background is defined %} {{ module.background }}{% endif %}">
+				{{ _self.sectionHeadings(module.subheading, module.headline) }}
 				<div class="four-col">
 					{% for member in module.users.status(null).all() %}
 						{% set name = member.firstName %}
@@ -74,6 +92,7 @@
 				</div>
 				<br style="clear:both;">
 			</section>
+			#}
 
 		{% case "imageBlocks" %}
 

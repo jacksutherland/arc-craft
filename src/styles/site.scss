@@ -1227,24 +1227,56 @@ section {
 	}
 
 	&.team-members {
-		p {
-			//display: none;
-			display: block;
-			//height: 0;
-			max-height: 0;
-			opacity: 0;
-			overflow: hidden;
-			transition: .3s ease-in-out max-height, .6s ease-in-out opacity;
-			&.show {
-				max-height: 300px;
-				//height: auto;
-				opacity: 1;
-			}
-		}
+		background-color: transparent !important;
+		// p {
+		// 	display: block;
+		// 	max-height: 0;
+		// 	opacity: 0;
+		// 	overflow: hidden;
+		// 	transition: .3s ease-in-out max-height, .6s ease-in-out opacity;
+		// 	&.show {
+		// 		max-height: 300px;
+		// 		opacity: 1;
+		// 	}
+		// }
 	}
 
 
 } // End Section Class
+
+.flex-table {
+	display: flex;
+    flex-direction: column;
+    // &.two-columns {
+    // 	.flex-row {
+    // 		.flex-cell {
+    // 			flex: 50%;
+    // 		}
+    // 	}
+    // }
+    // &.three-columns {
+    // 	.flex-row {
+    // 		.flex-cell {
+    // 			flex: 33%;
+    // 		}
+    // 	}
+    // }
+    // &.four-columns {
+    // 	.flex-row {
+    // 		.flex-cell {
+    // 			flex: 25%;
+    // 		}
+    // 	}
+    // }
+	.flex-row {
+		display: flex;
+  		min-height: 50px;
+		.flex-cell {
+			flex: 1;
+  			border: 1px solid white;
+		}
+	}
+}
 
 .sidebar-layout {
 	display: flex;
