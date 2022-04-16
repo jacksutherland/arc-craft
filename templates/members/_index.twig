@@ -3,7 +3,7 @@
 {% set titleTag = "Member Portal" %}
 
 {% block main %}
-
+{#
 	<section class="gray">
 		{% if invalidGuildMember %}
 			<div class="centered-column">
@@ -19,9 +19,9 @@
 			{% include "members/_index-unauthenticated" %}
 		{% endif %}
 	</section>
+#}
 
 
-{#
 <section class="gray">
 	<div class="centered-column">
 		<h6>This Section is Currently Under Maintenance</h6>
@@ -30,6 +30,6 @@
 		</p>
 	</div>
 </div>
-#}
+
 
 {% endblock %}
