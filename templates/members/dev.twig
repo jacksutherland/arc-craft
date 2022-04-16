@@ -1,26 +1,20 @@
 {% extends "_layout" %}
 
+{% set entry = craft.entries.section('members').one() %}
+
 {% set titleTag = "Member Portal" %}
 
 {% block main %}
 
-{#
 	<section class="gray">
 		{% if craft.arc.isUserLoggedIn %}
+		{#% if false %#}
+			{# USER IS AUTHENTICATED #}
 			{% include "members/_index-authenticated" %}
 		{% else %}
+			{# UNAUTHENTICATED USER #}
 			{% include "members/_index-unauthenticated" %}
 		{% endif %}
 	</section>
-#}
-
-<section class="gray">
-	<div class="centered-column">
-		<h6>This Section is Currently Under Maintenance</h6>
-		<p>
-			
-		</p>
-	</div>
-</div>
 
 {% endblock %}
