@@ -49,6 +49,8 @@ class MembersController extends Controller
             session_start(); 
         } 
 
+        // echo 'access_token ' . $this->session('access_token');
+
         if($this->session('access_token'))
         {
             if($this->get('code'))
@@ -57,6 +59,9 @@ class MembersController extends Controller
             }
 
             $isGuildMember = $service->isGuildMember();
+
+            // echo '<br>isGuildMember ' . ($isGuildMember ? ' yes ' : ' no ');
+            //exit();
 
             if($isGuildMember)
             {

@@ -109,6 +109,14 @@ html.theme-night {
 				text-decoration: none !important;
 			}
 		}
+		.copyright {
+	    	a {
+	    		color: $gray !important;
+	    		&:hover {
+	    			color: $blue !important;
+	    		}
+	    	}
+		}
 	}
 	section {
 		background-color: $black;
@@ -203,6 +211,9 @@ html.theme-night {
 			}
 		}
 		.quiz-complete {
+			h4 {
+				color: $black;
+			}
 			p {
 				color: $black;
 			}
@@ -1108,7 +1119,8 @@ section {
 			height: 0;
 			&:checked {
 				&+dd {
-					max-height: 300px;
+					//max-height: 300px;
+					max-height: 1000px;
 					opacity: 1;
 					float: none;
 				}
@@ -1373,14 +1385,16 @@ section {
 					&.icon {
 						display: none; // responsive, not needed on mobile
 						width: 1%;
-    				white-space: nowrap;
-    				padding: 20px 10px 17px 20px;
+	    				white-space: nowrap;
+	    				padding: 20px 10px 17px 20px;
 						svg {
 							height: 45px;
 							fill: $light-gray;
 						}
 						img {
 							height: 100px;
+							min-width: 100%;
+							border: solid 1px $section-gray;
 						}
 					}
 					&.text {

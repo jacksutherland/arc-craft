@@ -62,6 +62,10 @@ html.theme-night {
       html.theme-night footer a:hover {
         color: #3c74f9 !important;
         text-decoration: none !important; }
+    html.theme-night footer .copyright a {
+      color: #a0a0a0 !important; }
+      html.theme-night footer .copyright a:hover {
+        color: #3c74f9 !important; }
   html.theme-night section {
     background-color: #000000;
     border-radius: 10px; }
@@ -111,6 +115,8 @@ html.theme-night {
     background-color: #e6e9eb; }
     html.theme-night .courses .quiz h4 {
       color: #000000; }
+  html.theme-night .courses .quiz-complete h4 {
+    color: #000000; }
   html.theme-night .courses .quiz-complete p {
     color: #000000; }
   html.theme-night .data-table {
@@ -751,7 +757,7 @@ section {
     display: none;
     height: 0; }
     section dl.faq input:checked + dd {
-      max-height: 300px;
+      max-height: 1000px;
       opacity: 1;
       float: none; }
   section dl.faq dd {
@@ -935,7 +941,9 @@ section {
           height: 45px;
           fill: lightgray; }
         .data-table table tbody tr td.icon img {
-          height: 100px; }
+          height: 100px;
+          min-width: 100%;
+          border: solid 1px #e6e9eb; }
       .data-table table tbody tr td.text a {
         font-weight: 700;
         color: #212529; }

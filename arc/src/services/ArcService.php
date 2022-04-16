@@ -162,9 +162,15 @@ class ArcService extends Component
     {
         // return true;
 
+         // echo '<br>isGuildMember() functio';
+
         $member = $this->getDiscordGuildMember();
 
         $isGuildMember = false;
+
+        // var_dump($member);
+
+        //echo '<br>member roles? ' . (property_exists($member, 'roles') ? ' y ' : ' n ');
 
         // ob_flush();
 
@@ -172,10 +178,15 @@ class ArcService extends Component
         {
             foreach ($member->roles as $role)
             {
+
                 foreach (ARC_ACCESS_ROLE_IDS as $accessRole)
                 {
+                    // echo '<br>member role = ' . ($role . ' vs ' . $accessRole);
+
                     if($role == $accessRole)
                     {
+                        // echo '<br>isGuildMember = true';
+
                         $isGuildMember = true;
                     }
                 }
