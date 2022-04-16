@@ -83,6 +83,12 @@ html.theme-night {
         color: #ffffff; }
     html.theme-night section .testimonials .prev svg, html.theme-night section .testimonials .next svg {
       fill: #ffffff; }
+    html.theme-night section.team-members .profile {
+      background-color: #000000; }
+      html.theme-night section.team-members .profile .prof-bio {
+        color: #c6c6c6; }
+      html.theme-night section.team-members .profile a:hover svg {
+        fill: #f9c13c !important; }
     html.theme-night section dl.faq dt:hover label {
       color: #3c74f9; }
       html.theme-night section dl.faq dt:hover label svg {
@@ -825,17 +831,45 @@ section {
     font-family: "IBM Plex Sans", sans-serif;
     font-size: 1rem; }
   section.team-members {
-    background-color: transparent !important; }
+    background-color: transparent !important;
+    padding-left: 0;
+    padding-right: 0; }
+    section.team-members .flex-table {
+      margin-top: -30px; }
+    section.team-members .profile {
+      background-color: #e6e9eb;
+      height: 100%; }
+      section.team-members .profile img {
+        width: 100%; }
+      section.team-members .profile ul, section.team-members .profile h4, section.team-members .profile .prof-bio {
+        margin: 20px; }
+      section.team-members .profile .prof-bio {
+        font-size: 0.92rem;
+        color: #7a7a7a;
+        display: none; }
+      section.team-members .profile ul.links {
+        list-style: none;
+        padding: 0; }
+        section.team-members .profile ul.links li {
+          display: inline;
+          margin: 0 5px; }
+          section.team-members .profile ul.links li a:hover svg {
+            fill: #f9c13c; }
+          section.team-members .profile ul.links li a svg {
+            width: 25px;
+            height: 25px;
+            fill: #3c74f9;
+            transition: .3s ease fill; }
 
 .flex-table {
-  display: flex;
-  flex-direction: column; }
-  .flex-table .flex-row {
-    display: flex;
-    min-height: 50px; }
-    .flex-table .flex-row .flex-cell {
-      flex: 1;
-      border: 1px solid white; }
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 50px;
+  margin: 0 -15px; }
+  .flex-table .flex-cell {
+    flex: 1;
+    margin: 30px 15px 0 15px; }
 
 .sidebar-layout {
   display: flex;
@@ -1161,9 +1195,10 @@ section {
       color: #f93c74;
       margin: -5px 0 5px 0;
       font-weight: 600; }
-  .candlestick-chart {
-    top: 80px;
+  section.team-members .profile .prof-bio {
     display: block; }
+  .flex-table {
+    grid-template-columns: repeat(3, 1fr); }
   .data-table table tbody tr td.icon, .data-table table tbody tr td.cta {
     display: table-cell; }
   dl.course-list dt a.course-category img {
@@ -1231,7 +1266,9 @@ section {
     section .z-pattern .column.text-column {
       padding: 0 40px 0 0; }
   .candlestick-chart {
-    top: 80px; } }
+    top: 80px; }
+  .flex-table {
+    grid-template-columns: repeat(4, 1fr); } }
 
 @media (min-width: 1200px) {
   section .four-col .col {
@@ -1239,7 +1276,9 @@ section {
     padding: 0 1%;
     width: 19%; }
   header .breadcrumb a.active {
-    max-width: 500px; } }
+    max-width: 500px; }
+  .flex-table {
+    grid-template-columns: repeat(5, 1fr); } }
 
 @media (min-width: 1400px) {
   .site-container {

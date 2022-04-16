@@ -162,13 +162,13 @@ class ArcService extends Component
     {
         // return true;
 
-         // echo '<br>isGuildMember() functio';
+         //echo '<br>isGuildMember() functio';
 
         $member = $this->getDiscordGuildMember();
 
         $isGuildMember = false;
 
-        // var_dump($member);
+        //var_dump($member);
 
         //echo '<br>member roles? ' . (property_exists($member, 'roles') ? ' y ' : ' n ');
 
@@ -181,11 +181,11 @@ class ArcService extends Component
 
                 foreach (ARC_ACCESS_ROLE_IDS as $accessRole)
                 {
-                    // echo '<br>member role = ' . ($role . ' vs ' . $accessRole);
+                    //echo '<br>member role = ' . ($role . ' vs ' . $accessRole);
 
                     if($role == $accessRole)
                     {
-                        // echo '<br>isGuildMember = true';
+                        //echo '<br>isGuildMember = true';
 
                         $isGuildMember = true;
                     }

@@ -76,45 +76,45 @@ var DOMClass = function()
 			this.header = null;
 		}
 
-		var teamsTimeout = 0;
-		var teams = document.getElementsByClassName('team-members');
-		if(teams.length)
-		{
-			for(i=0; i<teams.length; i++)
-			{
-				var pics = teams[i].querySelectorAll('.prof-pic');
-				for(ii=0; ii<pics.length; ii++)
-				{
-					pics[ii].addEventListener('click', function(e)
-					{
-						e.preventDefault();
+		// var teamsTimeout = 0;
+		// var teams = document.getElementsByClassName('team-members');
+		// if(teams.length)
+		// {
+		// 	for(i=0; i<teams.length; i++)
+		// 	{
+		// 		var pics = teams[i].querySelectorAll('.prof-pic');
+		// 		for(ii=0; ii<pics.length; ii++)
+		// 		{
+		// 			pics[ii].addEventListener('click', function(e)
+		// 			{
+		// 				e.preventDefault();
 
-						var bios = document.getElementsByClassName('prof-bio');
+		// 				var bios = document.getElementsByClassName('prof-bio');
 
-						for(iii=0; iii<bios.length; iii++)
-						{
-							if(bios[iii].id != this.dataset.bio)
-							{
-								bios[iii].classList.remove('show');
-							}
-						}
+		// 				for(iii=0; iii<bios.length; iii++)
+		// 				{
+		// 					if(bios[iii].id != this.dataset.bio)
+		// 					{
+		// 						bios[iii].classList.remove('show');
+		// 					}
+		// 				}
 
-						document.getElementById(this.dataset.bio).classList.toggle('show');
+		// 				document.getElementById(this.dataset.bio).classList.toggle('show');
 
-						clearTimeout(teamsTimeout);
+		// 				clearTimeout(teamsTimeout);
 
-						teamsTimeout = setTimeout(function()
-						{
-							var bios = document.getElementsByClassName('prof-bio');
-							for(i=0; i<bios.length; i++)
-							{
-								bios[i].classList.remove('show');
-							}
-						}, 15000);
-					});
-				}
-			}
-		}
+		// 				teamsTimeout = setTimeout(function()
+		// 				{
+		// 					var bios = document.getElementsByClassName('prof-bio');
+		// 					for(i=0; i<bios.length; i++)
+		// 					{
+		// 						bios[i].classList.remove('show');
+		// 					}
+		// 				}, 15000);
+		// 			});
+		// 		}
+		// 	}
+		// }
 
 		var testimonials = document.getElementsByClassName('testimonials');
 		if(testimonials.length)

@@ -4,17 +4,23 @@
 
 {% block main %}
 
-{#
 	<section class="gray">
-		{% if craft.arc.isUserLoggedIn %}
+		{% if invalidGuildMember %}
+			<div class="centered-column">
+				<h6>Discord Server - <span class="red-text">Disconnected</span></h6>
+				<h3 style="margin-bottom: 0">Invalid Discord Member</h3>
+				<p>
+					You do not have access to this server. <a href="/membership">Click here</a> to learn how to become a member.
+				</p>
+			</div>
+		{% elseif craft.arc.isUserLoggedIn %}
 			{% include "members/_index-authenticated" %}
 		{% else %}
 			{% include "members/_index-unauthenticated" %}
 		{% endif %}
 	</section>
-#}
 
-
+{#
 <section class="gray">
 	<div class="centered-column">
 		<h6>This Section is Currently Under Maintenance</h6>
@@ -23,5 +29,6 @@
 		</p>
 	</div>
 </div>
+#}
 
 {% endblock %}

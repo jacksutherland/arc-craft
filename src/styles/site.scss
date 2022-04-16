@@ -153,6 +153,21 @@ html.theme-night {
 				}
 			}
 		}
+		&.team-members {
+			.profile {
+				background-color: $black;
+				.prof-bio {
+					color: $dark-theme-font-color;
+				}
+				a {
+					&:hover {
+						svg {
+							fill: $bright-color !important;
+						}
+					}
+				}
+			}
+		}
 		dl.faq {
 			dt { 
 				&:hover {
@@ -1228,6 +1243,8 @@ section {
 
 	&.team-members {
 		background-color: transparent !important;
+		padding-left: 0;
+		padding-right: 0;
 		// p {
 		// 	display: block;
 		// 	max-height: 0;
@@ -1239,44 +1256,91 @@ section {
 		// 		opacity: 1;
 		// 	}
 		// }
+		.flex-table {
+			margin-top: -30px;
+		}
+		.profile {
+			background-color: $section-gray;
+			height: 100%;
+			img {
+				width: 100%;
+			}
+
+			ul, h4, .prof-bio {
+				margin: 20px;
+			}
+			.prof-bio {
+				font-size: $font-smaller;
+				color: $dark-gray;
+				display: none;
+			}
+			ul.links {
+				list-style: none;
+				padding: 0;
+				li {
+					display: inline;
+					margin: 0 5px;
+					a {
+						&:hover {
+							svg {
+								fill: $bright-color;
+							}
+						}
+						svg {
+							width: 25px;
+							height: 25px;
+							fill: $blue;
+							transition: .3s ease fill;
+						}
+					}
+				}
+			}
+		}
 	}
 
 
 } // End Section Class
 
 .flex-table {
-	display: flex;
-    flex-direction: column;
-    // &.two-columns {
-    // 	.flex-row {
-    // 		.flex-cell {
-    // 			flex: 50%;
-    // 		}
-    // 	}
-    // }
-    // &.three-columns {
-    // 	.flex-row {
-    // 		.flex-cell {
-    // 			flex: 33%;
-    // 		}
-    // 	}
-    // }
-    // &.four-columns {
-    // 	.flex-row {
-    // 		.flex-cell {
-    // 			flex: 25%;
-    // 		}
-    // 	}
-    // }
-	.flex-row {
-		display: flex;
-  		min-height: 50px;
-		.flex-cell {
-			flex: 1;
-  			border: 1px solid white;
-		}
+	display: grid;
+	grid-auto-flow: row;
+	grid-template-columns: repeat(2, 1fr);
+	//grid-template-columns: repeat(4, 1fr); // four columns
+  	//grid-template-rows: repeat(4, 1fr);
+	min-height: 50px;
+	margin: 0 -15px;
+	.flex-cell {
+		flex: 1;
+			// border: 1px solid white;
+			margin: 30px 15px 0 15px;
+			// &:first-child {
+			// 	margin-left: 0;
+			// }
+			// &:last-child {
+			// 	margin-right: 0;
+			// }
 	}
 }
+
+// .flex-table {
+// 	display: flex;
+//     flex-direction: column;
+// 	.flex-row {
+// 		display: flex;
+//   		min-height: 50px;
+// 		.flex-cell {
+// 			flex: 1;
+//   			// border: 1px solid white;
+//   			margin: 30px 15px 0 15px;
+//   			&:first-child {
+//   				margin-left: 0;
+//   			}
+//   			&:last-child {
+//   				margin-right: 0;
+//   			}
+// 		}
+// 	}
+// }
 
 .sidebar-layout {
 	display: flex;
@@ -2305,11 +2369,24 @@ section {
 			}
 		}
 
+		&.team-members {
+			.profile {
+				.prof-bio {
+					display: block;
+				}
+			}
+		}
+
 	}
-	.candlestick-chart {
-		top: 80px;
-		display: block;
+
+	.flex-table {
+		grid-template-columns: repeat(3, 1fr); // three columns
 	}
+	
+	// .candlestick-chart {
+	// 	top: 80px;
+	// 	display: block;
+	// }
 
 	.data-table {
 		table {
@@ -2455,7 +2532,9 @@ section {
 		top: 80px;
 	}
 
-
+	.flex-table {
+		grid-template-columns: repeat(4, 1fr); // four columns
+	}
 }
 
 @media (min-width: 1200px)
@@ -2476,6 +2555,10 @@ section {
 				max-width: 500px;
 			}
 		}
+	}
+
+	.flex-table {
+		grid-template-columns: repeat(5, 1fr); // four columns
 	}
 }
 
@@ -2502,4 +2585,5 @@ section {
 			}
 		}
 	}
+
 }

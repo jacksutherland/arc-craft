@@ -44,12 +44,14 @@ class MembersController extends Controller
         $session->set('discordUsername', '');
         $session->set('discordEmail', '');
 
+        $invalidGuildMember = false;
+
         if(!isset($_SESSION)) 
         { 
             session_start(); 
         } 
 
-        // echo 'access_token ' . $this->session('access_token');
+        //echo 'access_token ' . $this->session('access_token');
 
         if($this->session('access_token'))
         {
@@ -60,7 +62,7 @@ class MembersController extends Controller
 
             $isGuildMember = $service->isGuildMember();
 
-            // echo '<br>isGuildMember ' . ($isGuildMember ? ' yes ' : ' no ');
+            //echo '<br>isGuildMember ' . ($isGuildMember ? ' yes ' : ' no ');
             //exit();
 
             if($isGuildMember)
@@ -75,7 +77,9 @@ class MembersController extends Controller
             }
             else
             {
-                $result = 'Logged In!<br><br>NOT AN ARC GUILD MEMBER';
+                //$result = 'Logged In!<br><br>NOT AN ARC GUILD MEMBER';
+                $invalidGuildMember = true;
+                $service->revokeUserAccess();
             }
         }
         elseif($this->get('code'))
@@ -96,7 +100,7 @@ class MembersController extends Controller
             'members/_index',
             [
                'entry' => $entry,
-               'result' => $result,
+               'invalidGuildMember' => $invalidGuildMember,
                'arcMember' => $arcMember
             ]
         );

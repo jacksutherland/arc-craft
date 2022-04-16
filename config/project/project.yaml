@@ -1,6 +1,6 @@
 assets:
   tempVolumeUid: 8cc02aed-a60e-473c-940f-b0003e752168 # Users
-dateModified: 1647735001
+dateModified: 1650145439
 email:
   fromEmail: jack@jacksutherland.com
   fromName: ARcollective
@@ -14,16 +14,19 @@ meta:
     1b8c2218-3ecf-46a1-8daf-1e0dbf702fe1: 'Show In Menu' # Show In Menu
     01ce7b54-e762-432f-886c-7799f199c071: Subheading # Subheading
     1d26b39b-7647-4b8d-b04f-a263f8e21df6: 'Discord Headline Logged In' # Discord Headline Logged In
+    1ea8c540-7969-4b14-a76e-12b55cd02bf6: Blog # Blog
     1eeed1a4-2094-4263-bee2-cf5a36e6dff1: 'Button Link' # Button Link
     2a10ef26-192e-441b-9093-2c2b7f894e6e: 'Button Url' # Button Url
     2ced687d-7414-4287-b282-6418900fe4b6: Headline # Headline
     2e0ea10d-eec7-464d-a120-753cd1927be3: 'Profile Picture' # Profile Picture
     2ea78735-a845-4b11-a906-a325a7a37107: 'Button Url' # Button Url
     2ef2b164-1222-4176-bd87-1a2a3d0d6ecd: Headline # Headline
+    2f7456a6-ed34-4e63-8ddd-4c5cedbc47c9: 'Rich Text' # Rich Text
     3a91bd2f-d148-42b5-b205-010411a1c630: Row # Row
     3c74e095-d227-4704-9708-ae67e684af65: 'Discord Disclaimer Logged In' # Discord Disclaimer Logged In
     4d8853c5-383a-4dd4-ac4f-4959c53c72cf: 'Team Member' # Team Member
     5a1b4f2d-e905-4f7a-bcbe-a8f5790de0f3: Heading # Heading
+    5b6e8a6f-626f-4e4e-9c65-9be262b44395: 'Section Title' # Section Title
     5f87ce64-d18f-42b6-b23c-e46b4ea5f328: SEO # SEO
     6a23c4cf-4360-4fb0-8aa1-48dac463b1df: Questions # Questions
     6bffdc78-31dc-4178-a2a8-7bce78975e77: 'SEO Description' # SEO Description
@@ -34,12 +37,14 @@ meta:
     07b56235-0c37-4634-91d6-0cd16ebbcfc5: 'Hero Image' # Hero Image
     7ce01c57-54ab-4c5b-9144-32aa9a366388: 'Page Module' # Page Module
     7fe618d0-2ed1-473c-accb-5e033d31375b: Background # Background
+    8c6da891-75bb-463e-88a6-bd5555ef50e6: 'Team Member' # Team Member
     8cc02aed-a60e-473c-940f-b0003e752168: Users # Users
     8f94064a-511a-4dc0-966f-d5f896e0d53f: Academy # Academy
     09e5065c-8f6f-4214-8d35-10584efc0113: Question # Question
     13aab69a-664e-4ddd-b553-1d1aefbcf928: Testimonial # Testimonial
     13c62774-97b7-4ffd-8584-b54ffe0d7e22: 'Button Text' # Button Text
     15e47647-90bf-460e-9e3c-ff09de4a920a: 'Button Link' # Button Link
+    17b017fe-06b3-438f-9f91-bde9cc1cbce4: 'Section Title' # Section Title
     28ced111-963e-40c9-82aa-3896a11097ce: Editor # Editor
     32c79209-15ab-4c61-a8f2-b6ea7a563658: Background # Background
     33a6d591-ce8c-4609-b28b-4c9170d8d5ab: Answer # Answer
@@ -63,11 +68,13 @@ meta:
     289bc566-f5d9-421b-a00c-a23047155453: 'Course Category' # Course Category
     355d94e8-d87d-4d15-bd43-6d65eb81001a: Resources # Resources
     381ab349-80d7-4368-a55c-cf8abf6a0834: Courses # Courses
+    459a70b3-c9af-4ade-a620-04c95f44bf5c: Writer # Writer
     683ddb4e-7ae5-4908-85c9-a397f8a15a98: Headline # Headline
     780b1119-287d-423f-a386-c8aea1460d68: Headline # Headline
     849c5c01-5c8d-43ad-a0a3-d81ae86663f7: 'YouTube Video ID' # YouTube Video ID
     874cfa68-1413-4781-964c-6d712db0dcd1: Headline # Headline
     4412b729-dc77-4a1f-9afd-6ce2e18d866e: 'Rich Text' # Rich Text
+    44158b78-4d4a-43fe-91e4-b16b6c7eae33: Default # Default
     77683c4a-25fd-4b9c-b801-ccb478f4599a: 'Resource List' # Resource List
     93938fc4-00e1-4b6b-8bc8-3fd89a6e4b27: 'Z Pattern' # Z Pattern
     99819b32-8085-40c1-b6ed-41917f1ffd45: Row # Row
@@ -85,28 +92,38 @@ meta:
     a912d90c-fa3b-477d-b3d8-8d065bc91c70: 'Entry Url' # Entry Url
     a935f869-833b-47b2-a85e-3034d9e152c5: 'Access Token' # Access Token
     a220866b-41a8-4b1b-a39e-0f341ebbcb3e: 'Contact Form' # Contact Form
+    abf1201c-bb82-4d15-88d4-e13b0ed20b7b: Image # Image
     ad785fa1-7b15-4051-b68d-32aa5adea227: Background # Background
+    aff783c8-e396-4691-bd23-c8241abcc22e: Image # Image
     b087c804-ae38-4ea4-937f-c388c8defded: Hero # Hero
     b4d53e80-cbf1-46d9-bd49-c169d5fda614: 'Cite Url' # Cite Url
     b8c5f4d4-1096-47a1-9bfe-89b428bf162b: Members # Members
     b27dcca1-2272-4586-9e90-dc8edeb9dd12: 'Discord Redirect URL' # Discord Redirect URL
+    b67e3688-3630-4fcb-8429-334943678dff: 'Blog Topics' # Blog Topics
     b902e77f-560a-4dc4-877f-5640197083da: Headline # Headline
     b1627120-ecf2-4554-81bc-2612bec99e08: 'ARC Discord Server' # ARC Discord Server
     ba022a52-1157-476e-aa4c-fa5041af13e6: Pages # Pages
+    ba2fed4c-fb63-450b-a611-a8bfd57a07e5: 'Blog Module' # Blog Module
     bcfe901d-3453-43d5-8d3d-6892a479306a: Links # Links
     bd003adf-f476-4f00-87ad-7b28d60bfa32: Members # Members
     bf5376f9-47f0-4505-9f00-c7ec628fc26f: Discord # Discord
+    c055c58a-561a-4b12-abe1-25602e2af96a: 'Section Title' # Section Title
     c1ab3694-ce92-4687-be38-0dc333015a7c: 'Skill Level' # Skill Level
+    c4d6840f-dd18-4e0f-b394-5b88726ac761: 'Rich Text' # Rich Text
     c8ef7f6d-2a3e-490c-b241-44a86c4e9c1e: 'Button Text' # Button Text
     c9dd477c-7e6c-4b69-a23f-656ae4e7b561: Default # Default
     c73af2ed-324c-4d07-b6a4-a02d9bbf62b7: 'Course Categories' # Course Categories
     c98ac2b6-ea46-48bb-9d12-7e5979cb6df2: ARcollective # ARcollective
     c23775ba-fbcc-4465-bdbc-e4fec559bc09: Background # Background
+    c77947f3-4d65-487e-8f12-84666ae707d1: 'YouTube Video' # YouTube Video
     ce3c525c-db81-42f6-baee-3cd44f31f2f6: 'Email Address' # Email Address
     d08a3668-eed0-4abc-bab4-725e93395c6a: 'SEO Image' # SEO Image
+    d27ba546-5437-4278-814e-111dcdcd56db: 'Blog Posts' # Blog Posts
     db1ce1f6-00be-45f7-bcec-058dca7e5581: FAQ # FAQ
     db235c98-4588-4165-b4c9-c48e236a4054: Subheading # Subheading
+    dc2e6a5e-1377-4319-9562-189bcfedaa43: 'Blog Topics' # Blog Topics
     dd156e5a-4e78-4a5a-9b34-b2d47995d279: Quote # Quote
+    de2b9b45-3e5c-495d-8979-dcacf1a26fd5: Blog # Blog
     df1a5ffc-503e-4263-8ab7-1b77c4a2b781: 'SEO Title' # SEO Title
     e8bcb83f-93b1-4320-94bb-7691bfcd86cf: Subheading # Subheading
     e8cb4421-b984-4a73-8eed-c59d30a6fdf2: Headline # Headline
@@ -114,7 +131,9 @@ meta:
     e583f2cb-5ad8-42d1-8fcc-b601384e0de9: Subheading # Subheading
     e34616c9-44d4-407e-8d19-8db2693209ae: Brand # Brand
     e8888878-cc86-48f7-bd7c-6e0977e651b1: 'Description 2' # Description 2
+    eaf1447e-ab4b-4777-afa1-b97e447f275f: Writer # Writer
     ebd19ed3-4420-4f35-8597-38bcc010f64a: General # General
+    edd08baa-7b8f-4ccc-a982-c49016aa055b: 'YouTube Video ID' # YouTube Video ID
     eed349b7-b7d1-4481-b2aa-50450d4593bf: 'Brief Description' # Brief Description
     ef7d8fb8-5782-4ff6-8cfe-4fd9c4701cb9: Integrations # Integrations
     f0210545-5a71-467e-a472-5d593677f9cd: 'Public Pages' # Public Pages
@@ -122,6 +141,7 @@ meta:
     f40c6233-7dae-4ede-966f-6419bd8224ae: 'Image Blocks' # Image Blocks
     f797d81b-4502-40ab-a18b-42feae45e91b: Users # Users
     fa338c2e-321c-429b-a262-85b596035c4e: Background # Background
+    faa523ca-f15b-42c0-a4a7-5056ced7a86b: Caption # Caption
     fc5c74b3-ce9f-4162-9f35-6cff3393fe28: Image # Image
     fc68ae56-c012-4234-a592-3916605f8ff9: Subheading # Subheading
     fcb2dad6-2b5e-47e4-a20e-81bd7add7975: Image # Image
