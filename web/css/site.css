@@ -282,8 +282,7 @@ header {
       background: transparent;
       background: linear-gradient(90deg, #061124 0%, rgba(6, 17, 36, 0) 25%, rgba(6, 17, 36, 0) 75%, #061124 100%); }
     header.video-header .logo {
-      position: fixed;
-      z-index: 150; }
+      display: none; }
     header.video-header nav#main-menu {
       position: fixed; }
       header.video-header nav#main-menu ul li#mobile-trigger a svg {
@@ -1047,8 +1046,6 @@ section {
     display: inline; }
   header.video-header:not(.sticky) nav#main-menu ul li.theme-switch-menu-item {
     display: inline !important; }
-  header.video-header .logo {
-    margin: 0; }
   header.video-header nav#main-menu ul li a:not(.btn):not(:hover) {
     color: #ffffff; }
   header.video-header video {
