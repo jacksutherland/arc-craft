@@ -25,16 +25,18 @@ use realitygems\arc\records\ArcMemberRecord;
 use realitygems\arc\records\ArcMemberGradeRecord;
 
 define('ARC_GUILD_ID', '926998325213925427');
-
+//define('ARC_MEMBER_ROLE_ID', '927007582919479317');
+define('ARC_ACCESS_ROLE_IDS', array('927007269919539251', '927017501164994641', '927018115773116426', '927007582919479317', '945861271088136293')); // admin, team, og, member, dev
 define('OAUTH2_CLIENT_ID', '945882189638283284'); // Your client Id
 define('OAUTH2_CLIENT_SECRET', 'NPuUvXeh3QpzBCwoqqe_QSIVHr-h9iTe'); // Your secret client code
-// define('MEMBERS_URL', 'http://localhost/members'); // URL to Members Portal
 
 define('AUTHORIZE_URL', 'https://discordapp.com/api/oauth2/authorize');
 define('TOKEN_URL', 'https://discordapp.com/api/oauth2/token');
 define('REVOKE_URL', 'https://discord.com/api/oauth2/token/revoke');
 define('API_USER_URL', 'https://discordapp.com/api/users/@me');
 define('API_USER_GUILDS_URL', 'https://discordapp.com/api/users/@me/guilds');
+//define('API_GUILD_MEMBER_URL', 'https://discordapp.com/api/guilds/926998325213925427/members/');
+define('API_GUILD_MEMBER_URL', 'https://discordapp.com/api/users/@me/guilds/926998325213925427/member');
 
 /**
  * Member Service
@@ -119,10 +121,6 @@ class ArcService extends Component
 
         if(isset($apiUser) && property_exists($apiUser, 'id'))
         {
-            // echo 'in if <br>';
-            // print_r($apiUser);
-            // die();
-
             $record = ArcMemberRecord::findOne(['discordId' => $apiUser->id]);
 
             // Add member record to DB if not exists
@@ -150,6 +148,11 @@ class ArcService extends Component
         return $this->apiRequest(API_USER_GUILDS_URL);
     }
 
+    public function getDiscordGuildMember()
+    {
+        return $this->apiRequest(API_GUILD_MEMBER_URL);
+    }
+
     public function getBaseUrl()
     {
         return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['SERVER_NAME'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -157,26 +160,91 @@ class ArcService extends Component
 
     public function isGuildMember()
     {
-        return true;
+        // return true;
 
-        $guilds = $this->getDiscordUserGuilds();
-        $isMember = false;
+        $member = $this->getDiscordGuildMember();
+
+        $isGuildMember = false;
 
         // ob_flush();
 
-        foreach ($guilds as &$guild)
+        if(isset($member) && property_exists($member, 'roles'))
         {
-            // print_r($guild);
-            // echo '<br><br>';
-
-            if(property_exists('guild', 'id') && $guild->id == ARC_GUILD_ID)
+            foreach ($member->roles as $role)
             {
-                $isMember = true;
+                foreach (ARC_ACCESS_ROLE_IDS as $accessRole)
+                {
+                    if($role == $accessRole)
+                    {
+                        $isGuildMember = true;
+                    }
+                }
             }
         }
 
-        return $isMember;
+        return $isGuildMember;
     }
+
+    // public function isGuildMember()
+    // {
+    //      // return true;
+
+    //     $guilds = $this->getDiscordUserGuilds();
+    //     $isInGuild = false;
+    //     $isGuildMember = false;
+
+    //     // ob_flush();
+
+    //     foreach ($guilds as &$guild)
+    //     {
+    //         echo 'guild->id? ' . $guild->id . ' vs ' . ARC_GUILD_ID;
+    //         echo '<br>';
+
+    //         if(property_exists($guild, 'id') && $guild->id == ARC_GUILD_ID)
+    //         {
+    //             $isInGuild = true;
+    //         }
+    //     }
+
+    //     echo 'isInGuild? ' . ($isInGuild ? ' y ' : ' n ');
+    //     echo '<br>';
+
+    //     if($isInGuild)
+    //     {
+    //         $member = $this->getDiscordGuildMember();
+
+    //         var_dump($member);
+    //         echo '<br>';
+    //         echo '<br>';
+
+    //         echo 'property_exists roles? ' . (property_exists($member, 'roles') ? ' y ' : ' n ');
+
+    //         if($member && property_exists($member, 'roles') && $member->roles->count > 0)
+    //         {
+    //             echo 'member->roles->count ' . ($member->roles->count);
+    //             echo '<br>';
+
+    //             foreach ($member->roles as &$role)
+    //             {
+    //                 echo 'ROLE: <br>';
+    //                 print_r($role);
+    //                 echo '<br><br>';
+
+    //                 if($role == MEMBER_ROLE)
+    //                 {
+    //                     $isGuildMember = true;
+    //                 }
+
+    //                 echo 'isGuildMember? ' . ($isGuildMember ? ' y ' : ' n ');
+    //                 exit();
+    //             }
+    //         }
+    //     }
+
+    //     exit();
+
+    //     return $isGuildMember;
+    // }
 
     public function getMemberQuizScore($quizEntryId)
     {
@@ -305,7 +373,7 @@ class ArcService extends Component
         return $returnScore;
     }
 
-    private function apiRequest($url, $post=FALSE, $headers=array())
+    private function apiRequest($url, $post=FALSE, $headers=array(), $useBot=FALSE)
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
@@ -322,7 +390,14 @@ class ArcService extends Component
 
         if($this->session('access_token'))
         {
-            $headers[] = 'Authorization: Bearer ' . $this->session('access_token');
+            if($useBot)
+            {
+                $headers[] = 'Authorization: Bot ' . $this->session('access_token');
+            }
+            else
+            {
+                $headers[] = 'Authorization: Bearer ' . $this->session('access_token');
+            }
         }
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
