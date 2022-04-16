@@ -14,8 +14,8 @@
 /config/project/project.yaml
 
 # Website Resources
-/web/files
-/web/files/*
+/web/assets
+/web/assets/*
 /web/cpresources
 /web/cpresources/*
 
