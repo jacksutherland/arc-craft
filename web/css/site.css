@@ -283,8 +283,7 @@ header {
       background: linear-gradient(90deg, #061124 0%, rgba(6, 17, 36, 0) 25%, rgba(6, 17, 36, 0) 75%, #061124 100%); }
     header.video-header .logo {
       position: fixed;
-      z-index: 150;
-      margin: 12px 0  0 0; }
+      z-index: 150; }
     header.video-header nav#main-menu {
       position: fixed; }
       header.video-header nav#main-menu ul li#mobile-trigger a svg {
@@ -368,11 +367,11 @@ header {
   header .logo {
     display: flex;
     overflow: hidden;
-    width: 250px;
-    height: 60px;
+    width: 64px;
+    height: 64px;
+    margin: 5px 0 0 0;
     justify-content: center;
     align-items: center;
-    margin: 0 0 0 -25px;
     transition: .3s ease background-color; }
     header .logo:hover svg.logo-svg-dark {
       display: inline; }
@@ -381,7 +380,8 @@ header {
     header .logo.night {
       display: none; }
     header .logo svg {
-      margin: 10px 0 0 -20px; }
+      fill: #3c74f9;
+      margin: 5px 0 0 0; }
       header .logo svg.logo-svg-dark {
         display: none; }
       header .logo svg.logo-svg-light {
@@ -389,7 +389,7 @@ header {
   header .header-content {
     width: 100%; }
     header .header-content .hero {
-      margin-top: 15px;
+      margin-top: 5px;
       position: relative;
       height: 250px; }
       header .header-content .hero .header-image {
@@ -448,11 +448,14 @@ header {
         header nav#main-menu ul li.mobile-logo {
           display: none;
           position: absolute;
-          top: -120px;
-          left: -45px; }
+          top: 0;
+          left: -5px; }
+          header nav#main-menu ul li.mobile-logo a:hover svg {
+            fill: #3c74f9 !important; }
           header nav#main-menu ul li.mobile-logo a svg {
-            width: 280px;
-            height: auto; }
+            width: 60px;
+            height: auto;
+            fill: #ffffff; }
         header nav#main-menu ul li#mobile-trigger {
           display: block;
           position: fixed;
@@ -521,12 +524,17 @@ footer {
   text-align: center;
   margin: -15px 0 0 0;
   padding: 100px 0; }
+  footer a:hover {
+    color: #3c74f9; }
   footer .logo {
-    margin-top: -20px;
+    margin: 0 0 45px 0;
     display: block; }
+    footer .logo:hover svg {
+      fill: #3c74f9 !important; }
     footer .logo svg {
-      width: 200px;
-      height: 200px; }
+      width: 80px;
+      height: 80px;
+      fill: #ffffff; }
   footer ul {
     list-style: none;
     margin: -30px 0 0 0;
@@ -542,6 +550,10 @@ footer {
     margin: 30px 0;
     font-size: .9rem;
     color: #a0a0a0; }
+    footer .copyright a {
+      color: #a0a0a0; }
+      footer .copyright a:hover {
+        color: #3c74f9; }
 
 section {
   background-color: #ffffff;
@@ -1064,7 +1076,9 @@ section {
   header .breadcrumb a.active {
     max-width: 500px; }
   header .logo {
-    height: 90px; }
+    height: 90px;
+    width: 90px;
+    padding: 5px 0 3px 0; }
   header nav#main-menu ul li {
     display: inline; }
     header nav#main-menu ul li#mobile-trigger {
@@ -1172,8 +1186,9 @@ section {
     margin: 30px 40px 0 40px; }
   header {
     padding: 0 40px 25px 40px; }
-    header.sticky nav#main-menu {
-      padding: 20px 10%; }
+    header.sticky nav#main-menu ul {
+      max-width: 1335px;
+      margin: 0 auto; }
     header nav#main-menu {
       right: 32px; }
     header .breadcrumb {
@@ -1182,10 +1197,6 @@ section {
       padding-bottom: 10px; }
       header .breadcrumb a.active {
         max-width: 350px; }
-    header .logo {
-      width: 280px; }
-      header .logo svg {
-        width: 280px; }
     header .header-content .hero {
       height: 500px; }
     header .header-content .header-text h6 {

@@ -1,4 +1,4 @@
-{% set resourceVersion = '1.23' %}
+{% set resourceVersion = '1.24' %}
 
 {% set isDev = true %} {# What exactly is this for again??? #}
 
@@ -197,40 +197,55 @@
             <p>If you see me, you haven’t set your <code>{% verbatim %}{% block main %}…{% endblock %}{% endverbatim %}</code> yet.</p>
         {% endblock %}
 
-        <footer>
-            <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
-                {% include '/_svgs/logo' with { color: "#f1f3f4" } %}
-            </a>
-            <ul>
-                {% nav page in pages.all() %}
-                    {% if page.showInMenu %}
+        {% cache globally using key "footer" %}
+
+            {% set terms = craft.entries.section('pages').slug('terms-and-conditions') %}
+            {% set privacy = craft.entries.section('pages').slug('privacy-policy') %}
+
+            <footer>
+                <a class="logo" href="{% if homepage.count %}{{ homepage.one().url }}{% else %}/{% endif %}">
+                    {% include '/_svgs/logo' with { color: "#f1f3f4" } %}
+                </a>
+                <ul>
+                    {% nav page in pages.all() %}
+                        {% if page.showInMenu %}
+                            <li>
+                                <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
+                            </li>
+                        {% endif %}
+                    {% endnav %}
+                    {% if contactUrl | length > 0 %}
                         <li>
-                            <a href="{{ page.url }}">{{ 'home' in page.title | lower ? 'Home' : page.title }}</a>
+                            <a href="{{ contactUrl }}">Contact Us</a>
                         </li>
                     {% endif %}
-                {% endnav %}
-                {% if contactUrl | length > 0 %}
-                    <li>
-                        <a href="{{ contactUrl }}">Contact Us</a>
-                    </li>
-                {% endif %}
-                {% if isDev %}
-                     <li>
-                        {% if craft.arc.isUserLoggedIn %}
-                            <a href="/members/logout">Logout</a>
-                        {% else %}
-                            <a href="{{ loginUrl }}">Member Login</a>
-                        {% endif %}
-                    </li>
-                {% endif %}
-            </ul>
-            <div class="copyright">
-                ©{{ now | date("Y") }} ARCollective. All Rights Reserved
-            </div>
-            <div style="margin: 40px 0 0 0;">
-                {% include '_includes/theme-switch' %}
-            </div>
-        </footer>
+                    {% if isDev %}
+                         <li>
+                            {% if craft.arc.isUserLoggedIn %}
+                                <a href="/members/logout">Logout</a>
+                            {% else %}
+                                <a href="{{ loginUrl }}">Member Login</a>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                </ul>
+                <div class="copyright">
+                    ©{{ now | date("Y") }} ARCollective. All Rights Reserved
+                    {% if terms.count %}
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <a href="{{ terms.one().url }}">Terms and Conditions</a>
+                    {% endif %}
+                    {% if privacy.count %}
+                        &nbsp;&nbsp;|&nbsp;&nbsp;
+                        <a href="{{ privacy.one().url }}">Privacy Policy</a>
+                    {% endif %}
+                </div>
+                <div style="margin: 40px 0 0 0;">
+                    {% include '_includes/theme-switch' %}
+                </div>
+            </footer>
+
+        {% endcache %}
 
     </div>
 
