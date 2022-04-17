@@ -851,7 +851,10 @@ section {
       section.team-members .profile .prof-bio {
         font-size: 0.92rem;
         color: #7a7a7a;
-        display: none; }
+        display: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-height: 500px; }
       section.team-members .profile ul.links {
         list-style: none;
         padding: 0; }

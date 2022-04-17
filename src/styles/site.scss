@@ -1278,6 +1278,9 @@ section {
 				font-size: $font-smaller;
 				color: $dark-gray;
 				display: none;
+				overflow: hidden;
+			    text-overflow: ellipsis;
+			    max-height: 500px;
 			}
 			ul.links {
 				list-style: none;
