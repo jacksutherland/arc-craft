@@ -25,9 +25,9 @@ html.theme-night {
       text-decoration: underline; }
       html.theme-night a:not(.btn):not(.scroll-down):hover svg {
         fill: #3c74f9 !important; }
-  html.theme-night h1, html.theme-night h3, html.theme-night h4 {
+  html.theme-night h1, html.theme-night h2, html.theme-night h3, html.theme-night h4 {
     color: #ffffff; }
-  html.theme-night p {
+  html.theme-night p, html.theme-night ul {
     color: #c6c6c6; }
   html.theme-night header {
     background-color: #092730;
