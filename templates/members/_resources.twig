@@ -14,11 +14,20 @@
 				<table>
 					<tbody>
 						{% for resource in entry.resourceList %}
-							{% set url = '/members/resources/' ~ (resource.name | kebab) %}
+							{% set isLiveStreams = ('livestream' in (resource.name | lower)) %}
+							{% if isLiveStreams %}
+								{% set url = '/members/livestream-recordings' %}
+							{% else %}
+								{% set url = '/members/resources/' ~ (resource.name | kebab) %}
+							{% endif %}
 							<tr>
 								<td class="icon">
 									<a href="{{ url }}">
-										{% include "_svgs/icon" with { type: "resource" } %}
+										{% if isLiveStreams %}
+											{% include "_svgs/icon" with { type: "play" } %}
+										{% else %}
+											{% include "_svgs/icon" with { type: "resource" } %}
+										{% endif %}
 									</a>
 								</td>
 								<td class="text">

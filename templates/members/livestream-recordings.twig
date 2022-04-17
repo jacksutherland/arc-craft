@@ -1,0 +1,79 @@
+{% extends "_layout-members" %}
+
+{% set entry = craft.entries.section('resources').one() %}
+
+{% set slug = craft.app.request.segments | last %}
+
+{% set title = '' %}
+
+{% set resource = null %}
+
+{% for res in entry.resourceList %}
+	{% set resourceKebab = res.name | kebab %}
+	{% if resourceKebab == slug %}
+		{% set resource = res %}
+		{% set title = res.name %}
+	{% endif %}
+{% endfor %}
+
+{# If no resource found then lets bounce! #}
+
+{% if resource == null %}
+    {% exit 404 %}
+{% endif %}
+
+{% set breadcrumb = [
+	{ slug: 'members' },
+	{ slug: 'resources' },
+	{ label: resource.name, url: craft.app.request.absoluteUrl }
+] %}
+
+{% block main %}
+	<section>
+		{#
+		<div class="video-container">
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLTcnPt4mEswgFDpcjB5JzM1gYruOD6sqq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+		#}
+		<script type="text/javascript">
+			setTimeout(function()
+			{
+				document.getElementById('yt-hover-tip').remove();
+			}, 18000);
+		</script>
+		<style type="text/css">
+			.yt-container {
+			  position: relative;
+			  padding-bottom: 56.25%;
+			}
+			.yt-container .hover-tip {
+				position: absolute;
+				z-index: 1000;
+				width:  190px;
+				background-color: #e6e9eb;
+				right: -20px;
+    			top: -75px;
+			    text-align: center;
+			    padding: 8px 3px 2px 3px;
+			    font-size: 0.85rem;
+			    font-weight: bold;
+			    border-radius: 10px;
+			    box-shadow: 1px 1px 3px #000;
+			}
+			.yt-container .hover-tip svg {
+				width: 15px;
+			}
+			.yt-container iframe {
+			  position: absolute;
+			  top: 0;
+			  left: 0;
+			  width: 100%;
+			  height: 100%;
+			}
+		</style>
+		<div class="yt-container">
+			<div id="yt-hover-tip" class="hover-tip">Click the playlist icon below to view an earlier stream.<br>{% include "_svgs/icon" with { type: "down" } %}</div>
+			<iframe src="https://www.youtube.com/embed/videoseries?list=PLTcnPt4mEswgFDpcjB5JzM1gYruOD6sqq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</div>
+	</section>
+{% endblock %}

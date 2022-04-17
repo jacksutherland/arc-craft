@@ -54,9 +54,6 @@
 
 {% block main %}
 	<section class="iframe">
-		{#{ resource.embedCode | raw }#}
-		{#<iframe src="https://docs.google.com/spreadsheets/u/1/d/e/2PACX-1vQOfUP56NAD1gj0MhHW4HiWCgK9_8oKRn8A8NahSsr49sxE_45kmzlL8vPv3kel5D34PRNcakZI29IX/pubhtml?widget=true&amp;headers=false" frameborder="0"></iframe>#}
-		{#<iframe src="https://docs.google.com/spreadsheets/d/1dnZ8N888o4TZUou9doq5N8O_I6OZOgzdcS3FBNpCqdQ/edit#gid=0?widget=true&amp;headers=false" frameborder="0"></iframe>#}
 		<iframe src="{{ resourceUrl }}"{% if resource.height | length %} style="height:{{ resource.height }}px;"{% endif %} frameborder="0"></iframe>
 	</section>
 {% endblock %}
