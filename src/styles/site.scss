@@ -156,6 +156,7 @@ html.theme-night {
 		&.team-members {
 			.profile {
 				background-color: $black;
+				border-radius: 10px;
 				.prof-bio {
 					color: $dark-theme-font-color;
 				}
@@ -859,7 +860,7 @@ section {
 	background-color: $white;
 	padding: 20px;
 	margin: 18px 0;
-	border-radius: 5px 5px 0 0;
+	border-radius: 4px 4px 0 0;
 
 	h6 {
 		color: $gray;
@@ -1262,6 +1263,8 @@ section {
 		.profile {
 			background-color: $section-gray;
 			height: 100%;
+			border-radius: 4px;
+    		overflow: hidden;
 			img {
 				width: 100%;
 			}
