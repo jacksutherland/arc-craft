@@ -793,7 +793,9 @@ section {
         transition: .5s ease transform; }
     section .testimonials blockquote {
       margin: 0;
-      display: none; }
+      display: none;
+      color: #ffffff;
+      font-size: 0.92rem; }
       section .testimonials blockquote[cite*="http"] {
         cursor: pointer; }
       section .testimonials blockquote.active {
@@ -806,7 +808,7 @@ section {
         animation-timing-function: ease-in; }
       section .testimonials blockquote img {
         max-width: 100%;
-        margin: 20px 0; }
+        margin: 20px 0 !important; }
       section .testimonials blockquote q {
         display: block;
         padding: 20px; }

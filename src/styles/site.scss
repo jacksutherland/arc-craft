@@ -1179,6 +1179,8 @@ section {
 		blockquote {
 			margin: 0;
 			display: none;
+			color: $white;
+			font-size: $font-smaller;
 			&[cite*="http"] {
 				cursor: pointer;
 			}
@@ -1194,7 +1196,7 @@ section {
 			}
 			img {
 				max-width: 100%;
-				margin: 20px 0;
+				margin: 20px 0 !important;
 			}
 			q {
 				display: block;
