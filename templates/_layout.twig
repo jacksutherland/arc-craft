@@ -13,9 +13,9 @@
     {% set isDev = true %}
 {% endif %}
 
-{% if craft.app.request.segments | length == 0 %}
+{#% if craft.app.request.segments | length == 0 %}
     {% redirect 'coming-soon' %}
-{% endif %}
+{% endif %#}
 
 {% set entryTitle = title is defined and title | length > 0 ? title : '' %}
 
