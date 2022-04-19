@@ -78,9 +78,9 @@
         {% endif %}
 
         {% if entry.seoImage is not null and entry.seoImage.count %}
-            <meta property="og:image" content="{{ entry.seoImage.one().url }}">
-            <meta name="twitter:image" content="{{ entry.seoImage.one().url }}">
-            <meta name="twitter:image:alt" content="{{ entry.seoImage.one().url }}">
+            <meta property="og:image" content="{{ entry.seoImage.one().url('ogImage') }}">
+            <meta name="twitter:image" content="{{ entry.seoImage.one().url('ogImage') }}">
+            <meta name="twitter:image:alt" content="{{ entry.seoImage.one().url('ogImage') }}">
         {% endif %}
 
     {% else %}
