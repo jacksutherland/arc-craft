@@ -54,15 +54,16 @@
 
     {% if entry is defined %}
 
+        {% set seoTitle = entry.seoTitle | length ? entry.seoTitle : entryTitle %}
+
         {% if entry.slug == '__home__' or entry.slug == 'homepage' %}
             <title>ARCollective</title>
         {% elseif titleTag is defined %}
             <title>{{ titleTag }} | ARCollective</title>
         {% else %}
-            <title>{{ entryTitle }} | ARCollective</title>
+            <title>{{ seoTitle }} | ARCollective</title>
         {% endif %}
 
-        {% set seoTitle = entry.seoTitle | length ? entry.seoTitle : entryTitle %}
         <meta property="og:title" content="{{ seoTitle }}">
         <meta property="twitter:title" content="{{ seoTitle }}">
 
