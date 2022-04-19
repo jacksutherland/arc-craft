@@ -119,9 +119,10 @@ html.theme-night {
   html.theme-night .courses .instructions {
     color: #e6e9eb; }
   html.theme-night .courses .quiz {
-    background-color: #e6e9eb; }
-    html.theme-night .courses .quiz h4 {
-      color: #000000; }
+    background-color: #e6e9eb;
+    color: #212529; }
+    html.theme-night .courses .quiz h4, html.theme-night .courses .quiz ul {
+      color: #212529; }
   html.theme-night .courses .quiz-complete h4 {
     color: #000000; }
   html.theme-night .courses .quiz-complete p {
@@ -535,7 +536,7 @@ footer {
   color: #ffffff;
   text-align: center;
   margin: -15px 0 0 0;
-  padding: 100px 0; }
+  padding: 100px 20px; }
   footer a:hover {
     color: #3c74f9; }
   footer .logo {
@@ -566,6 +567,14 @@ footer {
       color: #a0a0a0; }
       footer .copyright a:hover {
         color: #3c74f9; }
+  footer .disclaimer {
+    margin: 45px 0; }
+    footer .disclaimer p {
+      text-align: justify;
+      font-size: 0.7rem;
+      color: #a0a0a0;
+      margin: 0 auto;
+      max-width: 950px; }
 
 section {
   background-color: #ffffff;
@@ -678,7 +687,7 @@ section {
     section .info-cards .three-col .col .content h6 {
       margin: 20px;
       text-align: left;
-      color: #212529; }
+      color: #212529 !important; }
     section .info-cards .two-col .col .content .icon.resources-icon svg,
     section .info-cards .three-col .col .content .icon.resources-icon svg {
       fill: #3c74f9; }

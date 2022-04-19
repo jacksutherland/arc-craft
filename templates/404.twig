@@ -1,0 +1,17 @@
+{% extends "_layout" %}
+
+{% set homepage = craft.entries.section('pages').slug('homepage').one() %}
+
+{% block main %}
+
+    <div class="site-container">
+        
+        <div style="text-align: center;margin:80px 0 100px 0;">
+            <h1 style="font-size: 9.5rem;line-height: 9.5rem;">404</h1>
+            <h3 style="margin:40px 0 50px 0;">Uh oh, we couldn't find that page.<br>But no FOMO! Let's try again...</h3>
+            <a href="/" class="btn">Return Home</a>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,10 +1,14 @@
-{% set resourceVersion = '1.33' %}
+{% set resourceVersion = '1.34' %}
 
 {% set isDev = true %} {# What exactly is this for again??? #}
 
+{% if craft.app.request.segments | last == '404' %}
+    {% set entry = craft.entries.section('pages').slug('404-not-found').one() %}
+{% endif %}
+
 {% if entry is not defined %}
-    {% exit 404 %}
-    {#% redirect 404 %#}
+    {#% exit 404 %#}
+    {% redirect 404 %}
 {% elseif entry.slug == 'dev' %}
     {% set isDev = true %}
 {% endif %}
@@ -197,7 +201,7 @@
             <p>If you see me, you haven’t set your <code>{% verbatim %}{% block main %}…{% endblock %}{% endverbatim %}</code> yet.</p>
         {% endblock %}
 
-        {#% cache globally using key "footer" %#}
+        {% cache globally using key "footer" %}
 
             {% set terms = craft.entries.section('pages').slug('terms-and-conditions') %}
             {% set privacy = craft.entries.section('pages').slug('privacy-policy') %}
@@ -240,6 +244,9 @@
                         <a href="{{ privacy.one().url }}">Privacy Policy</a>
                     {% endif %}
                 </div>
+                <div class="disclaimer">
+                    {{ footer.instructions }}
+                </div>
                 <div style="margin: 45px 0 0 0;">
                     <a href="https://realitygems.com" target="_blank" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'" style="opacity:0.8;font-size:0.8rem;font-weight:bold;color:#2ccada !important;transition:.3s ease opacity;margin:0 12px 0 0;vertical-align:middle;">
                         Built By
@@ -249,7 +256,7 @@
                 </div>
             </footer>
 
-        {#% endcache %#}
+        {% endcache %}
 
     </div>
 

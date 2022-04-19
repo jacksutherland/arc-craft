@@ -222,8 +222,9 @@ html.theme-night {
 		}
 		.quiz {
 			background-color: $section-gray;
-			h4 {
-				color: $black;
+			color: $font-color;
+			h4, ul {
+				color: $font-color;
 			}
 		}
 		.quiz-complete {
@@ -809,7 +810,7 @@ footer {
 	color: $white;
 	text-align: center;
 	margin: -15px 0 0 0;
-	padding: 100px 0;
+	padding: 100px 20px;
 	a {
 		&:hover {
 			color: $blue;
@@ -853,6 +854,16 @@ footer {
     			color: $blue;
     		}
     	}
+	}
+	.disclaimer {
+		margin: 45px 0;
+		p {
+			text-align: justify;
+			font-size: 0.7rem; //$font-small;
+			color: $gray;
+			margin: 0 auto;
+			max-width: 950px;
+		}
 	}
 }
 
@@ -1003,7 +1014,7 @@ section {
 					h6 {
 						margin: 20px;
 						text-align: left;
-						color: $font-color;
+						color: $font-color !important;
 					}
 					.icon {
 						&.resources-icon {
