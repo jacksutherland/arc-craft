@@ -45,13 +45,14 @@ class MembersController extends Controller
         $session->set('discordEmail', '');
 
         $invalidGuildMember = false;
+        $isRateLimited = false;
 
         if(!isset($_SESSION)) 
         { 
             session_start(); 
         } 
 
-        //echo 'access_token ' . $this->session('access_token');
+        // echo 'access_token ' . $this->session('access_token');
 
         if($this->session('access_token'))
         {
@@ -62,10 +63,11 @@ class MembersController extends Controller
 
             $isGuildMember = $service->isGuildMember();
 
-            //echo '<br>isGuildMember ' . ($isGuildMember ? ' yes ' : ' no ');
+            // echo '<br>isGuildMember ' . ($isGuildMember[0] ? ' yes ' : ' no ');
+            // echo '<br>isRateLimited ' . ($isGuildMember[1] ? ' yes ' : ' no ');
             //exit();
 
-            if($isGuildMember)
+            if($isGuildMember[0])
             {
                 $arcMember = $service->getArcMemberFromApi();
 
@@ -79,6 +81,7 @@ class MembersController extends Controller
             {
                 //$result = 'Logged In!<br><br>NOT AN ARC GUILD MEMBER';
                 $invalidGuildMember = true;
+                $isRateLimited = $isGuildMember[1];
                 $service->revokeUserAccess();
             }
         }
@@ -90,17 +93,14 @@ class MembersController extends Controller
 
             return $this->redirect($service->getBaseUrl());
         }
-        // else
-        // {
-        //     $this->redirect($service->getRedirectUrl());
-        //     return false;
-        // }
+
 
         return Craft::$app->view->renderTemplate(
             'members/_index',
             [
                'entry' => $entry,
                'invalidGuildMember' => $invalidGuildMember,
+               'isRateLimited' => $isRateLimited,
                'arcMember' => $arcMember
             ]
         );

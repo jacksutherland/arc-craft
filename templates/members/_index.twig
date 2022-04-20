@@ -5,7 +5,15 @@
 {% block main %}
 
 	<section class="gray">
-		{% if invalidGuildMember %}
+		{% if isRateLimited %}
+			<div class="centered-column">
+				<h6>Discord Server - <span class="red-text">Disconnected</span></h6>
+				<h3 style="margin-bottom: 0">Discord Is Unavailable</h3>
+				<p>
+					Due to a high volume of traffic Discord is unavailable at this time. Please try again later, and thank you for your patience as we work to increase the scope of this service.
+				</p>
+			</div>
+		{% elseif invalidGuildMember %}
 			<div class="centered-column">
 				<h6>Discord Server - <span class="red-text">Disconnected</span></h6>
 				<h3 style="margin-bottom: 0">Invalid Discord Member</h3>

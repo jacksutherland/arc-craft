@@ -162,15 +162,23 @@ class ArcService extends Component
     {
         // return true;
 
-         //echo '<br>isGuildMember() functio';
+         // echo '<br>isGuildMember() functio';
 
         $member = $this->getDiscordGuildMember();
 
         $isGuildMember = false;
+        $isRateLimited = false;
 
-        //var_dump($member);
+        // var_dump($member);
 
-        //echo '<br>member roles? ' . (property_exists($member, 'roles') ? ' y ' : ' n ');
+        // echo '<br>member roles? ' . (property_exists($member, 'roles') ? ' y ' : ' n ');
+
+        if(isset($member) && property_exists($member, 'message') && str_contains($member->message, 'rate limited'))
+        {
+            // echo '<br>RATE LIMITED';
+            $isGuildMember = false;
+            $isRateLimited = true;
+        }
 
         // ob_flush();
 
@@ -193,7 +201,8 @@ class ArcService extends Component
             }
         }
 
-        return $isGuildMember;
+        //return $isGuildMember;
+        return array($isGuildMember, $isRateLimited);
     }
 
     // public function isGuildMember()
