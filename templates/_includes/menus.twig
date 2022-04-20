@@ -15,7 +15,7 @@
                 <a href="/members">Members</a>
             </li>
         {% endif %}
-        {% if isDev %}
+        {#% if isDev %#}
             <li>
                 {% if craft.arc.isUserLoggedIn %}
                     <a href="/members/logout" class="btn">Logout</a>
@@ -23,11 +23,11 @@
                     <a href="{{ loginUrl }}" class="btn">Member Login</a>
                 {% endif %}
             </li>
-        {% else %}
+        {#% else %}
             <li>
                 <a href="{{ signupUrl }}" class="btn" target="_blank">Sign Up Today</a>
             </li>
-        {% endif %}
+        {% endif %#}
         <li class="theme-switch-menu-item" style="margin:0 18px 0 8px;">
             {% include '_includes/theme-switch' %}
         </li>
@@ -56,24 +56,29 @@
                 </li>
             {% endif %}
         {% endnav %}
-        {% if contactUrl | length > 0 %}
+        {#% if contactUrl | length > 0 %}
             <li>
                 <a href="{{ contactUrl }}">Contact Us</a>
             </li>
-        {% endif %}
+        {% endif %#}
+        {#% if isDev %#}
+                {% if craft.arc.isUserLoggedIn %}
+                    <li>
+                        <a href="/members">Member Portal</a>
+                    </li>
+                    <li>
+                        <a href="/members/logout">Logout</a>
+                    </li>
+                {% else %}
+                    <li>
+                    <a href="{{ loginUrl }}">Member Login</a>
+                    </li>
+                {% endif %}
+        {#% endif %#}
         <li>
             <span class="mobile-menu-placeholder">
                 {% include '_includes/theme-switch' %}
             </span>
         </li>
-        {% if isDev %}
-            <li>
-                {% if craft.arc.isUserLoggedIn %}
-                    <a href="/members/logout">Logout</a>
-                {% else %}
-                    <a href="{{ loginUrl }}">Member Login</a>
-                {% endif %}
-            </li>
-        {% endif %}
     </ul>
 </nav>

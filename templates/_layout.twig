@@ -1,6 +1,6 @@
-{% set resourceVersion = '1.35' %}
+{% set resourceVersion = '1.36' %}
 
-{% set isDev = true %} {# What exactly is this for again??? #}
+{#% set isDev = true %#} {# Leave true. What exactly is this for again??? #}
 
 {% if craft.app.request.segments | last == '404' %}
     {% set entry = craft.entries.section('pages').slug('404-not-found').one() %}
@@ -232,15 +232,22 @@
                             <a href="{{ contactUrl }}">Contact Us</a>
                         </li>
                     {% endif %#}
-                    {% if isDev %}
-                         <li>
+                    {#% if isDev %#}
+                         
                             {% if craft.arc.isUserLoggedIn %}
-                                <a href="/members/logout">Logout</a>
+                                <li>
+                                    <a href="/members">Member Portal</a>
+                                </li>
+                                <li>
+                                    <a href="/members/logout">Logout</a>
+                                </li>
                             {% else %}
-                                <a href="{{ loginUrl }}">Member Login</a>
+                                <li>
+                                    <a href="{{ loginUrl }}">Member Login</a>
+                                <li>
                             {% endif %}
-                        </li>
-                    {% endif %}
+                        
+                    {#% endif %#}
                 </ul>
                 <div class="copyright">
                     ©{{ now | date("Y") }} ARCollective. All Rights Reserved
