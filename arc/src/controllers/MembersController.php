@@ -34,66 +34,89 @@ class MembersController extends Controller
 
     public function actionIndex()
     {
-        $entry = Entry::find()->section('members')->slug('members')->one();
-        $service = ARC::$plugin->arcService;
-        $result = 'Not Logged In';
-        $arcMember = null;
-        $session = Craft::$app->getSession();
-
-        $session->set('isLoggedIn', false);
-        $session->set('discordUsername', '');
-        $session->set('discordEmail', '');
-
         $invalidGuildMember = false;
         $isRateLimited = false;
 
-        if(!isset($_SESSION)) 
-        { 
-            session_start(); 
-        } 
+        $entry = Entry::find()->section('members')->slug('members')->one();
+        $service = ARC::$plugin->arcService;
+        // $result = 'Not Logged In';
+        $arcMember = null;
+        $discordUsername = '';
 
-        // echo 'access_token ' . $this->session('access_token');
-
-        if($this->session('access_token'))
+        if(Craft::$app->getSession()->get('isLoggedIn'))
         {
-            if($this->get('code'))
+            $discordUsername = Craft::$app->getSession()->get('discordUsername');
+        }
+        else
+        {
+            $session = Craft::$app->getSession();
+
+            $session->set('isLoggedIn', false);
+            $session->set('discordUsername', '');
+            $session->set('discordEmail', '');
+
+            if(!isset($_SESSION)) 
+            { 
+                session_start(); 
+            } 
+
+            // echo 'access_token ' . $this->session('access_token');
+            // echo '<br>HERE 1';
+
+            if($this->session('access_token'))
             {
+                // echo '<br>HERE 2';
+
+                if($this->get('code'))
+                {
+                    // echo '<br>HERE 2 code';
+
+                    return $this->redirect($service->getBaseUrl());
+                }
+
+                $isGuildMember = $service->isGuildMember();
+
+                // echo '<br>isGuildMember ' . ($isGuildMember[0] ? ' yes ' : ' no ');
+                // echo '<br>isRateLimited ' . ($isGuildMember[1] ? ' yes ' : ' no ');
+                //exit();
+
+                if($isGuildMember[0])
+                {
+                    // echo '<br>HERE 2 isGuildMember';
+
+                    $arcMember = $service->getArcMemberFromApi();
+
+                    $discordUsername = $arcMember->discordUsername;
+
+                    $session->set('isLoggedIn', true);
+                    $session->set('discordUsername', $arcMember->discordUsername);
+                    $session->set('discordEmail', $arcMember->discordEmail);
+
+                    // $result = $this->session('access_token');
+                }
+                else
+                {
+                    // echo '<br>HERE 2 else';
+
+                    //$result = 'Logged In!<br><br>NOT AN ARC GUILD MEMBER';
+                    $invalidGuildMember = true;
+                    $isRateLimited = $isGuildMember[1];
+                    $service->revokeUserAccess();
+                }
+            }
+            elseif($this->get('code'))
+            {
+                // echo '<br>HERE 3';
+
+                $code = $this->get('code');
+                $accessToken = $service->obtainAccessToken($code);
+                $_SESSION['access_token'] = $accessToken;
+
                 return $this->redirect($service->getBaseUrl());
             }
 
-            $isGuildMember = $service->isGuildMember();
-
-            // echo '<br>isGuildMember ' . ($isGuildMember[0] ? ' yes ' : ' no ');
-            // echo '<br>isRateLimited ' . ($isGuildMember[1] ? ' yes ' : ' no ');
-            //exit();
-
-            if($isGuildMember[0])
-            {
-                $arcMember = $service->getArcMemberFromApi();
-
-                $session->set('isLoggedIn', true);
-                $session->set('discordUsername', $arcMember->discordUsername);
-                $session->set('discordEmail', $arcMember->discordEmail);
-
-                $result = $this->session('access_token');
-            }
-            else
-            {
-                //$result = 'Logged In!<br><br>NOT AN ARC GUILD MEMBER';
-                $invalidGuildMember = true;
-                $isRateLimited = $isGuildMember[1];
-                $service->revokeUserAccess();
-            }
+            // echo '<br>HERE 4';
         }
-        elseif($this->get('code'))
-        {
-            $code = $this->get('code');
-            $accessToken = $service->obtainAccessToken($code);
-            $_SESSION['access_token'] = $accessToken;
-
-            return $this->redirect($service->getBaseUrl());
-        }
-
 
         return Craft::$app->view->renderTemplate(
             'members/_index',
@@ -101,7 +124,8 @@ class MembersController extends Controller
                'entry' => $entry,
                'invalidGuildMember' => $invalidGuildMember,
                'isRateLimited' => $isRateLimited,
-               'arcMember' => $arcMember
+               'discordUsername' => $discordUsername
+               //'arcMember' => $arcMember
             ]
         );
     }
