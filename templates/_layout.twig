@@ -6,12 +6,11 @@
     {% set entry = craft.entries.section('pages').slug('404-not-found').one() %}
 {% endif %}
 
-{% if entry is not defined %}
-    {#% exit 404 %#}
+{#% if entry is not defined %}
     {% redirect 404 %}
 {% elseif entry.slug == 'dev' %}
     {% set isDev = true %}
-{% endif %}
+{% endif %#}
 
 {#% if craft.app.request.segments | length == 0 %}
     {% redirect 'coming-soon' %}
@@ -24,7 +23,6 @@
 {% set contactUrl = about.count ? about.one().url ~ '#contact-us' : '' %}
 {% set loginUrl = '/members' %} {# discord.discordRedirectUrl %#}
 {% set signupUrl = 'https://upgrade.chat/926998325213925427' %}
-
 
 {% if entry is defined %}
     {% set showHeaderVideo = entry.showHeaderBanner and not craft.app.request.isMobileBrowser %}
