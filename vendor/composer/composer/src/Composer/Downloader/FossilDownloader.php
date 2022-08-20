@@ -13,6 +13,7 @@
 namespace Composer\Downloader;
 
 use Composer\Package\PackageInterface;
+use Composer\Pcre\Preg;
 use Composer\Util\ProcessExecutor;
 
 /**
@@ -21,7 +22,7 @@ use Composer\Util\ProcessExecutor;
 class FossilDownloader extends VcsDownloader
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function doDownload(PackageInterface $package, $path, $url, PackageInterface $prevPackage = null)
     {
@@ -29,7 +30,7 @@ class FossilDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function doInstall(PackageInterface $package, $path, $url)
     {
@@ -57,7 +58,7 @@ class FossilDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function doUpdate(PackageInterface $initial, PackageInterface $target, $path, $url)
     {
@@ -80,7 +81,7 @@ class FossilDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getLocalChanges(PackageInterface $package, $path)
     {
@@ -94,7 +95,7 @@ class FossilDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function getCommitLogs($fromReference, $toReference, $path)
     {
@@ -108,7 +109,7 @@ class FossilDownloader extends VcsDownloader
         $match = '/\d\d:\d\d:\d\d\s+\[' . $toReference . '\]/';
 
         foreach ($this->process->splitLines($output) as $line) {
-            if (preg_match($match, $line)) {
+            if (Preg::isMatch($match, $line)) {
                 break;
             }
             $log .= $line;
@@ -118,7 +119,7 @@ class FossilDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function hasMetadataRepository($path)
     {

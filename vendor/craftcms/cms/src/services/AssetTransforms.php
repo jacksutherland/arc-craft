@@ -231,7 +231,7 @@ class AssetTransforms extends Component
 
         if ($isNewTransform) {
             $transform->uid = StringHelper::UUID();
-        } else if (!$transform->uid) {
+        } elseif (!$transform->uid) {
             $transform->uid = Db::uidById(Table::ASSETTRANSFORMS, $transform->id, $this->db);
         }
 
@@ -461,6 +461,7 @@ class AssetTransforms extends Component
                 [$sizeValue, $sizeUnit] = AssetsHelper::parseSrcsetSize($transform);
             } catch (InvalidArgumentException $e) {
                 // All good.
+                $sizeValue = $sizeUnit = null;
             }
 
             if (isset($sizeValue, $sizeUnit)) {
@@ -468,19 +469,26 @@ class AssetTransforms extends Component
                     throw new InvalidArgumentException("Can’t eager-load transform “{$transform}” without a prior transform that specifies the base width");
                 }
 
-                $transform = [];
+                $transform = new AssetTransform($refTransform->toArray([
+                    'format',
+                    'interlace',
+                    'mode',
+                    'position',
+                    'quality',
+                ]));
+
                 if ($sizeUnit === 'w') {
-                    $transform['width'] = (int)$sizeValue;
+                    $transform->width = (int)$sizeValue;
                 } else {
-                    $transform['width'] = (int)ceil($refTransform->width * $sizeValue);
+                    $transform->width = (int)ceil($refTransform->width * $sizeValue);
                 }
 
                 // Only set the height if the reference transform has a height set on it
-                if ($refTransform && $refTransform->height) {
+                if ($refTransform->height) {
                     if ($sizeUnit === 'w') {
-                        $transform['height'] = (int)ceil($refTransform->height * $transform['width'] / $refTransform->width);
+                        $transform->height = (int)ceil($refTransform->height * $transform->width / $refTransform->width);
                     } else {
-                        $transform['height'] = (int)ceil($refTransform->height * $sizeValue);
+                        $transform->height = (int)ceil($refTransform->height * $sizeValue);
                     }
                 }
             }
@@ -665,7 +673,6 @@ class AssetTransforms extends Component
         // Make sure we're not in the middle of working on this transform from a separate request
         if ($index->inProgress) {
             for ($safety = 0; $safety < 100; $safety++) {
-
                 if ($index->error) {
                     throw new AssetTransformException(Craft::t('app',
                         'Failed to generate transform with id of {id}.',
@@ -722,9 +729,7 @@ class AssetTransforms extends Component
                 $this->storeTransformIndexData($index);
                 Craft::$app->getErrorHandler()->logException($e);
 
-                throw new AssetTransformException(Craft::t('app',
-                    'Failed to generate transform with id of {id}.',
-                    ['id' => $index->id]));
+                throw new AssetTransformException(Craft::t('app', 'Failed to generate transform with id of {id}.', ['id' => $index->id]), 0, $e);
             }
         }
 
@@ -1564,7 +1569,8 @@ class AssetTransforms extends Component
         $quality = $transform->quality ?: Craft::$app->getConfig()->getGeneral()->defaultImageQuality;
 
         if (strtolower($asset->getExtension()) === 'svg' && $index->detectedFormat !== 'svg') {
-            $image = $images->loadImage($imageSource, true, max($transform->width, $transform->height));
+            $size = max($transform->width, $transform->height) ?? 1000;
+            $image = $images->loadImage($imageSource, true, $size);
         } else {
             $image = $images->loadImage($imageSource);
         }
@@ -1586,7 +1592,7 @@ class AssetTransforms extends Component
             default:
                 if ($asset->getHasFocalPoint()) {
                     $position = $asset->getFocalPoint();
-                } else if (!preg_match('/(top|center|bottom)-(left|center|right)/', $transform->position)) {
+                } elseif (!preg_match('/(top|center|bottom)-(left|center|right)/', $transform->position)) {
                     $position = 'center-center';
                 } else {
                     $position = $transform->position;

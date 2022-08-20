@@ -23,6 +23,7 @@ use Composer\Package\Version\VersionParser;
 use Composer\Plugin\PluginEvents;
 use Composer\Util\Platform;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\Command;
@@ -51,16 +52,17 @@ abstract class BaseCommand extends Command
     /**
      * @param  bool              $required
      * @param  bool|null         $disablePlugins
+     * @param  bool|null         $disableScripts
      * @throws \RuntimeException
      * @return Composer|null
      */
-    public function getComposer($required = true, $disablePlugins = null)
+    public function getComposer($required = true, $disablePlugins = null, $disableScripts = null)
     {
         if (null === $this->composer) {
             $application = $this->getApplication();
             if ($application instanceof Application) {
                 /* @var $application    Application */
-                $this->composer = $application->getComposer($required, $disablePlugins);
+                $this->composer = $application->getComposer($required, $disablePlugins, $disableScripts);
             /** @phpstan-ignore-next-line */
             } elseif ($required) {
                 throw new \RuntimeException(
@@ -74,7 +76,7 @@ abstract class BaseCommand extends Command
     }
 
     /**
-     * @param Composer $composer
+     * @return void
      */
     public function setComposer(Composer $composer)
     {
@@ -83,6 +85,8 @@ abstract class BaseCommand extends Command
 
     /**
      * Removes the cached composer instance
+     *
+     * @return void
      */
     public function resetComposer()
     {
@@ -121,7 +125,7 @@ abstract class BaseCommand extends Command
     }
 
     /**
-     * @param IOInterface $io
+     * @return void
      */
     public function setIO(IOInterface $io)
     {
@@ -129,15 +133,23 @@ abstract class BaseCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
+     *
+     * @return void
      */
     protected function initialize(InputInterface $input, OutputInterface $output)
     {
         // initialize a plugin-enabled Composer instance, either local or global
         $disablePlugins = $input->hasParameterOption('--no-plugins');
-        $composer = $this->getComposer(false, $disablePlugins);
+        $disableScripts = $input->hasParameterOption('--no-scripts');
+        if ($this instanceof SelfUpdateCommand) {
+            $disablePlugins = true;
+            $disableScripts = true;
+        }
+
+        $composer = $this->getComposer(false, $disablePlugins, $disableScripts);
         if (null === $composer) {
-            $composer = Factory::createGlobal($this->getIO(), $disablePlugins);
+            $composer = Factory::createGlobal($this->getIO(), $disablePlugins, $disableScripts);
         }
         if ($composer) {
             $preCommandRunEvent = new PreCommandRunEvent(PluginEvents::PRE_COMMAND_RUN, $input, $this->getName());
@@ -148,14 +160,18 @@ abstract class BaseCommand extends Command
             $input->setOption('no-progress', true);
         }
 
+        if (true == $input->hasOption('no-dev')) {
+            if (!$input->getOption('no-dev') && true == Platform::getEnv('COMPOSER_NO_DEV')) {
+                $input->setOption('no-dev', true);
+            }
+        }
+
         parent::initialize($input, $output);
     }
 
     /**
      * Returns preferSource and preferDist values based on the configuration.
      *
-     * @param Config         $config
-     * @param InputInterface $input
      * @param bool           $keepVcsRequiresPreferSource
      *
      * @return bool[] An array composed of the preferSource and preferDist values
@@ -209,6 +225,11 @@ abstract class BaseCommand extends Command
         return array($preferSource, $preferDist);
     }
 
+    /**
+     * @param array<string, string> $requirements
+     *
+     * @return array<string, string>
+     */
     protected function formatRequirements(array $requirements)
     {
         $requires = array();
@@ -223,6 +244,11 @@ abstract class BaseCommand extends Command
         return $requires;
     }
 
+    /**
+     * @param array<string> $requirements
+     *
+     * @return list<array{name: string, version?: string}>
+     */
     protected function normalizeRequirements(array $requirements)
     {
         $parser = new VersionParser();
@@ -230,6 +256,11 @@ abstract class BaseCommand extends Command
         return $parser->parseNameVersionPairs($requirements);
     }
 
+    /**
+     * @param array<TableSeparator|mixed[]> $table
+     *
+     * @return void
+     */
     protected function renderTable(array $table, OutputInterface $output)
     {
         $renderer = new Table($output);
@@ -246,6 +277,9 @@ abstract class BaseCommand extends Command
         $renderer->setRows($table)->render();
     }
 
+    /**
+     * @return int
+     */
     protected function getTerminalWidth()
     {
         if (class_exists('Symfony\Component\Console\Terminal')) {

@@ -29,7 +29,7 @@ use yii\helpers\Console;
 
 /**
  * Allows you to bulk-save elements.
- * 
+ *
  * See [Bulk-Resaving Elements](https://craftcms.com/knowledge-base/bulk-resaving-elements) for examples.
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
@@ -90,11 +90,6 @@ class ResaveController extends Controller
      * @var int|null The number of elements to resave.
      */
     public $limit;
-
-    /**
-     * @var bool Whether to save the elements across all their enabled sites.
-     */
-    public $propagate = true;
 
     /**
      * @var bool Whether to update the search indexes for the resaved elements.
@@ -166,7 +161,6 @@ class ResaveController extends Controller
         $options[] = 'status';
         $options[] = 'offset';
         $options[] = 'limit';
-        $options[] = 'propagate';
         $options[] = 'updateSearchIndex';
 
         switch ($actionID) {
@@ -384,7 +378,7 @@ class ResaveController extends Controller
 
         if ($this->status === 'any') {
             $criteria['status'] = null;
-        } else if ($this->status) {
+        } elseif ($this->status) {
             $criteria['status'] = explode(',', $this->status);
         }
 
@@ -443,7 +437,7 @@ class ResaveController extends Controller
                 if ($e->exception) {
                     $this->stderr('error: ' . $e->exception->getMessage() . PHP_EOL, Console::FG_RED);
                     $fail = true;
-                } else if ($element->hasErrors()) {
+                } elseif ($element->hasErrors()) {
                     $this->stderr('failed: ' . implode(', ', $element->getErrorSummary(true)) . PHP_EOL, Console::FG_RED);
                     $fail = true;
                 } else {

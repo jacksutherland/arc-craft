@@ -10,8 +10,6 @@ namespace craft\controllers;
 use Craft;
 use craft\base\Element;
 use craft\elements\Asset;
-use craft\errors\AssetException;
-use craft\errors\AssetLogicException;
 use craft\errors\UploadFailedException;
 use craft\fields\Assets as AssetsField;
 use craft\helpers\App;
@@ -29,6 +27,7 @@ use craft\web\UploadedFile;
 use yii\base\ErrorException;
 use yii\base\Exception;
 use yii\base\NotSupportedException;
+use yii\base\UserException;
 use yii\web\BadRequestHttpException;
 use yii\web\ForbiddenHttpException;
 use yii\web\HttpException;
@@ -353,7 +352,7 @@ class AssetsController extends Controller
                 'filename' => $asset->filename,
                 'assetId' => $asset->id,
             ]);
-        } catch (\Throwable $e) {
+        } catch (UserException $e) {
             Craft::error('An error occurred when saving an asset: ' . $e->getMessage(), __METHOD__);
             Craft::$app->getErrorHandler()->logException($e);
             return $this->asErrorJson($e->getMessage());
@@ -408,7 +407,7 @@ class AssetsController extends Controller
                 $tempPath = $this->_getUploadedFileTempPath($uploadedFile);
                 $filename = Assets::prepareAssetName($uploadedFile->name);
                 $assets->replaceAssetFile($assetToReplace, $tempPath, $filename);
-            } else if (!empty($sourceAsset)) {
+            } elseif (!empty($sourceAsset)) {
                 // Or replace using an existing Asset
 
                 // See if we can find an Asset to replace.
@@ -440,7 +439,7 @@ class AssetsController extends Controller
                     $assetId = $sourceAsset->id;
                 }
             }
-        } catch (\Throwable $e) {
+        } catch (UserException $e) {
             Craft::error('An error occurred when replacing an asset: ' . $e->getMessage(), __METHOD__);
             Craft::$app->getErrorHandler()->logException($e);
             return $this->asErrorJson($e->getMessage());
@@ -497,7 +496,7 @@ class AssetsController extends Controller
                 'folderUid' => $folderModel->uid,
                 'folderId' => $folderModel->id,
             ]);
-        } catch (AssetException | ForbiddenHttpException $e) {
+        } catch (UserException $e) {
             return $this->asErrorJson($e->getMessage());
         }
     }
@@ -524,7 +523,7 @@ class AssetsController extends Controller
         $this->requireVolumePermissionByFolder('deleteFilesAndFoldersInVolume', $folder);
         try {
             $assets->deleteFoldersByIds($folderId);
-        } catch (AssetException $exception) {
+        } catch (UserException $exception) {
             return $this->asErrorJson($exception->getMessage());
         }
 
@@ -537,7 +536,7 @@ class AssetsController extends Controller
      * @return Response|null
      * @throws BadRequestHttpException if the folder cannot be found
      * @throws ForbiddenHttpException
-     * @throws AssetException
+     * @throws UserException
      */
     public function actionDeleteAsset()
     {
@@ -556,7 +555,7 @@ class AssetsController extends Controller
 
         try {
             $success = Craft::$app->getElements()->deleteElement($asset);
-        } catch (AssetException $e) {
+        } catch (UserException $e) {
             if ($this->request->getAcceptsJson()) {
                 return $this->asErrorJson($e->getMessage());
             }
@@ -611,7 +610,7 @@ class AssetsController extends Controller
 
         try {
             $newName = Craft::$app->getAssets()->renameFolderById($folderId, $newName);
-        } catch (\Throwable $exception) {
+        } catch (UserException $exception) {
             return $this->asErrorJson($exception->getMessage());
         }
 
@@ -774,7 +773,7 @@ class AssetsController extends Controller
                                 $targetPrefixLength)] = $existingFolder->id;
                         }
                     }
-                } else if ($existingFolder && $force) {
+                } elseif ($existingFolder && $force) {
                     // An un-indexed folder is conflicting. If we're forcing things, just remove it.
                     $targetVolume->deleteDirectory(rtrim($destinationFolder->path, '/') . '/' . $folderToMove->name);
                 }
@@ -790,7 +789,7 @@ class AssetsController extends Controller
                     ->all();
                 $fileTransferList = Assets::fileTransferList($foundAssets, $folderIdChanges);
             }
-        } catch (AssetLogicException $exception) {
+        } catch (UserException $exception) {
             return $this->asErrorJson($exception->getMessage());
         }
 
@@ -990,7 +989,7 @@ class AssetsController extends Controller
                 // Only replace file if it changed, otherwise just save changed focal points
                 if ($imageChanged) {
                     $assets->replaceAssetFile($asset, $imageCopy, $asset->filename);
-                } else if ($focalChanged) {
+                } elseif ($focalChanged) {
                     Craft::$app->getElements()->saveElement($asset);
                 }
             } else {
@@ -1007,7 +1006,7 @@ class AssetsController extends Controller
                 // Don't validate required custom fields
                 Craft::$app->getElements()->saveElement($newAsset);
             }
-        } catch (\Throwable $exception) {
+        } catch (UserException $exception) {
             return $this->asErrorJson($exception->getMessage());
         }
 
@@ -1150,7 +1149,7 @@ class AssetsController extends Controller
             $url = $assetTransforms->ensureTransformUrlByIndexModel($transformIndexModel);
         } catch (\Exception $exception) {
             Craft::$app->getErrorHandler()->logException($exception);
-            throw new ServerErrorHttpException('Image transform cannot be created.');
+            throw new ServerErrorHttpException('Image transform cannot be created.', 0, $exception);
         }
 
         if ($this->request->getAcceptsJson()) {

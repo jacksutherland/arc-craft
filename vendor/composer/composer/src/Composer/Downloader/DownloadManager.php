@@ -14,6 +14,7 @@ namespace Composer\Downloader;
 
 use Composer\Package\PackageInterface;
 use Composer\IO\IOInterface;
+use Composer\Pcre\Preg;
 use Composer\Util\Filesystem;
 use Composer\Exception\IrrecoverableDownloadException;
 use React\Promise\PromiseInterface;
@@ -81,7 +82,8 @@ class DownloadManager
     /**
      * Sets fine tuned preference settings for package level source/dist selection.
      *
-     * @param  array           $preferences array of preferences by package patterns
+     * @param array<string, string> $preferences array of preferences by package patterns
+     *
      * @return DownloadManager
      */
     public function setPreferences(array $preferences)
@@ -163,6 +165,9 @@ class DownloadManager
         return $downloader;
     }
 
+    /**
+     * @return string
+     */
     public function getDownloaderType(DownloaderInterface $downloader)
     {
         return array_search($downloader, $this->downloaders);
@@ -388,7 +393,7 @@ class DownloadManager
     {
         foreach ($this->packagePreferences as $pattern => $preference) {
             $pattern = '{^'.str_replace('\\*', '.*', preg_quote($pattern)).'$}i';
-            if (preg_match($pattern, $package->getName())) {
+            if (Preg::isMatch($pattern, $package->getName())) {
                 if ('dist' === $preference || (!$package->isDev() && 'auto' === $preference)) {
                     return 'dist';
                 }
@@ -449,6 +454,8 @@ class DownloadManager
      * Downloaders expect a /path/to/dir without trailing slash
      *
      * If any Installer provides a path with a trailing slash, this can cause bugs so make sure we remove them
+     *
+     * @param string $dir
      *
      * @return string
      */

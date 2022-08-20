@@ -10,6 +10,7 @@
 
 namespace mmikkel\reasons;
 
+use craft\web\Application;
 use mmikkel\reasons\assetbundles\reasons\ReasonsAssetBundle;
 use mmikkel\reasons\services\ReasonsService;
 
@@ -44,16 +45,6 @@ use yii\base\InvalidConfigException;
  */
 class Reasons extends Plugin
 {
-    // Static Properties
-    // =========================================================================
-
-    /**
-     * @var Reasons
-     */
-    public static $plugin;
-
-    // Public Properties
-    // =========================================================================
 
     /**
      * @var string
@@ -79,7 +70,6 @@ class Reasons extends Plugin
     public function init()
     {
         parent::init();
-        self::$plugin = $this;
 
         $this->setComponents([
             'reasons' => ReasonsService::class,
@@ -179,19 +169,11 @@ class Reasons extends Plugin
 
         // Queue up asset bundle or handle AJAX action requests
         Event::on(
-            Plugins::class,
-            Plugins::EVENT_AFTER_LOAD_PLUGINS,
+            Application::class,
+            Application::EVENT_INIT,
             [$this, 'initReasons']
         );
 
-        Craft::info(
-            Craft::t(
-                'reasons',
-                '{name} plugin loaded',
-                ['name' => $this->name]
-            ),
-            __METHOD__
-        );
     }
 
     /**
@@ -205,7 +187,7 @@ class Reasons extends Plugin
         /** @var User $user */
         $user = Craft::$app->getUser()->getIdentity();
 
-        if ($request->getIsConsoleRequest() || !$request->getIsCpRequest() || $request->getIsSiteRequest() || !$user || !$user->can('accessCp')) {
+        if ($request->getIsConsoleRequest() || !$request->getIsCpRequest() || $request->getIsSiteRequest() || $request->getIsLoginRequest() || !$user || !$user->can('accessCp')) {
             return;
         }
 
@@ -268,53 +250,63 @@ class Reasons extends Plugin
 
         if ($actionSegment === 'get-editor-html') {
 
+            $conditionalsKey = null;
             $elementId = (int)$request->getBodyParam('elementId');
 
             if (!$elementId) {
-                return;
-            }
 
-            $element = Craft::$app->getElements()->getElementById($elementId);
-            if ($element === null) {
-                return;
-            }
+                // Probably a new element
+                $attributes = $request->getBodyParam('attributes', []);
+                $elementType = $request->getBodyParam('elementType');
 
-            $elementType = \get_class($element);
-            $conditionalsKey = null;
+                if ($elementType === Entry::class && $typeId = ($attributes['typeId'] ?? null)) {
+                    $conditionalsKey = "entryType:$typeId";
+                } else if ($elementType === Category::class && $groupId = ($attributes['groupId'] ?? null)) {
+                    $conditionalsKey = "categoryGroup:$groupId";
+                }
 
-            switch ($elementType) {
-                case Entry::class:
-                    /** @var Entry $element */
-                    $conditionalsKey = "entryType:{$element->typeId}";
-                    break;
-
-                case GlobalSet::class:
-                    /** @var GlobalSet $element */
-                    $conditionalsKey = "globalSet:{$element->id}";
-                    break;
-
-                case Asset::class:
-                    /** @var Asset $element */
-                    $conditionalsKey = "assetSource:{$element->volumeId}";
-                    break;
-
-                case Category::class:
-                    /** @var Category $element */
-                    $conditionalsKey = "categoryGroup:{$element->groupId}";
-                    break;
-
-                case Tag::class:
-                    /** @var Tag $element */
-                    $conditionalsKey = "tagGroup:{$element->groupId}";
-                    break;
-
-                case User::class:
-                    $conditionalsKey = "users";
-                    break;
-
-                default:
+                if (!$conditionalsKey) {
                     return;
+                }
 
+            } else if ($element = Craft::$app->getElements()->getElementById($elementId)) {
+
+                $elementType = \get_class($element);
+
+                switch ($elementType) {
+                    case Entry::class:
+                        /** @var Entry $element */
+                        $conditionalsKey = "entryType:{$element->typeId}";
+                        break;
+
+                    case GlobalSet::class:
+                        /** @var GlobalSet $element */
+                        $conditionalsKey = "globalSet:{$element->id}";
+                        break;
+
+                    case Asset::class:
+                        /** @var Asset $element */
+                        $conditionalsKey = "assetSource:{$element->volumeId}";
+                        break;
+
+                    case Category::class:
+                        /** @var Category $element */
+                        $conditionalsKey = "categoryGroup:{$element->groupId}";
+                        break;
+
+                    case Tag::class:
+                        /** @var Tag $element */
+                        $conditionalsKey = "tagGroup:{$element->groupId}";
+                        break;
+
+                    case User::class:
+                        $conditionalsKey = "users";
+                        break;
+
+                    default:
+                        return;
+
+                }
             }
 
             Craft::$app->getView()->registerJs("Craft.ReasonsPlugin.initElementEditor('{$conditionalsKey}');");

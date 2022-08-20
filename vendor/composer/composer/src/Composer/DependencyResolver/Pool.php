@@ -12,11 +12,11 @@
 
 namespace Composer\DependencyResolver;
 
+use Composer\Package\BasePackage;
 use Composer\Package\Version\VersionParser;
 use Composer\Semver\CompilingMatcher;
 use Composer\Semver\Constraint\ConstraintInterface;
 use Composer\Semver\Constraint\Constraint;
-use Composer\Package\BasePackage;
 
 /**
  * A package pool contains all packages for dependency resolution
@@ -36,14 +36,63 @@ class Pool implements \Countable
     protected $providerCache = array();
     /** @var BasePackage[] */
     protected $unacceptableFixedOrLockedPackages;
+    /** @var array<string, array<string, string>> Map of package name => normalized version => pretty version */
+    protected $removedVersions = array();
+    /** @var array<string, array<string, string>> Map of package object hash => removed normalized versions => removed pretty version */
+    protected $removedVersionsByPackage = array();
 
-    public function __construct(array $packages = array(), array $unacceptableFixedOrLockedPackages = array())
+    /**
+     * @param BasePackage[] $packages
+     * @param BasePackage[] $unacceptableFixedOrLockedPackages
+     * @param array<string, array<string, string>> $removedVersions
+     * @param array<string, array<string, string>> $removedVersionsByPackage
+     */
+    public function __construct(array $packages = array(), array $unacceptableFixedOrLockedPackages = array(), array $removedVersions = array(), array $removedVersionsByPackage = array())
     {
         $this->versionParser = new VersionParser;
         $this->setPackages($packages);
         $this->unacceptableFixedOrLockedPackages = $unacceptableFixedOrLockedPackages;
+        $this->removedVersions = $removedVersions;
+        $this->removedVersionsByPackage = $removedVersionsByPackage;
     }
 
+    /**
+     * @param  string $name
+     * @return array<string, string>
+     */
+    public function getRemovedVersions($name, ConstraintInterface $constraint)
+    {
+        if (!isset($this->removedVersions[$name])) {
+            return array();
+        }
+
+        $result = array();
+        foreach ($this->removedVersions[$name] as $version => $prettyVersion) {
+            if ($constraint->matches(new Constraint('==', $version))) {
+                $result[$version] = $prettyVersion;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param  string $objectHash
+     * @return array<string, string>
+     */
+    public function getRemovedVersionsByPackage($objectHash)
+    {
+        if (!isset($this->removedVersionsByPackage[$objectHash])) {
+            return array();
+        }
+
+        return $this->removedVersionsByPackage[$objectHash];
+    }
+
+    /**
+     * @param BasePackage[] $packages
+     * @return void
+     */
     private function setPackages(array $packages)
     {
         $id = 1;
@@ -80,6 +129,7 @@ class Pool implements \Countable
 
     /**
      * Returns how many packages have been loaded into the pool
+     * @return int
      */
     #[\ReturnTypeWillChange]
     public function count()
@@ -90,10 +140,10 @@ class Pool implements \Countable
     /**
      * Searches all packages providing the given package name and match the constraint
      *
-     * @param  string              $name       The package name to be searched for
-     * @param  ConstraintInterface $constraint A constraint that all returned
+     * @param string $name The package name to be searched for
+     * @param ?ConstraintInterface $constraint A constraint that all returned
      *                                         packages must match or null to return all
-     * @return BasePackage[]       A set of packages
+     * @return BasePackage[] A set of packages
      */
     public function whatProvides($name, ConstraintInterface $constraint = null)
     {
@@ -106,9 +156,12 @@ class Pool implements \Countable
     }
 
     /**
-     * @see whatProvides
+     * @param  string               $name       The package name to be searched for
+     * @param  ?ConstraintInterface $constraint A constraint that all returned
+     *                                          packages must match or null to return all
+     * @return BasePackage[]
      */
-    private function computeWhatProvides($name, $constraint)
+    private function computeWhatProvides($name, ConstraintInterface $constraint = null)
     {
         if (!isset($this->packageByName[$name])) {
             return array();
@@ -125,6 +178,10 @@ class Pool implements \Countable
         return $matches;
     }
 
+    /**
+     * @param int $literal
+     * @return BasePackage
+     */
     public function literalToPackage($literal)
     {
         $packageId = abs($literal);
@@ -132,6 +189,11 @@ class Pool implements \Countable
         return $this->packageById($packageId);
     }
 
+    /**
+     * @param int $literal
+     * @param array<int, BasePackage> $installedMap
+     * @return string
+     */
     public function literalToPrettyString($literal, $installedMap)
     {
         $package = $this->literalToPackage($literal);
@@ -149,9 +211,7 @@ class Pool implements \Countable
      * Checks if the package matches the given constraint directly or through
      * provided or replaced packages
      *
-     * @param  BasePackage         $candidate
      * @param  string              $name       Name of the package to be matched
-     * @param  ConstraintInterface $constraint The constraint to verify
      * @return bool
      */
     public function match(BasePackage $candidate, $name, ConstraintInterface $constraint = null)
@@ -194,9 +254,20 @@ class Pool implements \Countable
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public function isUnacceptableFixedOrLockedPackage(BasePackage $package)
     {
         return \in_array($package, $this->unacceptableFixedOrLockedPackages, true);
+    }
+
+    /**
+     * @return BasePackage[]
+     */
+    public function getUnacceptableFixedOrLockedPackages()
+    {
+        return $this->unacceptableFixedOrLockedPackages;
     }
 
     public function __toString()

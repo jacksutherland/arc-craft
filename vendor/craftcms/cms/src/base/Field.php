@@ -209,6 +209,17 @@ abstract class Field extends SavableComponent implements FieldInterface
     /**
      * @inheritdoc
      */
+    public function attributeLabels()
+    {
+        return [
+            'handle' => Craft::t('app', 'Handle'),
+            'name' => Craft::t('app', 'Name'),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     protected function defineRules(): array
     {
         $rules = parent::defineRules();
@@ -251,6 +262,7 @@ abstract class Field extends SavableComponent implements FieldInterface
                 'behavior',
                 'behaviors',
                 'canSetProperties',
+                'canonical',
                 'children',
                 'contentTable',
                 'dateCreated',
@@ -333,7 +345,7 @@ abstract class Field extends SavableComponent implements FieldInterface
         if (!Craft::$app->getIsMultiSite()) {
             // Only one site so use its language
             $locale = Craft::$app->getSites()->getPrimarySite()->getLocale();
-        } else if (!$element || !$this->getIsTranslatable($element)) {
+        } elseif (!$element || !$this->getIsTranslatable($element)) {
             // Not translatable, so use the user’s language
             $locale = Craft::$app->getLocale();
         } else {
@@ -826,16 +838,7 @@ abstract class Field extends SavableComponent implements FieldInterface
      */
     protected function requestParamName(ElementInterface $element)
     {
-        if (!$element) {
-            return null;
-        }
-
         $namespace = $element->getFieldParamNamespace();
-
-        if (!$namespace === null) {
-            return null;
-        }
-
         return ($namespace ? $namespace . '.' : '') . $this->handle;
     }
 

@@ -17,6 +17,7 @@ use Composer\Downloader\MaxFileSizeExceededException;
 use Composer\IO\IOInterface;
 use Composer\Downloader\TransportException;
 use Composer\CaBundle\CaBundle;
+use Composer\Pcre\Preg;
 use Composer\Util\Http\Response;
 use Composer\Util\Http\ProxyManager;
 
@@ -177,7 +178,7 @@ class RemoteFilesystem
     {
         $value = null;
         foreach ($headers as $header) {
-            if (preg_match('{^HTTP/\S+ (\d+)}i', $header, $match)) {
+            if (Preg::isMatch('{^HTTP/\S+ (\d+)}i', $header, $match)) {
                 // In case of redirects, http_response_headers contains the headers of all responses
                 // so we can not return directly and need to keep iterating
                 $value = (int) $match[1];
@@ -195,7 +196,7 @@ class RemoteFilesystem
     {
         $value = null;
         foreach ($headers as $header) {
-            if (preg_match('{^HTTP/\S+ \d+}i', $header)) {
+            if (Preg::isMatch('{^HTTP/\S+ \d+}i', $header)) {
                 // In case of redirects, http_response_headers contains the headers of all responses
                 // so we can not return directly and need to keep iterating
                 $value = $header;
@@ -281,7 +282,7 @@ class RemoteFilesystem
         unset($origFileUrl, $proxy, $usingProxy);
 
         // Check for secure HTTP, but allow insecure Packagist calls to $hashed providers as file integrity is verified with sha256
-        if ((!preg_match('{^http://(repo\.)?packagist\.org/p/}', $fileUrl) || (false === strpos($fileUrl, '$') && false === strpos($fileUrl, '%24'))) && empty($degradedPackagist)) {
+        if ((!Preg::isMatch('{^http://(repo\.)?packagist\.org/p/}', $fileUrl) || (false === strpos($fileUrl, '$') && false === strpos($fileUrl, '%24'))) && empty($degradedPackagist)) {
             $this->config->prohibitUrlByConfig($fileUrl, $this->io);
         }
 
@@ -296,7 +297,7 @@ class RemoteFilesystem
             if ($errorMessage) {
                 $errorMessage .= "\n";
             }
-            $errorMessage .= preg_replace('{^file_get_contents\(.*?\): }', '', $msg);
+            $errorMessage .= Preg::replace('{^file_get_contents\(.*?\): }', '', $msg);
 
             return true;
         });
@@ -324,7 +325,7 @@ class RemoteFilesystem
                 try {
                     $e->setResponse($this->decodeResult($result, $http_response_header));
                 } catch (\Exception $discarded) {
-                    $e->setResponse($result);
+                    $e->setResponse($this->normalizeResult($result));
                 }
 
                 $this->io->writeError('Content-Length mismatch, received '.Platform::strlen($result).' out of '.$contentLength.' bytes: (' . base64_encode($result).')', true, IOInterface::DEBUG);
@@ -386,7 +387,7 @@ class RemoteFilesystem
             && !$this->authHelper->isPublicBitBucketDownload($fileUrl)
             && substr($fileUrl, -4) === '.zip'
             && (!$locationHeader || substr(parse_url($locationHeader, PHP_URL_PATH), -4) !== '.zip')
-            && $contentType && preg_match('{^text/html\b}i', $contentType)
+            && $contentType && Preg::isMatch('{^text/html\b}i', $contentType)
         ) {
             $result = false;
             if ($retryAuthFailure) {
@@ -463,7 +464,7 @@ class RemoteFilesystem
                 if ($errorMessage) {
                     $errorMessage .= "\n";
                 }
-                $errorMessage .= preg_replace('{^file_put_contents\(.*?\): }', '', $msg);
+                $errorMessage .= Preg::replace('{^file_put_contents\(.*?\): }', '', $msg);
 
                 return true;
             });
@@ -555,6 +556,7 @@ class RemoteFilesystem
      * @param string   $originUrl   The origin URL
      * @param string   $fileUrl     The file URL
      * @param resource $context     The stream context
+     * @param string[] $responseHeaders
      * @param int      $maxFileSize The maximum allowed file size
      *
      * @return string|false The response contents or false on failure
@@ -592,12 +594,15 @@ class RemoteFilesystem
     /**
      * Get notification action.
      *
-     * @param  int                $notificationCode The notification code
-     * @param  int                $severity         The severity level
-     * @param  string             $message          The message
-     * @param  int                $messageCode      The message code
-     * @param  int                $bytesTransferred The loaded size
-     * @param  int                $bytesMax         The total size
+     * @param int    $notificationCode The notification code
+     * @param int    $severity         The severity level
+     * @param string $message          The message
+     * @param int    $messageCode      The message code
+     * @param int    $bytesTransferred The loaded size
+     * @param int    $bytesMax         The total size
+     *
+     * @return void
+     *
      * @throws TransportException
      */
     protected function callbackGet($notificationCode, $severity, $message, $messageCode, $bytesTransferred, $bytesMax)
@@ -631,9 +636,16 @@ class RemoteFilesystem
         }
     }
 
+    /**
+     * @param positive-int $httpStatus
+     * @param string|null  $reason
+     * @param string[]     $headers
+     *
+     * @return void
+     */
     protected function promptAuthAndRetry($httpStatus, $reason = null, $headers = array())
     {
-        $result = $this->authHelper->promptAuthIfNeeded($this->fileUrl, $this->originUrl, $httpStatus, $reason, $headers);
+        $result = $this->authHelper->promptAuthIfNeeded($this->fileUrl, $this->originUrl, $httpStatus, $reason, $headers, 1 /** always pass 1 as RemoteFilesystem is single threaded there is no race condition possible */);
 
         $this->storeAuth = $result['storeAuth'];
         $this->retry = $result['retry'];
@@ -643,6 +655,12 @@ class RemoteFilesystem
         }
     }
 
+    /**
+     * @param string  $originUrl
+     * @param mixed[] $additionalOptions
+     *
+     * @return mixed[]
+     */
     protected function getOptionsForUrl($originUrl, $additionalOptions)
     {
         $tlsOptions = array();
@@ -714,6 +732,13 @@ class RemoteFilesystem
         return $options;
     }
 
+    /**
+     * @param string[]     $http_response_header
+     * @param mixed[]      $additionalOptions
+     * @param string|false $result
+     *
+     * @return bool|string
+     */
     private function handleRedirect(array $http_response_header, array $additionalOptions, $result)
     {
         if ($locationHeader = Response::findHeaderValue($http_response_header, 'location')) {
@@ -728,11 +753,11 @@ class RemoteFilesystem
                 $urlHost = parse_url($this->fileUrl, PHP_URL_HOST);
 
                 // Replace path using hostname as an anchor.
-                $targetUrl = preg_replace('{^(.+(?://|@)'.preg_quote($urlHost).'(?::\d+)?)(?:[/\?].*)?$}', '\1'.$locationHeader, $this->fileUrl);
+                $targetUrl = Preg::replace('{^(.+(?://|@)'.preg_quote($urlHost).'(?::\d+)?)(?:[/\?].*)?$}', '\1'.$locationHeader, $this->fileUrl);
             } else {
                 // Relative path; e.g. foo
                 // This actually differs from PHP which seems to add duplicate slashes.
-                $targetUrl = preg_replace('{^(.+/)[^/?]*(?:\?.*)?$}', '\1'.$locationHeader, $this->fileUrl);
+                $targetUrl = Preg::replace('{^(.+/)[^/?]*(?:\?.*)?$}', '\1'.$locationHeader, $this->fileUrl);
             }
         }
 
@@ -762,6 +787,9 @@ class RemoteFilesystem
      * Fetch certificate common name and fingerprint for validation of SAN.
      *
      * @todo Remove when PHP 5.6 is minimum supported version.
+     *
+     * @param string  $url
+     * @param mixed[] $options
      *
      * @return ?array{cn: string, fp: string}
      */
@@ -807,6 +835,11 @@ class RemoteFilesystem
         return null;
     }
 
+    /**
+     * @param string $url
+     *
+     * @return string
+     */
     private function getUrlAuthority($url)
     {
         $defaultPorts = array(
@@ -832,6 +865,12 @@ class RemoteFilesystem
         return parse_url($url, PHP_URL_HOST).':'.$port;
     }
 
+    /**
+     * @param string|false $result
+     * @param string[]     $http_response_header
+     *
+     * @return string|null
+     */
     private function decodeResult($result, $http_response_header)
     {
         // decode gzip
@@ -851,6 +890,20 @@ class RemoteFilesystem
                     throw new TransportException('Failed to decode zlib stream');
                 }
             }
+        }
+
+        return $this->normalizeResult($result);
+    }
+
+    /**
+     * @param string|false $result
+     *
+     * @return string|null
+     */
+    private function normalizeResult($result)
+    {
+        if ($result === false) {
+            return null;
         }
 
         return $result;

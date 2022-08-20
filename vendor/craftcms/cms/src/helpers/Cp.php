@@ -85,7 +85,7 @@ class Cp
                 // Invalid license?
                 if ($licenseKeyStatus === LicenseKeyStatus::Invalid) {
                     $alerts[] = Craft::t('app', 'Your Craft license key is invalid.');
-                } else if (Craft::$app->getHasWrongEdition()) {
+                } elseif (Craft::$app->getHasWrongEdition()) {
                     $message = Craft::t('app', 'You’re running Craft {edition} with a Craft {licensedEdition} license.', [
                             'edition' => Craft::$app->getEditionName(),
                             'licensedEdition' => Craft::$app->getLicensedEditionName(),
@@ -342,14 +342,15 @@ class Cp
         $html .= '>';
 
         if ($context === 'field' && $inputName !== null) {
-            $removeText = sprintf('%s %s', Craft::t('app', 'Remove'), $label);
             $html .= Html::hiddenInput($inputName . ($single ? '' : '[]'), $element->id) .
                 Html::tag('button', '', [
                     'class' => ['delete', 'icon'],
                     'title' => Craft::t('app', 'Remove'),
                     'type' => 'button',
                     'aria' => [
-                        'label' => $removeText,
+                        'label' => Craft::t('app', 'Remove {label}', [
+                            'label' => $label,
+                        ]),
                     ],
                 ]);
         }
@@ -612,7 +613,7 @@ class Cp
                             'class' => ['flex-grow'],
                         ]) . static::renderTemplate('_includes/forms/copytextbtn', [
                             'id' => "$id-attribute",
-                            'class' => ['code', 'small', 'light', 'copytextbtn-expand-l'],
+                            'class' => ['code', 'small', 'light'],
                             'value' => $config['attribute'],
                         ])
                         : '') .
@@ -632,8 +633,8 @@ class Cp
                 $config['inputContainerAttributes'] ?? []
             )) .
             ($instructionsPosition === 'after' ? $instructionsHtml : '') .
-            self::_noticeHtml($tipId, 'notice', Craft::t('app', 'Tip'), $tip) .
-            self::_noticeHtml($warningId, 'warning', Craft::t('app', 'Warning'), $warning) .
+            self::_noticeHtml($tipId, 'notice', Craft::t('app', 'Tip:'), $tip) .
+            self::_noticeHtml($warningId, 'warning', Craft::t('app', 'Warning:'), $warning) .
             ($errors
                 ? static::renderTemplate('_includes/forms/errorList', [
                     'id' => $errorsId,
@@ -669,7 +670,7 @@ class Cp
                     'hidden' => 'true',
                 ],
             ]) .
-            Html::tag('span', "$label: ", [
+            Html::tag('span', "$label ", [
                 'class' => 'visually-hidden',
             ]) .
             Html::tag('span', preg_replace('/&amp;(\w+);/', '&$1;', Markdown::processParagraph(Html::encodeInvalidTags($message)))) .
@@ -874,7 +875,7 @@ class Cp
                     Html::a(Craft::t('app', 'Learn more'), 'https://craftcms.com/docs/3.x/config/#environmental-configuration', [
                         'class' => 'go',
                     ]);
-            } else if (
+            } elseif (
                 !isset($config['warning']) &&
                 ($value === '@web' || strpos($value, '@web/') === 0) &&
                 Craft::$app->getRequest()->isWebAliasSetDynamically
@@ -951,7 +952,7 @@ class Cp
             } else {
                 $docTitle .= " ($element->draftName)";
             }
-        } else if ($element->getIsRevision()) {
+        } elseif ($element->getIsRevision()) {
             /** @var ElementInterface|RevisionBehavior $element */
             $docTitle .= ' (' . $element->getRevisionLabel() . ')';
         }

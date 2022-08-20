@@ -14,6 +14,7 @@ namespace Composer\Repository;
 
 use Composer\Package\PackageInterface;
 use Composer\Package\BasePackage;
+use Composer\Pcre\Preg;
 
 /**
  * Filters which packages are seen as canonical on this repo by loadPackages
@@ -24,30 +25,29 @@ class FilterRepository implements RepositoryInterface
 {
     /** @var ?string */
     private $only = null;
-    /** @var ?string */
+    /** @var ?non-empty-string */
     private $exclude = null;
     /** @var bool */
     private $canonical = true;
     /** @var RepositoryInterface */
     private $repo;
 
+    /**
+     * @param array{only?: array<string>, exclude?: array<string>, canonical?: bool} $options
+     */
     public function __construct(RepositoryInterface $repo, array $options)
     {
         if (isset($options['only'])) {
             if (!is_array($options['only'])) {
                 throw new \InvalidArgumentException('"only" key for repository '.$repo->getRepoName().' should be an array');
             }
-            $this->only = '{^(?:'.implode('|', array_map(function ($val) {
-                return BasePackage::packageNameToRegexp($val, '%s');
-            }, $options['only'])) .')$}iD';
+            $this->only = BasePackage::packageNamesToRegexp($options['only']);
         }
         if (isset($options['exclude'])) {
             if (!is_array($options['exclude'])) {
                 throw new \InvalidArgumentException('"exclude" key for repository '.$repo->getRepoName().' should be an array');
             }
-            $this->exclude = '{^(?:'.implode('|', array_map(function ($val) {
-                return BasePackage::packageNameToRegexp($val, '%s');
-            }, $options['exclude'])) .')$}iD';
+            $this->exclude = BasePackage::packageNamesToRegexp($options['exclude']);
         }
         if ($this->exclude && $this->only) {
             throw new \InvalidArgumentException('Only one of "only" and "exclude" can be specified for repository '.$repo->getRepoName());
@@ -78,7 +78,7 @@ class FilterRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function hasPackage(PackageInterface $package)
     {
@@ -86,7 +86,7 @@ class FilterRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function findPackage($name, $constraint)
     {
@@ -98,7 +98,7 @@ class FilterRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function findPackages($name, $constraint = null)
     {
@@ -110,7 +110,7 @@ class FilterRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function loadPackages(array $packageMap, array $acceptableStabilities, array $stabilityFlags, array $alreadyLoaded = array())
     {
@@ -133,7 +133,7 @@ class FilterRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function search($query, $mode = 0, $type = null)
     {
@@ -149,7 +149,7 @@ class FilterRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getPackages()
     {
@@ -164,7 +164,7 @@ class FilterRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     public function getProviders($packageName)
     {
@@ -179,7 +179,7 @@ class FilterRepository implements RepositoryInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritDoc
      */
     #[\ReturnTypeWillChange]
     public function count()
@@ -191,6 +191,11 @@ class FilterRepository implements RepositoryInterface
         return 0;
     }
 
+    /**
+     * @param string $name
+     *
+     * @return bool
+     */
     private function isAllowed($name)
     {
         if (!$this->only && !$this->exclude) {
@@ -198,9 +203,13 @@ class FilterRepository implements RepositoryInterface
         }
 
         if ($this->only) {
-            return (bool) preg_match($this->only, $name);
+            return Preg::isMatch($this->only, $name);
         }
 
-        return !preg_match($this->exclude, $name);
+        if ($this->exclude === null) {
+            return true;
+        }
+
+        return !Preg::isMatch($this->exclude, $name);
     }
 }

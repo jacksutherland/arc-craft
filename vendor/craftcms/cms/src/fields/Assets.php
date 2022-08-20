@@ -10,20 +10,19 @@ namespace craft\fields;
 use Craft;
 use craft\base\ElementInterface;
 use craft\base\VolumeInterface;
-use craft\db\Table as DbTable;
 use craft\elements\Asset;
 use craft\elements\db\AssetQuery;
 use craft\elements\db\ElementQuery;
 use craft\errors\InvalidSubpathException;
 use craft\errors\InvalidVolumeException;
 use craft\errors\VolumeObjectNotFoundException;
+use craft\events\LocateUploadedFilesEvent;
 use craft\gql\arguments\elements\Asset as AssetArguments;
 use craft\gql\interfaces\elements\Asset as AssetInterface;
 use craft\gql\resolvers\elements\Asset as AssetResolver;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Assets as AssetsHelper;
 use craft\helpers\Cp;
-use craft\helpers\Db;
 use craft\helpers\ElementHelper;
 use craft\helpers\FileHelper;
 use craft\helpers\Gql;
@@ -52,6 +51,13 @@ class Assets extends BaseRelationField
      * @since 3.5.11
      */
     const PREVIEW_MODE_THUMBS = 'thumbs';
+
+    /**
+     * @event LocateUploadedFilesEvent The event that is triggered when identifying any uploaded files that
+     * should be stored as assets and related by the field.
+     * @since 3.7.72
+     */
+    const EVENT_LOCATE_UPLOADED_FILES = 'locateUploadedFiles';
 
     /**
      * @inheritdoc
@@ -373,14 +379,18 @@ class Assets extends BaseRelationField
         // Get any uploaded filenames
         $uploadedFiles = $this->_getUploadedFiles($element);
         foreach ($uploadedFiles as $file) {
-            if ($file['type'] === 'data') {
-                if (strlen($file['data']) > $maxSize) {
-                    $filenames[] = $file['filename'];
-                }
-            } else {
-                if (file_exists($file['location']) && (filesize($file['location']) > $maxSize)) {
-                    $filenames[] = $file['filename'];
-                }
+            switch ($file['type']) {
+                case 'data':
+                    if (strlen($file['data']) > $maxSize) {
+                        $filenames[] = $file['filename'];
+                    }
+                    break;
+                case 'file':
+                case 'upload':
+                    if (file_exists($file['path']) && (filesize($file['path']) > $maxSize)) {
+                        $filenames[] = $file['filename'];
+                    }
+                    break;
             }
         }
 
@@ -492,7 +502,7 @@ class Assets extends BaseRelationField
     public function afterElementSave(ElementInterface $element, bool $isNew)
     {
         // Figure out what we're working with and set up some initial variables.
-        $isCanonical = $element->id && ElementHelper::isCanonical($element);
+        $isCanonical = ElementHelper::isCanonical($element);
         $query = $element->getFieldValue($this->handle);
         $assetsService = Craft::$app->getAssets();
 
@@ -514,11 +524,16 @@ class Assets extends BaseRelationField
 
                 foreach ($uploadedFiles as $file) {
                     $tempPath = AssetsHelper::tempFilePath($file['filename']);
-                    if ($file['type'] === 'upload') {
-                        move_uploaded_file($file['location'], $tempPath);
-                    }
-                    if ($file['type'] === 'data') {
-                        FileHelper::writeToFile($tempPath, $file['data']);
+                    switch ($file['type']) {
+                        case 'data':
+                            FileHelper::writeToFile($tempPath, $file['data']);
+                            break;
+                        case 'file':
+                            rename($file['path'], $tempPath);
+                            break;
+                        case 'upload':
+                            move_uploaded_file($file['path'], $tempPath);
+                            break;
                     }
 
                     $folder = $assetsService->getFolderById($targetFolderId);
@@ -568,9 +583,8 @@ class Assets extends BaseRelationField
                 });
             } else {
                 // Find the files with temp sources and just move those.
-                $assetsToMove = Asset::find()
+                $assetsToMove = $assetsService->createTempAssetQuery()
                     ->id(ArrayHelper::getColumn($assets, 'id'))
-                    ->volumeId(':empty:')
                     ->all();
             }
 
@@ -601,15 +615,21 @@ class Assets extends BaseRelationField
     public function getEagerLoadingGqlConditions()
     {
         $allowedEntities = Gql::extractAllowedEntitiesFromSchema();
-        $allowedVolumeUids = $allowedEntities['volumes'] ?? [];
+        $volumeUids = $allowedEntities['volumes'] ?? [];
 
-        if (empty($allowedVolumeUids)) {
+        if (empty($volumeUids)) {
             return false;
         }
 
-        $volumeIds = Db::idsByUids(DbTable::VOLUMES, $allowedVolumeUids);
+        $volumesService = Craft::$app->getVolumes();
+        $volumeIds = array_filter(array_map(function(string $uid) use ($volumesService) {
+            $volume = $volumesService->getVolumeByUid($uid);
+            return $volume->id ?? null;
+        }, $volumeUids));
 
-        return ['volumeId' => array_values($volumeIds)];
+        return [
+            'volumeId' => $volumeIds,
+        ];
     }
 
     /**
@@ -719,10 +739,10 @@ class Assets extends BaseRelationField
      */
     private function _getUploadedFiles(ElementInterface $element): array
     {
-        $uploadedFiles = [];
+        $files = [];
 
         if (ElementHelper::isRevision($element)) {
-            return $uploadedFiles;
+            return $files;
         }
 
         // Grab data strings
@@ -748,7 +768,7 @@ class Assets extends BaseRelationField
                         $filename = 'Uploaded_file.' . reset($extensions);
                     }
 
-                    $uploadedFiles[] = [
+                    $files[] = [
                         'filename' => $filename,
                         'data' => $data,
                         'type' => 'data',
@@ -761,18 +781,23 @@ class Assets extends BaseRelationField
         $paramName = $this->requestParamName($element);
 
         if ($paramName !== null) {
-            $files = UploadedFile::getInstancesByName($paramName);
+            $uploadedFiles = UploadedFile::getInstancesByName($paramName);
 
-            foreach ($files as $file) {
-                $uploadedFiles[] = [
-                    'filename' => $file->name,
-                    'location' => $file->tempName,
+            foreach ($uploadedFiles as $uploadedFile) {
+                $files[] = [
+                    'filename' => $uploadedFile->name,
+                    'path' => $uploadedFile->tempName,
                     'type' => 'upload',
                 ];
             }
         }
 
-        return $uploadedFiles;
+        $event = new LocateUploadedFilesEvent([
+            'element' => $element,
+            'files' => $files,
+        ]);
+        $this->trigger(self::EVENT_LOCATE_UPLOADED_FILES, $event);
+        return $event->files;
     }
 
     /**
@@ -920,9 +945,15 @@ class Assets extends BaseRelationField
                 $folderId = $assets->ensureFolderByFullPathAndVolume($subpath, Craft::$app->getVolumes()->getVolumeById($volumeId), false);
             }
 
-            // If this is a new/disabled element, the subpath probably just contained a token that returned null, like {id}
+            // If this is a new/disabled/draft element, the subpath probably just contained a token that returned null, like {id}
             // so use the user's upload folder instead
-            if ($element === null || !$element->id || !$element->enabled || !$createDynamicFolders) {
+            if (
+                $element === null ||
+                !$element->id ||
+                !$element->enabled ||
+                !$createDynamicFolders ||
+                ElementHelper::isDraft($element)
+            ) {
                 $userFolder = $assets->getUserTemporaryUploadFolder();
             } else {
                 // Existing element, so this is just a bad subpath
@@ -937,8 +968,8 @@ class Assets extends BaseRelationField
         // If we have resolved everything to a temporary user folder, fine
         if ($userFolder !== null) {
             $folderId = $userFolder->id;
-            // But in all other cases, make it the default upload location, too
-        } else if (!$this->useSingleFolder) {
+        // But in all other cases, make it the default upload location, too
+        } elseif (!$this->useSingleFolder) {
             $this->_defaultUploadLocation = $this->_getSourcePathByFolderId($folderId);
         }
 

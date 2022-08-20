@@ -18,6 +18,7 @@ use craft\helpers\StringHelper;
 use craft\models\EntryType;
 use craft\models\Section;
 use craft\models\UserGroup;
+use DateTime;
 use yii\base\InvalidConfigException;
 use yii\db\Connection;
 
@@ -283,7 +284,7 @@ class EntryQuery extends ElementQuery
      *     ->all();
      * ```
      *
-     * @param string|string[]|Section|null $value The property value
+     * @param string|string[]|Section|Section[]|null $value The property value
      * @return static self reference
      * @uses $sectionId
      */
@@ -295,20 +296,26 @@ class EntryQuery extends ElementQuery
         }
 
         if ($value instanceof Section) {
+            // Special case for a single section, since we also want to capture the structure ID
             $this->sectionId = [$value->id];
             if ($value->structureId) {
                 $this->structureId = $value->structureId;
             } else {
                 $this->withStructure = false;
             }
-        } else if ($value !== null) {
+        } elseif (Db::normalizeParam($value, function($item) {
+            if (is_string($item)) {
+                $item = Craft::$app->getSections()->getSectionByHandle($item);
+            }
+            return $item instanceof Section ? $item->id : null;
+        })) {
+            $this->sectionId = $value;
+        } else {
             $this->sectionId = (new Query())
                 ->select(['id'])
                 ->from([Table::SECTIONS])
                 ->where(Db::parseParam('handle', $value))
                 ->column();
-        } else {
-            $this->sectionId = null;
         }
 
         return $this;
@@ -383,22 +390,25 @@ class EntryQuery extends ElementQuery
      *     ->all();
      * ```
      *
-     * @param string|string[]|EntryType|null $value The property value
+     * @param string|string[]|EntryType|EntryType[]|null $value The property value
      * @return static self reference
      * @uses $typeId
      */
     public function type($value)
     {
-        if ($value instanceof EntryType) {
-            $this->typeId = [$value->id];
-        } else if ($value !== null) {
+        if (Db::normalizeParam($value, function($item) {
+            if (is_string($item)) {
+                $item = Craft::$app->getSections()->getEntryTypesByHandle($item);
+            }
+            return $item instanceof EntryType ? $item->id : null;
+        })) {
+            $this->typeId = $value;
+        } else {
             $this->typeId = (new Query())
                 ->select(['id'])
                 ->from([Table::ENTRYTYPES])
                 ->where(Db::parseParam('handle', $value))
                 ->column();
-        } else {
-            $this->typeId = null;
         }
 
         return $this;
@@ -517,7 +527,7 @@ class EntryQuery extends ElementQuery
     {
         if ($value instanceof UserGroup) {
             $this->authorGroupId = $value->id;
-        } else if ($value !== null) {
+        } elseif ($value !== null) {
             $this->authorGroupId = (new Query())
                 ->select(['id'])
                 ->from([Table::USERGROUPS])
@@ -835,7 +845,12 @@ class EntryQuery extends ElementQuery
      */
     protected function statusCondition(string $status)
     {
-        $currentTimeDb = Db::prepareDateForDb(new \DateTime());
+        // Always consider “now” to be the current time @ 59 seconds into the minute.
+        // This makes entry queries more cacheable, since they only change once every minute (https://github.com/craftcms/cms/issues/5389),
+        // while not excluding any entries that may have just been published in the past minute (https://github.com/craftcms/cms/issues/7853).
+        $now = new DateTime();
+        $now->setTime((int)$now->format('H'), (int)$now->format('i'), 59);
+        $currentTimeDb = Db::prepareDateForDb($now);
 
         switch ($status) {
             case Entry::STATUS_LIVE:
@@ -919,9 +934,9 @@ class EntryQuery extends ElementQuery
     {
         if (empty($this->typeId)) {
             $this->typeId = is_array($this->typeId) ? [] : null;
-        } else if (is_numeric($this->typeId)) {
+        } elseif (is_numeric($this->typeId)) {
             $this->typeId = [$this->typeId];
-        } else if (!is_array($this->typeId) || !ArrayHelper::isNumeric($this->typeId)) {
+        } elseif (!is_array($this->typeId) || !ArrayHelper::isNumeric($this->typeId)) {
             $this->typeId = (new Query())
                 ->select(['id'])
                 ->from([Table::ENTRYTYPES])
@@ -961,9 +976,9 @@ class EntryQuery extends ElementQuery
     {
         if (empty($this->sectionId)) {
             $this->sectionId = is_array($this->sectionId) ? [] : null;
-        } else if (is_numeric($this->sectionId)) {
+        } elseif (is_numeric($this->sectionId)) {
             $this->sectionId = [$this->sectionId];
-        } else if (!is_array($this->sectionId) || !ArrayHelper::isNumeric($this->sectionId)) {
+        } elseif (!is_array($this->sectionId) || !ArrayHelper::isNumeric($this->sectionId)) {
             $this->sectionId = (new Query())
                 ->select(['id'])
                 ->from([Table::SECTIONS])
@@ -1025,7 +1040,7 @@ class EntryQuery extends ElementQuery
             foreach ($this->typeId as $typeId) {
                 $tags[] = "entryType:$typeId";
             }
-        } else if ($this->sectionId) {
+        } elseif ($this->sectionId) {
             foreach ($this->sectionId as $sectionId) {
                 $tags[] = "section:$sectionId";
             }

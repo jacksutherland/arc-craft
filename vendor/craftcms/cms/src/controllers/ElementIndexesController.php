@@ -101,7 +101,11 @@ class ElementIndexesController extends BaseElementsController
         $this->paginated = (bool)$this->request->getParam('paginated');
         $this->elementQuery = $this->elementQuery();
 
-        if ($this->includeActions() && $this->sourceKey !== null) {
+        if (
+            in_array($action->id, ['get-elements', 'get-more-elements', 'perform-action', 'export']) &&
+            $this->includeActions() &&
+            $this->sourceKey !== null
+        ) {
             $this->actions = $this->availableActions();
             $this->exporters = $this->availableExporters();
         }
@@ -337,7 +341,7 @@ class ElementIndexesController extends BaseElementsController
                     $this->response->formatters[Response::FORMAT_XML]['rootTag'] = $elementType::pluralLowerDisplayName();
                     break;
             }
-        } else if (
+        } elseif (
             is_callable($export) ||
             is_resource($export) ||
             (is_array($export) && isset($export[0]) && is_resource($export[0]))
@@ -587,10 +591,10 @@ class ElementIndexesController extends BaseElementsController
             if ($this->elementQuery->trashed) {
                 if ($action instanceof DeleteActionInterface && $action->canHardDelete()) {
                     $action->hard = true;
-                } else if (!$action instanceof Restore) {
+                } elseif (!$action instanceof Restore) {
                     unset($actions[$i]);
                 }
-            } else if ($action instanceof Restore) {
+            } elseif ($action instanceof Restore) {
                 unset($actions[$i]);
             }
         }

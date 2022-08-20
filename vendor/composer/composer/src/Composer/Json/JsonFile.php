@@ -12,6 +12,7 @@
 
 namespace Composer\Json;
 
+use Composer\Pcre\Preg;
 use JsonSchema\Validator;
 use Seld\JsonLint\JsonParser;
 use Seld\JsonLint\ParsingException;
@@ -55,7 +56,7 @@ class JsonFile
     {
         $this->path = $path;
 
-        if (null === $httpDownloader && preg_match('{^https?://}i', $path)) {
+        if (null === $httpDownloader && Preg::isMatch('{^https?://}i', $path)) {
             throw new \InvalidArgumentException('http urls require a HttpDownloader instance to be passed');
         }
         $this->httpDownloader = $httpDownloader;
@@ -109,15 +110,20 @@ class JsonFile
             throw new \RuntimeException('Could not read '.$this->path."\n\n".$e->getMessage());
         }
 
+        if ($json === false) {
+            throw new \RuntimeException('Could not read '.$this->path);
+        }
+
         return static::parseJson($json, $this->path);
     }
 
     /**
      * Writes json file.
      *
-     * @param  array                                $hash    writes hash into json file
+     * @param  mixed[]                          $hash    writes hash into json file
      * @param  int                                  $options json_encode options (defaults to JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
      * @throws \UnexpectedValueException|\Exception
+     * @return void
      */
     public function write(array $hash, $options = 448)
     {
@@ -147,7 +153,7 @@ class JsonFile
                 $this->filePutContentsIfModified($this->path, static::encode($hash, $options). ($options & self::JSON_PRETTY_PRINT ? "\n" : ''));
                 break;
             } catch (\Exception $e) {
-                if ($retries) {
+                if ($retries > 0) {
                     usleep(500000);
                     continue;
                 }
@@ -158,7 +164,11 @@ class JsonFile
     }
 
     /**
-     * modify file properties only if content modified
+     * Modify file properties only if content modified
+     *
+     * @param string $path
+     * @param string $content
+     * @return int|false
      */
     private function filePutContentsIfModified($path, $content)
     {
@@ -240,8 +250,8 @@ class JsonFile
 
             //  compact brackets to follow recent php versions
             if (PHP_VERSION_ID < 50428 || (PHP_VERSION_ID >= 50500 && PHP_VERSION_ID < 50512) || (defined('JSON_C_VERSION') && version_compare(phpversion('json'), '1.3.6', '<'))) {
-                $json = preg_replace('/\[\s+\]/', '[]', $json);
-                $json = preg_replace('/\{\s+\}/', '{}', $json);
+                $json = Preg::replace('/\[\s+\]/', '[]', $json);
+                $json = Preg::replace('/\{\s+\}/', '{}', $json);
             }
 
             return $json;
@@ -268,6 +278,7 @@ class JsonFile
      *
      * @param  int               $code return code of json_last_error function
      * @throws \RuntimeException
+     * @return void
      */
     private static function throwEncodeError($code)
     {

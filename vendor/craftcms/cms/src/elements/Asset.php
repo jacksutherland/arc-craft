@@ -302,7 +302,7 @@ class Asset extends Element
         ) {
             $temporaryUploadFolder = Craft::$app->getAssets()->getUserTemporaryUploadFolder();
             $temporaryUploadFolder->name = Craft::t('app', 'Temporary Uploads');
-            $sourceList[] = self::_assembleSourceInfoForFolder($temporaryUploadFolder, false);
+            $sourceList[] = self::_assembleSourceInfoForFolder($temporaryUploadFolder);
         }
 
         return $sourceList;
@@ -312,7 +312,7 @@ class Asset extends Element
      * @inheritdoc
      * @since 3.5.0
      */
-    public static function defineFieldLayouts(string $source): array
+    protected static function defineFieldLayouts(string $source): array
     {
         $fieldLayouts = [];
         if (
@@ -517,7 +517,7 @@ class Asset extends Element
 
         if ($volume instanceof Temp) {
             $volumeHandle = 'temp';
-        } else if (!$folder->parentId) {
+        } elseif (!$folder->parentId) {
             $volumeHandle = $volume->handle ?? false;
         } else {
             $volumeHandle = false;
@@ -1076,10 +1076,15 @@ class Asset extends Element
 
             [$value, $unit] = Assets::parseSrcsetSize($size);
 
-            $sizeTransform = $transform ? $transform->toArray() : [];
-
-            // Having handle or name here will override dimensions, so we don't want that.
-            unset($sizeTransform['handle'], $sizeTransform['name']);
+            $sizeTransform = $transform ? $transform->toArray([
+                'format',
+                'height',
+                'interlace',
+                'mode',
+                'position',
+                'quality',
+                'width',
+            ]) : [];
 
             if ($unit === 'w') {
                 $sizeTransform['width'] = (int)$value;
@@ -1680,7 +1685,7 @@ class Asset extends Element
                 'x' => (float)$value['x'],
                 'y' => (float)$value['y'],
             ];
-        } else if ($value !== null) {
+        } elseif ($value !== null) {
             $focal = explode(';', $value);
             if (count($focal) !== 2) {
                 throw new \InvalidArgumentException('$value should be a string or array with \'x\' and \'y\' keys.');
@@ -2173,8 +2178,17 @@ class Asset extends Element
 
         $transform = Craft::$app->getAssetTransforms()->normalizeTransform($transform);
 
-        if ($this->_width < $transform->width && $this->_height < $transform->height && !Craft::$app->getConfig()->getGeneral()->upscaleImages) {
-            $transformRatio = $transform->width / $transform->height;
+        if (
+            ($transform->width === null || $this->_width < $transform->width) &&
+            ($transform->height === null || $this->_height < $transform->height) &&
+            !Craft::$app->getConfig()->getGeneral()->upscaleImages
+        ) {
+            if ($transform->width === null || $transform->height === null) {
+                $transformRatio = $this->_width / $this->_height;
+            } else {
+                $transformRatio = $transform->width / $transform->height;
+            }
+
             $imageRatio = $this->_width / $this->_height;
 
             if ($transform->mode !== 'crop' || $imageRatio === $transformRatio) {

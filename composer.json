@@ -1,10 +1,10 @@
 {
   "require": {
-    "craftcms/cms": "3.7.36",
-    "craftcms/redactor": "2.10.5",
-    "mmikkel/reasons": "2.2.6",
+    "craftcms/cms": "3.7.51",
+    "craftcms/redactor": "2.10.10",
+    "mmikkel/reasons": "2.3.1",
     "realitygems/arc": "^1.0",
-    "verbb/super-table": "2.7.1",
+    "verbb/super-table": "2.7.2",
     "vlucas/phpdotenv": "^5.4.0"
   },
   "require-dev": {

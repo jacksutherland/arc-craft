@@ -13,9 +13,11 @@
 namespace Composer\Downloader;
 
 use Composer\Package\PackageInterface;
+use Composer\Pcre\Preg;
 use Composer\Util\Svn as SvnUtil;
 use Composer\Repository\VcsRepository;
 use Composer\Util\ProcessExecutor;
+use React\Promise\PromiseInterface;
 
 /**
  * @author Ben Bieker <mail@ben-bieker.de>
@@ -27,7 +29,7 @@ class SvnDownloader extends VcsDownloader
     protected $cacheCredentials = true;
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function doDownload(PackageInterface $package, $path, $url, PackageInterface $prevPackage = null)
     {
@@ -41,7 +43,7 @@ class SvnDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function doInstall(PackageInterface $package, $path, $url)
     {
@@ -63,7 +65,7 @@ class SvnDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function doUpdate(PackageInterface $initial, PackageInterface $target, $path, $url)
     {
@@ -87,7 +89,7 @@ class SvnDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     public function getLocalChanges(PackageInterface $package, $path)
     {
@@ -97,7 +99,7 @@ class SvnDownloader extends VcsDownloader
 
         $this->process->execute('svn status --ignore-externals', $output, $path);
 
-        return preg_match('{^ *[^X ] +}m', $output) ? $output : null;
+        return Preg::isMatch('{^ *[^X ] +}m', $output) ? $output : null;
     }
 
     /**
@@ -126,12 +128,12 @@ class SvnDownloader extends VcsDownloader
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function cleanChanges(PackageInterface $package, $path, $update)
     {
         if (!$changes = $this->getLocalChanges($package, $path)) {
-            return;
+            return \React\Promise\resolve();
         }
 
         if (!$this->io->isInteractive()) {
@@ -144,7 +146,7 @@ class SvnDownloader extends VcsDownloader
 
         $changes = array_map(function ($elem) {
             return '    '.$elem;
-        }, preg_split('{\s*\r?\n\s*}', $changes));
+        }, Preg::split('{\s*\r?\n\s*}', $changes));
         $countChanges = count($changes);
         $this->io->writeError(sprintf('    <error>'.$package->getPrettyName().' has modified file%s:</error>', $countChanges === 1 ? '' : 's'));
         $this->io->writeError(array_slice($changes, 0, 10));
@@ -182,14 +184,16 @@ class SvnDownloader extends VcsDownloader
                     break;
             }
         }
+
+        return \React\Promise\resolve();
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function getCommitLogs($fromReference, $toReference, $path)
     {
-        if (preg_match('{@(\d+)$}', $fromReference) && preg_match('{@(\d+)$}', $toReference)) {
+        if (Preg::isMatch('{@(\d+)$}', $fromReference) && Preg::isMatch('{@(\d+)$}', $toReference)) {
             // retrieve the svn base url from the checkout folder
             $command = sprintf('svn info --non-interactive --xml -- %s', ProcessExecutor::escape($path));
             if (0 !== $this->process->execute($command, $output, $path)) {
@@ -199,7 +203,7 @@ class SvnDownloader extends VcsDownloader
             }
 
             $urlPattern = '#<url>(.*)</url>#';
-            if (preg_match($urlPattern, $output, $matches)) {
+            if (Preg::isMatch($urlPattern, $output, $matches)) {
                 $baseUrl = $matches[1];
             } else {
                 throw new \RuntimeException(
@@ -208,8 +212,8 @@ class SvnDownloader extends VcsDownloader
             }
 
             // strip paths from references and only keep the actual revision
-            $fromRevision = preg_replace('{.*@(\d+)$}', '$1', $fromReference);
-            $toRevision = preg_replace('{.*@(\d+)$}', '$1', $toReference);
+            $fromRevision = Preg::replace('{.*@(\d+)$}', '$1', $fromReference);
+            $toRevision = Preg::replace('{.*@(\d+)$}', '$1', $toReference);
 
             $command = sprintf('svn log -r%s:%s --incremental', ProcessExecutor::escape($fromRevision), ProcessExecutor::escape($toRevision));
 
@@ -227,15 +231,22 @@ class SvnDownloader extends VcsDownloader
         return "Could not retrieve changes between $fromReference and $toReference due to missing revision information";
     }
 
+    /**
+     * @param string $path
+     *
+     * @return PromiseInterface
+     */
     protected function discardChanges($path)
     {
         if (0 !== $this->process->execute('svn revert -R .', $output, $path)) {
             throw new \RuntimeException("Could not reset changes\n\n:".$this->process->getErrorOutput());
         }
+
+        return \React\Promise\resolve();
     }
 
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
     protected function hasMetadataRepository($path)
     {

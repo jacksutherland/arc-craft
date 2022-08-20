@@ -903,10 +903,7 @@ class SuperTableService extends Component
                     'propagating' => false,
                 ];
 
-                if (
-                    $target->updatingFromDerivative &&
-                    $block->getCanonical() !== $block // in case the canonical block is soft-deleted
-                ) {
+                if ($target->updatingFromDerivative && $block->getIsDerivative()) {
                     if (
                         ElementHelper::isRevision($source) ||
                         !empty($target->newSiteIds) ||
@@ -1057,9 +1054,18 @@ class SuperTableService extends Component
                         if ($derivativeBlock->dateUpdated == $derivativeBlock->dateCreated) {
                             $elementsService->deleteElement($derivativeBlock);
                         }
-                    } else if (!$derivativeBlock->trashed && ElementHelper::isOutdated($derivativeBlock)) {
-                        // Merge the upstream changes into the derivative block
-                        $elementsService->mergeCanonicalChanges($derivativeBlock);
+                    } else if (!$derivativeBlock->trashed) {
+                        // TODO: remove after next breakpoint
+                        $version = Craft::$app->getInfo()->version;
+                        if (version_compare($version, '3.7.12', '>=')) {
+                            if (ElementHelper::isOutdated($derivativeBlock)) {
+                                // Merge the upstream changes into the derivative block
+                                $elementsService->mergeCanonicalChanges($derivativeBlock);
+                            }
+                        } else {
+                            // Merge the upstream changes into the derivative block
+                            $elementsService->mergeCanonicalChanges($derivativeBlock);
+                        }
                     }
                 } else if (!$canonicalBlock->trashed && $canonicalBlock->dateCreated > $owner->dateCreated) {
                     // This is a new block, so duplicate it into the derivative owner
@@ -1102,7 +1108,7 @@ class SuperTableService extends Component
      * @return int[]
      * @since 2.3.2
      */
-    public function getSupportedSiteIds(string $propagationMethod, ElementInterface $owner): array    
+    public function getSupportedSiteIds(string $propagationMethod, ElementInterface $owner, ?string $propagationKeyFormat = null): array
     {
         /** @var Site[] $allSites */
         $allSites = ArrayHelper::index(Craft::$app->getSites()->getAllSites(), 'id');

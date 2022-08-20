@@ -123,6 +123,12 @@
 {% endjs %}
 
 {% block body %}
+    {{ tag ('a', {
+        text: 'Skip to content'|t('app'),
+        href: '#main',
+        class: 'skip-link btn',
+    }) }}
+
     <div id="global-container">
         {% include '_layouts/components/global-sidebar' %}
 
@@ -139,7 +145,7 @@
                     </button>
 
                     {# New account dropdown #}
-                    <div class="account-toggle-wrapper" data-wrapper>
+                    <div class="account-toggle-wrapper">
                         <button 
                             id="user-info"
                             aria-controls="account-menu" 

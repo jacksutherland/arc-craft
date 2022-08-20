@@ -1,9 +1,0 @@
-baseUrl: $PRIMARY_SITE_URL
-enabled: true
-handle: default
-hasUrls: true
-language: en-US
-name: ARcollective
-primary: true
-siteGroup: c98ac2b6-ea46-48bb-9d12-7e5979cb6df2 # ARcollective
-sortOrder: 1

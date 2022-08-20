@@ -22,7 +22,7 @@ use yii\db\Exception;
 
 /**
  * @inheritdoc
- * @method TableSchema getTableSchema($name, $refresh = false) Obtains the schema information for the named table.
+ * @method TableSchema|null getTableSchema($name, $refresh = false) Obtains the schema information for the named table.
  * @property Connection $db
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0.0
@@ -274,7 +274,7 @@ class Schema extends \yii\db\mysql\Schema
      */
     protected function loadTableSchema($name)
     {
-        $table = new TableSchema;
+        $table = new TableSchema();
         $this->resolveTableNames($table, $name);
 
         if ($this->findColumns($table)) {

@@ -13,8 +13,8 @@
 namespace Composer\Util;
 
 use Composer\IO\IOInterface;
+use Composer\Pcre\Preg;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessUtils;
 use Symfony\Component\Process\Exception\RuntimeException;
 use React\Promise\Promise;
 use React\Promise\PromiseInterface;
@@ -102,18 +102,7 @@ class ProcessExecutor
      */
     private function doExecute($command, $cwd, $tty, &$output = null)
     {
-        if ($this->io && $this->io->isDebug()) {
-            $safeCommand = preg_replace_callback('{://(?P<user>[^:/\s]+):(?P<password>[^@\s/]+)@}i', function ($m) {
-                // if the username looks like a long (12char+) hex string, or a modern github token (e.g. ghp_xxx) we obfuscate that
-                if (preg_match('{^([a-f0-9]{12,}|gh[a-z]_[a-zA-Z0-9_]+)$}', $m['user'])) {
-                    return '://***:***@';
-                }
-
-                return '://'.$m['user'].':***@';
-            }, $command);
-            $safeCommand = preg_replace("{--password (.*[^\\\\]\') }", '--password \'***\' ', $safeCommand);
-            $this->io->writeError('Executing command ('.($cwd ?: 'CWD').'): '.$safeCommand);
-        }
+        $this->outputCommandRun($command, $cwd, false);
 
         // TODO in 2.2, these two checks can be dropped as Symfony 4+ supports them out of the box
         // make sure that null translate to the proper directory in case the dir is a symlink
@@ -249,17 +238,7 @@ class ProcessExecutor
         $command = $job['command'];
         $cwd = $job['cwd'];
 
-        if ($this->io && $this->io->isDebug()) {
-            $safeCommand = preg_replace_callback('{://(?P<user>[^:/\s]+):(?P<password>[^@\s/]+)@}i', function ($m) {
-                if (preg_match('{^[a-f0-9]{12,}$}', $m['user'])) {
-                    return '://***:***@';
-                }
-
-                return '://'.$m['user'].':***@';
-            }, $command);
-            $safeCommand = preg_replace("{--password (.*[^\\\\]\') }", '--password \'***\' ', $safeCommand);
-            $this->io->writeError('Executing async command ('.($cwd ?: 'CWD').'): '.$safeCommand);
-        }
+        $this->outputCommandRun($command, $cwd, true);
 
         // TODO in 2.2, these two checks can be dropped as Symfony 4+ supports them out of the box
         // make sure that null translate to the proper directory in case the dir is a symlink
@@ -342,6 +321,8 @@ class ProcessExecutor
                 if (!$job['process']->isRunning()) {
                     call_user_func($job['resolve'], $job['process']);
                 }
+
+                $job['process']->checkTimeout();
             }
 
             if ($this->runningJobs < $this->maxJobs) {
@@ -385,7 +366,7 @@ class ProcessExecutor
     {
         $output = trim((string) $output);
 
-        return $output === '' ? array() : preg_split('{\r?\n}', $output);
+        return $output === '' ? array() : Preg::split('{\r?\n}', $output);
     }
 
     /**
@@ -445,7 +426,7 @@ class ProcessExecutor
     /**
      * Escapes a string to be used as a shell argument.
      *
-     * @param ?string $argument The argument that will be escaped
+     * @param string|false|null $argument The argument that will be escaped
      *
      * @return string The escaped argument
      */
@@ -455,38 +436,78 @@ class ProcessExecutor
     }
 
     /**
-     * Copy of Symfony's Process::escapeArgument() which is private
+     * @param string  $command
+     * @param ?string $cwd
+     * @param bool    $async
+     * @return void
+     */
+    private function outputCommandRun($command, $cwd, $async)
+    {
+        if (null === $this->io || !$this->io->isDebug()) {
+            return;
+        }
+
+        $safeCommand = Preg::replaceCallback('{://(?P<user>[^:/\s]+):(?P<password>[^@\s/]+)@}i', function ($m) {
+            // if the username looks like a long (12char+) hex string, or a modern github token (e.g. ghp_xxx) we obfuscate that
+            if (Preg::isMatch('{^([a-f0-9]{12,}|gh[a-z]_[a-zA-Z0-9_]+)$}', $m['user'])) {
+                return '://***:***@';
+            }
+            if (Preg::isMatch('{^[a-f0-9]{12,}$}', $m['user'])) {
+                return '://***:***@';
+            }
+
+            return '://'.$m['user'].':***@';
+        }, $command);
+        $safeCommand = Preg::replace("{--password (.*[^\\\\]\') }", '--password \'***\' ', $safeCommand);
+        $this->io->writeError('Executing'.($async ? ' async' : '').' command ('.($cwd ?: 'CWD').'): '.$safeCommand);
+    }
+
+    /**
+     * Escapes a string to be used as a shell argument for Symfony Process.
      *
-     * @param ?string $argument
+     * This method expects cmd.exe to be started with the /V:ON option, which
+     * enables delayed environment variable expansion using ! as the delimiter.
+     * If this is not the case, any escaped ^^!var^^! will be transformed to
+     * ^!var^! and introduce two unintended carets.
+     *
+     * Modified from https://github.com/johnstevenson/winbox-args
+     * MIT Licensed (c) John Stevenson <john-stevenson@blueyonder.co.uk>
+     *
+     * @param string|false|null $argument
      *
      * @return string
      */
     private static function escapeArgument($argument)
     {
-        if ('' === $argument || null === $argument) {
-            return '""';
+        if ('' === ($argument = (string) $argument)) {
+            return escapeshellarg($argument);
         }
-        if ('\\' !== \DIRECTORY_SEPARATOR) {
+
+        if (!Platform::isWindows()) {
             return "'".str_replace("'", "'\\''", $argument)."'";
         }
-        if (false !== strpos($argument, "\0")) {
-            $argument = str_replace("\0", '?', $argument);
-        }
-        if (!preg_match('/[\/()%!^"<>&|\s]/', $argument)) {
-            return $argument;
-        }
-        $argument = preg_replace('/(\\\\+)$/', '$1$1', $argument);
 
-        return '"'.str_replace(array('"', '^', '%', '!', "\n"), array('""', '"^^"', '"^%"', '"^!"', '!LF!'), $argument).'"';
-    }
+        // New lines break cmd.exe command parsing
+        $argument = strtr($argument, "\n", ' ');
 
-    /**
-     * @param  string $arg
-     * @param  string $char
-     * @return bool
-     */
-    private static function isSurroundedBy($arg, $char)
-    {
-        return 2 < strlen($arg) && $char === $arg[0] && $char === $arg[strlen($arg) - 1];
+        // In addition to whitespace, commas need quoting to preserve paths
+        $quote = strpbrk($argument, " \t,") !== false;
+        $argument = Preg::replace('/(\\\\*)"/', '$1$1\\"', $argument, -1, $dquotes);
+        $meta = $dquotes || Preg::isMatch('/%[^%]+%|![^!]+!/', $argument);
+
+        if (!$meta && !$quote) {
+            $quote = strpbrk($argument, '^&|<>()') !== false;
+        }
+
+        if ($quote) {
+            $argument = '"'.Preg::replace('/(\\\\*)$/', '$1$1', $argument).'"';
+        }
+
+        if ($meta) {
+            $argument = Preg::replace('/(["^&|<>()%])/', '^$1', $argument);
+            $argument = Preg::replace('/(!)/', '^^$1', $argument);
+        }
+
+        return $argument;
     }
 }

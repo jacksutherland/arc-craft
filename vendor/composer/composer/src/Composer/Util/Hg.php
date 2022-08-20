@@ -14,6 +14,7 @@ namespace Composer\Util;
 
 use Composer\Config;
 use Composer\IO\IOInterface;
+use Composer\Pcre\Preg;
 
 /**
  * @author Jonas Renaudot <jonas.renaudot@gmail.com>
@@ -45,6 +46,13 @@ class Hg
         $this->process = $process;
     }
 
+    /**
+     * @param callable    $commandCallable
+     * @param string      $url
+     * @param string|null $cwd
+     *
+     * @return void
+     */
     public function runCommand($commandCallable, $url, $cwd)
     {
         $this->config->prohibitUrlByConfig($url, $this->io);
@@ -57,7 +65,7 @@ class Hg
         }
 
         // Try with the authentication information available
-        if (preg_match('{^(https?)://((.+)(?:\:(.+))?@)?([^/]+)(/.*)?}mi', $url, $match) && $this->io->hasAuthentication($match[5])) {
+        if (Preg::isMatch('{^(https?)://((.+)(?:\:(.+))?@)?([^/]+)(/.*)?}mi', $url, $match) && $this->io->hasAuthentication($match[5])) {
             $auth = $this->io->getAuthentication($match[5]);
             $authenticatedUrl = $match[1] . '://' . rawurlencode($auth['username']) . ':' . rawurlencode($auth['password']) . '@' . $match[5] . (!empty($match[6]) ? $match[6] : null);
 
@@ -75,6 +83,12 @@ class Hg
         $this->throwException('Failed to clone ' . $url . ', ' . "\n\n" . $error, $url);
     }
 
+    /**
+     * @param non-empty-string $message
+     * @param string           $url
+     *
+     * @return never
+     */
     private function throwException($message, $url)
     {
         if (null === self::getVersion($this->process)) {
@@ -93,7 +107,7 @@ class Hg
     {
         if (false === self::$version) {
             self::$version = null;
-            if (0 === $process->execute('hg --version', $output) && preg_match('/^.+? (\d+(?:\.\d+)+)\)?\r?\n/', $output, $matches)) {
+            if (0 === $process->execute('hg --version', $output) && Preg::isMatch('/^.+? (\d+(?:\.\d+)+)\)?\r?\n/', $output, $matches)) {
                 self::$version = $matches[1];
             }
         }

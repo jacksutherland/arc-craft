@@ -12,6 +12,7 @@
 
 namespace Composer\IO;
 
+use Composer\Pcre\Preg;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Output\StreamOutput;
 use Symfony\Component\Console\Formatter\OutputFormatterInterface;
@@ -46,13 +47,16 @@ class BufferIO extends ConsoleIO
         )));
     }
 
+    /**
+     * @return string output
+     */
     public function getOutput()
     {
         fseek($this->output->getStream(), 0);
 
         $output = stream_get_contents($this->output->getStream());
 
-        $output = preg_replace_callback("{(?<=^|\n|\x08)(.+?)(\x08+)}", function ($matches) {
+        $output = Preg::replaceCallback("{(?<=^|\n|\x08)(.+?)(\x08+)}", function ($matches) {
             $pre = strip_tags($matches[1]);
 
             if (strlen($pre) === strlen($matches[2])) {
@@ -66,6 +70,13 @@ class BufferIO extends ConsoleIO
         return $output;
     }
 
+    /**
+     * @param string[] $inputs
+     *
+     * @see createStream
+     *
+     * @return void
+     */
     public function setUserInputs(array $inputs)
     {
         if (!$this->input instanceof StreamableInputInterface) {
@@ -76,6 +87,11 @@ class BufferIO extends ConsoleIO
         $this->input->setInteractive(true);
     }
 
+    /**
+     * @param string[] $inputs
+     *
+     * @return false|resource stream
+     */
     private function createStream(array $inputs)
     {
         $stream = fopen('php://memory', 'r+');

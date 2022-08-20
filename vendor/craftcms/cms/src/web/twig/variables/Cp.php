@@ -275,7 +275,7 @@ class Cp extends Component
                 ];
 
                 $navItems[] = [
-                    'label' => Craft::t('app', 'GraphQL'),
+                    'label' => 'GraphQL',
                     'url' => 'graphql',
                     'icon' => '@appicons/graphql.svg',
                     'subnav' => $subNavItems,
@@ -490,7 +490,7 @@ class Cp extends Component
 
         $envSuggestions = [];
         foreach (array_keys($_SERVER) as $var) {
-            if (is_string($var) && is_string($env = App::env($var))) {
+            if (is_string($var) && !StringHelper::startsWith($var, 'HTTP_') && is_string($env = App::env($var))) {
                 $envSuggestions[] = [
                     'name' => '$' . $var,
                     'hint' => $security->redactIfSensitive($var, Craft::getAlias($env, false)),
@@ -549,6 +549,7 @@ class Cp extends Component
         foreach (array_keys($_SERVER) as $var) {
             if (
                 is_string($var) &&
+                !StringHelper::startsWith($var, 'HTTP_') &&
                 is_string($value = App::env($var)) &&
                 ($allowedValues === null || isset($allowedValues[$value]))
             ) {
