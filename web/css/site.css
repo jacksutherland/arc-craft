@@ -202,7 +202,7 @@ a {
   padding: 10px 20px;
   background-color: #3c74f9;
   color: #ffffff;
-  border-radius: 2px;
+  border-radius: 4px;
   transition: .3s ease background-color, .3s ease color;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600;
@@ -741,7 +741,9 @@ section {
       section .z-pattern .column.image-column {
         display: none; }
         section .z-pattern .column.image-column img {
-          width: 100%; }
+          width: 100%;
+          border-radius: 8px;
+          filter: drop-shadow(2px 4px 8px rgba(95, 99, 104, 0.2)) drop-shadow(0 8px 16px rgba(95, 99, 104, 0.1)); }
       section .z-pattern .column h3, section .z-pattern .column h6 {
         margin: 0 0 10px 0; }
       section .z-pattern .column h6 {
