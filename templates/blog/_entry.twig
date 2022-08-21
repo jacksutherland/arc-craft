@@ -20,7 +20,7 @@
 				{% case "image" %}
 
 					<figure>
-						<img src="{{ module.image.one.url() }}">
+						<img src="{{ module.image.one.url('blogContentImage') }}">
 						{% if module.caption | length %}
 							<figcaption>{{ module.caption }}</figcaption>
 						{% endif %}

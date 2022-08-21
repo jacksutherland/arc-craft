@@ -9,7 +9,7 @@
 			<a class="blog-content" href="{{ blog.url }}">
 				<div class="blog-image">
 					{% if blog.heroImage.count %}
-						<img src="{{ blog.heroImage.one().url }}" title="{{ blog.headline }}" alt="{{ blog.headline }}">
+						<img src="{{ blog.heroImage.one().url('blogList') }}" title="{{ blog.headline }}" alt="{{ blog.headline }}">
 					{% endif %}
 				</div>
 				{% if blog.blogTopics.count %}
