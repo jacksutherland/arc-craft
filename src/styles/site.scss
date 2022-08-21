@@ -60,7 +60,7 @@ html.theme-night {
 		.header-content {
 			.hero {
 				.header-image {
-					border-radius: 10px;
+					border-radius: $section-border-radius;
 					box-shadow: 2px 2px 12px lighten($black, 7%);
 				}
 			}
@@ -101,7 +101,7 @@ html.theme-night {
 	}
 	footer {
 		margin: 15px 0 0 0;
-		border-radius: 10px 10px 0 0;
+		border-radius: $section-border-radius $section-border-radius 0 0;
 		a {
 			color: $white !important;
 			&:hover {
@@ -120,7 +120,7 @@ html.theme-night {
 	}
 	section {
 		background-color: $black;
-		border-radius: 10px;
+		border-radius: $section-border-radius;
 		&.gray-section {
 			background-color: $black;
 		}
@@ -156,7 +156,7 @@ html.theme-night {
 		&.team-members {
 			.profile {
 				background-color: $black;
-				border-radius: 10px;
+				border-radius: $section-border-radius;
 				.prof-bio {
 					color: $dark-theme-font-color;
 				}
@@ -211,6 +211,61 @@ html.theme-night {
 						svg {
 							fill: $white !important;
 						}
+					}
+				}
+			}
+		}
+	}
+	.pagination {
+		color: lighten($dark-theme-bkg-color, 22%);
+		a.page-arrow {
+			&:hover {
+				text-decoration: none;
+				svg {
+					fill: lighten($blue, 12%) !important;
+				}
+			}
+			svg {
+				fill: $blue;
+			}
+		}
+		span.page-arrow {
+			svg {
+				fill: lighten($dark-theme-bkg-color, 22%);
+			}
+		}
+	}
+	.blog-posts {
+		article {
+			.blog-content {
+				background-color: $dark-theme-bkg-color;
+				&:hover {
+					text-decoration: none;
+				}
+				address {
+					color: $light-gray;
+				}
+			}
+		}
+	}
+	.blog {
+		section {
+			border-radius: 0;
+			&.first-section {
+				border-radius: $section-border-radius $section-border-radius 0 0;
+			}
+			&.last-section {
+				border-radius: 0 0 $section-border-radius $section-border-radius;	
+			}
+		}
+		ul.blog-topics {
+			li {
+				a, span {
+					background-color: $black;
+					color: $white;
+					&:hover {
+						text-decoration: none;
+						color: $blue;
 					}
 				}
 			}
@@ -284,11 +339,17 @@ h1, h2, h3, h5, h6 {
 	padding: 0;
 }
 
-h1, h2 {
+h1 {
 	font-size: 30px;
 	letter-spacing: 0.01rem;
 	line-height: 40px;
 	color: $dark-primary;
+}
+
+h2 {
+	font-size: 24px;
+	letter-spacing: 0.003rem;
+	line-height: 34px;
 }
 
 h3 {
@@ -878,6 +939,10 @@ section {
 		margin: 0 0 10px 0;
 		text-transform: uppercase;
 	}
+	h2 {
+		margin: 0 0 30px 0;
+		color: $dark-primary;
+	}
 	h3 {
 		margin: 0 0 30px 0;
 		color: $dark-primary;
@@ -896,6 +961,9 @@ section {
 	}
 
 	&.rich-text {
+		h2 {
+			margin-bottom: 20px;
+		}
 		h3 {
 			margin-bottom: 20px;
 		}
@@ -1099,7 +1167,7 @@ section {
 				display: none;
 				img {
 					width: 100%;
-					border-radius: 8px;
+					border-radius: $section-border-radius;
 					filter: drop-shadow(2px 4px 8px rgba(95,99,104,.2)) drop-shadow(0 8px 16px rgba(95,99,104,.1));
 				}
 			}
@@ -1439,6 +1507,140 @@ section {
 }
 
 
+/***** BLOG *****/
+
+.blog-posts {
+    article {
+    	margin: 0 0 50px 0;
+    	.blog-content {
+    		display: block;
+	    	.blog-image {
+		    	img {
+		    		width: 100%;
+		    		border-radius: $section-border-radius;
+					filter: drop-shadow(2px 4px 8px rgba(95,99,104,.2)) drop-shadow(0 8px 16px rgba(95,99,104,.1));
+		    	}
+		    }
+		    h3 {
+		    	margin: 0 0 5px 0;
+		    }
+		    h6 {
+		    	font-size: $font-small;
+		    	margin: 7px 0 0 0;
+		    }
+		    address {
+    			img {
+    				height: 50px;
+				    width: 50px;
+				    border-radius: 25px;
+				    vertical-align: middle;
+    			}
+    			span {
+    				vertical-align: middle;
+    				margin: 0 0 0 10px;
+    			}
+    		}
+		}
+    }
+}
+
+.pagination {
+	text-align: center;
+	width: 100%;
+	margin: 30px 0;
+	svg {
+		height: 18px;
+	}
+	* {
+		vertical-align: middle;
+	}
+	.page-arrow {
+		margin: 0 15px;
+	}
+	span.page-arrow {
+		svg {
+			fill: $light-gray;
+		}
+	}
+}
+
+.blog {
+	ul.blog-topics {
+		list-style: none;
+		margin: 15px 0 0 0;
+		padding: 0;
+		text-align: center;
+		li {
+			margin: 5px;
+			height: 39px;
+			display: inline-block;
+			a, span {
+				background-color: $white;
+				border-radius: 20px;
+    			padding: 10px 20px 10px 20px;
+    			font-size: $font-smaller;
+    			// font-weight: $font-bold-primary;
+			}
+			span {
+				color: $dark-gray;
+			}
+		}
+	}
+	section {
+		margin: 0;
+		padding: 1px 20px;
+
+		&.first-section {
+			padding-top: 20px;
+		}
+
+		&.last-section {
+			padding-bottom: 30px;
+		}
+
+		h2, h3 {
+			margin: 20px 0;
+		}
+
+		figure {
+			margin: 20px 0;
+			img {
+				width: 100%;
+				border-radius: $section-border-radius;
+				filter: drop-shadow(2px 4px 8px rgba(95,99,104,.2)) drop-shadow(0 8px 16px rgba(95,99,104,.1));
+			}
+			figcaption {
+			    font-size: $font-smaller;
+			    font-weight: 400;
+			    letter-spacing: 0.035rem;
+			    line-height: 1.5;
+			    margin: 6px 0 0 0;
+			    color: $dark-gray;
+			    text-align: center;
+			    // font-weight: $font-bold-primary;
+			}
+		}
+
+		.video-container {
+			margin: 20px 0;
+			position: relative;
+  			padding-bottom: 56.25%;
+  			border-radius: $section-border-radius;
+			filter: drop-shadow(2px 4px 8px rgba(95,99,104,.2)) drop-shadow(0 8px 16px rgba(95,99,104,.1));
+			overflow: hidden;
+  			iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				aspect-ratio: 16 / 9;
+			}
+		}
+	}
+}
+
+
 /***** MEMBER PORTAL *****/
 
 .progress {
@@ -1654,6 +1856,9 @@ section {
 // }
 
 .courses {
+	h2 {
+		margin: 0 0 15px 0;
+	}
 	h3 {
 		margin: 0 0 15px 0;
 	}
@@ -2143,9 +2348,13 @@ section {
 	h1, h2, h3, h5, h6 {
 		margin: 0 0 30px 0;
 	}
-	h1, h2 {
+	h1 {
 		font-size: 40px;
 		line-height: 50px;
+	}
+	h2 {
+		font-size: 28px;	
+		line-height: 36px;
 	}
 	h3 {
 		font-size: 28px;	
@@ -2178,14 +2387,6 @@ section {
 					}
 				}
 			}
-			// .logo {
-			// 	height: 80px;
-			// 	width: 80px;
-			// 	svg {
-			// 		height: 80px;
-			// 		width: 80px;
-			// 	}
-			// }
 			nav#main-menu {
 			    ul {
 					li {
@@ -2232,16 +2433,9 @@ section {
 			}
 		}
 		.logo {
-			// height: 170px;
-	  //   	width: 340px;
-	  //   	margin: 0 0 0 -40px;
 	  		height: 90px;
 	  		width: 90px;
 	  		padding: 5px 0 3px 0;
-	    	svg {
-				// width: 210px;
-				// height: 210px;
-			}
 		}
 		nav#main-menu {
 			ul {
@@ -2404,11 +2598,6 @@ section {
 	.flex-table {
 		grid-template-columns: repeat(3, 1fr); // three columns
 	}
-	
-	// .candlestick-chart {
-	// 	top: 80px;
-	// 	display: block;
-	// }
 
 	.data-table {
 		table {
@@ -2438,6 +2627,40 @@ section {
 		}
 	}
 
+	.blog-posts {
+	 	display: flex;
+	    flex-wrap: wrap;
+	    padding: 20px 40px;
+	    article {
+	    	flex: 50%;
+	    	margin: 0;
+	    	max-width: 50%;
+	    	&:nth-child(odd)
+	    	{
+	    		.blog-content {
+		    		margin: 20px 20px 20px 0;
+		    	}
+	    	}
+	    	&:nth-child(even)
+	    	{
+	    		.blog-content {
+		    		margin: 20px 0 20px 20px;
+		    	}
+	    	}
+	    	.blog-content {
+	    		padding: 20px;
+	    		height: calc(100% - 80px);
+	    		background-color: $antique;
+	    		h3 {
+			    	margin: 0 0 10px 0;
+			    }
+	    		h6 {
+	    			margin: 15px 0 0 0;
+	    		}
+	    	}
+	    }
+	}
+
 }
 
 @media (min-width: 992px)
@@ -2445,12 +2668,17 @@ section {
 	h1, h2, h3, h5, h6 {
 		margin: 0 0 40px 0;
 	}
-	h1, h2 {
+	h1 {
 		font-size: 48px;
 		letter-spacing: 0.04rem;
 		line-height: 70px;
 		white-space: nowrap;
 		overflow: hidden;
+	}
+	h2 {
+		font-size: 32px;
+		letter-spacing: 0.003rem;
+		line-height: 42px;
 	}
 	h3 {
 		font-size: 32px;
@@ -2557,6 +2785,30 @@ section {
 	.flex-table {
 		grid-template-columns: repeat(4, 1fr); // four columns
 	}
+
+	.blog {
+		ul.blog-topics {
+			li {
+				margin: 5px 5px 20px 5px;
+			}
+		}
+		section {
+			padding: 1px 150px;
+			&.first-section {
+				padding-top: 30px;
+			}
+			&.last-section {
+				padding-bottom: 100px;
+			}
+			figure {
+				margin: 30px 0;
+			}
+			.video-container {
+				margin: 30px 0;
+			}
+		}
+	}
+
 }
 
 @media (min-width: 1200px)
@@ -2576,6 +2828,12 @@ section {
 		  a.active {
 				max-width: 500px;
 			}
+		}
+	}
+
+	.blog {
+		section {
+			padding: 1px 250px;
 		}
 	}
 
@@ -2605,6 +2863,12 @@ section {
 					padding: 40px 20% 40px 40px
 				}
 			}
+		}
+	}
+
+	.blog {
+		section {
+			padding: 1px 300px;
 		}
 	}
 

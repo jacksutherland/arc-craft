@@ -4,4 +4,8 @@
 
     {% include '_includes/page-module' %}
 
+    {% if entry.slug == 'blog' %}
+        {% include 'blog/_index' %}
+    {% endif %}
+
 {% endblock %}

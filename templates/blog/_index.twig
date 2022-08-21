@@ -1,5 +1,56 @@
-{% extends "_layout" %}
+{% set postsPerPage = 3 %}
 
-{% block main %}
+{% paginate craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %}
 
-{% endblock %}
+<section class="blog-posts">
+
+	{% for blog in articles %}
+		<article>
+			<a class="blog-content" href="{{ blog.url }}">
+				<div class="blog-image">
+					{% if blog.heroImage.count %}
+						<img src="{{ blog.heroImage.one().url }}" title="{{ blog.headline }}" alt="{{ blog.headline }}">
+					{% endif %}
+				</div>
+				{% if blog.blogTopics.count %}
+					<h6>
+						{% for topic in blog.blogTopics.all() %}
+							{{ topic.title }}{{ loop.last ? '' : ', ' }}
+						{% endfor %}
+					</h6>
+				{% endif %}
+				<h3>{{ blog.headline }}</h3>
+				{% if blog.writer.count %}
+					<address rel="author">
+						<img src="{{ blog.writer.one().photo.url }}" alt="{{ blog.writer.one().fullName }}">
+						<span>{{ blog.writer.one().fullName }}</span>
+					</address>
+				{% endif %}
+			</a>
+		</article>
+
+	{% endfor %}
+
+	<div class="pagination">
+		{% if pageInfo.prevUrl %}
+			<a href="{{ pageInfo.prevUrl }}" class="page-arrow prev">
+				{% include "_svgs/icon" with { type: 'left' } %}
+			</a>
+		{% else %}
+			<span class="page-arrow prev">
+				{% include "_svgs/icon" with { type: 'left' } %}
+			</span>
+		{% endif %}
+		<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>
+		{% if pageInfo.nextUrl %}
+			<a href="{{ pageInfo.nextUrl }}" class="page-arrow next">
+				{% include "_svgs/icon" with { type: 'right' } %}
+			</a>
+		{% else %}
+			<span class="page-arrow next">
+				{% include "_svgs/icon" with { type: 'right' } %}
+			</span>
+		{% endif %}
+	</div>
+
+</section>

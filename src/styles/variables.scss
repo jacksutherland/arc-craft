@@ -19,7 +19,7 @@ $white: #ffffff;
 $gray: #a0a0a0; //#a7a7a7;
 $antique: #f1f3f4; //#e7eaed; //#f1f3f4;
 $section-gray: darken($antique, 4%);
-$dark-gray: darken($gray, 15%);
+$dark-gray: darken($gray, 10%);
 $light-gray: lighten($gray, 20%);
 
 // Colors From Logo
@@ -51,3 +51,5 @@ $bright-color: #f9c13c; // Bright yellowish green
 // Border Styles
 
 $border-radius: 3.5px; //10px;
+
+$section-border-radius: 8px;

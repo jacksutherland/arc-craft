@@ -38,7 +38,7 @@ html.theme-night {
         text-decoration: none !important;
         color: #3c74f9 !important; }
     html.theme-night header .header-content .hero .header-image {
-      border-radius: 10px;
+      border-radius: 8px;
       box-shadow: 2px 2px 12px #121212; }
     html.theme-night header .logo.night {
       display: flex; }
@@ -56,7 +56,7 @@ html.theme-night {
           color: #3c74f9; }
   html.theme-night footer {
     margin: 15px 0 0 0;
-    border-radius: 10px 10px 0 0; }
+    border-radius: 8px 8px 0 0; }
     html.theme-night footer a {
       color: #ffffff !important; }
       html.theme-night footer a:hover {
@@ -68,7 +68,7 @@ html.theme-night {
         color: #3c74f9 !important; }
   html.theme-night section {
     background-color: #000000;
-    border-radius: 10px; }
+    border-radius: 8px; }
     html.theme-night section.gray-section {
       background-color: #000000; }
     html.theme-night section h6 {
@@ -85,7 +85,7 @@ html.theme-night {
       fill: #ffffff; }
     html.theme-night section.team-members .profile {
       background-color: #000000;
-      border-radius: 10px; }
+      border-radius: 8px; }
       html.theme-night section.team-members .profile .prof-bio {
         color: #c6c6c6; }
       html.theme-night section.team-members .profile a:hover svg {
@@ -107,7 +107,7 @@ html.theme-night {
     html.theme-night .sidebar-layout aside {
       border-color: #e6e9eb; }
       html.theme-night .sidebar-layout aside ol li {
-        border-color: #7a7a7a;
+        border-color: #878787;
         color: #a0a0a0; }
         html.theme-night .sidebar-layout aside ol li a {
           color: #ffffff !important; }
@@ -116,6 +116,34 @@ html.theme-night {
             text-decoration: none !important; }
           html.theme-night .sidebar-layout aside ol li a svg {
             fill: #ffffff !important; }
+  html.theme-night .pagination {
+    color: #1b748e; }
+    html.theme-night .pagination a.page-arrow:hover {
+      text-decoration: none; }
+      html.theme-night .pagination a.page-arrow:hover svg {
+        fill: #779efb !important; }
+    html.theme-night .pagination a.page-arrow svg {
+      fill: #3c74f9; }
+    html.theme-night .pagination span.page-arrow svg {
+      fill: #1b748e; }
+  html.theme-night .blog-posts article .blog-content {
+    background-color: #092730; }
+    html.theme-night .blog-posts article .blog-content:hover {
+      text-decoration: none; }
+    html.theme-night .blog-posts article .blog-content address {
+      color: lightgray; }
+  html.theme-night .blog section {
+    border-radius: 0; }
+    html.theme-night .blog section.first-section {
+      border-radius: 8px 8px 0 0; }
+    html.theme-night .blog section.last-section {
+      border-radius: 0 0 8px 8px; }
+  html.theme-night .blog ul.blog-topics li a, html.theme-night .blog ul.blog-topics li span {
+    background-color: #000000;
+    color: #ffffff; }
+    html.theme-night .blog ul.blog-topics li a:hover, html.theme-night .blog ul.blog-topics li span:hover {
+      text-decoration: none;
+      color: #3c74f9; }
   html.theme-night .courses .instructions {
     color: #e6e9eb; }
   html.theme-night .courses .quiz {
@@ -154,11 +182,16 @@ h1, h2, h3, h5, h6 {
   margin: 0 0 20px 0;
   padding: 0; }
 
-h1, h2 {
+h1 {
   font-size: 30px;
   letter-spacing: 0.01rem;
   line-height: 40px;
   color: #061124; }
+
+h2 {
+  font-size: 24px;
+  letter-spacing: 0.003rem;
+  line-height: 34px; }
 
 h3 {
   font-size: 24px;
@@ -269,7 +302,7 @@ label.lightswitch {
   color: #f93c74; }
 
 .dark-gray-text {
-  color: #7a7a7a; }
+  color: #878787; }
 
 .site-container {
   margin: 15px 15px 0 15px;
@@ -585,6 +618,9 @@ section {
     color: #a0a0a0;
     margin: 0 0 10px 0;
     text-transform: uppercase; }
+  section h2 {
+    margin: 0 0 30px 0;
+    color: #061124; }
   section h3 {
     margin: 0 0 30px 0;
     color: #061124; }
@@ -595,6 +631,8 @@ section {
   section.gray-section {
     background-color: #f1f3f4;
     text-align: center; }
+  section.rich-text h2 {
+    margin-bottom: 20px; }
   section.rich-text h3 {
     margin-bottom: 20px; }
   section.iframe {
@@ -861,7 +899,7 @@ section {
         margin: 20px; }
       section.team-members .profile .prof-bio {
         font-size: 0.92rem;
-        color: #7a7a7a;
+        color: #878787;
         display: none;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -949,6 +987,97 @@ section {
           margin-left: 5px;
           display: inline-block; }
 
+/***** BLOG *****/
+.blog-posts article {
+  margin: 0 0 50px 0; }
+  .blog-posts article .blog-content {
+    display: block; }
+    .blog-posts article .blog-content .blog-image img {
+      width: 100%;
+      border-radius: 8px;
+      filter: drop-shadow(2px 4px 8px rgba(95, 99, 104, 0.2)) drop-shadow(0 8px 16px rgba(95, 99, 104, 0.1)); }
+    .blog-posts article .blog-content h3 {
+      margin: 0 0 5px 0; }
+    .blog-posts article .blog-content h6 {
+      font-size: 0.8rem;
+      margin: 7px 0 0 0; }
+    .blog-posts article .blog-content address img {
+      height: 50px;
+      width: 50px;
+      border-radius: 25px;
+      vertical-align: middle; }
+    .blog-posts article .blog-content address span {
+      vertical-align: middle;
+      margin: 0 0 0 10px; }
+
+.pagination {
+  text-align: center;
+  width: 100%;
+  margin: 30px 0; }
+  .pagination svg {
+    height: 18px; }
+  .pagination * {
+    vertical-align: middle; }
+  .pagination .page-arrow {
+    margin: 0 15px; }
+  .pagination span.page-arrow svg {
+    fill: lightgray; }
+
+.blog ul.blog-topics {
+  list-style: none;
+  margin: 15px 0 0 0;
+  padding: 0;
+  text-align: center; }
+  .blog ul.blog-topics li {
+    margin: 5px;
+    height: 39px;
+    display: inline-block; }
+    .blog ul.blog-topics li a, .blog ul.blog-topics li span {
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 10px 20px 10px 20px;
+      font-size: 0.92rem; }
+    .blog ul.blog-topics li span {
+      color: #878787; }
+
+.blog section {
+  margin: 0;
+  padding: 1px 20px; }
+  .blog section.first-section {
+    padding-top: 20px; }
+  .blog section.last-section {
+    padding-bottom: 30px; }
+  .blog section h2, .blog section h3 {
+    margin: 20px 0; }
+  .blog section figure {
+    margin: 20px 0; }
+    .blog section figure img {
+      width: 100%;
+      border-radius: 8px;
+      filter: drop-shadow(2px 4px 8px rgba(95, 99, 104, 0.2)) drop-shadow(0 8px 16px rgba(95, 99, 104, 0.1)); }
+    .blog section figure figcaption {
+      font-size: 0.92rem;
+      font-weight: 400;
+      letter-spacing: 0.035rem;
+      line-height: 1.5;
+      margin: 6px 0 0 0;
+      color: #878787;
+      text-align: center; }
+  .blog section .video-container {
+    margin: 20px 0;
+    position: relative;
+    padding-bottom: 56.25%;
+    border-radius: 8px;
+    filter: drop-shadow(2px 4px 8px rgba(95, 99, 104, 0.2)) drop-shadow(0 8px 16px rgba(95, 99, 104, 0.1));
+    overflow: hidden; }
+    .blog section .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 16 / 9; }
+
 /***** MEMBER PORTAL *****/
 .progress {
   width: 100%;
@@ -1009,7 +1138,7 @@ section {
         .data-table table tbody tr td.text a p {
           font-size: 0.8rem;
           margin: 5px 0 0 0;
-          color: #7a7a7a; }
+          color: #878787; }
       .data-table table tbody tr td.cta {
         display: none;
         width: 80px; }
@@ -1020,6 +1149,9 @@ section {
           background-color: #213351; }
           .data-table table tbody tr td.cta .btn:hover {
             background-color: #3c74f9; }
+
+.courses h2 {
+  margin: 0 0 15px 0; }
 
 .courses h3 {
   margin: 0 0 15px 0; }
@@ -1098,9 +1230,12 @@ section {
 @media (min-width: 768px) {
   h1, h2, h3, h5, h6 {
     margin: 0 0 30px 0; }
-  h1, h2 {
+  h1 {
     font-size: 40px;
     line-height: 50px; }
+  h2 {
+    font-size: 28px;
+    line-height: 36px; }
   h3 {
     font-size: 28px;
     line-height: 36px; }
@@ -1224,17 +1359,41 @@ section {
   dl.course-list dt a.course-category img {
     display: inline; }
   dl.course-list dt a.course-category .progress {
-    display: block; } }
+    display: block; }
+  .blog-posts {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px 40px; }
+    .blog-posts article {
+      flex: 50%;
+      margin: 0;
+      max-width: 50%; }
+      .blog-posts article:nth-child(odd) .blog-content {
+        margin: 20px 20px 20px 0; }
+      .blog-posts article:nth-child(even) .blog-content {
+        margin: 20px 0 20px 20px; }
+      .blog-posts article .blog-content {
+        padding: 20px;
+        height: calc(100% - 80px);
+        background-color: #f1f3f4; }
+        .blog-posts article .blog-content h3 {
+          margin: 0 0 10px 0; }
+        .blog-posts article .blog-content h6 {
+          margin: 15px 0 0 0; } }
 
 @media (min-width: 992px) {
   h1, h2, h3, h5, h6 {
     margin: 0 0 40px 0; }
-  h1, h2 {
+  h1 {
     font-size: 48px;
     letter-spacing: 0.04rem;
     line-height: 70px;
     white-space: nowrap;
     overflow: hidden; }
+  h2 {
+    font-size: 32px;
+    letter-spacing: 0.003rem;
+    line-height: 42px; }
   h3 {
     font-size: 32px;
     letter-spacing: 0.003rem;
@@ -1288,7 +1447,19 @@ section {
   .candlestick-chart {
     top: 80px; }
   .flex-table {
-    grid-template-columns: repeat(4, 1fr); } }
+    grid-template-columns: repeat(4, 1fr); }
+  .blog ul.blog-topics li {
+    margin: 5px 5px 20px 5px; }
+  .blog section {
+    padding: 1px 150px; }
+    .blog section.first-section {
+      padding-top: 30px; }
+    .blog section.last-section {
+      padding-bottom: 100px; }
+    .blog section figure {
+      margin: 30px 0; }
+    .blog section .video-container {
+      margin: 30px 0; } }
 
 @media (min-width: 1200px) {
   section .four-col .col {
@@ -1297,6 +1468,8 @@ section {
     width: 19%; }
   header .breadcrumb a.active {
     max-width: 500px; }
+  .blog section {
+    padding: 1px 250px; }
   .flex-table {
     grid-template-columns: repeat(5, 1fr); } }
 
@@ -1308,4 +1481,6 @@ section {
     width: 70%;
     max-width: 900px; }
   header .header-content .hero .header-text {
-    padding: 40px 20% 40px 40px; } }
+    padding: 40px 20% 40px 40px; }
+  .blog section {
+    padding: 1px 300px; } }

@@ -2,4 +2,50 @@
 
 {% block main %}
 
+	{% if entry.blogTopics.count %}
+		<ul class="blog-topics">
+			{% for topic in entry.blogTopics.all() %}
+				<li>
+					{# <a href="/blog?topic={{ topic.slug }}">{{ topic.title }}</a> #}
+					<span>{{ topic.title }}</span>
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% for module in entry.blogModule.all() %}
+		<section{{ loop.first ? ' class="first-section"' : (loop.last ? ' class="last-section"' : '') }}>
+			{% switch module.type %}
+
+				{% case "image" %}
+
+					<figure>
+						<img src="{{ module.image.one.url() }}">
+						{% if module.caption | length %}
+							<figcaption>{{ module.caption }}</figcaption>
+						{% endif %}
+					</figure>
+
+				{% case "richText" %}
+
+					{% if module.sectionTitle %}
+						<h2>{{ module.sectionTitle }}</h2>
+					{% endif %}
+					{% if module.richText %}
+						{{ module.richText }}
+					{% endif %}
+
+				{% case "youtubeVideo" %}
+
+					<div class="video-container">
+						<iframe src="https://www.youtube.com/embed/{{ module.youtubeVideoId }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					</div>
+
+			{% endswitch %}
+		</section>
+	{% endfor %}
+
+
+
+
 {% endblock %}
