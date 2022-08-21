@@ -712,13 +712,15 @@ header {
 			    justify-content: end;
 			    flex-direction: column;
 				h6 {
-					margin: 0 0 0 0;
+					margin: 0 0 10px 0;
 					color: $white;
 					text-transform: uppercase;
 				}
 				h1 {
 					margin-bottom: 0;
 					color: $white;
+					white-space: normal;
+					line-height: 60px;
 				}
 			}
 		}
