@@ -19,7 +19,11 @@
 						{% endfor %}
 					</h6>
 				{% endif %}
-				<h3>{{ blog.headline }}</h3>
+				{% if blog.subheading | length %}
+					<h3>{{ blog.subheading }}: {{ blog.headline }}</h3>
+				{% else %}
+					<h3>{{ blog.headline }}</h3>
+				{% endif %}
 				{% if blog.writer.count %}
 					<address rel="author">
 						<img src="{{ blog.writer.one().photo.url }}" alt="{{ blog.writer.one().fullName }}">
