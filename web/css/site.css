@@ -460,7 +460,7 @@ header {
         justify-content: end;
         flex-direction: column; }
         header .header-content .hero .header-text h6 {
-          margin: 0 0 0 0;
+          margin: 0 0 10px 0;
           color: #ffffff;
           text-transform: uppercase; }
         header .header-content .hero .header-text h1 {
@@ -470,11 +470,13 @@ header {
       margin-top: 15px; }
       header .header-content .header-text h6 {
         display: none;
-        margin: 0 0 0 0;
+        margin: 0 0 10px 0;
         color: #a0a0a0;
         text-transform: uppercase; }
       header .header-content .header-text h1 {
-        margin-bottom: 0; }
+        margin-bottom: 0;
+        white-space: normal;
+        line-height: 60px; }
     header .header-content video {
       width: 100%; }
   header nav#main-menu {

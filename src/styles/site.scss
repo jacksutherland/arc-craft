@@ -719,8 +719,6 @@ header {
 				h1 {
 					margin-bottom: 0;
 					color: $white;
-					white-space: normal;
-					line-height: 60px;
 				}
 			}
 		}
@@ -728,12 +726,14 @@ header {
 			margin-top: 15px;
 			h6 {
 				display: none;
-				margin: 0 0 0 0;
+				margin: 0 0 10px 0;
 				color: $gray;
 				text-transform: uppercase;
 			}
 			h1 {
 				margin-bottom: 0;
+				white-space: normal;
+				line-height: 60px;
 			}
 		}
 		video {
