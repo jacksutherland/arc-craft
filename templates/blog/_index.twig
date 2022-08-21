@@ -1,4 +1,4 @@
-{% set postsPerPage = 3 %}
+{% set postsPerPage = 4 %}
 
 {% paginate craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %}
 
@@ -31,26 +31,28 @@
 
 	{% endfor %}
 
-	<div class="pagination">
-		{% if pageInfo.prevUrl %}
-			<a href="{{ pageInfo.prevUrl }}" class="page-arrow prev">
-				{% include "_svgs/icon" with { type: 'left' } %}
-			</a>
-		{% else %}
-			<span class="page-arrow prev">
-				{% include "_svgs/icon" with { type: 'left' } %}
-			</span>
-		{% endif %}
-		<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>
-		{% if pageInfo.nextUrl %}
-			<a href="{{ pageInfo.nextUrl }}" class="page-arrow next">
-				{% include "_svgs/icon" with { type: 'right' } %}
-			</a>
-		{% else %}
-			<span class="page-arrow next">
-				{% include "_svgs/icon" with { type: 'right' } %}
-			</span>
-		{% endif %}
-	</div>
+	{% if pageInfo.totalPages > postsPerPage %}
+		<div class="pagination">
+			{% if pageInfo.prevUrl %}
+				<a href="{{ pageInfo.prevUrl }}" class="page-arrow prev">
+					{% include "_svgs/icon" with { type: 'left' } %}
+				</a>
+			{% else %}
+				<span class="page-arrow prev">
+					{% include "_svgs/icon" with { type: 'left' } %}
+				</span>
+			{% endif %}
+			<span>Page {{ pageInfo.currentPage }} of {{ pageInfo.totalPages }}</span>
+			{% if pageInfo.nextUrl %}
+				<a href="{{ pageInfo.nextUrl }}" class="page-arrow next">
+					{% include "_svgs/icon" with { type: 'right' } %}
+				</a>
+			{% else %}
+				<span class="page-arrow next">
+					{% include "_svgs/icon" with { type: 'right' } %}
+				</span>
+			{% endif %}
+		</div>
+	{% endif %}
 
 </section>
