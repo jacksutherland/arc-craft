@@ -31,6 +31,14 @@
 				{{ _self.ctaButton(module.buttonText, module.buttonLink, module.buttonUrl) }}
 			</section>
 
+		{% case "embedCode" %}
+
+			{% if module.code | length %}
+				<section id="section-{{ loop.index }}" class="embed-code">
+					{{ module.code | raw }}
+				</section>
+			{% endif %}
+
 		{% case "teamMembers" %}
 
 			<section id="section-{{ loop.index }}" class="team-members{% if module.background is defined %} {{ module.background }}{% endif %}">
@@ -75,101 +83,6 @@
 					{% endfor %}
 				</div>
 			</section>
-
-			{#
-			<section id="section-{{ loop.index }}" class="team-members{% if module.background is defined %} {{ module.background }}{% endif %}">
-				{{ _self.sectionHeadings(module.subheading, module.headline) }}
-				<div class="flex-table">
-					<div class="flex-row">
-						{% for member in module.users.status(null).all() %}
-							<div class="flex-cell">
-								{% set name = member.firstName %}
-								{% if member.lastName | trim | length > 0 %}
-									{% set name = name ~ member.lastName %}
-								{% endif %}
-								{% if name | trim | length == 0 %}
-									{% set name = member.username %}
-								{% endif %}
-								<div class="profile">
-									{% if member.photo | length %}
-										{% if member.links | length %}
-											<a href="{{ member.links[0].url }}" class="prof-pic" title="{{ name }}" target="_blank" data-bio="prof-bio-{{ loop.index }}">
-												<img src="{{ member.photo.url('teamMember') }}" alt="{{ name }}">
-											</a>
-										{% else %}
-											<img src="{{ member.photo.url('teamMember') }}" alt="{{ name }}">
-										{% endif %}
-									{% endif %}
-									<h4>{{ name }}</h4>
-									{% if member.briefDescription | length %}
-										<p id="prof-bio-{{ loop.index }}" class="prof-bio">{{ member.briefDescription }}</p>
-									{% endif %}
-									{% if member.links | length %}
-										<ul class="links">
-											{% for link in member.links %}
-												<li>
-													<a href="{{ link.url }}" target="_blank">
-														{% include "_svgs/icon" with { type: link.linkType } %}
-													</a>
-												</li>
-											{% endfor %}
-										</ul>
-									{% endif %}
-								</div>
-							</div>
-							{% if loop.index is divisible by(5) %}
-								</div>
-								<div class="flex-row">
-							{% endif %}
-						{% endfor %}
-					</div>
-				</div>
-			</section>
-			#}
-
-			{#
-			<section id="section-{{ loop.index }}" class="team-members{% if module.background is defined %} {{ module.background }}{% endif %}">
-				{{ _self.sectionHeadings(module.subheading, module.headline) }}
-				<div class="four-col">
-					{% for member in module.users.status(null).all() %}
-						{% set name = member.firstName %}
-						{% if member.lastName | trim | length > 0 %}
-							{% set name = name ~ member.lastName %}
-						{% endif %}
-						{% if name | trim | length == 0 %}
-							{% set name = member.username %}
-						{% endif %}
-						<div class="col">
-							{% if member.photo | length %}
-								{% if member.links | length %}
-									<a href="{{ member.links[0].url }}" class="prof-pic" title="{{ name }}" target="_blank" data-bio="prof-bio-{{ loop.index }}">
-										<img src="{{ member.photo.url }}" alt="{{ name }}">
-									</a>
-								{% else %}
-									<img src="{{ member.photo.url }}" alt="{{ name }}">
-								{% endif %}
-							{% endif %}
-							<h4>{{ name }}</h4>
-							{% if member.briefDescription | length %}
-								<p id="prof-bio-{{ loop.index }}" class="prof-bio">{{ member.briefDescription }}</p>
-							{% endif %}
-							{% if member.links | length %}
-								<ul class="links">
-									{% for link in member.links %}
-										<li>
-											<a href="{{ link.url }}" target="_blank">
-												{% include "_svgs/icon" with { type: link.linkType } %}
-											</a>
-										</li>
-									{% endfor %}
-								</ul>
-							{% endif %}
-						</div>
-					{% endfor %}
-				</div>
-				<br style="clear:both;">
-			</section>
-			#}
 
 		{% case "imageBlocks" %}
 
