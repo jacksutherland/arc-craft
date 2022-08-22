@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% set entry_list = [] %}
+  {% set exclusions = [] %}
+  {% set sections = craft.app.sections.allSections %}
+  {% for section in sections %}
+    {% set entries = craft.entries.sectionId(section.id).status("live").uri("not ''").all() %}
+    {% set entry_list = entry_list|merge(entries) %}
+  {% endfor %}
+  {% for entry in entry_list if entry.uri not in exclusions and '/members/' not in entry.url  %}
+    <url>
+      <loc>{{ entry.url }}</loc>
+      <lastmod>{{ entry.dateUpdated|date("c") }}</lastmod>
+      {# {% if entry.sitemapFrequency is defined and entry.sitemapFrequency | length %}
+        <changefreq>{{ entry.sitemapFrequency }}</changefreq>
+      {% else %} #}
+        <changefreq>weekly</changefreq>
+      {# {% endif %}
+      {% if entry.sitemapPriority is defined and entry.sitemapPriority | length %}
+      <priority>{{ entry.sitemapPriority }}</priority>
+      {% else %} #}
+      <priority>0.5</priority>
+     {#  {% endif %} #}
+    </url>
+  {% endfor %}
+</urlset>
