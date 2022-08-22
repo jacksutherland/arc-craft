@@ -76,9 +76,11 @@
         {% endif %}
 
         {% if entry.seoImage is not null and entry.seoImage.count %}
-            <meta property="og:image" content="{{ entry.seoImage.one().url('ogImage') }}">
-            <meta name="twitter:image" content="{{ entry.seoImage.one().url('ogImage') }}">
-            <meta name="twitter:image:alt" content="{{ entry.seoImage.one().url('ogImage') }}">
+            {% set ogImgUrl = (siteUrl | slice(siteUrl | length - 1, 1) == '/') ? (siteUrl | slice(0, siteUrl | length - 1)) : siteUrl %}
+            {% set ogImgUrl = ogImgUrl ~ entry.seoImage.one().url('ogImage') %}
+            <meta property="og:image" content="{{ ogImgUrl }}">
+            <meta name="twitter:image" content="{{ ogImgUrl }}">
+            <meta name="twitter:image:alt" content="{{ ogImgUrl }}">
         {% endif %}
 
     {% else %}
