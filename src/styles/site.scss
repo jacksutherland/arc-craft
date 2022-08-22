@@ -971,6 +971,12 @@ section {
 		}
 	}
 
+	&.embed-code {
+		iframe {
+			width: 100%;
+		}
+	}
+
 	&.iframe {
 		padding: 20px;
 		iframe {

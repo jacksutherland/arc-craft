@@ -637,6 +637,8 @@ section {
     margin-bottom: 20px; }
   section.rich-text h3 {
     margin-bottom: 20px; }
+  section.embed-code iframe {
+    width: 100%; }
   section.iframe {
     padding: 20px; }
     section.iframe iframe {
