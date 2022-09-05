@@ -1,6 +1,7 @@
 {% set postsPerPage = 4 %}
 
-{% paginate craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %}
+{#% paginate craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %#}
+{% paginate craft.entries.section('blog').orderBy('postDate DESC') as pageInfo, articles %}
 
 <section class="blog-posts">
 
