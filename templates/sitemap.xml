@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd http://www.google.com/schemas/sitemap-image/1.1 http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   {% set entry_list = [] %}
   {% set exclusions = [] %}
   {% set sections = craft.app.sections.allSections %}
@@ -10,17 +10,9 @@
   {% for entry in entry_list if entry.uri not in exclusions and '/members/' not in entry.url  %}
     <url>
       <loc>{{ entry.url }}</loc>
-      <lastmod>{{ entry.dateUpdated|date("c") }}</lastmod>
-      {# {% if entry.sitemapFrequency is defined and entry.sitemapFrequency | length %}
-        <changefreq>{{ entry.sitemapFrequency }}</changefreq>
-      {% else %} #}
-        <changefreq>weekly</changefreq>
-      {# {% endif %}
-      {% if entry.sitemapPriority is defined and entry.sitemapPriority | length %}
-      <priority>{{ entry.sitemapPriority }}</priority>
-      {% else %} #}
+      <lastmod>{{ entry.dateUpdated|date("Y-m-d") }}</lastmod>
+      <changefreq>weekly</changefreq>
       <priority>0.5</priority>
-     {#  {% endif %} #}
     </url>
   {% endfor %}
 </urlset>
