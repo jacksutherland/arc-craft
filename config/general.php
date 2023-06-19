@@ -30,7 +30,8 @@ return [
     'devMode' => $isDev,
 
     // Whether administrative changes should be allowed
-    'allowAdminChanges' => $isDev,
+    // 'allowAdminChanges' => $isDev,
+    'allowAdminChanges' => App::env('ALLOW_ADMIN_CHANGES') ?? false,
 
     // Whether crawlers should be allowed to index pages and following links
     'disallowRobots' => !$isProd,
