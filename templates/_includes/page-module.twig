@@ -12,10 +12,10 @@
 
 {% macro sectionHeadings(subheading, headline) %}
 	{% if subheading | length %}
-		<h6>{{ subheading }}</h6>
+		<h3>{{ subheading }}</h3>
 	{% endif %}
 	{% if headline | length %}
-		<h3>{{ headline }}</h3>
+		<h2>{{ headline }}</h2>
 	{% endif %}
 {% endmacro %}
 
@@ -102,7 +102,7 @@
 
 			            <a class="col" style="background-image:url('{{ row.image.one().url('zPattern') }}')"{{ rowHref }}{{ rowTarget }}>
 			                <div class="content">
-			                    <h6>{{ row.heading }}</h6>
+			                    <h3>{{ row.heading }}</h3>
 			                    <div class="text-content">{{ row.text }}</div>
 			                </div>
 			            </a>
@@ -126,9 +126,9 @@
 
 						 <div class="column text-column">
 						 	{% if row.subheading %}
-			                	<h6>{{ row.subheading }}</h6>
+			                	<h3>{{ row.subheading }}</h3>
 			                {% endif %}
-			                <h3>{{ row.headline }}</h3>
+			                <h2>{{ row.headline }}</h2>
 			                {% if row.text %}
 			                	<p>{{ row.text }}</p>
 			                {% endif %}

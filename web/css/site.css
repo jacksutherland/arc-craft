@@ -5,8 +5,7 @@ body {
   font-size: 16px;
   margin: 0;
   padding: 0;
-  color: #212529;
-  scroll-behavior: smooth; }
+  color: #212529; }
 
 /***** NIGHT THEME (Day is the default) *****/
 html,
@@ -25,7 +24,7 @@ html.theme-night {
       text-decoration: underline; }
       html.theme-night a:not(.btn):not(.scroll-down):hover svg {
         fill: #3c74f9 !important; }
-  html.theme-night h1, html.theme-night h2, html.theme-night h3, html.theme-night h4 {
+  html.theme-night h1, html.theme-night h2, html.theme-night h4 {
     color: #ffffff; }
   html.theme-night p, html.theme-night ul {
     color: #c6c6c6; }
@@ -55,7 +54,6 @@ html.theme-night {
         html.theme-night header nav#main-menu ul li a:not(.btn):hover {
           color: #3c74f9; }
   html.theme-night footer {
-    margin: 15px 0 0 0;
     border-radius: 8px 8px 0 0; }
     html.theme-night footer a {
       color: #ffffff !important; }
@@ -71,14 +69,15 @@ html.theme-night {
     border-radius: 8px; }
     html.theme-night section.gray-section {
       background-color: #000000; }
-    html.theme-night section h6 {
+    html.theme-night section h3, html.theme-night section h6 {
       color: #c6c6c6; }
     html.theme-night section .four-col .col h4 {
       color: #ffffff; }
     html.theme-night section .two-col .col .content,
     html.theme-night section .three-col .col .content {
       border-color: #a0a0a0; }
-      html.theme-night section .two-col .col .content h6,
+      html.theme-night section .two-col .col .content h3, html.theme-night section .two-col .col .content h6,
+      html.theme-night section .three-col .col .content h3,
       html.theme-night section .three-col .col .content h6 {
         color: #ffffff; }
     html.theme-night section .testimonials .prev svg, html.theme-night section .testimonials .next svg {
@@ -193,17 +192,12 @@ h2 {
   letter-spacing: 0.003rem;
   line-height: 34px; }
 
-h3 {
-  font-size: 24px;
-  letter-spacing: 0.003rem;
-  line-height: 34px; }
-
 h5 {
   font-size: 1.05rem;
   font-weight: 700;
   line-height: 25px; }
 
-h4, h6 {
+h3, h4, h6 {
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600; }
 
@@ -212,7 +206,7 @@ h4 {
   letter-spacing: 0.04rem;
   line-height: 28px; }
 
-h6 {
+h3, h6 {
   font-size: 1.05rem;
   letter-spacing: 0.09em;
   line-height: 24px; }
@@ -319,6 +313,14 @@ header {
     background-color: #061124; }
     header.video-header.sticky .logo {
       display: none; }
+    header.video-header + .video-page-header {
+      padding: 15px 0; }
+      header.video-header + .video-page-header h1, header.video-header + .video-page-header h3 {
+        margin: 0; }
+      header.video-header + .video-page-header h1 + h3 {
+        margin-top: 10px;
+        color: #8c8c8c;
+        text-transform: uppercase; }
     header.video-header .cover {
       position: absolute;
       top: 0;
@@ -459,7 +461,7 @@ header {
         display: flex;
         justify-content: end;
         flex-direction: column; }
-        header .header-content .hero .header-text h6 {
+        header .header-content .hero .header-text h3, header .header-content .hero .header-text h6 {
           margin: 0 0 10px 0;
           color: #ffffff;
           text-transform: uppercase; }
@@ -468,7 +470,7 @@ header {
           color: #ffffff; }
     header .header-content .header-text {
       margin-top: 15px; }
-      header .header-content .header-text h6 {
+      header .header-content .header-text h3, header .header-content .header-text h6 {
         display: none;
         margin: 0 0 10px 0;
         color: #a0a0a0;
@@ -570,7 +572,6 @@ footer {
   background-color: #061124;
   color: #ffffff;
   text-align: center;
-  margin: -15px 0 0 0;
   padding: 100px 20px; }
   footer a:hover {
     color: #3c74f9; }
@@ -616,26 +617,21 @@ section {
   padding: 20px;
   margin: 18px 0;
   border-radius: 4px 4px 0 0; }
-  section h6 {
+  section h3, section h6 {
     color: #a0a0a0;
     margin: 0 0 10px 0;
     text-transform: uppercase; }
   section h2 {
     margin: 0 0 30px 0;
     color: #061124; }
-  section h3 {
-    margin: 0 0 30px 0;
-    color: #061124; }
   section.gray {
     background-color: #e6e9eb; }
-    section.gray h6 {
+    section.gray h3, section.gray h6 {
       color: #969696; }
   section.gray-section {
     background-color: #f1f3f4;
     text-align: center; }
   section.rich-text h2 {
-    margin-bottom: 20px; }
-  section.rich-text h3 {
     margin-bottom: 20px; }
   section.embed-code iframe {
     width: 100%; }
@@ -688,7 +684,8 @@ section {
         color: #ffffff;
         background-color: rgba(0, 0, 0, 0.24);
         overflow: hidden; }
-        section .two-col .col .content h6,
+        section .two-col .col .content h3, section .two-col .col .content h6,
+        section .three-col .col .content h3,
         section .three-col .col .content h6 {
           margin: 20px;
           text-align: left;
@@ -725,7 +722,8 @@ section {
     section .info-cards .three-col .col .content .text-content {
       background-color: rgba(241, 243, 244, 0.9);
       border: solid 1px #e6e9eb; }
-    section .info-cards .two-col .col .content h6,
+    section .info-cards .two-col .col .content h3, section .info-cards .two-col .col .content h6,
+    section .info-cards .three-col .col .content h3,
     section .info-cards .three-col .col .content h6 {
       margin: 20px;
       text-align: left;
@@ -788,7 +786,7 @@ section {
           filter: drop-shadow(2px 4px 8px rgba(95, 99, 104, 0.2)) drop-shadow(0 8px 16px rgba(95, 99, 104, 0.1)); }
       section .z-pattern .column h3, section .z-pattern .column h6 {
         margin: 0 0 10px 0; }
-      section .z-pattern .column h6 {
+      section .z-pattern .column h3, section .z-pattern .column h6 {
         color: #a0a0a0; }
   section dl.faq dt {
     border-top: solid 1px lightgray;
@@ -1000,7 +998,7 @@ section {
       width: 100%;
       border-radius: 8px;
       filter: drop-shadow(2px 4px 8px rgba(95, 99, 104, 0.2)) drop-shadow(0 8px 16px rgba(95, 99, 104, 0.1)); }
-    .blog-posts article .blog-content h3 {
+    .blog-posts article .blog-content h2, .blog-posts article .blog-content h3 {
       margin: 0 0 5px 0; }
     .blog-posts article .blog-content h6 {
       font-size: 0.8rem;
@@ -1027,6 +1025,9 @@ section {
   .pagination span.page-arrow svg {
     fill: lightgray; }
 
+html.theme-night .blog section h3 {
+  color: #ffffff; }
+
 .blog ul.blog-topics {
   list-style: none;
   margin: 15px 0 0 0;
@@ -1051,8 +1052,15 @@ section {
     padding-top: 20px; }
   .blog section.last-section {
     padding-bottom: 30px; }
-  .blog section h2, .blog section h3 {
+  .blog section h2 {
     margin: 20px 0; }
+  .blog section h3 {
+    font-family: "PT Serif", serif;
+    color: #061124;
+    text-transform: none;
+    font-size: 1.2rem;
+    line-height: 1.65rem;
+    font-weight: 500; }
   .blog section figure {
     margin: 20px 0; }
     .blog section figure img {
@@ -1157,9 +1165,6 @@ section {
 .courses h2 {
   margin: 0 0 15px 0; }
 
-.courses h3 {
-  margin: 0 0 15px 0; }
-
 .courses .instructions {
   margin: 0 0 25px 0; }
 
@@ -1238,9 +1243,6 @@ section {
     font-size: 40px;
     line-height: 50px; }
   h2 {
-    font-size: 28px;
-    line-height: 36px; }
-  h3 {
     font-size: 28px;
     line-height: 36px; }
   h4 {
@@ -1380,9 +1382,9 @@ section {
         padding: 20px;
         height: calc(100% - 80px);
         background-color: #f1f3f4; }
-        .blog-posts article .blog-content h3 {
+        .blog-posts article .blog-content h2 {
           margin: 0 0 10px 0; }
-        .blog-posts article .blog-content h6 {
+        .blog-posts article .blog-content h3, .blog-posts article .blog-content h6 {
           margin: 15px 0 0 0; } }
 
 @media (min-width: 992px) {
@@ -1398,16 +1400,10 @@ section {
     font-size: 32px;
     letter-spacing: 0.003rem;
     line-height: 42px; }
-  h3 {
-    font-size: 32px;
-    letter-spacing: 0.003rem;
-    line-height: 42px; }
   h4 {
     font-size: 24px;
     letter-spacing: 0.04rem;
     line-height: 34px; }
-  html.theme-night footer {
-    margin: 40px 0 0 0; }
   .site-container {
     margin: 30px 40px 0 40px; }
   header {
@@ -1415,6 +1411,8 @@ section {
     header.sticky nav#main-menu ul {
       max-width: 1335px;
       margin: 0 auto; }
+    header.video-header + .video-page-header {
+      padding: 0 0 5px 0; }
     header nav#main-menu {
       right: 32px; }
     header .breadcrumb {
@@ -1425,10 +1423,10 @@ section {
         max-width: 350px; }
     header .header-content .hero {
       height: 500px; }
-    header .header-content .header-text h6 {
+    header .header-content .header-text h3, header .header-content .header-text h6 {
       display: block; }
   footer {
-    margin: -40px 0 0 0; }
+    margin: 40px 0 0 0; }
   #mobile-course-menu-trigger {
     display: none; }
   .sidebar-layout {
@@ -1460,6 +1458,9 @@ section {
       padding-top: 30px; }
     .blog section.last-section {
       padding-bottom: 100px; }
+    .blog section h3 {
+      font-size: 1.4rem;
+      line-height: 2rem; }
     .blog section figure {
       margin: 30px 0; }
     .blog section .video-container {

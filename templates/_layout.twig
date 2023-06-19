@@ -120,6 +120,17 @@
             </video>
         </header>
 
+        {% if entry.subheading | length or entry.headline | length %}
+            <div class="site-container video-page-header">
+                {% if entry.headline | length %}
+                    <h1>{{ entry.headline }}</h1>
+                {% endif %}
+                {% if entry.subheading | length %}
+                    <h3>{{ entry.subheading }}</h3>
+                {% endif %}
+            </div>
+        {% endif %}
+
     {% else %}
 
         <div class="site-container">
@@ -140,7 +151,7 @@
                                 {% if entry.subheading | length or entry.headline | length %}
                                     <div class="header-text" style="background-color: rgba(0,0,0,{{ entry.heroOpacity }}%);">
                                         {% if entry.subheading | length %}
-                                            <h6>{{ entry.subheading }}</h6>
+                                            <h3>{{ entry.subheading }}</h3>
                                         {% endif %}
                                         {% if entry.headline | length %}
                                             <h1>{{ entry.headline }}</h1>
@@ -151,7 +162,7 @@
                         {% elseif entry.subheading | length or entry.headline | length %}
                             <div class="header-text">
                                 {% if entry.subheading | length %}
-                                    <h6>{{ entry.subheading }}</h6>
+                                    <h3>{{ entry.subheading }}</h3>
                                 {% endif %}
                                 {% if entryTitle is defined and entryTitle | length %}
                                     <h1>{{ entryTitle }}</h1>
