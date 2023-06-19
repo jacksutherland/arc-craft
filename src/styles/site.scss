@@ -230,6 +230,14 @@ html.theme-night {
 			}
 		}
 	}
+	.blog {
+		.table-of-contents {
+			background-color: $dark-theme-bkg-color;
+			h5 {
+				color: $white;
+			}
+		}
+	}
 	.blog-posts {
 		article {
 			.blog-content {

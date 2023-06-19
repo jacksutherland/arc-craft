@@ -125,6 +125,10 @@ html.theme-night {
       fill: #3c74f9; }
     html.theme-night .pagination span.page-arrow svg {
       fill: #1b748e; }
+  html.theme-night .blog .table-of-contents {
+    background-color: #092730; }
+    html.theme-night .blog .table-of-contents h5 {
+      color: #ffffff; }
   html.theme-night .blog-posts article .blog-content {
     background-color: #092730; }
     html.theme-night .blog-posts article .blog-content:hover {
