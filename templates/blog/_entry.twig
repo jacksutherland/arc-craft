@@ -1,5 +1,21 @@
 {% extends "_layout" %}
 
+{% block styles %}
+	<style type="text/css">
+		html {
+			scroll-behavior: smooth;
+		}
+	</style>
+{% endblock %}
+
+{% block scripts %}
+	<script type="text/javascript">
+		window.onhashchange = function() {
+			  window.history.replaceState(null, null, window.location.pathname);
+		};
+	</script>
+{% endblock %}
+
 {% block main %}
 
 	{% if entry.blogTopics.count %}
@@ -19,17 +35,20 @@
 		{% else %}
 			{% set sectionClass = loop.last ? 'last-section' : 'middle-section' %}
 		{% endif %}
+		<div id="section-{{ module.id }}" class="toc-section"></div>
 		<section class="{{ sectionClass }}">
-			{# {% if loop.first %}
-				<address rel="author">
-					{% apply spaceless %}
-						<div>Written by {{ entry.writer.one().fullName }} on {{ entry.postDate | date("M d, Y") }}</div>
-						{% if entry.writer.count > 1 %}
-							<div>Updated by {{ entry.writer.nth(1).fullName }} on {{ entry.dateUpdated | date("M d, Y") }}</div>
-						{% endif %}
-					{% endapply %}
-				</address>
-			{% endif %} #}
+			{% if loop.first and entry.tableOfContents | length %}
+				<div class="table-of-contents">
+					<h5>Table of Contents</h5>
+					<ul>
+						{% for toc in entry.tableOfContents %}
+							<li>
+								<a href="#{{ toc.sectionId }}">{{ toc.label }}</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
 			{% switch module.type %}
 
 				{% case "image" %}

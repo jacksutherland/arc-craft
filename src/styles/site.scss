@@ -1624,7 +1624,30 @@ ul.blog-topics {
 	}
 }
 
+
+
 .blog {
+	.toc-section {
+		margin-top: -50px;
+    	padding-top: 50px;
+	}
+	.table-of-contents {
+		background-color: $antique;
+		// padding: 20px 40px;
+		padding: 12px 5px 5px 15px;
+		border-radius: 4px;
+		h5 {
+			margin: 0;
+		}
+		ul {
+		    padding: 0;
+		    margin: 8px 0 0 16px;
+		    // list-style: none;
+		    li {
+		    	margin: 8px 0;
+		    }
+		}
+	}
 	section {
 		margin: 0;
 		padding: 1px 20px;
@@ -2672,6 +2695,12 @@ ul.blog-topics {
 					display: block;
 				}
 			}
+		}
+	}
+
+	.blog {
+		.table-of-contents {
+			padding: 20px 40px;
 		}
 	}
 

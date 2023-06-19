@@ -1052,6 +1052,22 @@ ul.blog-topics {
 #blog ul.blog-topics {
   margin: 0 0 -15px 0; }
 
+.blog .toc-section {
+  margin-top: -50px;
+  padding-top: 50px; }
+
+.blog .table-of-contents {
+  background-color: #f1f3f4;
+  padding: 12px 5px 5px 15px;
+  border-radius: 4px; }
+  .blog .table-of-contents h5 {
+    margin: 0; }
+  .blog .table-of-contents ul {
+    padding: 0;
+    margin: 8px 0 0 16px; }
+    .blog .table-of-contents ul li {
+      margin: 8px 0; }
+
 .blog section {
   margin: 0;
   padding: 1px 20px; }
@@ -1373,6 +1389,8 @@ ul.blog-topics {
     display: inline; }
   dl.course-list dt a.course-category .progress {
     display: block; }
+  .blog .table-of-contents {
+    padding: 20px 40px; }
   .blog-posts {
     display: flex;
     flex-wrap: wrap;
