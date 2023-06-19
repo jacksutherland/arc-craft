@@ -1,7 +1,22 @@
-{% set postsPerPage = 4 %}
+{% set postsPerPage = 8 %}
 
 {#% paginate craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %#}
-{% paginate craft.entries.section('blog').orderBy('postDate DESC') as pageInfo, articles %}
+{# {% paginate craft.entries.section('blog').orderBy('postDate DESC') as pageInfo, articles %} #}
+
+{% set categorySlug = craft.app.request.getQueryParam('topic') %}
+{% if categorySlug %}
+	{% paginate craft.entries.section('blog').search('blogTopics:"' ~ categorySlug ~ '"').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %}
+{% else %}
+	{% paginate craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %}
+	<ul class="blog-topics">
+		{% set topics = craft.categories.group('blogTopics') %}
+		{% for topic in topics %}
+			{% if craft.entries.section('blog').search('blogTopics:"' ~ topic.slug ~ '"').count() > 3 %}
+				<li><a href="/blog?topic={{ topic.slug }}">{{ topic.title }}</a></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+{% endif %}
 
 <section class="blog-posts">
 
@@ -28,7 +43,12 @@
 				{% if blog.writer.count %}
 					<address rel="author">
 						<img src="{{ blog.writer.one().photo.url }}" alt="{{ blog.writer.one().fullName }}">
-						<span>{{ blog.writer.one().fullName }}</span>
+						{% apply spaceless %}
+							<span>by {{ blog.writer.one().fullName }}</span>
+							{% if blog.writer.count > 1 %}
+								<span>, updates by {{ blog.writer.nth(1).fullName }}</span>
+							{% endif %}
+						{% endapply %}
 					</address>
 				{% endif %}
 			</a>

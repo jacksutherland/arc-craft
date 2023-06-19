@@ -26,7 +26,7 @@ html.theme-night {
         fill: #3c74f9 !important; }
   html.theme-night h1, html.theme-night h2, html.theme-night h4 {
     color: #ffffff; }
-  html.theme-night p, html.theme-night ul {
+  html.theme-night p, html.theme-night ul, html.theme-night ol {
     color: #c6c6c6; }
   html.theme-night header {
     background-color: #092730;
@@ -131,18 +131,18 @@ html.theme-night {
       text-decoration: none; }
     html.theme-night .blog-posts article .blog-content address {
       color: lightgray; }
+  html.theme-night ul.blog-topics li a, html.theme-night ul.blog-topics li span {
+    background-color: #000000;
+    color: #ffffff; }
+    html.theme-night ul.blog-topics li a:hover, html.theme-night ul.blog-topics li span:hover {
+      text-decoration: none;
+      color: #3c74f9; }
   html.theme-night .blog section {
     border-radius: 0; }
     html.theme-night .blog section.first-section {
       border-radius: 8px 8px 0 0; }
     html.theme-night .blog section.last-section {
       border-radius: 0 0 8px 8px; }
-  html.theme-night .blog ul.blog-topics li a, html.theme-night .blog ul.blog-topics li span {
-    background-color: #000000;
-    color: #ffffff; }
-    html.theme-night .blog ul.blog-topics li a:hover, html.theme-night .blog ul.blog-topics li span:hover {
-      text-decoration: none;
-      color: #3c74f9; }
   html.theme-night .courses .instructions {
     color: #e6e9eb; }
   html.theme-night .courses .quiz {
@@ -233,7 +233,7 @@ a {
   transition: .3s ease background-color, .3s ease color;
   font-family: "IBM Plex Sans", sans-serif;
   font-weight: 600;
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   border: none; }
   .btn:hover {
     background-color: #f9c13c;
@@ -395,7 +395,7 @@ header {
   header .breadcrumb {
     margin-top: 10px;
     color: #a0a0a0;
-    font-size: 0.92rem; }
+    font-size: 0.88rem; }
     header .breadcrumb span {
       font-weight: 600;
       margin: 0 4px; }
@@ -478,7 +478,12 @@ header {
       header .header-content .header-text h1 {
         margin-bottom: 0;
         white-space: normal;
-        line-height: 60px; }
+        line-height: 35px; }
+      header .header-content .header-text address[rel="author"] {
+        color: #ffffff;
+        font-size: 0.88rem;
+        line-height: 1.3rem;
+        margin-top: 12px; }
     header .header-content video {
       width: 100%; }
   header nav#main-menu {
@@ -521,7 +526,7 @@ header {
           header nav#main-menu ul li a.btn {
             display: inline-block; }
           header nav#main-menu ul li a:not(.btn) {
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 600;
             text-decoration: none;
             color: #061124; }
@@ -756,7 +761,7 @@ section {
         margin: 15px 0 -5px 0;
         font-size: 1.2rem; }
       section .four-col .col p {
-        font-size: 0.92rem;
+        font-size: 0.88rem;
         color: #7e8b98; }
       section .four-col .col ul.links {
         list-style: none;
@@ -846,7 +851,7 @@ section {
       margin: 0;
       display: none;
       color: #ffffff;
-      font-size: 0.92rem; }
+      font-size: 0.88rem; }
       section .testimonials blockquote[cite*="http"] {
         cursor: pointer; }
       section .testimonials blockquote.active {
@@ -900,7 +905,7 @@ section {
       section.team-members .profile ul, section.team-members .profile h4, section.team-members .profile .prof-bio {
         margin: 20px; }
       section.team-members .profile .prof-bio {
-        font-size: 0.92rem;
+        font-size: 0.88rem;
         color: #878787;
         display: none;
         overflow: hidden;
@@ -954,7 +959,7 @@ section {
     .sidebar-layout aside h4 {
       margin: 0 0 10px 0; }
     .sidebar-layout aside p {
-      font-size: 0.92rem; }
+      font-size: 0.88rem; }
     .sidebar-layout aside ul, .sidebar-layout aside ol {
       list-style-type: auto;
       list-style-position: inside;
@@ -985,7 +990,7 @@ section {
             top: 5px; }
         .sidebar-layout aside ul li span, .sidebar-layout aside ol li span {
           vertical-align: middle;
-          font-size: 0.92rem;
+          font-size: 0.88rem;
           margin-left: 5px;
           display: inline-block; }
 
@@ -1004,13 +1009,12 @@ section {
       font-size: 0.8rem;
       margin: 7px 0 0 0; }
     .blog-posts article .blog-content address img {
-      height: 50px;
-      width: 50px;
+      height: 35px;
+      width: 35px;
       border-radius: 25px;
       vertical-align: middle; }
     .blog-posts article .blog-content address span {
-      vertical-align: middle;
-      margin: 0 0 0 10px; }
+      vertical-align: middle; }
 
 .pagination {
   text-align: center;
@@ -1028,22 +1032,25 @@ section {
 html.theme-night .blog section h3 {
   color: #ffffff; }
 
-.blog ul.blog-topics {
+ul.blog-topics {
   list-style: none;
   margin: 15px 0 0 0;
   padding: 0;
   text-align: center; }
-  .blog ul.blog-topics li {
+  ul.blog-topics li {
     margin: 5px;
     height: 39px;
     display: inline-block; }
-    .blog ul.blog-topics li a, .blog ul.blog-topics li span {
+    ul.blog-topics li a, ul.blog-topics li span {
       background-color: #ffffff;
       border-radius: 20px;
       padding: 10px 20px 10px 20px;
-      font-size: 0.92rem; }
-    .blog ul.blog-topics li span {
+      font-size: 0.88rem; }
+    ul.blog-topics li span {
       color: #878787; }
+
+#blog ul.blog-topics {
+  margin: 0 0 -15px 0; }
 
 .blog section {
   margin: 0;
@@ -1068,7 +1075,7 @@ html.theme-night .blog section h3 {
       border-radius: 8px;
       filter: drop-shadow(2px 4px 8px rgba(95, 99, 104, 0.2)) drop-shadow(0 8px 16px rgba(95, 99, 104, 0.1)); }
     .blog section figure figcaption {
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       font-weight: 400;
       letter-spacing: 0.035rem;
       line-height: 1.5;
@@ -1183,7 +1190,7 @@ html.theme-night .blog section h3 {
     transition: .3s ease opacity;
     color: #f93c74;
     font-weight: 700;
-    font-size: 0.92rem;
+    font-size: 0.88rem;
     margin-left: 10px; }
     .courses .quiz .error.show {
       opacity: 1;
@@ -1241,7 +1248,7 @@ html.theme-night .blog section h3 {
     margin: 0 0 30px 0; }
   h1 {
     font-size: 40px;
-    line-height: 50px; }
+    line-height: 48px !important; }
   h2 {
     font-size: 28px;
     line-height: 36px; }
@@ -1263,7 +1270,7 @@ html.theme-night .blog section h3 {
     object-fit: cover; }
   header.video-header .scroll-down {
     bottom: 30px;
-    font-size: 0.92rem; }
+    font-size: 0.88rem; }
     header.video-header .scroll-down svg {
       width: 20px;
       margin-top: 10px;
@@ -1352,7 +1359,7 @@ html.theme-night .blog section h3 {
       border: solid 2px #f93c74 !important; }
     section form.arc-form input + .error, section form.arc-form textarea + .error {
       display: block;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: #f93c74;
       margin: -5px 0 5px 0;
       font-weight: 600; }
@@ -1390,12 +1397,6 @@ html.theme-night .blog section h3 {
 @media (min-width: 992px) {
   h1, h2, h3, h5, h6 {
     margin: 0 0 40px 0; }
-  h1 {
-    font-size: 48px;
-    letter-spacing: 0.04rem;
-    line-height: 70px;
-    white-space: nowrap;
-    overflow: hidden; }
   h2 {
     font-size: 32px;
     letter-spacing: 0.003rem;
@@ -1450,8 +1451,10 @@ html.theme-night .blog section h3 {
     top: 80px; }
   .flex-table {
     grid-template-columns: repeat(4, 1fr); }
-  .blog ul.blog-topics li {
+  ul.blog-topics li {
     margin: 5px 5px 20px 5px; }
+  #blog ul.blog-topics {
+    margin: -15px 0 -53px 0; }
   .blog section {
     padding: 1px 150px; }
     .blog section.first-section {

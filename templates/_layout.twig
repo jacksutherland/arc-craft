@@ -156,6 +156,16 @@
                                         {% if entry.headline | length %}
                                             <h1>{{ entry.headline }}</h1>
                                         {% endif %}
+                                        {% if entry.section.handle == 'blog' %}
+                                            <address rel="author">
+                                                {% apply spaceless %}
+                                                    <div>Written by {{ entry.writer.one().fullName }} on {{ entry.postDate | date("M d, Y") }}</div>
+                                                    {% if entry.writer.count > 1 %}
+                                                        <div>Updated by {{ entry.writer.nth(1).fullName }} on {{ entry.dateUpdated | date("M d, Y") }}</div>
+                                                    {% endif %}
+                                                {% endapply %}
+                                            </address>
+                                        {% endif %}
                                     </div>
                                 {% endif %}
                             </div>
@@ -180,6 +190,9 @@
                             </div>
                         {% endif %}
                     {% endif %}
+
+                
+
                 </div>
                 
                 {% include '/_includes/menus' %}

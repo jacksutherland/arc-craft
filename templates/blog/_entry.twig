@@ -6,15 +6,30 @@
 		<ul class="blog-topics">
 			{% for topic in entry.blogTopics.all() %}
 				<li>
-					{# <a href="/blog?topic={{ topic.slug }}">{{ topic.title }}</a> #}
-					<span>{{ topic.title }}</span>
+					<a href="/blog?topic={{ topic.slug }}">{{ topic.title }}</a>
+					{# <span>{{ topic.title }}</span> #}
 				</li>
 			{% endfor %}
 		</ul>
 	{% endif %}
 
 	{% for module in entry.blogModule.all() %}
-		<section{{ loop.first ? ' class="first-section"' : (loop.last ? ' class="last-section"' : '') }}>
+		{% if loop.first %}
+			{% set sectionClass = 'first-section' %}
+		{% else %}
+			{% set sectionClass = loop.last ? 'last-section' : 'middle-section' %}
+		{% endif %}
+		<section class="{{ sectionClass }}">
+			{# {% if loop.first %}
+				<address rel="author">
+					{% apply spaceless %}
+						<div>Written by {{ entry.writer.one().fullName }} on {{ entry.postDate | date("M d, Y") }}</div>
+						{% if entry.writer.count > 1 %}
+							<div>Updated by {{ entry.writer.nth(1).fullName }} on {{ entry.dateUpdated | date("M d, Y") }}</div>
+						{% endif %}
+					{% endapply %}
+				</address>
+			{% endif %} #}
 			{% switch module.type %}
 
 				{% case "image" %}

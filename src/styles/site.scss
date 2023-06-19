@@ -37,7 +37,7 @@ html.theme-night {
 	h1, h2, h4 {
 		color: $white;
 	}
-	p, ul {
+	p, ul, ol {
 		color: $dark-theme-font-color;
 	}
 	header {
@@ -243,6 +243,18 @@ html.theme-night {
 			}
 		}
 	}
+	ul.blog-topics {
+		li {
+			a, span {
+				background-color: $black;
+				color: $white;
+				&:hover {
+					text-decoration: none;
+					color: $blue;
+				}
+			}
+		}
+	}
 	.blog {
 		section {
 			border-radius: 0;
@@ -251,18 +263,6 @@ html.theme-night {
 			}
 			&.last-section {
 				border-radius: 0 0 $section-border-radius $section-border-radius;	
-			}
-		}
-		ul.blog-topics {
-			li {
-				a, span {
-					background-color: $black;
-					color: $white;
-					&:hover {
-						text-decoration: none;
-						color: $blue;
-					}
-				}
 			}
 		}
 	}
@@ -740,7 +740,13 @@ header {
 			h1 {
 				margin-bottom: 0;
 				white-space: normal;
-				line-height: 60px;
+				line-height: 35px;
+			}
+			address[rel="author"] {
+				color: $white;
+				font-size: $font-smaller;
+				line-height: 1.3rem;
+				margin-top: 12px;
 			}
 		}
 		video {
@@ -1546,14 +1552,14 @@ section {
 		    }
 		    address {
     			img {
-    				height: 50px;
-				    width: 50px;
+    				height: 35px;
+				    width: 35px;
 				    border-radius: 25px;
 				    vertical-align: middle;
     			}
     			span {
     				vertical-align: middle;
-    				margin: 0 0 0 10px;
+    				// margin: 0 0 0 10px;
     			}
     		}
 		}
@@ -1590,28 +1596,35 @@ html.theme-night {
 	}
 }
 
-.blog {
-	ul.blog-topics {
-		list-style: none;
-		margin: 15px 0 0 0;
-		padding: 0;
-		text-align: center;
-		li {
-			margin: 5px;
-			height: 39px;
-			display: inline-block;
-			a, span {
-				background-color: $white;
-				border-radius: 20px;
-    			padding: 10px 20px 10px 20px;
-    			font-size: $font-smaller;
-    			// font-weight: $font-bold-primary;
-			}
-			span {
-				color: $dark-gray;
-			}
+ul.blog-topics {
+	list-style: none;
+	margin: 15px 0 0 0;
+	padding: 0;
+	text-align: center;
+	li {
+		margin: 5px;
+		height: 39px;
+		display: inline-block;
+		a, span {
+			background-color: $white;
+			border-radius: 20px;
+			padding: 10px 20px 10px 20px;
+			font-size: $font-smaller;
+			// font-weight: $font-bold-primary;
+		}
+		span {
+			color: $dark-gray;
 		}
 	}
+}
+
+#blog { 
+	ul.blog-topics {
+		margin: 0 0 -15px 0;
+	}
+}
+
+.blog {
 	section {
 		margin: 0;
 		padding: 1px 20px;
@@ -2385,7 +2398,7 @@ html.theme-night {
 	}
 	h1 {
 		font-size: 40px;
-		line-height: 50px;
+		line-height: 48px !important;
 	}
 	h2 {
 		font-size: 28px;	
@@ -2703,13 +2716,13 @@ html.theme-night {
 	h1, h2, h3, h5, h6 {
 		margin: 0 0 40px 0;
 	}
-	h1 {
-		font-size: 48px;
-		letter-spacing: 0.04rem;
-		line-height: 70px;
-		white-space: nowrap;
-		overflow: hidden;
-	}
+	// h1 {
+	// 	// font-size: 48px;
+	// 	// letter-spacing: 0.04rem;
+	// 	// line-height: 70px;
+	// 	white-space: nowrap;
+	// 	overflow: hidden;
+	// }
 	h2 {
 		font-size: 32px;
 		letter-spacing: 0.003rem;
@@ -2828,12 +2841,19 @@ html.theme-night {
 		grid-template-columns: repeat(4, 1fr); // four columns
 	}
 
-	.blog {
-		ul.blog-topics {
-			li {
-				margin: 5px 5px 20px 5px;
-			}
+	ul.blog-topics {
+		li {
+			margin: 5px 5px 20px 5px;
 		}
+	}
+
+	#blog { 
+		ul.blog-topics {
+			margin: -15px 0 -53px 0;
+		}
+	}
+
+	.blog {
 		section {
 			padding: 1px 150px;
 			&.first-section {
