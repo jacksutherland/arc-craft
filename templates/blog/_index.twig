@@ -46,7 +46,7 @@
 						{% apply spaceless %}
 							<span>by {{ blog.writer.one().fullName }}</span>
 							{% if blog.writer.count > 1 %}
-								<span>, updates by {{ blog.writer.nth(1).fullName }}</span>
+								<span>, updated by {{ blog.writer.nth(1).fullName }}</span>
 							{% endif %}
 						{% endapply %}
 					</address>
