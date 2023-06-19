@@ -5,9 +5,9 @@
 
 {% set categorySlug = craft.app.request.getQueryParam('topic') %}
 {% if categorySlug %}
-	{% paginate craft.entries.section('blog').search('blogTopics:"' ~ categorySlug ~ '"').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %}
+	{% paginate craft.entries.section('blog').search('blogTopics:"' ~ categorySlug ~ '"').orderBy('postDate DESC').limit(postsPerPage) as pageInfo, articles %}
 {% else %}
-	{% paginate craft.entries.section('blog').limit(postsPerPage).orderBy('postDate DESC') as pageInfo, articles %}
+	{% paginate craft.entries.section('blog').orderBy('postDate DESC').limit(postsPerPage) as pageInfo, articles %}
 	<ul class="blog-topics">
 		{% set topics = craft.categories.group('blogTopics') %}
 		{% for topic in topics %}
@@ -56,7 +56,7 @@
 
 	{% endfor %}
 
-	{% if pageInfo.totalPages > postsPerPage %}
+	{% if pageInfo.total > postsPerPage %}
 		<div class="pagination">
 			{% if pageInfo.prevUrl %}
 				<a href="{{ pageInfo.prevUrl }}" class="page-arrow prev">
